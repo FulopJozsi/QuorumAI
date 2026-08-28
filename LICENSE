@@ -1,0 +1,71 @@
+QuorumAI — Proprietary License (Deployment Repository)
+Copyright (c) 2026 Fülöp József. All rights reserved.
+
+The binding commercial terms are published at https://quorumai.eu.
+If anything here conflicts with those terms, the terms at 
+https://quorumai.eu prevail.
+
+This repository is NOT open source. It is provided for one purpose only: to install
+and run a licensed instance of QuorumAI. You may not reuse it for anything else.
+
+------------------------------------------------------------------------------
+
+1. DEFINITIONS
+   "Owner"            — Fülöp József, the copyright holder.
+   "Repository Files" — every file in this repository: the installer scripts
+                        (install.py, install.sh, install.ps1), Docker Compose
+                        files, configuration templates, and documentation.
+   "QuorumAI"         — the QuorumAI software and its container images (published
+                        under the `fulopjozsef86/quorum-*` names), which are
+                        proprietary and distributed only as protected,
+                        license-gated builds.
+   "Valid License"    — a current, paid QuorumAI license obtained from the Owner
+                        under the commercial terms at https://quorumai.eu.
+
+2. LIMITED PERMISSION
+   The Owner grants you a personal, non-exclusive, non-transferable, revocable
+   permission to use the Repository Files SOLELY to install, configure, and run
+   your own instance of QuorumAI under a Valid License. No other use is granted.
+
+3. RESTRICTIONS — you may NOT, in whole or in part:
+   (a) copy, publish, redistribute, mirror, sublicense, sell, or host the
+       Repository Files for anyone else;
+   (b) modify or create derivative works of the Repository Files, except the
+       minimal configuration required for your own licensed deployment;
+   (c) reuse the Repository Files — or any portion, structure, or idea in them —
+       in any other software, product, service, template, or installer;
+   (d) remove or alter any copyright, license, or attribution notice;
+   (e) use the Repository Files to build, train, benchmark, or assist a competing
+       or derivative product.
+
+4. THE SOFTWARE IS LICENSED SEPARATELY
+   QuorumAI (its software and container images) is proprietary and is NOT licensed
+   by this file. Running QuorumAI requires a Valid License — the orchestrator
+   refuses to start without one. Nothing in this repository grants any right in
+   QuorumAI itself. The commercial terms (including the responsible-use /
+   workforce-impact conditions) are at https://quorumai.eu.
+
+5. TRADEMARKS
+   "QuorumAI" and the associated names and logos are trademarks of the Owner. No
+   trademark right is granted. You may not use the name to endorse, rebrand, or
+   market any derivative or competing offering.
+
+6. NO WARRANTY
+   THE REPOSITORY FILES ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR
+   A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY
+   LAW, THE OWNER IS NOT LIABLE FOR ANY DAMAGES ARISING FROM THEIR USE.
+
+7. TERMINATION
+   Any breach of this license terminates your permission automatically. On
+   termination you must stop using and delete the Repository Files. Sections
+   3–8 survive termination.
+
+8. GOVERNING LAW
+   Hungarian law, aligned with the QuorumAI commercial terms at
+   https://quorumai.eu.
+
+------------------------------------------------------------------------------
+
+For a QuorumAI license, or any permission beyond the above, contact the Owner via
+https://quorumai.eu.

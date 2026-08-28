@@ -28,12 +28,12 @@ QuorumAI는 하나 이상의 LLM을 AI 에이전트 팀으로 변환합니다. �
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — 관리자 권한으로 실행):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 또는 저장소에서 `install.bat` / `install.ps1`을 다운로드하여 더블 클릭합니다.
@@ -47,7 +47,7 @@ irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | 
 저장소를 클론하고 대화형 설치 프로그램을 직접 실행하세요 — pip이나 추가 의존성은 필요하지 않습니다:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # 프롬프트에서 "Satellite" 선택
 
 ---
 
-## 빠른 시작 (수동)
+## 빠른 시작
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# 공유 Docker 네트워크 생성 (호스트당 한 번):
-docker network create quorum-net
-
-cp .env.example .env
-# .env 편집 — COMPOSE_PROFILES와 필요한 API 키 설정
-
-docker compose up -d
+python3 install.py
 ```
 
 오케스트레이터가 실행 중인지 확인:
@@ -365,16 +358,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 사용 가능한 프로파일: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### 소스 변경 후 재빌드
-
-```bash
-# 변경된 서비스만 재빌드:
-docker compose build orchestrator
-
-# 다른 컨테이너를 건드리지 않고 재시작:
-docker compose up -d --no-deps orchestrator
-```
-
 ### 데이터 디렉토리 레이아웃
 
 ```
@@ -544,16 +527,3 @@ python3 mcps/jog-hu/host_server.py --stop          # 데몬 중지
 ```
 
 에이전트에 법률 검색 액세스를 부여하려면 `agents.yaml`의 에이전트 `tools:` 목록에 `jog-hu` (선택적으로 `jog-hu-host`도)를 추가하세요.
-
----
-
-## 기여하기
-
-1. 리포지토리를 포크하고 기능 브랜치를 생성합니다.
-2. `CLAUDE.md`의 레이어 및 compose 규칙을 따릅니다.
-3. `tests.sh`에 해당하는 테스트 블록을 추가하거나 업데이트합니다.
-4. 추가되는 단계나 기능에 대한 설명과 함께 풀 리퀘스트를 엽니다.
-
----
-
-## 라이선스

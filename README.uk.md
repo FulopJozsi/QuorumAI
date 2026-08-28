@@ -28,12 +28,12 @@ Bootstrap-встановлювач перевіряє наявність Python 
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — запустити від імені Адміністратора):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Або завантажте `install.bat` / `install.ps1` з репозиторію та двічі клацніть.
@@ -47,7 +47,7 @@ irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | 
 Клонуйте репозиторій та запустіть інтерактивний встановлювач безпосередньо — pip і додаткові залежності не потрібні:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # виберіть "Satellite" при запиті
 
 ---
 
-## Швидкий старт (вручну)
+## Швидкий старт
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Створити спільну мережу Docker (один раз на хост):
-docker network create quorum-net
-
-cp .env.example .env
-# Відредагуйте .env — встановіть COMPOSE_PROFILES і потрібні API-ключі
-
-docker compose up -d
+python3 install.py
 ```
 
 Перевірка роботи оркестратора:
@@ -366,16 +359,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Доступні профілі: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Перебудова після змін у вихідному коді
-
-```bash
-# Перебудувати лише змінений сервіс:
-docker compose build orchestrator
-
-# Перезапустити без впливу на інші контейнери:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Структура каталогу даних
 
 ```
@@ -545,16 +528,3 @@ python3 mcps/jog-hu/host_server.py --stop          # зупинити демон
 ```
 
 Додайте `jog-hu` (і опціонально `jog-hu-host`) до списку `tools:` агента в `agents.yaml`.
-
----
-
-## Внесок
-
-1. Зробіть форк репозиторію та створіть гілку для функції.
-2. Дотримуйтеся конвенцій шарів і compose, описаних у `CLAUDE.md`.
-3. Додайте або оновіть відповідний блок тестів у `tests.sh`.
-4. Відкрийте pull request з описом фази або функції, що додається.
-
----
-
-## Ліцензія

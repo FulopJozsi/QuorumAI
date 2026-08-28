@@ -36,12 +36,12 @@ A bootstrap telepítő ellenőrzi, hogy megvan-e Python 3 és Docker, szükség 
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — rendszergazdaként futtatva):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Vagy töltsd le az `install.bat` / `install.ps1` fájlt a repóból és dupla kattintással futtasd.
@@ -55,7 +55,7 @@ Vagy töltsd le az `install.bat` / `install.ps1` fájlt a repóból és dupla ka
 Klónozd a repót és futtasd az interaktív telepítőt közvetlenül — pip vagy extra függőség nem szükséges:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -73,19 +73,12 @@ python3 install.py   # válaszd a "Satellite" opciót a kérdésnél
 
 ---
 
-## Gyors indítás (manuálisan)
+## Gyors indítás
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Megosztott Docker hálózat létrehozása (egyszer, gépenként):
-docker network create quorum-net
-
-cp .env.example .env
-# Szerkeszd a .env-t — állítsd be a COMPOSE_PROFILES-t és a szükséges API kulcsokat
-
-docker compose up -d
+python3 install.py
 ```
 
 Ellenőrzés, hogy az orchestrator fut-e:
@@ -400,16 +393,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Elérhető profilok: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Újraépítés forráskód-változás után
-
-```bash
-# Csak a módosított service újraépítése:
-docker compose build orchestrator
-
-# Újraindítás a többi konténer érintése nélkül:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Data könyvtár felépítése
 
 ```
@@ -620,16 +603,3 @@ python3 mcps/jog-hu/host_server.py --stop          # daemon leállítása
 ```
 
 Adj hozzá `jog-hu`-t (és opcionálisan `jog-hu-host`-ot) az agent `tools:` listájához az `agents.yaml`-ban.
-
----
-
-## Közreműködés
-
-1. Forkold a repót és hozz létre egy feature branch-et.
-2. Kövesd a `CLAUDE.md`-ben leírt réteg- és compose-konvenciókat.
-3. Add hozzá vagy frissítsd a megfelelő tesztblokkot a `tests.sh`-ban.
-4. Nyiss pull requestet az adott fázis vagy funkció leírásával.
-
----
-
-## Licenc

@@ -28,12 +28,12 @@ Het bootstrap-installatieprogramma controleert of Python 3 en Docker aanwezig zi
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — uitvoeren als Administrator):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Of download `install.bat` / `install.ps1` uit de repository en dubbelklik erop.
@@ -47,7 +47,7 @@ Of download `install.bat` / `install.ps1` uit de repository en dubbelklik erop.
 Kloon de repository en voer het interactieve installatieprogramma direct uit — pip of extra afhankelijkheden zijn niet nodig:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # kies "Satellite" wanneer gevraagd
 
 ---
 
-## Snel starten (handmatig)
+## Snel starten
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Gedeeld Docker-netwerk aanmaken (eenmalig per host):
-docker network create quorum-net
-
-cp .env.example .env
-# Bewerk .env — stel COMPOSE_PROFILES en benodigde API-sleutels in
-
-docker compose up -d
+python3 install.py
 ```
 
 Controleer of de orkestrator actief is:
@@ -366,16 +359,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Beschikbare profielen: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Herbouwen na bronwijzigingen
-
-```bash
-# Alleen de gewijzigde service herbouwen:
-docker compose build orchestrator
-
-# Herstarten zonder andere containers te raken:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Gegevensmap indeling
 
 ```
@@ -545,16 +528,3 @@ python3 mcps/jog-hu/host_server.py --stop          # daemon stoppen
 ```
 
 Voeg `jog-hu` (en optioneel `jog-hu-host`) toe aan de `tools:`-lijst van een agent in `agents.yaml`.
-
----
-
-## Bijdragen
-
-1. Fork de repository en maak een feature-branch aan.
-2. Volg de laag- en compose-conventies in `CLAUDE.md`.
-3. Voeg het bijbehorende testblok toe aan `tests.sh` of werk het bij.
-4. Open een pull request met een beschrijving van de fase of functie die wordt toegevoegd.
-
----
-
-## Licentie

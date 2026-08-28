@@ -36,12 +36,12 @@ The bootstrap installer checks for Python 3 and Docker, installs them if missing
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — run as Administrator):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Or download `install.bat` / `install.ps1` from the repo and double-click.
@@ -55,7 +55,7 @@ Or download `install.bat` / `install.ps1` from the repo and double-click.
 Clone and run the interactive installer directly — no pip or extra dependencies required:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -73,19 +73,12 @@ python3 install.py   # choose "Satellite" when prompted
 
 ---
 
-## Quick Start (manual)
+## Quick Start
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Create the shared Docker network (once per host):
-docker network create quorum-net
-
-cp .env.example .env
-# Edit .env — set COMPOSE_PROFILES and any API keys you need
-
-docker compose up -d
+python3 install.py
 ```
 
 Verify the orchestrator is running:
@@ -400,16 +393,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Available profiles: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Rebuilding after source changes
-
-```bash
-# Rebuild only the changed service:
-docker compose build orchestrator
-
-# Restart without touching other containers:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Data directory layout
 
 ```
@@ -618,16 +601,3 @@ python3 mcps/jog-hu/host_server.py --stop          # stop daemon
 ```
 
 Add `jog-hu` (and optionally `jog-hu-host`) to an agent's `tools:` list in `agents.yaml`.
-
-
----
-## Contributing
-
-1. Fork the repository and create a feature branch.
-2. Follow the layer and compose conventions in `CLAUDE.md`.
-3. Add or update the corresponding test block in `tests.sh`.
-4. Open a pull request with a description of the phase or feature being added.
-
----
-
-## License

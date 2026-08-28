@@ -144,7 +144,7 @@ Write-Host ""
 
 Write-Host "  QuorumAI telepítő letöltése..." -ForegroundColor White
 
-$url = "https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.py"
+$url = "https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.py"
 $tmp = Join-Path $env:TEMP "quorum_install.py"
 
 try {

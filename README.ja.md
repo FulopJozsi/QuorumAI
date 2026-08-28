@@ -28,12 +28,12 @@ QuorumAIは1つ以上のLLMをAIエージェントのチームに変換します
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows（PowerShell — 管理者として実行）：**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 またはリポジトリから `install.bat` / `install.ps1` をダウンロードしてダブルクリックします。
@@ -47,7 +47,7 @@ irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | 
 リポジトリをクローンして対話型インストーラーを直接実行します — pipや追加の依存関係は不要です：
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # プロンプトで「Satellite」を選択
 
 ---
 
-## クイックスタート（手動）
+## クイックスタート
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# 共有Dockerネットワークを作成（ホストごとに1回）:
-docker network create quorum-net
-
-cp .env.example .env
-# .envを編集 — COMPOSE_PROFILESと必要なAPIキーを設定
-
-docker compose up -d
+python3 install.py
 ```
 
 オーケストレーターが動作していることを確認:
@@ -366,16 +359,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 利用可能なプロファイル: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### ソース変更後の再ビルド
-
-```bash
-# 変更されたサービスのみ再ビルド:
-docker compose build orchestrator
-
-# 他のコンテナに影響せず再起動:
-docker compose up -d --no-deps orchestrator
-```
-
 ### データディレクトリ構成
 
 ```
@@ -545,16 +528,3 @@ python3 mcps/jog-hu/host_server.py --stop          # デーモン停止
 ```
 
 エージェントにアクセスを付与するには、`agents.yaml`の`tools:`リストに`jog-hu`（およびオプションで`jog-hu-host`）を追加してください。
-
----
-
-## コントリビューション
-
-1. リポジトリをフォークしてフィーチャーブランチを作成。
-2. `CLAUDE.md`のレイヤーとComposeの規約に従う。
-3. `tests.sh`に対応するテストブロックを追加または更新。
-4. 追加するフェーズまたは機能の説明を添えてプルリクエストを開く。
-
----
-
-## ライセンス

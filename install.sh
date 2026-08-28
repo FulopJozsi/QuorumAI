@@ -224,7 +224,7 @@ finish_docker_linux() {
         printf "\n"
         printf "  ${YELLOW}⚠  FONTOS:${NC} A docker csoport aktiválásához\n"
         printf "     ${BOLD}jelentkezz ki és be újra${NC}, majd futtasd újra a scriptet:\n\n"
-        printf "     ${BOLD}curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash${NC}\n\n"
+        printf "     ${BOLD}curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash${NC}\n\n"
         exit 0
     fi
 
@@ -274,7 +274,7 @@ warn_macos_ram() {
 run_installer() {
     step_head "  QuorumAI telepítő futtatása"
 
-    local INSTALL_PY_URL="https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.py"
+    local INSTALL_PY_URL="https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.py"
     local TMP_INSTALLER="/tmp/quorum_install.py"
 
     step_info "install.py letöltése..."

@@ -28,12 +28,12 @@ Bootstrap-installationsprogrammet kontrollerar om Python 3 och Docker finns, ins
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — kör som Administratör):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Eller ladda ner `install.bat` / `install.ps1` från repositoryt och dubbelklicka.
@@ -47,7 +47,7 @@ Eller ladda ner `install.bat` / `install.ps1` från repositoryt och dubbelklicka
 Klona repositoryt och kör det interaktiva installationsprogrammet direkt — pip eller extra beroenden krävs inte:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # välj "Satellite" när du tillfrågas
 
 ---
 
-## Snabbstart (manuellt)
+## Snabbstart
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Skapa det delade Docker-nätverket (en gång per värd):
-docker network create quorum-net
-
-cp .env.example .env
-# Redigera .env — ange COMPOSE_PROFILES och nödvändiga API-nycklar
-
-docker compose up -d
+python3 install.py
 ```
 
 Kontrollera att orkestratorn körs:
@@ -366,16 +359,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Tillgängliga profiler: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Ombyggnad efter källkodsändringar
-
-```bash
-# Bygg om bara den ändrade tjänsten:
-docker compose build orchestrator
-
-# Starta om utan att påverka andra containers:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Datakatalogstruktur
 
 ```
@@ -545,16 +528,3 @@ python3 mcps/jog-hu/host_server.py --stop          # stoppa daemon
 ```
 
 Lägg till `jog-hu` (och valfritt `jog-hu-host`) i en agents `tools:`-lista i `agents.yaml`.
-
----
-
-## Bidra
-
-1. Forka repository:t och skapa en feature-gren.
-2. Följ lager- och compose-konventionerna i `CLAUDE.md`.
-3. Lägg till eller uppdatera motsvarande testblock i `tests.sh`.
-4. Öppna en pull request med en beskrivning av den fas eller funktion som läggs till.
-
----
-
-## Licens

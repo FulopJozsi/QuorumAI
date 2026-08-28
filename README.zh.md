@@ -28,12 +28,12 @@ QuorumAI 将一个或多个 LLM 转变为 AI 智能体团队，能够：
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows（PowerShell — 以管理员身份运行）：**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 或从仓库下载 `install.bat` / `install.ps1` 并双击运行。
@@ -47,7 +47,7 @@ irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | 
 直接克隆仓库并运行交互式安装程序 — 不需要 pip 或额外依赖：
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # 在提示时选择 "Satellite"
 
 ---
 
-## 快速开始（手动）
+## 快速开始
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# 创建共享 Docker 网络（每台主机执行一次）：
-docker network create quorum-net
-
-cp .env.example .env
-# 编辑 .env — 设置 COMPOSE_PROFILES 和所需的 API 密钥
-
-docker compose up -d
+python3 install.py
 ```
 
 验证编排器是否运行：
@@ -364,16 +357,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 可用配置文件：`orchestrator`、`memory`、`mcp`、`postgres`、`telegram`、`ha`、`mic`、`gui`、`stt-tts`、`mcp-manager`、`playwright`、`joplin`、`auth`、`email`、`matrix`、`discord`、`irc`、`whatsapp`、`slack`、`signal`、`viber`、`graph`
 
-### 源码更改后重建
-
-```bash
-# 仅重建已更改的服务：
-docker compose build orchestrator
-
-# 不影响其他容器地重启：
-docker compose up -d --no-deps orchestrator
-```
-
 ### 数据目录结构
 
 ```
@@ -543,16 +526,3 @@ python3 mcps/jog-hu/host_server.py --stop          # 停止守护进程
 ```
 
 在 `agents.yaml` 中将 `jog-hu`（以及可选的 `jog-hu-host`）添加到智能体的 `tools:` 列表。
-
----
-
-## 贡献
-
-1. Fork 仓库并创建功能分支。
-2. 遵循 `CLAUDE.md` 中的层次和 compose 规范。
-3. 在 `tests.sh` 中添加或更新相应的测试块。
-4. 提交包含所添加阶段或功能描述的 Pull Request。
-
----
-
-## 许可证

@@ -28,12 +28,12 @@ Kisanikisha cha bootstrap huangalia kama Python 3 na Docker zipo, huzisanikisha 
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — endesha kama Msimamizi):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Au pakua `install.bat` / `install.ps1` kutoka kwenye hazina na bonyeza mara mbili.
@@ -47,7 +47,7 @@ Au pakua `install.bat` / `install.ps1` kutoka kwenye hazina na bonyeza mara mbil
 Nakili hazina na endesha kisanikisha cha mwingiliano moja kwa moja — pip wala utegemezi wa ziada hauhitajiki:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # chagua "Satellite" unapoulizwa
 
 ---
 
-## Kuanza Haraka (kwa mkono)
+## Kuanza Haraka
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Unda mtandao wa Docker ulioshirikiwa (mara moja kwa kila mwenyeji):
-docker network create quorum-net
-
-cp .env.example .env
-# Hariri .env — weka COMPOSE_PROFILES na funguo za API zinazohitajika
-
-docker compose up -d
+python3 install.py
 ```
 
 Thibitisha kwamba mpanga anafanya kazi:
@@ -367,16 +360,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Wasifu unaopatikana: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Kujenga upya baada ya mabadiliko ya chanzo
-
-```bash
-# Jenga upya huduma iliyobadilika tu:
-docker compose build orchestrator
-
-# Anzisha upya bila kugusa kontena nyingine:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Mpangilio wa saraka ya data
 
 ```
@@ -546,17 +529,3 @@ python3 mcps/jog-hu/host_server.py --stop          # simamisha daemon
 ```
 
 Ongeza `jog-hu` (na hiari `jog-hu-host`) kwenye orodha ya `tools:` ya wakala katika `agents.yaml`.
-
-
----
-
-## Kuchangia
-
-1. Fork hazina na unda tawi la kipengele.
-2. Fuata miongozo ya tabaka na compose katika `CLAUDE.md`.
-3. Ongeza au sasisha kizuizi cha majaribio kinachohusiana katika `tests.sh`.
-4. Fungua ombi la kuvuta lenye maelezo ya awamu au kipengele kinachoongezwa.
-
----
-
-## Leseni

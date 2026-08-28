@@ -28,12 +28,12 @@ Skrypt bootstrap sprawdza, czy Python 3 i Docker są zainstalowane, instaluje je
 
 **Linux / macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
 **Windows (PowerShell — uruchom jako Administrator):**
 ```powershell
-irm https://raw.githubusercontent.com/fulopjozsef86/QuorumAI/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
 
 Lub pobierz `install.bat` / `install.ps1` z repozytorium i kliknij dwukrotnie.
@@ -47,7 +47,7 @@ Lub pobierz `install.bat` / `install.ps1` z repozytorium i kliknij dwukrotnie.
 Sklonuj repozytorium i uruchom interaktywny instalator bezpośrednio — pip ani dodatkowe zależności nie są wymagane:
 
 ```bash
-git clone https://github.com/fulopjozsef86/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
 python3 install.py
 ```
@@ -64,19 +64,12 @@ python3 install.py   # wybierz "Satellite" gdy zapytany
 
 ---
 
-## Szybki start (ręcznie)
+## Szybki start
 
 ```bash
-git clone https://github.com/your-org/QuorumAI.git
+git clone https://github.com/FulopJozsi/QuorumAI.git
 cd QuorumAI
-
-# Utwórz wspólną sieć Docker (raz na hosta):
-docker network create quorum-net
-
-cp .env.example .env
-# Edytuj .env — ustaw COMPOSE_PROFILES i potrzebne klucze API
-
-docker compose up -d
+python3 install.py
 ```
 
 Sprawdź, czy orkiestrator działa:
@@ -366,16 +359,6 @@ docker compose --profile orchestrator --profile memory --profile gui up -d
 
 Dostępne profile: `orchestrator`, `memory`, `mcp`, `postgres`, `telegram`, `ha`, `mic`, `gui`, `stt-tts`, `mcp-manager`, `playwright`, `joplin`, `auth`, `email`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `graph`
 
-### Przebudowywanie po zmianach w kodzie źródłowym
-
-```bash
-# Przebuduj tylko zmieniony serwis:
-docker compose build orchestrator
-
-# Zrestartuj bez dotykania innych kontenerów:
-docker compose up -d --no-deps orchestrator
-```
-
 ### Układ katalogu data
 
 ```
@@ -545,16 +528,3 @@ python3 mcps/jog-hu/host_server.py --stop          # zatrzymaj daemon
 ```
 
 Dodaj `jog-hu` (i opcjonalnie `jog-hu-host`) do listy `tools:` agenta w `agents.yaml`.
-
----
-
-## Współtworzenie
-
-1. Sforkuj repozytorium i utwórz gałąź funkcji.
-2. Postępuj zgodnie z konwencjami warstw i compose w `CLAUDE.md`.
-3. Dodaj lub zaktualizuj odpowiedni blok testów w `tests.sh`.
-4. Otwórz pull request z opisem dodawanej fazy lub funkcji.
-
----
-
-## Licencja

@@ -78,6 +78,118 @@ if ($pythonCmd) {
 
 Write-Host ""
 
+# ── Hardveres virtualizáció ─────────────────────────────────────────────────────
+
+Write-Host "  Hardveres virtualizáció ellenőrzés..." -ForegroundColor White
+
+$virtEnabled = $null          # $true / $false / $null (bizonytalan)
+$hypervisorPresent = $false
+try {
+    $ci = Get-ComputerInfo -Property "HyperVRequirementVirtualizationFirmwareEnabled","HyperVisorPresent" -ErrorAction SilentlyContinue
+    if ($ci) {
+        $hypervisorPresent = [bool]$ci.HyperVisorPresent
+        if ($null -ne $ci.HyperVRequirementVirtualizationFirmwareEnabled) {
+            $virtEnabled = [bool]$ci.HyperVRequirementVirtualizationFirmwareEnabled
+        }
+    }
+} catch { }
+if ($null -eq $virtEnabled) {
+    try {
+        $cpu = Get-CimInstance Win32_Processor -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($cpu -and $null -ne $cpu.VirtualizationFirmwareEnabled) {
+            $virtEnabled = [bool]$cpu.VirtualizationFirmwareEnabled
+        }
+    } catch { }
+}
+
+if ($hypervisorPresent) {
+    # Ha már fut hypervisor (Hyper-V/WSL2), a firmware-flag maszkolódhat, de a
+    # virtualizáció bizonyítottan működik.
+    Write-Step-OK "Virtualizáció aktív (hypervisor fut)."
+} elseif ($virtEnabled -eq $true) {
+    Write-Step-OK "Hardveres virtualizáció engedélyezve."
+} elseif ($virtEnabled -eq $false) {
+    Write-Step-Fail "A hardveres virtualizáció KI van kapcsolva a BIOS/UEFI-ben."
+    Write-Host ""
+    Write-Step-Info "A Docker Desktop (WSL2/Hyper-V) virtualizációt igényel. Bekapcsolás:"
+    Write-Step-Info "  1. Indítsd újra a gépet, és lépj be a BIOS/UEFI-be (boot közben:"
+    Write-Step-Info "     Del / F2 / F10 / Esc — gyártófüggő, a gyártó logójánál kiírja)."
+    Write-Step-Info "  2. Keresd: Intel → 'Intel Virtualization Technology' / 'VT-x',"
+    Write-Step-Info "     AMD → 'SVM Mode' / 'AMD-V' (gyakran: Advanced / CPU Configuration)."
+    Write-Step-Info "  3. Állítsd 'Enabled'-re, mentsd (általában F10), és indíts újra."
+    Write-Step-Info "  4. Utána futtasd újra ezt a telepítőt."
+    Write-Host ""
+    Write-Step-Info "(Ha biztos vagy benne, hogy be van kapcsolva és a detektálás téved,"
+    Write-Step-Info " a folytatás nem tiltott — de a Docker enélkül nem indul el.)"
+    Read-Host "  Nyomj Entert a folytatáshoz (vagy kapcsold be a BIOS-ban, és futtasd újra)"
+} else {
+    Write-Step-Info "A virtualizáció állapota nem megállapítható — folytatás."
+    Write-Step-Info "Ha a Docker később virtualizációs hibát ad, kapcsold be a BIOS/UEFI-ben"
+    Write-Step-Info "(Intel VT-x / AMD SVM)."
+}
+
+Write-Host ""
+
+# ── WSL2 / Hyper-V backend ──────────────────────────────────────────────────────
+
+Write-Host "  WSL2 / Hyper-V backend ellenőrzés..." -ForegroundColor White
+
+# WSL2 elérhető-e (a Docker Desktop ajánlott/alapértelmezett backendje).
+$wslOk = $false
+if (Test-Command "wsl") {
+    try {
+        & wsl --status 2>&1 | Out-Null
+        if ($LASTEXITCODE -eq 0) { $wslOk = $true }
+    } catch { }
+}
+
+# Hyper-V feature (csak Pro/Enterprise; a lekérdezés admin jogot kérhet).
+$hypervOk = $false
+try {
+    $hv = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -ErrorAction SilentlyContinue
+    if ($hv -and $hv.State -eq "Enabled") { $hypervOk = $true }
+} catch { }
+
+if ($wslOk) {
+    Write-Step-OK "WSL2 elérhető — a Docker Desktop ezt fogja használni."
+} elseif ($hypervOk) {
+    Write-Step-OK "Hyper-V engedélyezve — a Docker Desktop backendje meglesz."
+    Write-Step-Info "(A WSL2 ajánlottabb; Home kiadáson a WSL2 az egyetlen opció.)"
+} else {
+    Write-Step-Info "Sem WSL2, sem Hyper-V nincs. WSL2 telepítése (ajánlott backend)..."
+    Write-Host ""
+    if (-not (Test-Admin)) {
+        Write-Step-Fail "A WSL2 telepítéséhez ADMIN jog kell."
+        Write-Step-Info "Indítsd újra a telepítőt rendszergazdaként (jobb klikk → Futtatás rendszergazdaként)."
+        Read-Host "  Nyomj Entert a kilépéshez"
+        exit 1
+    }
+    if (Test-Command "wsl") {
+        try {
+            # Win10 2004+ / Win11: egy lépésben WSL2 + Virtual Machine Platform + distro.
+            wsl --install
+            Write-Host ""
+            Write-Step-OK "WSL2 telepítés elindítva."
+        } catch {
+            Write-Step-Fail "wsl --install sikertelen: $_"
+            Write-Step-Info "Régebbi Windowson kézzel (admin PowerShell):"
+            Write-Step-Info "  dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
+            Write-Step-Info "  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart"
+            Write-Step-Info "  WSL2 kernel: https://aka.ms/wsl2kernel , majd: wsl --set-default-version 2"
+        }
+    } else {
+        Write-Step-Fail "A 'wsl' parancs nem elérhető (régi Windows build?)."
+        Write-Step-Info "Frissítsd a Windowst, vagy telepítsd kézzel: https://aka.ms/wsl"
+    }
+    Write-Host ""
+    Write-Step-Info "FONTOS: a WSL2 telepítés ÚJRAINDÍTÁST igényel."
+    Write-Step-Info "Indítsd újra a gépet, majd futtasd ÚJRA ezt a telepítőt — innen folytatódik."
+    Read-Host "  Nyomj Entert a kilépéshez (és indítsd újra a gépet)"
+    exit 0
+}
+
+Write-Host ""
+
 # ── Docker ────────────────────────────────────────────────────────────────────
 
 Write-Host "  Docker ellenőrzés..." -ForegroundColor White

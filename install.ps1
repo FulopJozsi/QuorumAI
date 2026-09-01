@@ -274,6 +274,51 @@ Write-Host ""
 Read-Host "  Nyomj Entert, ha a memória végleges értékre van állítva"
 Write-Host ""
 
+# ── Docker Desktop erőforrás- és megosztás-beállítások ────────────────────────
+
+Write-Host "  Docker Desktop beállítások (Settings → Resources)" -ForegroundColor White
+Write-Step-Info "Állítsd be MOST, mielőtt a konténerek elindulnak:"
+Write-Step-Info "  • Lemez-limit (Disk usage limit): legalább 28 GB."
+Write-Step-Info "      Settings → Resources → Disk usage limit"
+Write-Step-Info "      (a modell- és image-helyigény miatt; WSL2-n a virtuális lemez eddig nőhet)."
+Write-Step-Info "  • Fájlmegosztás (File sharing): oszd meg a telepítési mappát."
+Write-Step-Info "      Settings → Resources → File sharing → 'Virtual file shares' →"
+Write-Step-Info "      add hozzá azt a mappát, ahová a projekt települ (a data/ bind-mountokhoz)."
+Write-Host ""
+Read-Host "  Nyomj Entert, ha a lemez-limit és a fájlmegosztás beállítva"
+Write-Host ""
+
+Write-Host "  NVIDIA GPU-gyorsítás (opcionális)" -ForegroundColor White
+Write-Step-Info "Csak akkor kell, ha helyi LLM-et (pl. Ollama) GPU-n futtatnál konténerben."
+Write-Step-Info "GPU Dockerben CSAK WSL2 backenddel működik (Hyper-V-vel nem)."
+Write-Step-Info "Szükséges: friss NVIDIA driver + nvidia-container-toolkit a WSL2 disztróban."
+Write-Step-Info "CUDA / driver letöltés: https://developer.nvidia.com/cuda-downloads"
+Write-Host ""
+
+# ── Docker Desktop fut-e? (a motor elérhető-e a letöltés előtt) ────────────────
+
+Write-Host "  Docker Desktop futásának ellenőrzése..." -ForegroundColor White
+$engineOk = $false
+for ($i = 0; $i -lt 40; $i++) {
+    try {
+        & docker info 2>&1 | Out-Null
+        if ($LASTEXITCODE -eq 0) { $engineOk = $true; break }
+    } catch { }
+    if ($i -eq 0) {
+        Write-Step-Info "A Docker motor még nem elérhető — indítsd el a Docker Desktop appot,"
+        Write-Step-Info "és várd meg, amíg a tálca-ikon zöld (ez eltarthat egy percig)..."
+    }
+    Start-Sleep -Seconds 3
+}
+if ($engineOk) {
+    Write-Step-OK "Docker Desktop fut (a motor elérhető)."
+} else {
+    Write-Step-Fail "A Docker motor nem érhető el (docker info sikertelen)."
+    Write-Step-Info "Indítsd el a Docker Desktopot, várd meg amíg elindul, majd nyomj Entert."
+    Read-Host "  Nyomj Entert a folytatáshoz"
+}
+Write-Host ""
+
 # ── install.py letöltése és futtatása ─────────────────────────────────────────
 
 Write-Host "  QuorumAI telepítő letöltése..." -ForegroundColor White

@@ -105,7 +105,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Yes, start everything (recommended)\n2) No, show me the command",
         "openai_compat_question": "Enable OpenAI-compatible API endpoint (/v1/)?",
         "openai_compat_opts": "1) Yes, generate API key\n2) No, leave disabled",
-        "openai_compat_key_info": "\n  OpenAI-compat API key (save this!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-compat API key (save this!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL (optional, Enter to skip, hash chain works offline too): ",
         "ai_act_pii_question": "AI Act PII masking depth?",
         "ai_act_pii_opts": "1) Regex only, fast, email/phone/IBAN (recommended)\n2) Full, Presidio+spaCy NER, also names (resource-intensive)",
@@ -119,6 +119,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Suggested agent configuration ({file}):",
         "pack_webhooks_merged": "Webhook rules added to webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook sources already configured (skipped): {sources}",
+        "pack_agents_merged": "Agent(s) added to agents.yaml (set provider/model in the GUI): {names}",
+        "pack_mcps_merged": "MCP server(s) added to mcps.yaml: {names}",
+        "pack_cfg_skipped": "Already in config, skipped: {names}",
         "pack_mcps_header": "Suggested MCP configuration ({file}):",
         "pack_installed": "installed",
     },
@@ -192,7 +195,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Igen, indíts el mindent (ajánlott)\n2) Nem, mutasd a parancsot",
         "openai_compat_question": "Engedélyezd az OpenAI-kompatibilis API végpontot (/v1/)?",
         "openai_compat_opts": "1) Igen, generálj API kulcsot\n2) Nem, maradjon kikapcsolva",
-        "openai_compat_key_info": "\n  OpenAI-kompatibilis API kulcs (mentsd el!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-kompatibilis API kulcs (mentsd el!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL (opcionális, Enter=kihagyás, hash-lánc offline is működik): ",
         "ai_act_pii_question": "AI Act PII maszkolás mélysége?",
         "ai_act_pii_opts": "1) Csak regex, gyors, email/telefon/IBAN (ajánlott)\n2) Teljes, Presidio+spaCy NER, nevek is (erőforrás-igényes)",
@@ -206,6 +209,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Javasolt agent konfiguráció ({file}):",
         "pack_webhooks_merged": "Webhook szabályok hozzáadva a webhooks.yaml-hoz: {sources}",
         "pack_webhooks_skipped": "Webhook forrás már konfigurálva (kihagyva): {sources}",
+        "pack_agents_merged": "Agent(ek) hozzáadva az agents.yaml-hoz (a provider/modellt állítsd a GUI-n): {names}",
+        "pack_mcps_merged": "MCP szerver(ek) hozzáadva az mcps.yaml-hoz: {names}",
+        "pack_cfg_skipped": "Már a configban van, kihagyva: {names}",
         "pack_mcps_header": "Javasolt MCP konfiguráció ({file}):",
         "pack_installed": "telepítve",
     },
@@ -254,7 +260,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ja, alles starten (empfohlen)\n2) Nein, Befehl anzeigen",
         "openai_compat_question": "OpenAI-kompatible API (/v1/) aktivieren?",
         "openai_compat_opts": "1) Ja, API-Schlüssel generieren\n2) Nein, deaktiviert lassen",
-        "openai_compat_key_info": "\n  OpenAI-kompatibler API-Schlüssel (speichern!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-kompatibler API-Schlüssel (speichern!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA-URL (optional, Enter=überspringen, Hash-Kette funktioniert offline): ",
         "ai_act_pii_question": "KI-Akt PII-Maskierungstiefe?",
         "ai_act_pii_opts": "1) Nur Regex, schnell, E-Mail/Telefon/IBAN (empfohlen)\n2) Voll, Presidio+spaCy NER, auch Namen (ressourcenintensiv)",
@@ -293,6 +299,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Empfohlene Agent-Konfiguration ({file}):",
         "pack_webhooks_merged": "Webhook-Regeln zu webhooks.yaml hinzugefügt: {sources}",
         "pack_webhooks_skipped": "Webhook-Quellen bereits konfiguriert (übersprungen): {sources}",
+        "pack_agents_merged": "Agent(en) zu agents.yaml hinzugefügt (Provider/Modell im GUI festlegen): {names}",
+        "pack_mcps_merged": "MCP-Server zu mcps.yaml hinzugefügt: {names}",
+        "pack_cfg_skipped": "Bereits in der Konfiguration, übersprungen: {names}",
         "pack_mcps_header": "Empfohlene MCP-Konfiguration ({file}):",
         "pack_installed": "installiert",
     },
@@ -341,7 +350,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Oui, tout démarrer (recommandé)\n2) Non, afficher la commande",
         "openai_compat_question": "Activer l'API compatible OpenAI (/v1/)?",
         "openai_compat_opts": "1) Oui, générer une clé API\n2) Non, laisser désactivé",
-        "openai_compat_key_info": "\n  Clé API compatible OpenAI (à sauvegarder!): {key}",
+        "openai_compat_key_info": "\n  Clé API compatible OpenAI (à sauvegarder!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 pour l'IA Act (optionnel, Entrée=ignorer, la chaîne de hachage fonctionne hors ligne): ",
         "ai_act_pii_question": "Profondeur du masquage PII de l'IA Act?",
         "ai_act_pii_opts": "1) Regex seulement, rapide, email/téléphone/IBAN (recommandé)\n2) Complet, Presidio+spaCy NER, noms inclus (gourmand en ressources)",
@@ -380,6 +389,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Configuration d'agent suggérée ({file}) :",
         "pack_webhooks_merged": "Règles webhook ajoutées à webhooks.yaml : {sources}",
         "pack_webhooks_skipped": "Sources webhook déjà configurées (ignorées) : {sources}",
+        "pack_agents_merged": "Agent(s) ajouté(s) à agents.yaml (définissez le fournisseur/modèle dans l'interface) : {names}",
+        "pack_mcps_merged": "Serveur(s) MCP ajouté(s) à mcps.yaml : {names}",
+        "pack_cfg_skipped": "Déjà dans la configuration, ignoré : {names}",
         "pack_mcps_header": "Configuration MCP suggérée ({file}) :",
         "pack_installed": "installé",
     },
@@ -428,7 +440,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Sí, iniciar todo (recomendado)\n2) No, mostrar el comando",
         "openai_compat_question": "¿Habilitar API compatible con OpenAI (/v1/)?",
         "openai_compat_opts": "1) Sí, generar clave API\n2) No, dejar desactivado",
-        "openai_compat_key_info": "\n  Clave API compatible OpenAI (¡guárdala!): {key}",
+        "openai_compat_key_info": "\n  Clave API compatible OpenAI (¡guárdala!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 del Reglamento IA (opcional, Enter=omitir, la cadena hash funciona sin conexión): ",
         "ai_act_pii_question": "¿Profundidad de enmascaramiento PII del AI Act?",
         "ai_act_pii_opts": "1) Solo regex, rápido, email/teléfono/IBAN (recomendado)\n2) Completo, Presidio+spaCy NER, también nombres (intensivo en recursos)",
@@ -467,6 +479,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Configuración de agente sugerida ({file}):",
         "pack_webhooks_merged": "Reglas de webhook añadidas a webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Fuentes de webhook ya configuradas (omitidas): {sources}",
+        "pack_agents_merged": "Agente(s) añadido(s) a agents.yaml (configura proveedor/modelo en la GUI): {names}",
+        "pack_mcps_merged": "Servidor(es) MCP añadido(s) a mcps.yaml: {names}",
+        "pack_cfg_skipped": "Ya está en la configuración, omitido: {names}",
         "pack_mcps_header": "Configuración MCP sugerida ({file}):",
         "pack_installed": "instalado",
     },
@@ -509,7 +524,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Sim, iniciar tudo (recomendado)\n2) Não, mostrar o comando",
         "openai_compat_question": "Ativar API compatível com OpenAI (/v1/)?",
         "openai_compat_opts": "1) Sim, gerar chave API\n2) Não, manter desativado",
-        "openai_compat_key_info": "\n  Chave API compatível OpenAI (salve!): {key}",
+        "openai_compat_key_info": "\n  Chave API compatível OpenAI (salve!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 para a Lei de IA (opcional, Enter=ignorar, a cadeia de hash funciona offline): ",
         "ai_act_pii_question": "Profundidade de mascaramento PII do AI Act?",
         "ai_act_pii_opts": "1) Apenas regex, rápido, email/telefone/IBAN (recomendado)\n2) Completo, Presidio+spaCy NER, também nomes (intensivo em recursos)",
@@ -548,6 +563,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Configuração de agente sugerida ({file}):",
         "pack_webhooks_merged": "Regras de webhook adicionadas ao webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Fontes de webhook já configuradas (ignoradas): {sources}",
+        "pack_agents_merged": "Agente(s) adicionado(s) a agents.yaml (defina provider/modelo na GUI): {names}",
+        "pack_mcps_merged": "Servidor(es) MCP adicionado(s) a mcps.yaml: {names}",
+        "pack_cfg_skipped": "Já está na configuração, ignorado: {names}",
         "pack_mcps_header": "Configuração MCP sugerida ({file}):",
         "pack_installed": "instalado",
         "mic_pulseaudio_tcp_note": "macOS / Windows detectado: Modo TCP PulseAudio selecionado.\n  Instale e inicie o PulseAudio em modo TCP antes de executar o contêiner mic.\n  macOS:   brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon\n  Windows: consulte bridges/mic/compose.yml para instruções de configuração.",
@@ -602,7 +620,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Да, запустить всё (рекомендуется)\n2) Нет, показать команду",
         "openai_compat_question": "Включить API, совместимый с OpenAI (/v1/)?",
         "openai_compat_opts": "1) Да, сгенерировать API-ключ\n2) Нет, оставить отключённым",
-        "openai_compat_key_info": "\n  Ключ API, совместимого с OpenAI (сохраните!): {key}",
+        "openai_compat_key_info": "\n  Ключ API, совместимого с OpenAI (сохраните!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 для ИИ-акта (необязательно, Enter=пропустить, хеш-цепочка работает офлайн): ",
         "ai_act_pii_question": "Глубина маскировки PII ИИ-акта?",
         "ai_act_pii_opts": "1) Только regex, быстро, email/телефон/IBAN (рекомендуется)\n2) Полная, Presidio+spaCy NER, включая имена (требует ресурсов)",
@@ -641,6 +659,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Рекомендуемая конфигурация агента ({file}):",
         "pack_webhooks_merged": "Правила вебхуков добавлены в webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Источники вебхуков уже настроены (пропущены): {sources}",
+        "pack_agents_merged": "Агент(ы) добавлены в agents.yaml (укажите провайдера/модель в GUI): {names}",
+        "pack_mcps_merged": "MCP-сервер(ы) добавлены в mcps.yaml: {names}",
+        "pack_cfg_skipped": "Уже в конфигурации, пропущено: {names}",
         "pack_mcps_header": "Рекомендуемая конфигурация MCP ({file}):",
         "pack_installed": "установлен",
     },
@@ -689,7 +710,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ja, alles starten (aanbevolen)\n2) Nee, toon het commando",
         "openai_compat_question": "OpenAI-compatibele API (/v1/) inschakelen?",
         "openai_compat_opts": "1) Ja, API-sleutel genereren\n2) Nee, uitgeschakeld laten",
-        "openai_compat_key_info": "\n  OpenAI-compatibele API-sleutel (bewaar dit!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-compatibele API-sleutel (bewaar dit!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA-URL (optioneel, Enter=overslaan, hash-keten werkt offline ook): ",
         "ai_act_pii_question": "AI Act PII-maskeringsdiepte?",
         "ai_act_pii_opts": "1) Alleen regex, snel, e-mail/telefoon/IBAN (aanbevolen)\n2) Volledig, Presidio+spaCy NER, ook namen (resource-intensief)",
@@ -728,6 +749,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Aanbevolen agentconfiguratie ({file}):",
         "pack_webhooks_merged": "Webhookregels toegevoegd aan webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhookbronnen al geconfigureerd (overgeslagen): {sources}",
+        "pack_agents_merged": "Agent(s) toegevoegd aan agents.yaml (stel provider/model in via de GUI): {names}",
+        "pack_mcps_merged": "MCP-server(s) toegevoegd aan mcps.yaml: {names}",
+        "pack_cfg_skipped": "Al in de configuratie, overgeslagen: {names}",
         "pack_mcps_header": "Aanbevolen MCP-configuratie ({file}):",
         "pack_installed": "geïnstalleerd",
     },
@@ -776,7 +800,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Tak, uruchom wszystko (zalecane)\n2) Nie, pokaż polecenie",
         "openai_compat_question": "Włączyć API zgodne z OpenAI (/v1/)?",
         "openai_compat_opts": "1) Tak, wygeneruj klucz API\n2) Nie, pozostaw wyłączone",
-        "openai_compat_key_info": "\n  Klucz API zgodny z OpenAI (zapisz!): {key}",
+        "openai_compat_key_info": "\n  Klucz API zgodny z OpenAI (zapisz!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 dla Aktu o AI (opcjonalnie, Enter=pomiń, łańcuch hashów działa offline): ",
         "ai_act_pii_question": "Głębokość maskowania PII dla Aktu o AI?",
         "ai_act_pii_opts": "1) Tylko regex, szybko, e-mail/telefon/IBAN (zalecane)\n2) Pełne, Presidio+spaCy NER, w tym imiona (intensywne zasobowo)",
@@ -815,6 +839,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Sugerowana konfiguracja agenta ({file}):",
         "pack_webhooks_merged": "Reguły webhook dodane do webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Źródła webhook już skonfigurowane (pominięto): {sources}",
+        "pack_agents_merged": "Agent(y) dodane do agents.yaml (ustaw dostawcę/model w GUI): {names}",
+        "pack_mcps_merged": "Serwer(y) MCP dodane do mcps.yaml: {names}",
+        "pack_cfg_skipped": "Już w konfiguracji, pominięto: {names}",
         "pack_mcps_header": "Sugerowana konfiguracja MCP ({file}):",
         "pack_installed": "zainstalowany",
     },
@@ -863,7 +890,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Так, запустити все (рекомендовано)\n2) Ні, показати команду",
         "openai_compat_question": "Увімкнути API, сумісний з OpenAI (/v1/)?",
         "openai_compat_opts": "1) Так, згенерувати API-ключ\n2) Ні, залишити вимкненим",
-        "openai_compat_key_info": "\n  Ключ API, сумісний з OpenAI (збережіть!): {key}",
+        "openai_compat_key_info": "\n  Ключ API, сумісний з OpenAI (збережіть!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 для Закону про ШІ (необов'язково, Enter=пропустити, хеш-ланцюг працює офлайн): ",
         "ai_act_pii_question": "Глибина маскування PII Акту про ШІ?",
         "ai_act_pii_opts": "1) Лише regex, швидко, email/телефон/IBAN (рекомендовано)\n2) Повна, Presidio+spaCy NER, включно з іменами (ресурсомісткий)",
@@ -902,6 +929,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Рекомендована конфігурація агента ({file}):",
         "pack_webhooks_merged": "Правила вебхуків додано до webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Джерела вебхуків вже налаштовані (пропущено): {sources}",
+        "pack_agents_merged": "Агент(и) додано до agents.yaml (вкажіть провайдера/модель у GUI): {names}",
+        "pack_mcps_merged": "MCP-сервер(и) додано до mcps.yaml: {names}",
+        "pack_cfg_skipped": "Уже в конфігурації, пропущено: {names}",
         "pack_mcps_header": "Рекомендована конфігурація MCP ({file}):",
         "pack_installed": "встановлено",
     },
@@ -950,7 +980,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ja, starta allt (rekommenderat)\n2) Nej, visa kommandot",
         "openai_compat_question": "Aktivera OpenAI-kompatibelt API (/v1/)?",
         "openai_compat_opts": "1) Ja, generera API-nyckel\n2) Nej, lämna inaktiverat",
-        "openai_compat_key_info": "\n  OpenAI-kompatibel API-nyckel (spara!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-kompatibel API-nyckel (spara!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA-URL (valfri, Enter=hoppa över, hash-kedjan fungerar offline): ",
         "ai_act_pii_question": "AI Act PII-maskeringsdjup?",
         "ai_act_pii_opts": "1) Endast regex, snabbt, e-post/telefon/IBAN (rekommenderas)\n2) Fullständig, Presidio+spaCy NER, även namn (resurskrävande)",
@@ -989,6 +1019,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Föreslagen agentkonfiguration ({file}):",
         "pack_webhooks_merged": "Webhookregler tillagda i webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhookkällor redan konfigurerade (hoppades över): {sources}",
+        "pack_agents_merged": "Agent(er) tillagd(a) i agents.yaml (ställ in leverantör/modell i GUI): {names}",
+        "pack_mcps_merged": "MCP-server(rar) tillagd(a) i mcps.yaml: {names}",
+        "pack_cfg_skipped": "Finns redan i konfigurationen, hoppade över: {names}",
         "pack_mcps_header": "Föreslagen MCP-konfiguration ({file}):",
         "pack_installed": "installerat",
     },
@@ -1037,7 +1070,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Sì, avvia tutto (consigliato)\n2) No, mostra il comando",
         "openai_compat_question": "Abilitare API compatibile OpenAI (/v1/)?",
         "openai_compat_opts": "1) Sì, genera chiave API\n2) No, lascia disabilitato",
-        "openai_compat_key_info": "\n  Chiave API compatibile OpenAI (salvala!): {key}",
+        "openai_compat_key_info": "\n  Chiave API compatibile OpenAI (salvala!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 per l'AI Act (opzionale, Invio=salta, la catena hash funziona offline): ",
         "ai_act_pii_question": "Profondità mascheramento PII dell'AI Act?",
         "ai_act_pii_opts": "1) Solo regex, veloce, email/telefono/IBAN (consigliato)\n2) Completo, Presidio+spaCy NER, anche nomi (intensivo in risorse)",
@@ -1076,6 +1109,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Configurazione agente suggerita ({file}):",
         "pack_webhooks_merged": "Regole webhook aggiunte a webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Sorgenti webhook già configurate (saltate): {sources}",
+        "pack_agents_merged": "Agente/i aggiunto/i ad agents.yaml (imposta provider/modello nella GUI): {names}",
+        "pack_mcps_merged": "Server MCP aggiunto/i a mcps.yaml: {names}",
+        "pack_cfg_skipped": "Già nella configurazione, saltato: {names}",
         "pack_mcps_header": "Configurazione MCP suggerita ({file}):",
         "pack_installed": "installato",
     },
@@ -1149,7 +1185,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Da, pornește tot (recomandat)\n2) Nu, arată-mi comanda",
         "openai_compat_question": "Activezi endpoint-ul API compatibil OpenAI (/v1/)?",
         "openai_compat_opts": "1) Da, generează cheie API\n2) Nu, lasă dezactivat",
-        "openai_compat_key_info": "\n  Cheie API compatibilă OpenAI (salveaz-o!): {key}",
+        "openai_compat_key_info": "\n  Cheie API compatibilă OpenAI (salveaz-o!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 pentru AI Act (opțional, Enter pentru a sări, lanțul de hash funcționează și offline): ",
         "ai_act_pii_question": "Profunzimea mascării PII pentru AI Act?",
         "ai_act_pii_opts": "1) Doar regex, rapid, email/telefon/IBAN (recomandat)\n2) Complet, Presidio+spaCy NER, inclusiv nume (consumă multe resurse)",
@@ -1163,6 +1199,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Configurație de agent sugerată ({file}):",
         "pack_webhooks_merged": "Reguli de webhook adăugate în webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Sursele de webhook sunt deja configurate (omise): {sources}",
+        "pack_agents_merged": "Agent(i) adăugat(i) în agents.yaml (setează provider/model în GUI): {names}",
+        "pack_mcps_merged": "Server(e) MCP adăugat(e) în mcps.yaml: {names}",
+        "pack_cfg_skipped": "Deja în configurație, omis: {names}",
         "pack_mcps_header": "Configurație MCP sugerată ({file}):",
         "pack_installed": "instalat",
     },
@@ -1236,7 +1275,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ano, spustit vše (doporučeno)\n2) Ne, zobrazit mi příkaz",
         "openai_compat_question": "Povolit endpoint API kompatibilní s OpenAI (/v1/)?",
         "openai_compat_opts": "1) Ano, vygenerovat API klíč\n2) Ne, ponechat vypnuto",
-        "openai_compat_key_info": "\n  API klíč kompatibilní s OpenAI (uložte si jej!): {key}",
+        "openai_compat_key_info": "\n  API klíč kompatibilní s OpenAI (uložte si jej!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 pro AI Act (volitelné, Enter pro přeskočení, řetězec hashů funguje i offline): ",
         "ai_act_pii_question": "Hloubka maskování PII pro AI Act?",
         "ai_act_pii_opts": "1) Pouze regex, rychlé, e-mail/telefon/IBAN (doporučeno)\n2) Plné, Presidio+spaCy NER, včetně jmen (náročné na zdroje)",
@@ -1250,6 +1289,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Navrhovaná konfigurace agenta ({file}):",
         "pack_webhooks_merged": "Pravidla webhooků přidána do webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Zdroje webhooků jsou již nakonfigurovány (přeskočeno): {sources}",
+        "pack_agents_merged": "Agent(i) přidán(i) do agents.yaml (nastavte poskytovatele/model v GUI): {names}",
+        "pack_mcps_merged": "MCP server(y) přidán(y) do mcps.yaml: {names}",
+        "pack_cfg_skipped": "Již v konfiguraci, přeskočeno: {names}",
         "pack_mcps_header": "Navrhovaná konfigurace MCP ({file}):",
         "pack_installed": "nainstalováno",
     },
@@ -1323,7 +1365,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Áno, spustiť všetko (odporúčané)\n2) Nie, zobraziť mi príkaz",
         "openai_compat_question": "Povoliť endpoint API kompatibilný s OpenAI (/v1/)?",
         "openai_compat_opts": "1) Áno, vygenerovať API kľúč\n2) Nie, ponechať vypnuté",
-        "openai_compat_key_info": "\n  API kľúč kompatibilný s OpenAI (uložte si ho!): {key}",
+        "openai_compat_key_info": "\n  API kľúč kompatibilný s OpenAI (uložte si ho!): {api_key}",
         "ai_act_tsa_question": "URL TSA RFC 3161 pre AI Act (voliteľné, Enter pre preskočenie, reťazec hashov funguje aj offline): ",
         "ai_act_pii_question": "Hĺbka maskovania PII pre AI Act?",
         "ai_act_pii_opts": "1) Iba regex, rýchle, e-mail/telefón/IBAN (odporúčané)\n2) Plné, Presidio+spaCy NER, vrátane mien (náročné na zdroje)",
@@ -1337,6 +1379,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Navrhovaná konfigurácia agenta ({file}):",
         "pack_webhooks_merged": "Pravidlá webhookov pridané do webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Zdroje webhookov sú už nakonfigurované (preskočené): {sources}",
+        "pack_agents_merged": "Agent(i) pridaný(í) do agents.yaml (nastavte poskytovateľa/model v GUI): {names}",
+        "pack_mcps_merged": "MCP server(y) pridaný(é) do mcps.yaml: {names}",
+        "pack_cfg_skipped": "Už v konfigurácii, preskočené: {names}",
         "pack_mcps_header": "Navrhovaná konfigurácia MCP ({file}):",
         "pack_installed": "nainštalované",
     },
@@ -1410,7 +1455,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Да, стартирай всичко (препоръчително)\n2) Не, покажи ми командата",
         "openai_compat_question": "Активиране на OpenAI-съвместима API крайна точка (/v1/)?",
         "openai_compat_opts": "1) Да, генерирай API ключ\n2) Не, остави изключено",
-        "openai_compat_key_info": "\n  API ключ, съвместим с OpenAI (запазете го!): {key}",
+        "openai_compat_key_info": "\n  API ключ, съвместим с OpenAI (запазете го!): {api_key}",
         "ai_act_tsa_question": "URL адрес на AI Act RFC 3161 TSA (незадължително, Enter за пропускане, хеш-веригата работи и офлайн): ",
         "ai_act_pii_question": "Дълбочина на маскиране на PII за AI Act?",
         "ai_act_pii_opts": "1) Само regex, бързо, имейл/телефон/IBAN (препоръчително)\n2) Пълно, Presidio+spaCy NER, включително имена (изисква повече ресурси)",
@@ -1424,6 +1469,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Предложена конфигурация на агент ({file}):",
         "pack_webhooks_merged": "Добавени са webhook правила в webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Източниците на webhook вече са конфигурирани (пропуснати): {sources}",
+        "pack_agents_merged": "Агент(и) добавени в agents.yaml (задайте доставчик/модел в GUI): {names}",
+        "pack_mcps_merged": "MCP сървър(и) добавени в mcps.yaml: {names}",
+        "pack_cfg_skipped": "Вече в конфигурацията, пропуснато: {names}",
         "pack_mcps_header": "Предложена конфигурация на MCP ({file}):",
         "pack_installed": "инсталиран",
     },
@@ -1497,7 +1545,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Da, pokreni sve (preporučeno)\n2) Ne, prikaži mi naredbu",
         "openai_compat_question": "Omogućiti krajnju točku API-ja kompatibilnu s OpenAI (/v1/)?",
         "openai_compat_opts": "1) Da, generiraj API ključ\n2) Ne, ostavi onemogućeno",
-        "openai_compat_key_info": "\n  API ključ kompatibilan s OpenAI (spremite ga!): {key}",
+        "openai_compat_key_info": "\n  API ključ kompatibilan s OpenAI (spremite ga!): {api_key}",
         "ai_act_tsa_question": "URL AI Act RFC 3161 TSA (neobavezno, Enter za preskakanje, lanac hasheva radi i izvanmrežno): ",
         "ai_act_pii_question": "Dubina maskiranja PII podataka za AI Act?",
         "ai_act_pii_opts": "1) Samo regex, brzo, e-pošta/telefon/IBAN (preporučeno)\n2) Potpuno, Presidio+spaCy NER, uključujući imena (zahtjevno za resurse)",
@@ -1511,6 +1559,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Predložena konfiguracija agenta ({file}):",
         "pack_webhooks_merged": "Pravila webhooka dodana u webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Izvori webhooka su već konfigurirani (preskočeno): {sources}",
+        "pack_agents_merged": "Agent(i) dodan(i) u agents.yaml (postavite pružatelja/model u GUI-ju): {names}",
+        "pack_mcps_merged": "MCP poslužitelj(i) dodan(i) u mcps.yaml: {names}",
+        "pack_cfg_skipped": "Već u konfiguraciji, preskočeno: {names}",
         "pack_mcps_header": "Predložena MCP konfiguracija ({file}):",
         "pack_installed": "instalirano",
     },
@@ -1584,7 +1635,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Da, zaženi vse (priporočeno)\n2) Ne, pokaži mi ukaz",
         "openai_compat_question": "Omogočiti končno točko API, združljivo z OpenAI (/v1/)?",
         "openai_compat_opts": "1) Da, ustvari API ključ\n2) Ne, pusti onemogočeno",
-        "openai_compat_key_info": "\n  API ključ, združljiv z OpenAI (shranite ga!): {key}",
+        "openai_compat_key_info": "\n  API ključ, združljiv z OpenAI (shranite ga!): {api_key}",
         "ai_act_tsa_question": "URL AI Act RFC 3161 TSA (neobvezno, Enter za preskok, veriga zgoščevalnih vrednosti deluje tudi brez povezave): ",
         "ai_act_pii_question": "Globina maskiranja osebnih podatkov za AI Act?",
         "ai_act_pii_opts": "1) Samo regex, hitro, e-pošta/telefon/IBAN (priporočeno)\n2) Popolno, Presidio+spaCy NER, vključno z imeni (zahtevno za vire)",
@@ -1598,6 +1649,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Predlagana konfiguracija agenta ({file}):",
         "pack_webhooks_merged": "Pravila webhookov dodana v webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Viri webhookov so že konfigurirani (preskočeno): {sources}",
+        "pack_agents_merged": "Agent(i) dodan(i) v agents.yaml (ponudnika/model nastavite v GUI): {names}",
+        "pack_mcps_merged": "Strežnik(i) MCP dodan(i) v mcps.yaml: {names}",
+        "pack_cfg_skipped": "Že v konfiguraciji, preskočeno: {names}",
         "pack_mcps_header": "Predlagana konfiguracija MCP ({file}):",
         "pack_installed": "nameščeno",
     },
@@ -1671,7 +1725,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ναι, εκκίνηση όλων (συνιστάται)\n2) Όχι, εμφάνισε μου την εντολή",
         "openai_compat_question": "Ενεργοποίηση endpoint API συμβατού με OpenAI (/v1/);",
         "openai_compat_opts": "1) Ναι, δημιουργία κλειδιού API\n2) Όχι, παραμονή απενεργοποιημένο",
-        "openai_compat_key_info": "\n  Κλειδί API συμβατό με OpenAI (αποθηκεύστε το!): {key}",
+        "openai_compat_key_info": "\n  Κλειδί API συμβατό με OpenAI (αποθηκεύστε το!): {api_key}",
         "ai_act_tsa_question": "URL AI Act RFC 3161 TSA (προαιρετικό, Enter για παράλειψη, η αλυσίδα κατακερματισμού λειτουργεί και χωρίς σύνδεση): ",
         "ai_act_pii_question": "Βάθος απόκρυψης προσωπικών δεδομένων (PII) για το AI Act;",
         "ai_act_pii_opts": "1) Μόνο regex, γρήγορο, email/τηλέφωνο/IBAN (συνιστάται)\n2) Πλήρες, Presidio+spaCy NER, επίσης ονόματα (απαιτητικό σε πόρους)",
@@ -1685,6 +1739,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Προτεινόμενη διαμόρφωση πράκτορα ({file}):",
         "pack_webhooks_merged": "Κανόνες webhook προστέθηκαν στο webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Οι πηγές webhook έχουν ήδη διαμορφωθεί (παραλείφθηκαν): {sources}",
+        "pack_agents_merged": "Προστέθηκαν agent στο agents.yaml (ορίστε provider/μοντέλο στο GUI): {names}",
+        "pack_mcps_merged": "Προστέθηκαν διακομιστές MCP στο mcps.yaml: {names}",
+        "pack_cfg_skipped": "Ήδη στη διαμόρφωση, παραλείφθηκε: {names}",
         "pack_mcps_header": "Προτεινόμενη διαμόρφωση MCP ({file}):",
         "pack_installed": "εγκαταστάθηκε",
     },
@@ -1758,7 +1815,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ja, start alt (anbefales)\n2) Nej, vis mig kommandoen",
         "openai_compat_question": "Aktivér OpenAI-kompatibelt API-endepunkt (/v1/)?",
         "openai_compat_opts": "1) Ja, generer API-nøgle\n2) Nej, lad forblive deaktiveret",
-        "openai_compat_key_info": "\n  OpenAI-kompatibel API-nøgle (gem denne!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-kompatibel API-nøgle (gem denne!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA-URL (valgfri, Enter for at springe over, hash-kæden fungerer også offline): ",
         "ai_act_pii_question": "Maskeringsdybde for AI Act PII?",
         "ai_act_pii_opts": "1) Kun regex, hurtig, e-mail/telefon/IBAN (anbefales)\n2) Fuld, Presidio+spaCy NER, også navne (ressourcekrævende)",
@@ -1772,6 +1829,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Foreslået agentkonfiguration ({file}):",
         "pack_webhooks_merged": "Webhook-regler tilføjet til webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook-kilder er allerede konfigureret (sprunget over): {sources}",
+        "pack_agents_merged": "Agent(er) tilføjet til agents.yaml (angiv udbyder/model i GUI): {names}",
+        "pack_mcps_merged": "MCP-server(e) tilføjet til mcps.yaml: {names}",
+        "pack_cfg_skipped": "Allerede i konfigurationen, sprunget over: {names}",
         "pack_mcps_header": "Foreslået MCP-konfiguration ({file}):",
         "pack_installed": "installeret",
     },
@@ -1845,7 +1905,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Kyllä, käynnistä kaikki (suositeltu)\n2) Ei, näytä minulle komento",
         "openai_compat_question": "Otetaanko käyttöön OpenAI-yhteensopiva API-päätepiste (/v1/)?",
         "openai_compat_opts": "1) Kyllä, luo API-avain\n2) Ei, jätä pois käytöstä",
-        "openai_compat_key_info": "\n  OpenAI-yhteensopiva API-avain (tallenna tämä!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-yhteensopiva API-avain (tallenna tämä!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA -URL (valinnainen, Enter ohittaaksesi, hash-ketju toimii myös offline): ",
         "ai_act_pii_question": "AI Act PII -peittämisen syvyys?",
         "ai_act_pii_opts": "1) Vain regex, nopea, sähköposti/puhelin/IBAN (suositeltu)\n2) Täysi, Presidio+spaCy NER, myös nimet (resurssi-intensiivinen)",
@@ -1859,6 +1919,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Ehdotettu agenttimääritys ({file}):",
         "pack_webhooks_merged": "Webhook-säännöt lisätty tiedostoon webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook-lähteet on jo määritetty (ohitettu): {sources}",
+        "pack_agents_merged": "Agent(it) lisätty agents.yaml-tiedostoon (aseta tarjoaja/malli GUI:ssa): {names}",
+        "pack_mcps_merged": "MCP-palvelin(et) lisätty mcps.yaml-tiedostoon: {names}",
+        "pack_cfg_skipped": "Jo konfiguraatiossa, ohitettu: {names}",
         "pack_mcps_header": "Ehdotettu MCP-määritys ({file}):",
         "pack_installed": "asennettu",
     },
@@ -1932,7 +1995,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Taip, paleisti viską (rekomenduojama)\n2) Ne, parodykite komandą",
         "openai_compat_question": "Įjungti OpenAI suderinamą API galutinį tašką (/v1/)?",
         "openai_compat_opts": "1) Taip, sugeneruoti API raktą\n2) Ne, palikti išjungtą",
-        "openai_compat_key_info": "\n  OpenAI suderinamas API raktas (išsaugokite šį!): {key}",
+        "openai_compat_key_info": "\n  OpenAI suderinamas API raktas (išsaugokite šį!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL (nebūtina, Enter praleisti, hash grandinė veikia ir neprisijungus): ",
         "ai_act_pii_question": "AI Act PII maskavimo gylis?",
         "ai_act_pii_opts": "1) Tik regex, greita, el. paštas/telefonas/IBAN (rekomenduojama)\n2) Pilnas, Presidio+spaCy NER, taip pat vardai (reikalauja daug išteklių)",
@@ -1946,6 +2009,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Siūloma agentų konfigūracija ({file}):",
         "pack_webhooks_merged": "Webhook taisyklės pridėtos į webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook šaltiniai jau sukonfigūruoti (praleista): {sources}",
+        "pack_agents_merged": "Agentas(-ai) pridėtas(-i) į agents.yaml (nustatykite tiekėją/modelį GUI): {names}",
+        "pack_mcps_merged": "MCP serveris(-iai) pridėtas(-i) į mcps.yaml: {names}",
+        "pack_cfg_skipped": "Jau konfigūracijoje, praleista: {names}",
         "pack_mcps_header": "Siūloma MCP konfigūracija ({file}):",
         "pack_installed": "įdiegta",
     },
@@ -2019,7 +2085,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Jā, palaist visu (ieteicams)\n2) Nē, parādīt komandu",
         "openai_compat_question": "Iespējot OpenAI saderīgu API galapunktu (/v1/)?",
         "openai_compat_opts": "1) Jā, ģenerēt API atslēgu\n2) Nē, atstāt izslēgtu",
-        "openai_compat_key_info": "\n  OpenAI saderīga API atslēga (saglabājiet to!): {key}",
+        "openai_compat_key_info": "\n  OpenAI saderīga API atslēga (saglabājiet to!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL (nebūt., Enter, lai izlaistu, hash ķēde darbojas arī bezsaistē): ",
         "ai_act_pii_question": "AI Act PII maskēšanas dziļums?",
         "ai_act_pii_opts": "1) Tikai regex, ātrs, e-pasts/tālrunis/IBAN (ieteicams)\n2) Pilns, Presidio+spaCy NER, arī vārdi (prasa daudz resursu)",
@@ -2033,6 +2099,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Ieteiktā aģentu konfigurācija ({file}):",
         "pack_webhooks_merged": "Webhook noteikumi pievienoti webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook avoti jau konfigurēti (izlaists): {sources}",
+        "pack_agents_merged": "Aģents(-i) pievienots(-i) agents.yaml (iestatiet nodrošinātāju/modeli GUI): {names}",
+        "pack_mcps_merged": "MCP serveris(-i) pievienots(-i) mcps.yaml: {names}",
+        "pack_cfg_skipped": "Jau konfigurācijā, izlaists: {names}",
         "pack_mcps_header": "Ieteiktā MCP konfigurācija ({file}):",
         "pack_installed": "instalēts",
     },
@@ -2106,7 +2175,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Jah, käivita kõik (soovitatav)\n2) Ei, näita käsku",
         "openai_compat_question": "Luba OpenAI-ühilduv API lõpp-punkt (/v1/)?",
         "openai_compat_opts": "1) Jah, genereeri API võti\n2) Ei, jäta keelatuks",
-        "openai_compat_key_info": "\n  OpenAI-ühilduv API võti (salvesta see!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-ühilduv API võti (salvesta see!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL (valikuline, Enter vahelejätmiseks, räsiahel töötab ka võrguühenduseta): ",
         "ai_act_pii_question": "AI Act PII maskeerimise sügavus?",
         "ai_act_pii_opts": "1) Ainult regex, kiire, e-post/telefon/IBAN (soovitatav)\n2) Täielik, Presidio+spaCy NER, ka nimed (ressursimahukas)",
@@ -2120,6 +2189,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Soovitatav agentide seadistus ({file}):",
         "pack_webhooks_merged": "Veebikonksu reeglid lisatud faili webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Veebikonksu allikad on juba seadistatud (vahele jäetud): {sources}",
+        "pack_agents_merged": "Agent(id) lisatud faili agents.yaml (määra pakkuja/mudel GUI-s): {names}",
+        "pack_mcps_merged": "MCP-server(id) lisatud faili mcps.yaml: {names}",
+        "pack_cfg_skipped": "Juba konfiguratsioonis, vahele jäetud: {names}",
         "pack_mcps_header": "Soovitatav MCP seadistus ({file}):",
         "pack_installed": "paigaldatud",
     },
@@ -2193,7 +2265,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Tá, tosaigh gach rud (molta)\n2) Níl, taispeáin an t-ordú",
         "openai_compat_question": "Críochphointe API comhoiriúnach le OpenAI a chumasú (/v1/)?",
         "openai_compat_opts": "1) Tá, gin eochair API\n2) Níl, fág díchumasaithe",
-        "openai_compat_key_info": "\n  Eochair API comhoiriúnach le OpenAI (sábháil í!): {key}",
+        "openai_compat_key_info": "\n  Eochair API comhoiriúnach le OpenAI (sábháil í!): {api_key}",
         "ai_act_tsa_question": "URL AI Act RFC 3161 TSA (roghnach, brúigh Enter chun scipeáil, oibríonn an slabhra hais fiú as líne): ",
         "ai_act_pii_question": "Doimhneacht mhascála PII AI Act?",
         "ai_act_pii_opts": "1) Regex amháin, tapa, ríomhphost/teileafón/IBAN (molta)\n2) Iomlán, Presidio+spaCy NER, ainmneacha san áireamh (dian ar acmhainní)",
@@ -2207,6 +2279,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Cumraíocht ghníomhairí molta ({file}):",
         "pack_webhooks_merged": "Cuireadh rialacha webhook le webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Tá foinsí webhook cumraithe cheana féin (scipeáilte): {sources}",
+        "pack_agents_merged": "Gníomhaí(the) curtha le agents.yaml (socraigh soláthraí/samhail sa GUI): {names}",
+        "pack_mcps_merged": "Freastalaí(the) MCP curtha le mcps.yaml: {names}",
+        "pack_cfg_skipped": "Sa chumraíocht cheana, ligeadh thar: {names}",
         "pack_mcps_header": "Cumraíocht MCP mholta ({file}):",
         "pack_installed": "suiteáilte",
     },
@@ -2280,7 +2355,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Iva, ibda kollox (rakkomandat)\n2) Le, urini l-kmand",
         "openai_compat_question": "Attiva l-endpoint API kompatibbli mal-OpenAI (/v1/)?",
         "openai_compat_opts": "1) Iva, iġġenera ċavetta API\n2) Le, ħalli diżattivat",
-        "openai_compat_key_info": "\n  Ċavetta API kompatibbli mal-OpenAI (issejvjaha!): {key}",
+        "openai_compat_key_info": "\n  Ċavetta API kompatibbli mal-OpenAI (issejvjaha!): {api_key}",
         "ai_act_tsa_question": "URL tat-TSA RFC 3161 tal-AI Act (opzjonali, Enter biex taqbeż, il-hash chain taħdem ukoll offline): ",
         "ai_act_pii_question": "Fond tal-maskeriment PII tal-AI Act?",
         "ai_act_pii_opts": "1) Regex biss, mgħaġġel, email/telefon/IBAN (rakkomandat)\n2) Sħiħ, Presidio+spaCy NER, ukoll ismijiet (jeħtieġ ħafna riżorsi)",
@@ -2294,6 +2369,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Konfigurazzjoni tal-aġenti rrakkomandata ({file}):",
         "pack_webhooks_merged": "Regoli tal-webhook miżjuda ma' webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Is-sorsi tal-webhook diġà kkonfigurati (maqbuża): {sources}",
+        "pack_agents_merged": "Aġent(i) miżjud(a) ma' agents.yaml (issettja l-fornitur/mudell fil-GUI): {names}",
+        "pack_mcps_merged": "Server(s) MCP miżjud(a) ma' mcps.yaml: {names}",
+        "pack_cfg_skipped": "Diġà fil-konfigurazzjoni, maqbuż: {names}",
         "pack_mcps_header": "Konfigurazzjoni tal-MCP rrakkomandata ({file}):",
         "pack_installed": "installat",
     },
@@ -2367,7 +2445,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ja, start alt (anbefalt)\n2) Nei, vis meg kommandoen",
         "openai_compat_question": "Aktivere OpenAI-kompatibelt API-endepunkt (/v1/)?",
         "openai_compat_opts": "1) Ja, generer API-nøkkel\n2) Nei, la den være deaktivert",
-        "openai_compat_key_info": "\n  OpenAI-kompatibel API-nøkkel (lagre denne!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-kompatibel API-nøkkel (lagre denne!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA-URL (valgfritt, trykk Enter for å hoppe over, hash-kjeden fungerer også uten nett): ",
         "ai_act_pii_question": "Maskeringsdybde for AI Act PII?",
         "ai_act_pii_opts": "1) Kun regex, raskt, e-post/telefon/IBAN (anbefalt)\n2) Full, Presidio+spaCy NER, også navn (ressurskrevende)",
@@ -2381,6 +2459,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Foreslått agentkonfigurasjon ({file}):",
         "pack_webhooks_merged": "Webhook-regler lagt til i webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook-kilder allerede konfigurert (hoppet over): {sources}",
+        "pack_agents_merged": "Agent(er) lagt til i agents.yaml (angi leverandør/modell i GUI): {names}",
+        "pack_mcps_merged": "MCP-server(e) lagt til i mcps.yaml: {names}",
+        "pack_cfg_skipped": "Allerede i konfigurasjonen, hoppet over: {names}",
         "pack_mcps_header": "Foreslått MCP-konfigurasjon ({file}):",
         "pack_installed": "installert",
     },
@@ -2454,7 +2535,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Да, покрени све (препоручено)\n2) Не, прикажи ми команду",
         "openai_compat_question": "Омогућити OpenAI-компатибилни API endpoint (/v1/)?",
         "openai_compat_opts": "1) Да, генериши API кључ\n2) Не, остави онемогућено",
-        "openai_compat_key_info": "\n  OpenAI-компатибилни API кључ (сачувајте ово!): {key}",
+        "openai_compat_key_info": "\n  OpenAI-компатибилни API кључ (сачувајте ово!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL (опционо, притисните Ентер да прескочите, ланац хешева ради и офлајн): ",
         "ai_act_pii_question": "Дубина маскирања PII за AI Act?",
         "ai_act_pii_opts": "1) Само regex, брзо, е-пошта/телефон/IBAN (препоручено)\n2) Пуно, Presidio+spaCy NER, укључујући имена (захтева више ресурса)",
@@ -2468,6 +2549,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Предложена конфигурација агената ({file}):",
         "pack_webhooks_merged": "Webhook правила додата у webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook извори су већ конфигурисани (прескочено): {sources}",
+        "pack_agents_merged": "Агент(и) додати у agents.yaml (подесите провајдера/модел у GUI): {names}",
+        "pack_mcps_merged": "MCP сервер(и) додати у mcps.yaml: {names}",
+        "pack_cfg_skipped": "Већ у конфигурацији, прескочено: {names}",
         "pack_mcps_header": "Предложена конфигурација MCP-а ({file}):",
         "pack_installed": "инсталирано",
     },
@@ -2541,7 +2625,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Evet, hepsini başlat (önerilen)\n2) Hayır, bana komutu göster",
         "openai_compat_question": "OpenAI uyumlu API uç noktası (/v1/) etkinleştirilsin mi?",
         "openai_compat_opts": "1) Evet, API anahtarı oluştur\n2) Hayır, devre dışı bırak",
-        "openai_compat_key_info": "\n  OpenAI uyumlu API anahtarı (bunu kaydedin!): {key}",
+        "openai_compat_key_info": "\n  OpenAI uyumlu API anahtarı (bunu kaydedin!): {api_key}",
         "ai_act_tsa_question": "AI Act RFC 3161 TSA URL'si (isteğe bağlı, atlamak için Enter, hash zinciri çevrimdışı da çalışır): ",
         "ai_act_pii_question": "AI Act PII maskeleme derinliği?",
         "ai_act_pii_opts": "1) Yalnızca regex, hızlı, e-posta/telefon/IBAN (önerilen)\n2) Tam, Presidio+spaCy NER, isimler dahil (kaynak yoğun)",
@@ -2555,6 +2639,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Önerilen aracı yapılandırması ({file}):",
         "pack_webhooks_merged": "Webhook kuralları webhooks.yaml dosyasına eklendi: {sources}",
         "pack_webhooks_skipped": "Webhook kaynakları zaten yapılandırılmış (atlandı): {sources}",
+        "pack_agents_merged": "agents.yaml dosyasına ajan(lar) eklendi (sağlayıcı/modeli GUI'de ayarlayın): {names}",
+        "pack_mcps_merged": "mcps.yaml dosyasına MCP sunucu(ları) eklendi: {names}",
+        "pack_cfg_skipped": "Zaten yapılandırmada, atlandı: {names}",
         "pack_mcps_header": "Önerilen MCP yapılandırması ({file}):",
         "pack_installed": "kuruldu",
     },
@@ -2603,7 +2690,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) はい、すべて起動する（推奨）\n2) いいえ、コマンドを表示",
         "openai_compat_question": "OpenAI互換API(/v1/)を有効にしますか？",
         "openai_compat_opts": "1) はい, APIキーを生成\n2) いいえ, 無効のまま",
-        "openai_compat_key_info": "\n  OpenAI互換 APIキー（保存してください）: {key}",
+        "openai_compat_key_info": "\n  OpenAI互換 APIキー（保存してください）: {api_key}",
         "ai_act_tsa_question": "AI法 RFC 3161 TSA URL（任意、Enter=スキップ, ハッシュチェーンはオフラインでも動作します）: ",
         "ai_act_pii_question": "AI法 PII マスキングの深度?",
         "ai_act_pii_opts": "1) 正規表現のみ, 高速（推奨）\n2) 完全, Presidio+spaCy NER、名前も（リソース集約型）",
@@ -2642,6 +2729,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "推奨エージェント設定 ({file}):",
         "pack_webhooks_merged": "Webhookルールをwebhooks.yamlに追加しました: {sources}",
         "pack_webhooks_skipped": "Webhookソースはすでに設定済みです（スキップ）: {sources}",
+        "pack_agents_merged": "agents.yaml にエージェントを追加しました（プロバイダー/モデルは GUI で設定）: {names}",
+        "pack_mcps_merged": "mcps.yaml に MCP サーバーを追加しました: {names}",
+        "pack_cfg_skipped": "すでに設定にあります、スキップ: {names}",
         "pack_mcps_header": "推奨MCP設定 ({file}):",
         "pack_installed": "インストール済み",
     },
@@ -2690,7 +2780,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) 是，立即启动所有内容（推荐）\n2) 否，显示命令",
         "openai_compat_question": "启用 OpenAI 兼容 API (/v1/)?",
         "openai_compat_opts": "1) 是, 生成 API 密钥\n2) 否, 保持禁用",
-        "openai_compat_key_info": "\n  OpenAI 兼容 API 密钥（请保存！）: {key}",
+        "openai_compat_key_info": "\n  OpenAI 兼容 API 密钥（请保存！）: {api_key}",
         "ai_act_tsa_question": "AI法案 RFC 3161 TSA URL（可选，回车=跳过, 哈希链离线也可使用）: ",
         "ai_act_pii_question": "AI法案 PII 掩码深度?",
         "ai_act_pii_opts": "1) 仅正则表达式, 快速（推荐）\n2) 完整, Presidio+spaCy NER，含姓名（资源密集型）",
@@ -2729,6 +2819,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "建议的代理配置 ({file})：",
         "pack_webhooks_merged": "Webhook规则已添加到webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Webhook来源已配置（已跳过）: {sources}",
+        "pack_agents_merged": "已将代理添加到 agents.yaml（在 GUI 中设置提供商/模型）：{names}",
+        "pack_mcps_merged": "已将 MCP 服务器添加到 mcps.yaml：{names}",
+        "pack_cfg_skipped": "已在配置中，已跳过：{names}",
         "pack_mcps_header": "建议的 MCP 配置 ({file})：",
         "pack_installed": "已安装",
     },
@@ -2777,7 +2870,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) 예, 모두 시작 (권장)\n2) 아니요, 명령 표시",
         "openai_compat_question": "OpenAI 호환 API(/v1/)를 활성화하시겠습니까?",
         "openai_compat_opts": "1) 예, API 키 생성\n2) 아니요, 비활성 상태 유지",
-        "openai_compat_key_info": "\n  OpenAI 호환 API 키 (저장하세요!): {key}",
+        "openai_compat_key_info": "\n  OpenAI 호환 API 키 (저장하세요!): {api_key}",
         "ai_act_tsa_question": "AI법 RFC 3161 TSA URL (선택사항, Enter=건너뜀, 해시 체인은 오프라인에서도 작동): ",
         "ai_act_pii_question": "AI법 PII 마스킹 깊이?",
         "ai_act_pii_opts": "1) 정규식만, 빠름（권장）\n2) 전체, Presidio+spaCy NER, 이름 포함（리소스 집약적）",
@@ -2816,6 +2909,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "권장 에이전트 구성 ({file}):",
         "pack_webhooks_merged": "Webhook 규칙이 webhooks.yaml에 추가되었습니다: {sources}",
         "pack_webhooks_skipped": "Webhook 소스가 이미 구성되어 있습니다 (건너뜀): {sources}",
+        "pack_agents_merged": "agents.yaml에 에이전트를 추가했습니다 (GUI에서 공급자/모델 설정): {names}",
+        "pack_mcps_merged": "mcps.yaml에 MCP 서버를 추가했습니다: {names}",
+        "pack_cfg_skipped": "이미 구성에 있음, 건너뜀: {names}",
         "pack_mcps_header": "권장 MCP 구성 ({file}):",
         "pack_installed": "설치됨",
     },
@@ -2864,7 +2960,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "start_opts": "1) Ndiyo, anzisha kila kitu (inapendekezwa)\n2) Hapana, nionyeshe amri",
         "openai_compat_question": "Wezesha API inayoendana na OpenAI (/v1/)?",
         "openai_compat_opts": "1) Ndiyo, tengeneza ufunguo wa API\n2) Hapana, acha imezimwa",
-        "openai_compat_key_info": "\n  Ufunguo wa API inayoendana na OpenAI (hifadhi!): {key}",
+        "openai_compat_key_info": "\n  Ufunguo wa API inayoendana na OpenAI (hifadhi!): {api_key}",
         "ai_act_tsa_question": "URL ya TSA ya RFC 3161 ya Sheria ya AI (si lazima, Enter=ruka, mnyororo wa hash unafanya kazi bila mtandao): ",
         "ai_act_pii_question": "Kina cha kufunika PII cha Sheria ya AI?",
         "ai_act_pii_opts": "1) Regex peke yake, haraka (inapendekezwa)\n2) Kamili, Presidio+spaCy NER, majina pia (inahitaji rasilimali)",
@@ -2903,6 +2999,9 @@ LANGS: Dict[str, Dict[str, str]] = {
         "pack_agents_header": "Mipangilio ya wakala iliyopendekezwa ({file}):",
         "pack_webhooks_merged": "Sheria za webhook zimeongezwa kwenye webhooks.yaml: {sources}",
         "pack_webhooks_skipped": "Vyanzo vya webhook tayari vimewekwa (vimepuuzwa): {sources}",
+        "pack_agents_merged": "Wakala wameongezwa kwenye agents.yaml (weka mtoa huduma/modeli kwenye GUI): {names}",
+        "pack_mcps_merged": "Seva za MCP zimeongezwa kwenye mcps.yaml: {names}",
+        "pack_cfg_skipped": "Tayari kwenye usanidi, imerukwa: {names}",
         "pack_mcps_header": "Mipangilio ya MCP iliyopendekezwa ({file}):",
         "pack_installed": "imesanikishwa",
     },
@@ -2999,6 +3098,7 @@ MODULES = [
         "label": "STT/TTS backend (Wyoming Whisper + Piper + OmniVoice)",
         "required": False,
         "satellite": True,
+        "default_selected": True,
         # Wyoming Whisper/Piper are shared with the `mic` layer (both on the
         # `mic` + `stt-tts` profiles); OmniVoice adds neural TTS. The orchestrator
         # voice tools reach Whisper/Piper over the Wyoming protocol on quorum-net.
@@ -3662,7 +3762,7 @@ def _customize_mic_compose(install_dir: Path, modules: List[dict], s: Optional[D
     uid = os.getuid() if hasattr(os, "getuid") else 1000
     mic_path = install_dir / "bridges" / "mic" / "compose.yml"
     mic_path.parent.mkdir(parents=True, exist_ok=True)
-    mic_path.write_text(_build_mic_compose(os_type, uid))
+    mic_path.write_text(_build_mic_compose(os_type, uid), encoding="utf-8")
 
 
 def _setup_mic_host(modules: List[dict], s: Optional[Dict[str, str]] = None) -> None:
@@ -3816,6 +3916,23 @@ def get_key() -> str:
     return ch
 
 
+def _term_cols() -> int:
+    try:
+        import shutil
+        return shutil.get_terminal_size((80, 24)).columns
+    except Exception:
+        return 80
+
+
+def _fit_width(text: str, budget: int) -> str:
+    """Truncate a menu line so it never wraps onto a second physical row — the
+    arrow-key redraw moves the cursor up by a fixed line count, so a wrapped
+    (multi-row) option desyncs the redraw and re-prints the title. ANSI colour
+    codes are added by the caller and are zero-width, so only visible text counts."""
+    budget = max(8, budget)
+    return text if len(text) <= budget else text[:budget - 1] + "…"
+
+
 def run_menu(title: str, options: List[str], default: int = 0) -> int:
     """Single-select arrow-key menu. Returns the index of the selected option.
 
@@ -3829,12 +3946,14 @@ def run_menu(title: str, options: List[str], default: int = 0) -> int:
         if not first_run:
             sys.stdout.write(f"\033[{total + 1}A")
         first_run = False
-        sys.stdout.write(f"  {title}{_MENU_CLR}\n")
+        _w = _term_cols()
+        sys.stdout.write(f"  {_fit_width(title, _w - 3)}{_MENU_CLR}\n")
         for i, opt in enumerate(options):
+            o = _fit_width(opt, _w - 6)
             if i == selected:
-                sys.stdout.write(f"{_MENU_GREEN}  ➢  {opt}{_MENU_RESET}{_MENU_CLR}\n")
+                sys.stdout.write(f"{_MENU_GREEN}  ➢  {o}{_MENU_RESET}{_MENU_CLR}\n")
             else:
-                sys.stdout.write(f"     {opt}{_MENU_CLR}\n")
+                sys.stdout.write(f"     {o}{_MENU_CLR}\n")
         sys.stdout.flush()
         key = get_key()
         if key == '\x1b[A':
@@ -3862,13 +3981,15 @@ def run_checkbox(title: str, options: List[str], init: List[bool],
         if not first_run:
             sys.stdout.write(f"\033[{total + 1}A")
         first_run = False
-        sys.stdout.write(f"  {title}{_MENU_CLR}\n")
+        _w = _term_cols()
+        sys.stdout.write(f"  {_fit_width(title, _w - 3)}{_MENU_CLR}\n")
         for i, (opt, sel) in enumerate(zip(options, selected)):
             mark = "x" if sel else " "
+            o = _fit_width(opt, _w - 10)
             if i == cursor:
-                sys.stdout.write(f"{_MENU_GREEN}  ➫  [{mark}] {opt}{_MENU_RESET}{_MENU_CLR}\n")
+                sys.stdout.write(f"{_MENU_GREEN}  ➫  [{mark}] {o}{_MENU_RESET}{_MENU_CLR}\n")
             else:
-                sys.stdout.write(f"     [{mark}] {opt}{_MENU_CLR}\n")
+                sys.stdout.write(f"     [{mark}] {o}{_MENU_CLR}\n")
         sys.stdout.flush()
         key = get_key()
         if key == '\x1b[A':
@@ -4547,8 +4668,160 @@ def select_industry_pack(s: Dict[str, str], existing_packs: Optional[List[str]] 
     return ids
 
 
+def _yaml_list_items(text: str, src_key: Optional[str]):
+    """Split the top-level list under `src_key` (or a bare top-level list when
+    src_key is None) into item blocks. Returns (items, item_indent). Pure-stdlib
+    text parser for our own simple pack/config YAML — the installer must NOT
+    require PyYAML (absent on a stdlib-only Windows Python)."""
+    lines = text.split("\n")
+    start = 0
+    if src_key:
+        for i, ln in enumerate(lines):
+            if re.match(rf'^{re.escape(src_key)}\s*:', ln):
+                start = i + 1
+                break
+        else:
+            return [], None
+    body = []
+    for ln in lines[start:]:
+        if src_key and re.match(r'^[A-Za-z_][\w-]*\s*:', ln):
+            break  # next top-level key ends the section
+        body.append(ln)
+    item_indent = None
+    for ln in body:
+        m = re.match(r'^(\s*)-\s', ln)
+        if m:
+            item_indent = len(m.group(1))
+            break
+    if item_indent is None:
+        return [], None
+    marker = " " * item_indent + "-"
+    items, cur = [], []
+    for ln in body:
+        if ln.startswith(marker) and (len(ln) == len(marker) or ln[len(marker)] == " "):
+            if cur:
+                items.append("\n".join(cur).rstrip("\n"))
+            cur = [ln]
+        elif cur:
+            cur.append(ln)
+    if cur:
+        items.append("\n".join(cur).rstrip("\n"))
+    return items, item_indent
+
+
+def _yaml_item_id(block: str, field: str) -> Optional[str]:
+    m = re.search(rf'(?m)^\s*(?:-\s+)?{re.escape(field)}\s*:\s*["\']?([^"\'\s#]+)', block)
+    return m.group(1) if m else None
+
+
+def _reindent_block(block: str, delta: int) -> str:
+    if delta == 0:
+        return block
+    out = []
+    for ln in block.split("\n"):
+        if not ln.strip():
+            out.append(ln)
+        elif delta > 0:
+            out.append(" " * delta + ln)
+        else:
+            n = 0
+            while n < -delta and n < len(ln) and ln[n] == " ":
+                n += 1
+            out.append(ln[n:])
+    return "\n".join(out)
+
+
+def _merge_yaml_list(target_path: Path, pack_text: str, src_key: Optional[str],
+                     target_key: str, id_field: str, require_field: Optional[str] = None):
+    """Append list items from pack_text into target_path's `target_key:` list,
+    dedup by id_field, re-indenting to the target's indentation. Stdlib only, so
+    it works on a Windows Python without PyYAML. `require_field`: only add items
+    that contain that field (e.g. 'url' to skip a url-less built-in entry).
+    Returns (added_ids, skipped_ids)."""
+    new_items, pack_indent = _yaml_list_items(pack_text, src_key)
+    if not new_items:
+        return [], []
+    text = target_path.read_text(encoding="utf-8") if target_path.exists() else f"{target_key}:\n"
+    exist_items, tgt_indent = _yaml_list_items(text, target_key)
+    existing_ids = set(filter(None, (_yaml_item_id(b, id_field) for b in exist_items)))
+    empty_inline = re.search(rf'(?m)^{re.escape(target_key)}\s*:\s*\[\s*\]\s*$', text)
+    if tgt_indent is None:
+        tgt_indent = 2 if empty_inline else 0
+    added, skipped, blocks = [], [], []
+    for b in new_items:
+        nm = _yaml_item_id(b, id_field)
+        if not nm:
+            continue
+        if require_field and not re.search(rf'(?m)^\s*{re.escape(require_field)}\s*:', b):
+            continue
+        if nm in existing_ids:
+            skipped.append(nm)
+            continue
+        existing_ids.add(nm)
+        added.append(nm)
+        blocks.append(_reindent_block(b, tgt_indent - pack_indent))
+    if not added:
+        return added, skipped
+    if empty_inline:
+        text = re.sub(rf'(?m)^{re.escape(target_key)}\s*:\s*\[\s*\]\s*$', f"{target_key}:", text)
+    if not text.endswith("\n"):
+        text += "\n"
+    text += "\n".join(blocks) + "\n"
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_text(text, encoding="utf-8")
+    return added, skipped
+
+
+def _merge_pack_agents(install_dir: Path, content: str, s: Dict[str, str]) -> None:
+    """Merge a pack's agent definitions into data/orchestrator/agents.yaml
+    (dedup by name; existing agents are never overwritten). Agents keep the
+    pack's suggested provider/model — adjust them in the GUI Agent Builder."""
+    path = install_dir / "data" / "orchestrator" / "agents.yaml"
+    added, skipped = _merge_yaml_list(path, content, "agents", "agents", "name")
+    if added:
+        print(f"\n  {t(s, 'pack_agents_merged', names=', '.join(added))}")
+    if skipped:
+        print(f"  {t(s, 'pack_cfg_skipped', names=', '.join(skipped))}")
+
+
+def _merge_pack_mcps(install_dir: Path, content: str, s: Dict[str, str]) -> None:
+    """Merge a pack's MCP servers into data/orchestrator/mcps.yaml (top-level
+    key 'servers'; dedup by name). Pack files use 'mcps:' while the live file
+    uses 'servers:' — read whichever the pack has. Entries without a url (e.g.
+    the built-in 'knowledge' note) are skipped."""
+    src_key = "mcps" if re.search(r'(?m)^mcps\s*:', content) else "servers"
+    path = install_dir / "data" / "orchestrator" / "mcps.yaml"
+    added, skipped = _merge_yaml_list(path, content, src_key, "servers", "name", require_field="url")
+    if added:
+        print(f"\n  {t(s, 'pack_mcps_merged', names=', '.join(added))}")
+    if skipped:
+        print(f"  {t(s, 'pack_cfg_skipped', names=', '.join(skipped))}")
+
+
+def _pack_required_module_ids(pack_ids: List[str]) -> set:
+    """Map selected packs' requires_mcps to installable module ids (for
+    pre-selecting them in the module picker). Built-ins (knowledge/memory/tasks)
+    are not modules; grafana-ops-mcp is part of the grafana-mcp profile."""
+    module_ids = {m["id"] for m in MODULES}
+    alias = {"grafana-ops-mcp": "grafana-mcp"}
+    builtin = {"knowledge", "memory", "tasks"}
+    packs = _discover_packs()
+    result: set = set()
+    for pid in pack_ids:
+        pack = next((p for p in packs if p["id"] == pid), None)
+        if not pack:
+            continue
+        for req in pack.get("requires_mcps", []) or []:
+            req = alias.get(req, req)
+            if req in builtin:
+                continue
+            if req in module_ids:
+                result.add(req)
+    return result
+
+
 def install_industry_pack(pack_id: str, install_dir: Path, s: Dict[str, str]) -> None:
-    """Copy skill files and print suggested configs for the selected pack."""
+    """Copy skill files and merge agents/mcps/webhooks into the live config."""
     if not pack_id:
         return
     packs = _discover_packs(install_dir)
@@ -4589,49 +4862,24 @@ def install_industry_pack(pack_id: str, install_dir: Path, s: Dict[str, str]) ->
         print(f"  {t(s, 'pack_requires_mcps_hint')}")
 
     if agents_content.strip():
-        print(f"\n  {t(s, 'pack_agents_header', file=pack.get('agents_yaml', 'agents.yaml'))}")
-        print("  ─────────────────────────────────────")
-        print(agents_content)
+        _merge_pack_agents(install_dir, agents_content, s)
 
-    if mcps_content.strip() and "mcps: []" not in mcps_content:
-        print(f"\n  {t(s, 'pack_mcps_header', file=pack.get('mcps_yaml', 'mcps.yaml'))}")
-        print("  ─────────────────────────────────────")
-        print(mcps_content)
+    if mcps_content.strip():
+        _merge_pack_mcps(install_dir, mcps_content, s)
 
     # Merge webhook rules from pack's webhooks/*.yaml into data/orchestrator/webhooks.yaml
     webhook_files = {k: v for k, v in files.items() if k.startswith("webhooks/") and k.endswith(".yaml")}
     if webhook_files:
-        import yaml as _yaml
         wh_path = install_dir / "data" / "orchestrator" / "webhooks.yaml"
-        try:
-            existing_wh = _yaml.safe_load(wh_path.read_text(encoding="utf-8")) or {} if wh_path.exists() else {}
-        except Exception:
-            existing_wh = {}
-        existing_sources = {e.get("source") for e in existing_wh.get("webhooks", []) if e.get("source")}
-        merged, skipped = [], []
-        for rel, content in webhook_files.items():
-            try:
-                entries = _yaml.safe_load(content) or []
-                if isinstance(entries, list):
-                    for entry in entries:
-                        src = entry.get("source", "")
-                        if not src:
-                            continue
-                        if src in existing_sources:
-                            skipped.append(src)
-                        else:
-                            existing_wh.setdefault("webhooks", []).append(entry)
-                            existing_sources.add(src)
-                            merged.append(src)
-            except Exception:
-                pass
-        if merged or skipped:
-            wh_path.parent.mkdir(parents=True, exist_ok=True)
-            wh_path.write_text(_yaml.dump(existing_wh, allow_unicode=True, default_flow_style=False, sort_keys=False), encoding="utf-8")
+        merged, wh_skipped = [], []
+        for rel, wh_content in sorted(webhook_files.items()):
+            a, sk = _merge_yaml_list(wh_path, wh_content, None, "webhooks", "source")
+            merged += a
+            wh_skipped += sk
         if merged:
             print(f"\n  {t(s, 'pack_webhooks_merged', sources=', '.join(merged))}")
-        if skipped:
-            print(f"  {t(s, 'pack_webhooks_skipped', sources=', '.join(skipped))}")
+        if wh_skipped:
+            print(f"  {t(s, 'pack_webhooks_skipped', sources=', '.join(wh_skipped))}")
 
 
 # ── Secret auto-generation helpers ───────────────────────────────────────────
@@ -4862,7 +5110,7 @@ def parse_env_file(path: Path) -> Dict[str, str]:
     env: Dict[str, str] = {}
     if not path.exists():
         return env
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
@@ -4881,7 +5129,7 @@ def create_data_dirs(install_dir: Path, modules: List[dict]) -> None:
         for rel, content in m.get("data_files", {}).items():
             f = install_dir / rel
             if not f.exists():
-                f.write_text(content)
+                f.write_text(content, encoding="utf-8")
 
 # ── Host module setup ─────────────────────────────────────────────────────────
 
@@ -5076,7 +5324,7 @@ def _ask_ai_act_pii(s: Dict[str, str], existing_env: Dict[str, str]) -> str:
     """
     if not _FANCY_MENU:
         return _env_default("AI_ACT_PII_MODE", existing_env.get("AI_ACT_PII_MODE", ""))
-    opts = [re.sub(r"^\d+\)\s*", "", o) for o in t(s, "ai_act_pii_opts").split("\\n")]
+    opts = [re.sub(r"^\d+\)\s*", "", o) for o in t(s, "ai_act_pii_opts").split("\n")]
     existing = existing_env.get("AI_ACT_PII_MODE", "")
     default_idx = 1 if existing == "full" else 0
     idx = run_menu(t(s, "ai_act_pii_question"), opts, default=default_idx)
@@ -5117,12 +5365,12 @@ def setup_install_dir(install_dir: Path, modules: List[dict], satellite: bool = 
                 content = COMPOSE_FILES[rel]
                 if satellite and rel.startswith("mcps/"):
                     content = _strip_loopback(content)
-                dst.write_text(content)
+                dst.write_text(content, encoding="utf-8")
         else:
             src_f = src / rel
             if src_f.exists():
                 if satellite and rel.startswith("mcps/"):
-                    dst.write_text(_strip_loopback(src_f.read_text()))
+                    dst.write_text(_strip_loopback(src_f.read_text(encoding="utf-8")), encoding="utf-8")
                 else:
                     import shutil as _shutil
                     _shutil.copy2(src_f, dst)
@@ -5137,7 +5385,7 @@ def setup_install_dir(install_dir: Path, modules: List[dict], satellite: bool = 
         if use_embedded:
             content = ENV_EXAMPLE_FILES.get(".env.example", "")
             if content:
-                env_example_dst.write_text(content)
+                env_example_dst.write_text(content, encoding="utf-8")
         else:
             src_f = src / ".env.example"
             if src_f.exists():
@@ -5199,10 +5447,10 @@ def modify_mode(s: Dict[str, str], install_dir: Path) -> None:
 
     print(t(s, "writing_files"))
     env_content = build_env(new_modules, ports, env_vars, existing_env, provider_keys=provider_keys)
-    env_path.write_text(env_content)
+    env_path.write_text(env_content, encoding="utf-8")
     print(t(s, "env_written", path=env_path))
     if compat_key:
-        print(t(s, "openai_compat_key_info", key=compat_key))
+        print(t(s, "openai_compat_key_info", api_key=compat_key))
 
     _customize_mic_compose(install_dir, new_modules, s)
     _setup_mic_host(new_modules, s)
@@ -5257,7 +5505,17 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
             f"  ORCHESTRATOR_API_KEY ({t(s, 'satellite_api_key_prompt')})"
         )
 
-    modules = select_modules(s, satellite=satellite)
+    # Industry pack is chosen BEFORE modules so its required MCP modules can be
+    # pre-selected in the module picker (rather than reported after the fact).
+    pack_ids: List[str] = []
+    if not satellite:
+        pack_ids = select_industry_pack(s)
+    preselect: Optional[List[str]] = None
+    if pack_ids:
+        _pm = _pack_required_module_ids(pack_ids)
+        _defaults = {m["id"] for m in MODULES if m.get("default_selected")}
+        preselect = sorted(_pm | _defaults)
+    modules = select_modules(s, preselected=preselect, satellite=satellite)
     ports = configure_ports(s, modules, {})
     env_vars = collect_env_vars(s, modules, {})
     if satellite_api_key:
@@ -5266,10 +5524,8 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
         env_vars.update(_ask_wake_word(s, {}))
     _apply_generated_secrets(env_vars, s)
     provider_keys: Dict[str, str] = {}
-    pack_ids: List[str] = []
     if not satellite:
         provider_keys = collect_provider_keys(s, {})
-        pack_ids = select_industry_pack(s)
 
     compat_key = ""
     if not satellite and any(m["id"] == "orchestrator" for m in modules):
@@ -5282,10 +5538,10 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
     print(t(s, "writing_files"))
     env_content = build_env(modules, ports, env_vars, {}, orchestrator_url=orchestrator_url, provider_keys=provider_keys, satellite=satellite)
     env_path = install_dir / ".env"
-    env_path.write_text(env_content)
+    env_path.write_text(env_content, encoding="utf-8")
     print(t(s, "env_written", path=env_path))
     if compat_key:
-        print(t(s, "openai_compat_key_info", key=compat_key))
+        print(t(s, "openai_compat_key_info", api_key=compat_key))
 
     setup_install_dir(install_dir, modules, satellite=satellite)
     _customize_mic_compose(install_dir, modules, s)

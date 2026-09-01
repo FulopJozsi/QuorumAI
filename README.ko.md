@@ -8,6 +8,14 @@ QuorumAI는 LangGraph 기반의 모듈식 자체 호스팅 멀티 에이전트 A
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">여기서 시작하기 — 30일 무료 체험을 위해 가입하세요 »</a></b></p>
+</div>
+
+---
+
 ## QuorumAI란?
 
 QuorumAI는 하나 이상의 LLM을 AI 에이전트 팀으로 변환합니다. 이 팀은 다음을 수행할 수 있습니다:

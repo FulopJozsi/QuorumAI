@@ -8,6 +8,14 @@ QuorumAIは、LangGraph上に構築されたモジュール式のセルフホス
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">ここから始める — 登録して30日間の無料トライアルを »</a></b></p>
+</div>
+
+---
+
 ## QuorumAIとは
 
 QuorumAIは1つ以上のLLMをAIエージェントのチームに変換します。このチームは以下のことができます。

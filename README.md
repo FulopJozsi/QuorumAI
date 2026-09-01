@@ -8,6 +8,14 @@ QuorumAI is a modular, self-hosted multi-agent AI orchestration system built on 
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">Get started — sign up for a 30-day free trial »</a></b></p>
+</div>
+
+---
+
 ## What is QuorumAI
 
 QuorumAI turns one or more LLMs into a team of AI agents that can hold conversations, use tools, remember what happened, and act autonomously — self-hosted end to end in Docker, with no lock-in to a single AI vendor. Agents, skills, MCP servers, and schedules all live in YAML config underneath, but nothing has to be hand-edited: the GUI's Agent Builder, Skill Editor, and MCP Manager let you create and change all of it at runtime, with no code changes and no restart.

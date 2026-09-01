@@ -8,6 +8,14 @@ QuorumAI to modularny, samodzielnie hostowany system orkiestracji wielu agentów
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">Zacznij tutaj — zarejestruj się na 30-dniowy bezpłatny okres próbny »</a></b></p>
+</div>
+
+---
+
 ## Czym jest QuorumAI?
 
 QuorumAI zamienia jeden lub więcej LLM w zespół agentów AI, który potrafi:

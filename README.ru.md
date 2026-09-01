@@ -8,6 +8,14 @@ QuorumAI — это модульная система оркестрации м�
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">Начните здесь — зарегистрируйтесь на 30-дневный бесплатный пробный период »</a></b></p>
+</div>
+
+---
+
 ## Что такое QuorumAI
 
 QuorumAI превращает один или несколько LLM в команду ИИ-агентов, которая умеет:

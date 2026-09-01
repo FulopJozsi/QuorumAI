@@ -8,6 +8,14 @@ QuorumAI — це модульна система оркестрації мул�
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">Почніть тут — зареєструйтеся на 30-денний безкоштовний пробний період »</a></b></p>
+</div>
+
+---
+
 ## Що таке QuorumAI?
 
 QuorumAI перетворює один або кілька LLM на команду ШІ-агентів, яка вміє:

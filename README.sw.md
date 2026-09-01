@@ -8,6 +8,14 @@ QuorumAI ni mfumo wa kupanga mawakala wengi wa AI, unaoweza kujihifadhi mwenyewe
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">Anza hapa — jisajili kupata jaribio la bure la siku 30 »</a></b></p>
+</div>
+
+---
+
 ## QuorumAI ni nini
 
 QuorumAI hubadilisha LLM moja au zaidi kuwa timu ya mawakala wa AI ambao wanaweza:

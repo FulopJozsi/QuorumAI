@@ -8,6 +8,14 @@ QuorumAI 是一个基于 LangGraph 构建的模块化自托管多智能体 AI �
 
 ---
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">立即开始 — 注册 30 天免费试用 »</a></b></p>
+</div>
+
+---
+
 ## QuorumAI 是什么
 
 QuorumAI 将一个或多个 LLM 转变为 AI 智能体团队，能够：

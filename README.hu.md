@@ -10,6 +10,8 @@ A QuorumAI egy moduláris, saját szerveren futtatható, multi-agent AI orchestr
 
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
+
+  <p><b><a href="https://license.quorumai.eu/portal/register">Kezdd itt — regisztráció és 30 napos ingyenes trial »</a></b></p>
 </div>
 
 ---

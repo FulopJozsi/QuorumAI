@@ -130,62 +130,84 @@ if ($hypervisorPresent) {
 
 Write-Host ""
 
-# ── WSL2 / Hyper-V backend ──────────────────────────────────────────────────────
+# ── Docker backend (WSL2 / Hyper-V / Docker VMM) ─────────────────────────────────
 
-Write-Host "  WSL2 / Hyper-V backend ellenőrzés..." -ForegroundColor White
+Write-Host "  Docker backend ellenőrzés..." -ForegroundColor White
 
-# WSL2 elérhető-e (a Docker Desktop ajánlott/alapértelmezett backendje).
-$wslOk = $false
-if (Test-Command "wsl") {
+function Get-FeatureEnabled($name) {
     try {
-        & wsl --status 2>&1 | Out-Null
-        if ($LASTEXITCODE -eq 0) { $wslOk = $true }
-    } catch { }
+        $f = Get-WindowsOptionalFeature -Online -FeatureName $name -ErrorAction SilentlyContinue
+        return ($f -and $f.State -eq "Enabled")
+    } catch { return $false }
 }
 
-# Hyper-V feature (csak Pro/Enterprise; a lekérdezés admin jogot kérhet).
-$hypervOk = $false
-try {
-    $hv = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -ErrorAction SilentlyContinue
-    if ($hv -and $hv.State -eq "Enabled") { $hypervOk = $true }
-} catch { }
+# WSL2 elérhető-e (a legmegbízhatóbb backend, Home kiadáson is).
+$wslOk = $false
+if (Test-Command "wsl") {
+    try { & wsl --status 2>&1 | Out-Null; if ($LASTEXITCODE -eq 0) { $wslOk = $true } } catch { }
+}
 
 if ($wslOk) {
-    Write-Step-OK "WSL2 elérhető — a Docker Desktop ezt fogja használni."
-} elseif ($hypervOk) {
-    Write-Step-OK "Hyper-V engedélyezve — a Docker Desktop backendje meglesz."
-    Write-Step-Info "(A WSL2 ajánlottabb; Home kiadáson a WSL2 az egyetlen opció.)"
+    Write-Step-OK "WSL2 elérhető — a Docker Desktop ezt tudja használni."
 } else {
-    Write-Step-Info "Sem WSL2, sem Hyper-V nincs. WSL2 telepítése (ajánlott backend)..."
-    Write-Host ""
+    # Gyakori buktató: a Hyper-V 'engedélyezettnek' látszik, de a Docker Desktop
+    # (WSL2 / Docker VMM backend) mégsem indul, mert hiányzik a VirtualMachinePlatform
+    # / HypervisorPlatform, vagy a hypervisor nem indul boot-kor. Ezeket biztosítjuk.
     if (-not (Test-Admin)) {
-        Write-Step-Fail "A WSL2 telepítéséhez ADMIN jog kell."
+        Write-Step-Fail "A Docker backend előkészítéséhez ADMIN jog kell."
         Write-Step-Info "Indítsd újra a telepítőt rendszergazdaként (jobb klikk → Futtatás rendszergazdaként)."
         Read-Host "  Nyomj Entert a kilépéshez"
         exit 1
     }
-    if (Test-Command "wsl") {
-        try {
-            # Win10 2004+ / Win11: egy lépésben WSL2 + Virtual Machine Platform + distro.
-            wsl --install
-            Write-Host ""
-            Write-Step-OK "WSL2 telepítés elindítva."
-        } catch {
-            Write-Step-Fail "wsl --install sikertelen: $_"
-            Write-Step-Info "Régebbi Windowson kézzel (admin PowerShell):"
-            Write-Step-Info "  dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
-            Write-Step-Info "  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart"
-            Write-Step-Info "  WSL2 kernel: https://aka.ms/wsl2kernel , majd: wsl --set-default-version 2"
-        }
+
+    $needReboot = $false
+
+    # 1) Virtual Machine Platform (WSL2 + Docker VMM)
+    if (Get-FeatureEnabled "VirtualMachinePlatform") {
+        Write-Step-OK "VirtualMachinePlatform már engedélyezve."
     } else {
-        Write-Step-Fail "A 'wsl' parancs nem elérhető (régi Windows build?)."
-        Write-Step-Info "Frissítsd a Windowst, vagy telepítsd kézzel: https://aka.ms/wsl"
+        Write-Step-Info "VirtualMachinePlatform engedélyezése..."
+        try { Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart -ErrorAction Stop | Out-Null; $needReboot = $true; Write-Step-OK "VirtualMachinePlatform bekapcsolva." }
+        catch { Write-Step-Fail "VirtualMachinePlatform: $_" }
     }
-    Write-Host ""
-    Write-Step-Info "FONTOS: a WSL2 telepítés ÚJRAINDÍTÁST igényel."
-    Write-Step-Info "Indítsd újra a gépet, majd futtasd ÚJRA ezt a telepítőt — innen folytatódik."
-    Read-Host "  Nyomj Entert a kilépéshez (és indítsd újra a gépet)"
-    exit 0
+
+    # 2) Windows Hypervisor Platform (Docker VMM backend)
+    if (Get-FeatureEnabled "HypervisorPlatform") {
+        Write-Step-OK "HypervisorPlatform már engedélyezve."
+    } else {
+        Write-Step-Info "HypervisorPlatform engedélyezése (Docker VMM)..."
+        try { Enable-WindowsOptionalFeature -Online -FeatureName HypervisorPlatform -NoRestart -ErrorAction Stop | Out-Null; $needReboot = $true; Write-Step-OK "HypervisorPlatform bekapcsolva." }
+        catch { Write-Step-Fail "HypervisorPlatform: $_" }
+    }
+
+    # 3) A hypervisor induljon el boot-kor (hypervisorlaunchtype = Auto)
+    $hlt = (& bcdedit /enum 2>$null | Select-String -Pattern "hypervisorlaunchtype")
+    if ($hlt -and ($hlt -match "Auto")) {
+        Write-Step-OK "hypervisorlaunchtype már Auto."
+    } else {
+        Write-Step-Info "hypervisorlaunchtype = Auto (a hypervisor boot-kor induljon)..."
+        try { & bcdedit /set hypervisorlaunchtype auto | Out-Null; $needReboot = $true; Write-Step-OK "hypervisorlaunchtype = Auto beállítva." }
+        catch { Write-Step-Fail "bcdedit hypervisorlaunchtype: $_" }
+    }
+
+    # 4) WSL2 telepítése, ha a 'wsl' parancs sincs
+    if (-not (Test-Command "wsl")) {
+        Write-Step-Info "WSL2 telepítése (wsl --install)..."
+        try { wsl --install | Out-Null; $needReboot = $true; Write-Step-OK "WSL2 telepítés elindítva." }
+        catch {
+            Write-Step-Fail "wsl --install sikertelen: $_"
+            Write-Step-Info "Kézzel: dism /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
+            Write-Step-Info "kernel: https://aka.ms/wsl2kernel , majd: wsl --set-default-version 2"
+        }
+    }
+
+    if ($needReboot) {
+        Write-Host ""
+        Write-Step-Info "FONTOS: a beállítások ÚJRAINDÍTÁST igényelnek."
+        Write-Step-Info "Indítsd újra a gépet, majd futtasd ÚJRA ezt a telepítőt — innen folytatódik."
+        Read-Host "  Nyomj Entert a kilépéshez (és indítsd újra a gépet)"
+        exit 0
+    }
 }
 
 Write-Host ""

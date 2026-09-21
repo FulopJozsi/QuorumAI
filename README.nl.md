@@ -118,7 +118,7 @@ GUI beschikbaar op: `http://localhost:3000`
 │                        └────────┬───────────┘               │
 │               ┌─────────────────┼─────────────────┐         │
 │          ┌────▼────┐      ┌─────▼────┐    ┌───────▼──────┐  │
-│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │
+│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │ Het associatieve geheugen gaat verder: vanuit een opgehaalde herinnering volgt het de kennisgraaf om gerelateerde feiten naar boven te halen waar je nooit om vroeg, zodat de agent zelf de verbanden legt. De graaf is in de GUI niet alleen te bekijken maar ook te bewerken.
 │          │ Memory  │      │Checkpoint│    │  Knowledge   │  │
 │          └─────────┘      └──────────┘    └──────────────┘  │
 └─────────────────────────────────────────────────────────────┘

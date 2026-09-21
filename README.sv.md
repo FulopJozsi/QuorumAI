@@ -118,7 +118,7 @@ curl -X POST http://localhost:8000/invoke \
 │                        └────────┬───────────┘               │
 │               ┌─────────────────┼─────────────────┐         │
 │          ┌────▼────┐      ┌─────▼────┐    ┌───────▼──────┐  │
-│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │
+│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │ Det associativa minnet går längre: utifrån ett återkallat minne följer det kunskapsgrafen och lyfter fram relaterade fakta du aldrig frågade om, så att agenten kopplar ihop punkterna själv. Grafen kan inte bara visas utan även redigeras i GUI:t.
 │          │ Memory  │      │Checkpoint│    │  Knowledge   │  │
 │          └─────────┘      └──────────┘    └──────────────┘  │
 └─────────────────────────────────────────────────────────────┘

@@ -118,7 +118,7 @@ GUI dostępne pod adresem: `http://localhost:3000`
 │                        └────────┬───────────┘               │
 │               ┌─────────────────┼─────────────────┐         │
 │          ┌────▼────┐      ┌─────▼────┐    ┌───────▼──────┐  │
-│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │
+│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │ Pamięć skojarzeniowa idzie dalej: od przywołanego wspomnienia podąża po grafie wiedzy, wydobywając powiązane fakty, o które nigdy nie pytałeś, dzięki czemu agent sam łączy kropki. Graf można w GUI nie tylko oglądać, ale i edytować.
 │          │ Memory  │      │Checkpoint│    │  Knowledge   │  │
 │          └─────────┘      └──────────┘    └──────────────┘  │
 └─────────────────────────────────────────────────────────────┘

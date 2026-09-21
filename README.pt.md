@@ -118,7 +118,7 @@ Interface gráfica: `http://localhost:3000`
 │                        └────────┬───────────┘               │
 │               ┌─────────────────┼─────────────────┐         │
 │          ┌────▼────┐      ┌─────▼────┐    ┌───────▼──────┐  │
-│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │
+│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │ A memória associativa vai mais longe: a partir de uma memória recuperada percorre o grafo de conhecimento para revelar factos relacionados que nunca perguntou, de modo que o agente liga os pontos sozinho. O grafo pode ser editado na GUI, não apenas visualizado.
 │          │ Memory  │      │Checkpoint│    │  Knowledge   │  │
 │          └─────────┘      └──────────┘    └──────────────┘  │
 └─────────────────────────────────────────────────────────────┘

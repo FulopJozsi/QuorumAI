@@ -118,7 +118,7 @@ GUI aufrufen: `http://localhost:3000`
 │                        └────────┬───────────┘               │
 │               ┌─────────────────┼─────────────────┐         │
 │          ┌────▼────┐      ┌─────▼────┐    ┌───────▼──────┐  │
-│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │
+│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │ Das assoziative Gedächtnis geht weiter: Ausgehend von einer abgerufenen Erinnerung folgt es dem Wissensgraphen und bringt verwandte Fakten zutage, nach denen du nie gefragt hast, sodass der Agent die Zusammenhänge selbst herstellt. Der Graph ist in der GUI nicht nur sichtbar, sondern auch bearbeitbar.
 │          │ Memory  │      │Checkpoint│    │  Knowledge   │  │
 │          └─────────┘      └──────────┘    └──────────────┘  │
 └─────────────────────────────────────────────────────────────┘

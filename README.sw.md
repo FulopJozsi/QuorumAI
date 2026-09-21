@@ -118,7 +118,7 @@ Fungua GUI kwenye `http://localhost:3000`.
 │                        └────────┬───────────┘               │
 │               ┌─────────────────┼─────────────────┐         │
 │          ┌────▼────┐      ┌─────▼────┐    ┌───────▼──────┐  │
-│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │
+│          │ Qdrant  │      │PostgreSQL│    │  FalkorDB    │  │ Kumbukumbu shirikishi huenda mbali zaidi: kuanzia kumbukumbu iliyokumbukwa hufuata grafu ya maarifa ili kuibua mambo yanayohusiana ambayo hukuwahi kuuliza, hivyo wakala huunganisha nukta wenyewe. Grafu inaweza kuhaririwa katika GUI, si kuangaliwa tu.
 │          │ Memory  │      │Checkpoint│    │  Knowledge   │  │
 │          └─────────┘      └──────────┘    └──────────────┘  │
 └─────────────────────────────────────────────────────────────┘

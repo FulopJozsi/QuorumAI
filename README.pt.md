@@ -326,7 +326,7 @@ Construída com React, Vite e Tailwind CSS.
 | Aba | Descrição |
 |---|---|
 | Chat | Enviar mensagens a qualquer agente; ver respostas em streaming |
-| Agent Builder | Diagrama visual da empresa; criar e editar agentes e seus papéis |
+| Agent Builder | Diagrama visual da empresa; criar e editar agentes e seus papéis; nível de raciocínio por agente (apenas os níveis suportados pelo modelo) |
 | Skill Editor | Criar e gerir ficheiros Markdown de habilidades |
 | Tasks | Quadro Kanban; árvore de subtarefas; comentários; botões de aprovação |
 | Providers | Estado em tempo real dos provedores e lista de modelos disponíveis |

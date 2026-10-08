@@ -357,7 +357,7 @@ React, Vite és Tailwind CSS alapon.
 | Chat | Üzenetek küldése bármely agensnek; szavankénti streamelt válasz élő gondolkodás-nézettel és eszközhívás-jelzéssel |
 | Feladatok | Kanban tábla; alfeladat-fa; megjegyzések; jóváhagyás gombok |
 | Szívverés | Ütemező állapota; következő futási idők; manuális indítás; cron jobok létrehozása/szerkesztése/törlése |
-| Agent Builder | Agensek létrehozása és szerkesztése: provider, modell, eszközök, promptok, Guardian, autonóm (deep) mód |
+| Agent Builder | Ágensek létrehozása és szerkesztése: provider, modell, eszközök, promptok, Guardian, autonóm (deep) mód, ágensenkénti gondolkodási szint (csak a modell által támogatott szintek) |
 | Company Diagram | Élő cégdiagram — dispatcher → beosztottak automatikusan elrendezett DAG-ként, több szülős csomópontok, zoom/pásztázás, minitérkép |
 | Skill Editor | Markdown skill szerkesztő eszköztárral és élő előnézettel; Skill Piactér (böngészés/keresés/telepítés 6 forrásból, GitHub URL importtal is) |
 | Megfigyelhetőség | Élő állapotnézet; pipeline trace-ek token/költség-waterfall nézete; tudásgráf vizualizáció |

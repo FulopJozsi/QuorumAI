@@ -325,7 +325,7 @@ Zbudowane z React, Vite i Tailwind CSS.
 | Zakładka | Opis |
 |---|---|
 | Chat | Wysyłaj wiadomości do dowolnego agenta; przeglądaj przesyłane strumieniowo odpowiedzi |
-| Agent Builder | Wizualny diagram firmy; twórz i edytuj agentów oraz ich role |
+| Agent Builder | Wizualny diagram firmy; twórz i edytuj agentów oraz ich role; poziom rozumowania dla każdego agenta (tylko poziomy obsługiwane przez model) |
 | Skill Editor | Twórz pliki umiejętności Markdown i zarządzaj nimi |
 | Tasks | Tablica Kanban; drzewo podzadań; komentarze; przyciski zatwierdzania |
 | Providers | Status dostawców w czasie rzeczywistym i lista dostępnych modeli |

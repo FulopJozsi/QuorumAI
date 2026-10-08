@@ -326,7 +326,7 @@ Imejengwa kwa React, Vite, na Tailwind CSS.
 | Kichupo | Maelezo |
 |---|---|
 | Gumzo | Tuma ujumbe kwa wakala yoyote; angalia majibu yanayotiririka |
-| Kijenzi cha Wakala | Mchoro wa kampuni wa kuona; unda na hariri mawakala na majukumu yao |
+| Kijenzi cha Wakala | Mchoro wa kampuni wa kuona; unda na hariri mawakala na majukumu yao; kiwango cha kufikiri kwa kila wakala (viwango tu ambavyo modeli inaauni) |
 | Kihariri cha Ujuzi | Unda na simamia faili za ujuzi za Markdown |
 | Kazi | Ubao wa Kanban; mti wa kazi ndogo; maoni; vitufe vya idhini |
 | Watoa Huduma | Hali ya watoa huduma wakati halisi na orodha ya mifano inayopatikana |

@@ -325,7 +325,7 @@ Gebouwd met React, Vite en Tailwind CSS.
 | Tabblad | Beschrijving |
 |---|---|
 | Chat | Berichten sturen naar elke agent; gestreamde antwoorden bekijken |
-| Agent Builder | Visueel bedrijfsdiagram; agents en rollen aanmaken en bewerken |
+| Agent Builder | Visueel bedrijfsdiagram; agents en rollen aanmaken en bewerken; redeneerniveau per agent (alleen de niveaus die het model ondersteunt) |
 | Vaardigheidseditor | Markdown-vaardigheidsbestanden aanmaken en beheren |
 | Taken | Kanban-bord; subtaakboom; opmerkingen; goedkeuringsknoppen |
 | Providers | Realtime providerstatus en beschikbare modellenlijst |

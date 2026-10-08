@@ -325,7 +325,7 @@ Construida con React, Vite y Tailwind CSS.
 | Pestaña | Descripción |
 |---|---|
 | Chat | Enviar mensajes a cualquier agente; ver respuestas en streaming |
-| Agent Builder | Diagrama visual de empresa; crear y editar agentes y sus roles |
+| Agent Builder | Diagrama visual de empresa; crear y editar agentes y sus roles; nivel de razonamiento por agente (solo los niveles que admite el modelo) |
 | Skill Editor | Crear y gestionar archivos Markdown de habilidades |
 | Tasks | Tablero Kanban; árbol de subtareas; comentarios; botones de aprobación |
 | Proveedores | Estado en tiempo real de proveedores y lista de modelos disponibles |

@@ -325,7 +325,7 @@ Byggt med React, Vite och Tailwind CSS.
 | Flik | Beskrivning |
 |---|---|
 | Chatt | Skicka meddelanden till valfri agent; visa streamade svar |
-| Agentbyggare | Visuellt företagsdiagram; skapa och redigera agenter och deras roller |
+| Agentbyggare | Visuellt företagsdiagram; skapa och redigera agenter och deras roller; resonemangsnivå per agent (endast de nivåer modellen stöder) |
 | Kompetensredigerare | Skapa och hantera Markdown-kompetensfiler |
 | Uppgifter | Kanban-tavla; deluppgiftsträd; kommentarer; godkännandeknappar |
 | Leverantörer | Leverantörsstatus i realtid och tillgänglig modelllista |

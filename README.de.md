@@ -325,7 +325,7 @@ Entwickelt mit React, Vite und Tailwind CSS.
 | Tab | Beschreibung |
 |---|---|
 | Chat | Nachrichten an jeden Agenten senden; gestreamte Antworten anzeigen |
-| Agent Builder | Visuelles Unternehmensdiagramm; Agenten und Rollen erstellen und bearbeiten |
+| Agent Builder | Visuelles Unternehmensdiagramm; Agenten und Rollen erstellen und bearbeiten; Denkstufe pro Agent (nur die vom Modell unterstützten Stufen) |
 | Skill Editor | Markdown-Skill-Dateien erstellen und verwalten |
 | Aufgaben | Kanban-Board; Unteraufgaben-Baum; Kommentare; Genehmigungsschaltflächen |
 | Provider | Echtzeit-Provider-Status und verfügbare Modellliste |

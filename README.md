@@ -357,7 +357,7 @@ Built with React, Vite, and Tailwind CSS.
 | Chat | Send messages to any agent; token-by-token streamed responses with a live thinking view and tool-call indicators |
 | Tasks | Kanban board; subtask tree; comments; approval buttons |
 | Heartbeat | Scheduler state; next run times; manual trigger; create/edit/delete cron jobs |
-| Agent Builder | Create and edit agents: provider, model, tools, prompts, Guardian, autonomous (deep) mode |
+| Agent Builder | Create and edit agents: provider, model, tools, prompts, Guardian, autonomous (deep) mode, reasoning level per agent (only the levels the model supports) |
 | Company Diagram | Live company org chart — dispatcher → subordinates as an auto-laid-out DAG, multi-parent nodes, zoom/pan, minimap |
 | Skill Editor | Markdown skill editor with toolbar and live preview; Skill Marketplace (browse/search/install from 6 sources, incl. GitHub-URL import) |
 | Monitoring | Live state view; observability trace waterfall (token/cost per turn); knowledge graph visualization |

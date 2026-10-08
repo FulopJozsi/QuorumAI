@@ -326,7 +326,7 @@ Construit avec React, Vite et Tailwind CSS.
 | Onglet | Description |
 |---|---|
 | Chat | Envoyer des messages à n'importe quel agent ; afficher les réponses en streaming |
-| Agent Builder | Diagramme d'entreprise visuel ; créer et modifier des agents et leurs rôles |
+| Agent Builder | Diagramme d'entreprise visuel ; créer et modifier des agents et leurs rôles ; niveau de raisonnement par agent (uniquement les niveaux pris en charge par le modèle) |
 | Skill Editor | Créer et gérer des fichiers de compétences Markdown |
 | Tasks | Tableau Kanban ; arborescence de sous-tâches ; commentaires ; boutons d'approbation |
 | Providers | Statut des fournisseurs en temps réel et liste des modèles disponibles |

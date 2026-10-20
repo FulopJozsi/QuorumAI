@@ -167,6 +167,8 @@ Klucz API nie jest potrzebny na start — Ollama działa lokalnie i bezpłatnie.
 
 - Agenci oparci na rolach: CEO, deweloper, sprzedaż i dowolna rola niestandardowa.
 - Agent dispatcher automatycznie kieruje przychodzące żądania do właściwego specjalisty.
+- **Subagenci w tle**: `invoke_agent` czeka do 5 minut; dłuższe uruchomienie trwa dalej w tle jako zadanie kanban, a wywołujący agent sam raportuje wynik po zakończeniu (GUI na żywo, wszystkie mosty, mikrofon). Każde uruchomienie subagenta ma własny wątek do przejrzenia.
+- **Tryb nauki i śledzenie postępów**: narzędzie `text-compare` porównuje recytację (wiersz, tekst roli, definicje) słowo po słowie i od razu zgłasza pominiętą zwrotkę; w sesjach głosowych agent sam odzywa się po chwili ciszy, ze stopniowanymi podpowiedziami (pierwsze słowo, wers, zwrotka). Narzędzie `progress` w każdej turze pokazuje, na jakim etapie jest praca, zapisuje postępy w nauce każdego użytkownika na kolejne dni i jednym wywołaniem zamienia je w zadanie kanban. Gotowi agenci: pakiet branżowy `education`. Mikrofon może też słuchać bez przerwy, bez słowa wybudzającego, z ustawieniami dla każdego agenta (próg ciszy, stopniowane zagadywanie, automatyczne zakończenie); to, z którym agentem rozmawia mikrofon, wybiera się w GUI.
 - Agenci potokowi: pętle planista → wykonawca → recenzent ze współdzielonym stanem.
 - **Agenci autonomiczni (Deep)** — ustaw `deep: true` na dowolnym agencie lub etapie potoku, aby aktywować wbudowaną pętlę ReAct LangGraph. Agent planuje, wykonuje i iteruje autonomicznie — wywołuje narzędzia wielokrotnie, aż zadanie zostanie wykonane lub osiągnięty zostanie opcjonalny limit wywołań narzędzi (`deep_max_steps`, 0 = bez limitu). Konfigurowalny na poziomie agenta i etapu; przełącznik dostępny w GUI Agent Builder.
 - Biblioteka umiejętności: pliki Markdown umiejętności, leniwe ładowanie na agenta, społecznościowy rynek.
@@ -439,11 +441,14 @@ Gotowe pakiety wertykalne dla konkretnych branż. Każdy pakiet zawiera pliki um
 |---|---|---|
 | `legal` | Kancelarie prawne | Wyszukiwanie dokumentów, analiza umów, wyszukiwanie prawa węgierskiego |
 | `devops` | Firmy IT/DevOps | Triage incydentów, wyszukiwanie runbook, AIOps z HITL |
-| `agency` | Agencje marketingowe i PR | Status projektu, kwalifikacja leadów, analiza briefów, raportowanie klienta |
+| `agency` | Agencje marketingowe i PR | Status projektu, kwalifikacja leadów, analiza briefów, raportowanie klienta, filmy marketingowe z nagrań ekranu, nadzorowany film, w którym produkt sam się prezentuje |
+| `education` | Szkoły, nauka języków, szkolenia wewnętrzne | Ćwiczenie recytacji z podpowiedziami, nauczanie przedmiotu z wgranych materiałów, śledzenie postępów, sesje głosowe |
+| `foundation` | Każda firma (do łączenia) | Dogłębny research, git, przegląd bezpieczeństwa, wizualizacja danych, pisanie skilli, weryfikacja dowodów Lean 4 |
 
 **Instalacja ręczna:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

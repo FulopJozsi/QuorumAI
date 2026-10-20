@@ -167,6 +167,8 @@ GUI 访问地址：`http://localhost:3000`
 
 - 基于角色的智能体：CEO、开发者、销售以及任意自定义角色。
 - 调度器智能体自动将传入请求路由到正确的专家。
+- **后台子智能体**：`invoke_agent` 最多等待 5 分钟；更长的运行会作为看板任务在后台继续，完成后由调用方智能体主动报告结果（GUI 实时显示、所有桥接、麦克风）。每次子智能体运行都有可回看的独立线程。
+- **学习模式与进度跟踪**：`text-compare` 工具逐词比对背诵内容（诗歌、台词、定义），漏掉的诗节会立即指出；在语音会话中，用户沉默后智能体会主动开口，并给出分级提示（首词、整行、整节）。`progress` 工具每一轮都显示工作进展到哪里，按用户跨天保存学习进度，并可一次调用转为看板任务。现成智能体：`education` 行业包。麦克风也可以按智能体设置，无需唤醒词持续收听（静音阈值、分级提醒、自动停止）；麦克风与哪个智能体对话可在 GUI 中选择。
 - 流水线智能体：规划者 → 执行者 → 审阅者循环，共享状态。
 - **自主（Deep）智能体** — 在任意智能体或流水线阶段设置 `deep: true` 以启用内置 LangGraph ReAct 循环。智能体自主规划、执行并迭代 — 反复调用工具直到任务完成或达到可选的工具调用限制（`deep_max_steps`，0 = 无限制）。可按智能体和阶段分别配置；GUI Agent Builder 中提供开关。
 - 技能库：Markdown 技能文件，按智能体懒加载，社区市场用于共享。
@@ -437,11 +439,14 @@ data/
 |---|---|---|
 | `legal` | 律师事务所 | 文档搜索、合同分析、匈牙利法律搜索 |
 | `devops` | IT/DevOps 公司 | 事件分类、运行手册搜索、带 HITL 的 AIOps |
-| `agency` | 营销与公关代理机构 | 项目状态、潜在客户资质审核、简报分析、客户报告 |
+| `agency` | 营销与公关代理机构 | 项目状态、潜在客户资质审核、简报分析、客户报告、基于屏幕录制的营销视频、受监督的产品自我介绍视频 |
+| `education` | 学校、语言学习、内部培训 | 带提示的背诵练习、基于上传资料的学科教学、进度跟踪、语音会话 |
+| `foundation` | 任何公司（可组合） | 深度研究、git、安全审查、数据可视化、技能编写、Lean 4 证明检查 |
 
 **手动安装：**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

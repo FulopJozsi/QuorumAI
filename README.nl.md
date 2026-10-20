@@ -167,6 +167,8 @@ Er is geen API-sleutel nodig om te beginnen — Ollama draait lokaal en gratis.
 
 - Rolgebaseerde agents: CEO, ontwikkelaar, verkoop en elke aangepaste rol.
 - De dispatcher-agent stuurt inkomende verzoeken automatisch naar de juiste specialist.
+- **Sub-agents op de achtergrond**: `invoke_agent` wacht tot 5 minuten; een langere run gaat als kanban-taak op de achtergrond verder, en de aanroepende agent meldt het resultaat zelf zodra het klaar is (GUI live, alle bridges, microfoon). Elke sub-agent-run heeft een eigen, terug te kijken thread.
+- **Leermodus en voortgangsbewaking**: de tool `text-compare` vergelijkt een opzegbeurt (gedicht, rollentekst, definities) woord voor woord en meldt een overgeslagen strofe meteen; in spraaksessies neemt de agent na een stilte zelf het woord, met getrapte hints (eerste woord, regel, strofe). De tool `progress` toont elke beurt waar het werk staat, bewaart de leervoortgang per gebruiker over meerdere dagen en maakt er met één aanroep een kanban-taak van. Kant-en-klare agents: het branchepakket `education`. De microfoon kan per agent ingesteld ook doorlopend luisteren zonder wekwoord (stiltedrempel, stapsgewijze herinneringen, automatisch stoppen); met welke agent de microfoon praat, kies je in de GUI.
 - Pipeline-agents: planner → uitvoerder → beoordelaar-lussen met gedeelde toestand.
 - **Autonome (Deep) agents** — stel `deep: true` in op een agent of pipeline-fase om de ingebouwde LangGraph ReAct-lus te activeren. De agent plant, voert uit en itereert autonoom — hij roept tools herhaaldelijk aan totdat de taak klaar is of de optionele limiet voor toolaanroepen bereikt is (`deep_max_steps`, 0 = onbeperkt). Instelbaar per agent en per fase; schakelaar beschikbaar in de GUI Agent Builder.
 - Vaardighedenbibliotheek: Markdown-vaardigheidsbestanden, lazy-load per agent, gemeenschapsmarktplaats voor delen.
@@ -439,11 +441,14 @@ Kant-en-klare verticale pakketten voor specifieke sectoren. Elk pakket bevat vaa
 |---|---|---|
 | `legal` | Advocatenkantoren | Documentzoeken, contractanalyse, Hongaars juridisch onderzoek |
 | `devops` | IT/DevOps-bedrijven | Incidenttriage, runbook zoeken, AIOps met HITL |
-| `agency` | Marketing- en PR-bureaus | Projectstatus, leadkwalificatie, briefanalyse, klantenrapportage |
+| `agency` | Marketing- en PR-bureaus | Projectstatus, leadkwalificatie, briefanalyse, klantenrapportage, marketingvideo's uit schermopnames, begeleide video waarin het product zichzelf presenteert |
+| `education` | Scholen, taalonderwijs, interne opleiding | Opzegoefening met souffleren, vakonderwijs uit geüpload materiaal, voortgangsbewaking, spraaksessies |
+| `foundation` | Elk bedrijf (combineerbaar) | Diepgaand onderzoek, git, securityreview, datavisualisatie, skills schrijven, Lean 4-bewijscontrole |
 
 **Handmatige installatie:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

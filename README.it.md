@@ -167,6 +167,8 @@ Non è necessaria alcuna chiave API per iniziare — Ollama funziona localmente 
 
 - Agenti basati su ruoli: CEO, sviluppatore, vendite e qualsiasi ruolo personalizzato.
 - L'agente dispatcher indirizza automaticamente le richieste in arrivo allo specialista corretto.
+- **Sottoagenti in background**: `invoke_agent` attende fino a 5 minuti; un'esecuzione più lunga prosegue in background come attività kanban e l'agente chiamante riporta il risultato da solo quando termina (GUI in tempo reale, tutti i bridge, microfono). Ogni esecuzione di sottoagente ha il proprio thread consultabile.
+- **Modalità apprendimento e monitoraggio dei progressi**: lo strumento `text-compare` confronta una recitazione (poesia, copione, definizioni) parola per parola e segnala subito una strofa saltata; nelle sessioni vocali l'agente interviene da solo dopo un silenzio, con suggerimenti graduali (prima parola, verso, strofa). Lo strumento `progress` mostra a ogni turno a che punto è il lavoro, conserva i progressi di apprendimento per utente nei giorni successivi e li trasforma in un'attività kanban con una sola chiamata. Agenti pronti: il pacchetto di settore `education`. Il microfono può anche ascoltare in modo continuo senza parola di attivazione, con impostazioni per agente (soglia di silenzio, solleciti a gradini, arresto automatico); l'agente a cui parla il microfono si sceglie nella GUI.
 - Agenti pipeline: cicli pianificatore → esecutore → revisore con stato condiviso.
 - **Agenti autonomi (Deep)** — imposta `deep: true` su qualsiasi agente o fase pipeline per attivare il ciclo ReAct LangGraph integrato. L'agente pianifica, esegue e itera autonomamente — chiama strumenti ripetutamente fino al completamento del compito o al raggiungimento del limite opzionale di chiamate agli strumenti (`deep_max_steps`, 0 = illimitato). Configurabile per agente e per fase di pipeline; interruttore disponibile nel GUI Agent Builder.
 - Libreria di competenze: file Markdown di competenze, caricamento lazy per agente, marketplace comunitario per la condivisione.
@@ -439,11 +441,14 @@ Pacchetti verticali predefiniti per settori specifici. Ogni pacchetto contiene f
 |---|---|---|
 | `legal` | Studi legali | Ricerca documenti, analisi contratti, ricerca legale ungherese |
 | `devops` | Aziende IT/DevOps | Triage incidenti, ricerca runbook, AIOps con HITL |
-| `agency` | Agenzie marketing e PR | Stato progetto, qualificazione lead, analisi brief, reporting clienti |
+| `agency` | Agenzie marketing e PR | Stato progetto, qualificazione lead, analisi brief, reporting clienti, video di marketing da registrazioni dello schermo, video supervisionato in cui il prodotto presenta se stesso |
+| `education` | Scuole, apprendimento delle lingue, formazione interna | Pratica di recitazione con suggerimenti, insegnamento da materiale caricato, monitoraggio dei progressi, sessioni vocali |
+| `foundation` | Qualsiasi azienda (combinabile) | Ricerca approfondita, git, revisione di sicurezza, visualizzazione dati, scrittura di skill, verifica di dimostrazioni Lean 4 |
 
 **Installazione manuale:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

@@ -167,6 +167,8 @@ Für den Start ist kein API-Schlüssel erforderlich — Ollama läuft lokal und 
 
 - Rollenbasierte Agenten: CEO, Entwickler, Vertrieb und beliebige benutzerdefinierte Rollen.
 - Der Dispatcher-Agent leitet eingehende Anfragen automatisch an den richtigen Spezialisten weiter.
+- **Sub-Agenten im Hintergrund**: `invoke_agent` wartet bis zu 5 Minuten; ein längerer Lauf geht als Kanban-Aufgabe im Hintergrund weiter, und der aufrufende Agent meldet das Ergebnis von selbst, sobald es fertig ist (GUI live, alle Bridges, Mikrofon). Jeder Sub-Agent-Lauf hat einen eigenen, nachvollziehbaren Thread.
+- **Lernmodus und Fortschrittsverfolgung**: Das Tool `text-compare` vergleicht einen Vortrag (Gedicht, Rollentext, Definitionen) Wort für Wort und meldet eine ausgelassene Strophe sofort; in Sprachsitzungen meldet sich der Agent nach einer Pause von selbst, mit gestuften Hilfen (erstes Wort, Zeile, Strophe). Das Tool `progress` zeigt in jeder Runde, wo die Arbeit steht, speichert den Lernfortschritt pro Benutzer über Tage hinweg und macht daraus mit einem Aufruf eine Kanban-Aufgabe. Fertige Agenten: das Branchenpaket `education`. Das Mikrofon kann pro Agent eingestellt auch ohne Wake Word durchgehend zuhören (Stilleschwelle, Nachfrage-Stufen, automatisches Ende); mit welchem Agenten das Mikrofon spricht, wird in der GUI gewählt.
 - Pipeline-Agenten: Planer → Ausführer → Prüfer-Schleifen mit gemeinsamem Zustand.
 - **Autonome (Deep) Agenten** — `deep: true` an einem Agent oder Pipeline-Stage aktiviert die eingebaute LangGraph-ReAct-Schleife. Der Agent plant, führt aus und iteriert selbstständig — er ruft Werkzeuge wiederholt auf, bis die Aufgabe erledigt ist oder das optionale Werkzeugaufruf-Limit erreicht ist (`deep_max_steps`, 0 = unbegrenzt). Einstellbar pro Agent und pro Pipeline-Stage; Schalter im GUI Agent Builder verfügbar.
 - Skill-Bibliothek: Markdown-Skill-Dateien, lazy-loaded pro Agent, Community-Marktplatz zum Teilen.
@@ -439,11 +441,14 @@ Vorgefertigte vertikale Pakete für spezifische Branchen. Jedes Paket enthält S
 |---|---|---|
 | `legal` | Anwaltskanzleien | Dokumentensuche, Vertragsanalyse, ungarische Rechtsrecherche |
 | `devops` | IT/DevOps-Unternehmen | Incident-Triage, Runbook-Suche, AIOps mit HITL |
-| `agency` | Marketing- & PR-Agenturen | Projektstatus, Lead-Qualifizierung, Brief-Analyse, Kunden-Reporting |
+| `agency` | Marketing- & PR-Agenturen | Projektstatus, Lead-Qualifizierung, Brief-Analyse, Kunden-Reporting, Marketingvideos aus Bildschirmaufnahmen, überwachtes Produkt-Selbstpräsentationsvideo |
+| `education` | Schulen, Sprachenlernen, interne Schulung | Vortragsübung mit Einsagen, Fachunterricht aus hochgeladenem Material, Fortschrittsverfolgung, Sprachsitzungen |
+| `foundation` | Jedes Unternehmen (kombinierbar) | Tiefenrecherche, Git, Sicherheitsreview, Datenvisualisierung, Skill-Erstellung, Lean-4-Beweisprüfung |
 
 **Manuelle Installation:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

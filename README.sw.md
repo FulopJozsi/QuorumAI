@@ -167,6 +167,8 @@ Hakuna ufunguo wa API unaohitajika kuanza — Ollama inafanya kazi ndani ya nchi
 
 - Mawakala kulingana na majukumu: Mkurugenzi Mkuu, msanidi programu, wakala wa mauzo, na jukumu lolote la kibinafsi.
 - Wakala wa kuelekeza huelekeza maombi yanayoingia kwa mtaalamu sahihi kiotomatiki.
+- **Mawakala wasaidizi wa nyuma**: `invoke_agent` husubiri hadi dakika 5; kazi ndefu zaidi huendelea nyuma kama kazi ya kanban, na wakala aliyeita huripoti matokeo mwenyewe inapokamilika (GUI moja kwa moja, madaraja yote, maikrofoni). Kila uendeshaji wa wakala msaidizi una uzi wake unaoweza kukaguliwa.
+- **Hali ya kujifunza na ufuatiliaji wa maendeleo**: zana ya `text-compare` hulinganisha ukariri (shairi, maandishi ya uigizaji, fasili) neno kwa neno na huripoti mara moja ubeti ulioachwa; katika vikao vya sauti wakala huzungumza mwenyewe baada ya ukimya, kwa vidokezo vya hatua kwa hatua (neno la kwanza, mstari, ubeti). Zana ya `progress` huonyesha kila zamu kazi imefikia wapi, huhifadhi maendeleo ya kujifunza kwa kila mtumiaji kwa siku kadhaa, na kuyageuza kuwa kazi ya kanban kwa mwito mmoja. Mawakala walio tayari: kifurushi cha sekta `education`. Maikrofoni inaweza pia kusikiliza mfululizo bila neno la kuamsha, kwa mipangilio ya kila wakala (kiwango cha ukimya, hatua za kukumbusha, kusimama kiotomatiki); wakala ambaye maikrofoni inazungumza naye huchaguliwa kwenye GUI.
 - Mawakala wa mstari wa bomba: vitanzi vya mpangaji → mtekelezaji → mkaguzi yenye hali inayoshirikiwa.
 - **Mawakala wa kujitegemea (Deep)** — weka `deep: true` kwenye wakala yoyote au hatua ya mstari wa bomba ili kuwezesha mzunguko wa LangGraph ReAct uliojengwa ndani. Wakala hupanga, hutekeleza na kurudia kwa uhuru — huita zana mara kwa mara hadi kazi ikamilike au kikomo cha hiari cha simu za zana kifikiwe (`deep_max_steps`, 0 = bila kikomo). Inaweza kusanidiwa kwa kila wakala na kwa kila hatua ya mstari wa bomba; kibonyezi kinapatikana kwenye GUI Agent Builder.
 - Maktaba ya ujuzi: faili za ujuzi za Markdown, upakiaji wa uchawi kwa kila wakala, soko la jamii la kushirikiana.
@@ -440,11 +442,14 @@ Pakiti za wima zilizojengwa awali kwa sekta maalum. Kila pakiti ina faili za uju
 |---|---|---|
 | `legal` | Ofisi za Kisheria | Utafutaji wa hati, uchambuzi wa mikataba, utafutaji wa sheria ya Hungaria |
 | `devops` | Makampuni ya IT / DevOps | Uchunguzi wa matukio, utafutaji wa runbook, AIOps na HITL |
-| `agency` | Wakala wa Uuzaji na Mahusiano ya Umma | Hali ya mradi, sifa za viongozi, uchambuzi wa brief, ripoti za wateja |
+| `agency` | Wakala wa Uuzaji na Mahusiano ya Umma | Hali ya mradi, sifa za viongozi, uchambuzi wa brief, ripoti za wateja, video za uuzaji kutoka kwa rekodi za skrini, video inayosimamiwa ambapo bidhaa hujitambulisha yenyewe |
+| `education` | Shule, kujifunza lugha, mafunzo ya ndani | Mazoezi ya kukariri kwa vidokezo, kufundisha somo kutoka kwa nyenzo zilizopakiwa, ufuatiliaji wa maendeleo, vikao vya sauti |
+| `foundation` | Kampuni yoyote (inaweza kuunganishwa) | Utafiti wa kina, git, ukaguzi wa usalama, uonyeshaji wa data, uandishi wa skills, ukaguzi wa uthibitisho wa Lean 4 |
 
 **Usakinishaji wa mkono:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

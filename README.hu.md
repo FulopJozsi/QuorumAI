@@ -177,6 +177,8 @@ Induláshoz nem szükséges API kulcs — az Ollama helyileg fut, ingyenesen.
 
 - Szerepkör-alapú agensek: vezérigazgató, fejlesztő, értékesítő és bármilyen egyéni szerepkör.
 - A dispatcher agent automatikusan a megfelelő specialistához irányítja a bejövő kéréseket.
+- **Háttérben dolgozó alágensek**: az `invoke_agent` legfeljebb 5 percig vár, a hosszabb futás kanban-feladatként a háttérben folytatódik, és amikor elkészül, a hívó ágens magától jelenti az eredményt (GUI élőben, minden bridge, mikrofon). Minden alágens-futásnak saját, visszanézhető szála van.
+- **Tanuló mód és haladás-követés**: a `text-compare` eszköz szóról szóra összeveti a felmondást (vers, szerepszöveg, definíciók), és a kihagyott versszakot azonnal jelzi; hangos gyakorlásnál csend után az ágens magától megszólal, lépcsőzetes súgással (első szó, sor, versszak). A `progress` eszköz minden körben mutatja, hol tart a munka, a tanulási haladást felhasználónként napokon át megőrzi, és egy hívással kanban-feladattá alakítja. Kész ágensek: az `education` iparági csomag. A mikrofon ágensenkénti beállítással wake word nélkül, folyamatosan is hallgathat (csendhatár, rákérdezési lépcsők, automatikus leállás); hogy melyik ágenshez szól a mikrofon, a GUI-n választható.
 - Pipeline agensek: tervező → végrehajtó → ellenőrző körök megosztott állapottal.
 - **Autonóm (Deep) agensek** — bármely agensen vagy pipeline stage-en beállítható `deep: true`, amely bekapcsolja a beépített LangGraph ReAct hurkot. Az agens önállóan tervez, hajt végre és iterál — eszközöket hív egymás után, amíg a feladat el nem készül, vagy el nem éri az opcionális eszközhívás-korlátot (`deep_max_steps`, 0 = korlátlan). Agent és pipeline stage szinten egyaránt állítható; kapcsoló a GUI Agent Builderben.
 - **Company Diagram** — élő, automatikusan elrendezett cégdiagram (React Flow + dagre), amely a dispatcher → beosztott kapcsolatokat DAG-ként jeleníti meg (egy agensnek több szülője is lehet), zoom, pásztázás és minitérkép támogatással.
@@ -428,7 +430,7 @@ Támogatott felülíró változók:
 | `QUORUM_INSTALL_DIR` | Célkönyvtár — kihagyja a könyvtár-választó kérdést. |
 | `QUORUM_MODULES` | Vesszővel elválasztott modul-id-k — teljesen kihagyja a modulválasztó checkbox-ot. A teljes id-listát lásd lent. |
 | `QUORUM_LICENSE_KEY` | A kötelező licenckulcs (30 napos ingyenes trial: https://license.quorumai.eu). |
-| `QUORUM_INDUSTRY_PACK` | Csomag id (`agency`, `devops`, `legal`) vagy `none`. |
+| `QUORUM_INDUSTRY_PACK` | Csomag id (`agency`, `devops`, `legal`, `education`, `foundation`; többhöz vesszővel elválasztva) vagy `none`. |
 | `QUORUM_ORCHESTRATOR_URL` | Csak satellite módban — a távoli orchestrator URL-je. |
 | Bármelyik másik `.env` kulcs (pl. `POSTGRES_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `ANTHROPIC_API_KEY`, `ORCHESTRATOR_API_KEY`, …) | Ha a `.env`-ben szereplő **pontosan ugyanolyan nevű** változót exportálod, az kitölti azt a kérdést — ez minden modul env-változójára és minden LLM provider-kulcsra igaz, nem csak a fent felsoroltakra. |
 
@@ -513,11 +515,14 @@ Előre elkészített vertikális csomagok iparág-specifikus felhasználóknak. 
 |---|---|---|
 | `legal` | Jogi irodák | Dokumentumkeresés, szerződéselemzés, magyar jogi kutatás |
 | `devops` | IT/DevOps cégek | Incidenskezelés, runbook keresés, AIOps HITL-lel |
-| `agency` | Marketing és PR ügynökségek | Projekt státusz, lead kvalifikáció, brief elemzés, ügyfélriporting |
+| `agency` | Marketing és PR ügynökségek | Projekt státusz, lead kvalifikáció, brief elemzés, ügyfélriporting, marketingvideó képernyőfelvételekből, felügyelt termék-önbemutató videó |
+| `education` | Iskolák, nyelvtanulás, belső képzés | Felmondás-gyakorlás súgással, tárgytanítás feltöltött anyagból, haladás-követés, hangos munkamenet |
+| `foundation` | Bármely cég (kombinálható) | Mélykutatás, git, biztonsági review, vizualizáció, skill-írás, Lean 4 bizonyítás-ellenőrzés |
 
 **Kézi telepítés:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

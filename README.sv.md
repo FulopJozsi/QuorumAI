@@ -167,6 +167,8 @@ Ingen API-nyckel behövs för att komma igång — Ollama körs lokalt och kostn
 
 - Rollbaserade agenter: VD, utvecklare, försäljning och valfri anpassad roll.
 - Dispatcher-agenten dirigerar automatiskt inkommande förfrågningar till rätt specialist.
+- **Underagenter i bakgrunden**: `invoke_agent` väntar upp till 5 minuter; en längre körning fortsätter i bakgrunden som en kanban-uppgift, och den anropande agenten rapporterar resultatet själv när den är klar (GUI live, alla bryggor, mikrofon). Varje underagentkörning har en egen tråd som kan granskas.
+- **Inlärningsläge och framstegsuppföljning**: verktyget `text-compare` jämför en uppläsning ur minnet (dikt, rollmanus, definitioner) ord för ord och påpekar direkt en överhoppad strof; i röstsessioner tar agenten själv till orda efter en tystnad, med stegvisa ledtrådar (första ordet, raden, strofen). Verktyget `progress` visar varje tur var arbetet står, sparar inlärningsframstegen per användare över flera dagar och gör om dem till en kanban-uppgift med ett enda anrop. Färdiga agenter: branschpaketet `education`. Mikrofonen kan också lyssna oavbrutet utan väckningsord, inställt per agent (tystnadströskel, stegvisa påminnelser, automatiskt stopp); vilken agent mikrofonen talar med väljs i GUI:t.
 - Pipeline-agenter: planerare → utförare → granskare-slingor med delat tillstånd.
 - **Autonoma (Deep) agenter** — ange `deep: true` på valfri agent eller pipeline-fas för att aktivera den inbyggda LangGraph ReAct-loopen. Agenten planerar, utför och itererar autonomt — anropar verktyg upprepade gånger tills uppgiften är klar eller den valfria gränsen för verktygsanrop nås (`deep_max_steps`, 0 = obegränsat). Konfigurerbart per agent och fas; växel tillgänglig i GUI Agent Builder.
 - Kompetensbibliotek: Markdown-kompetensfiler, lat inläsning per agent, gemenskapsmarknadsplats för delning.
@@ -439,11 +441,14 @@ Färdigbyggda vertikala paket för specifika branscher. Varje paket innehåller 
 |---|---|---|
 | `legal` | Advokatbyråer | Dokumentsökning, kontraktsanalys, ungersk juridisk sökning |
 | `devops` | IT/DevOps-företag | Incidenttriagering, runbook-sökning, AIOps med HITL |
-| `agency` | Marknadsförings- och PR-byråer | Projektstatus, leadkvalificering, briefanalys, klientrapportering |
+| `agency` | Marknadsförings- och PR-byråer | Projektstatus, leadkvalificering, briefanalys, klientrapportering, marknadsföringsvideor från skärminspelningar, övervakad video där produkten presenterar sig själv |
+| `education` | Skolor, språkinlärning, intern utbildning | Övning i att läsa upp utantill med sufflering, ämnesundervisning från uppladdat material, framstegsuppföljning, röstsessioner |
+| `foundation` | Alla företag (kombinerbart) | Fördjupad research, git, säkerhetsgranskning, datavisualisering, skill-skrivande, Lean 4-bevisgranskning |
 
 **Manuell installation:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

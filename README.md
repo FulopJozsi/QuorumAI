@@ -177,6 +177,8 @@ No API key is required to get started — Ollama runs locally at no cost.
 
 - Role-based agents: CEO, developer, sales agent, and any custom role.
 - Dispatcher agent routes incoming requests to the right specialist automatically.
+- **Background sub-agents**: `invoke_agent` waits up to 5 minutes; a longer run continues in the background as a kanban task, and the calling agent reports the result by itself when it finishes (GUI live, every bridge, mic). Every sub-agent run has its own reviewable thread.
+- **Learning mode and progress tracking**: the `text-compare` tool checks a recitation (poem, role script, definitions) word by word and reports a skipped stanza at once; in voice sessions the agent speaks up by itself after a silence with graded hints (first word, line, stanza). The `progress` tool shows each turn where the work stands, keeps learning progress per user across days, and turns it into a kanban task with one call. Ready-made agents: the `education` industry pack. The microphone can also listen continuously without a wake word, set per agent (silence threshold, nudge steps, automatic stop); which agent the microphone talks to is chosen in the GUI.
 - Pipeline agents: planner → executor → reviewer loops with shared state.
 - **Autonomous (Deep) agents** — set `deep: true` on any agent or pipeline stage to enable the built-in LangGraph ReAct loop. The agent plans, executes, and iterates autonomously — calling tools repeatedly until the task is done or the optional tool-call limit is reached (`deep_max_steps`, 0 = unlimited). Configurable per-agent and per-pipeline-stage; toggle available in the GUI Agent Builder.
 - **Company Diagram** — a live, auto-laid-out org chart (React Flow + dagre) showing dispatcher → subordinate relationships as a DAG (an agent can report to more than one parent), with zoom, pan, and a minimap.
@@ -428,7 +430,7 @@ Supported override variables:
 | `QUORUM_INSTALL_DIR` | Target directory — skips the install-dir prompt. |
 | `QUORUM_MODULES` | Comma-separated module ids to install — skips the module checkbox entirely. See the full id list below. |
 | `QUORUM_LICENSE_KEY` | The mandatory license key (free 30-day trial: https://license.quorumai.eu). |
-| `QUORUM_INDUSTRY_PACK` | Pack id (`agency`, `devops`, `legal`) or `none`. |
+| `QUORUM_INDUSTRY_PACK` | Pack id (`agency`, `devops`, `legal`, `education`, `foundation`; comma-separated for several) or `none`. |
 | `QUORUM_ORCHESTRATOR_URL` | Satellite mode only — the remote orchestrator URL. |
 | Any other `.env` key (e.g. `POSTGRES_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `ANTHROPIC_API_KEY`, `ORCHESTRATOR_API_KEY`, …) | Exporting a variable with the **exact same name** it would have in `.env` pre-fills that prompt — this works for every module's env vars and every LLM provider key, not just the ones listed above. |
 
@@ -513,11 +515,14 @@ Pre-built vertical packages for specific industries. Each pack contains skill fi
 |---|---|---|
 | `legal` | Law firms | Document search, contract analysis, Hungarian law research |
 | `devops` | IT / DevOps companies | Incident triage, runbook search, AIOps with HITL |
-| `agency` | Marketing & PR agencies | Project status, lead qualification, brief analysis, client reporting |
+| `agency` | Marketing & PR agencies | Project status, lead qualification, brief analysis, client reporting, marketing videos from screen recordings, supervised product self-presentation video |
+| `education` | Schools, language learning, internal training | Recitation practice with hints, subject teaching from uploaded material, progress tracking, voice sessions |
+| `foundation` | Any company (combinable) | Deep research, git, security review, dataviz, skill authoring, Lean 4 proof checking |
 
 **Manual install:**
 ```bash
-cp industry-packs/legal/skills/*.md data/skills/
+for f in industry-packs/legal/skills/*.md; do n=$(basename "$f" .md); mkdir -p "data/skills/$n"; cp "$f" "data/skills/$n/SKILL.md"; done
+cp -r industry-packs/agency/skills/*/ data/skills/   # multi-file skills (e.g. marketing-video)
 cat industry-packs/legal/agents.yaml
 ```
 

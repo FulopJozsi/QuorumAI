@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 或从仓库下载 `install.bat` / `install.ps1` 并双击运行。
 
-> **注意：** 在 Linux 上，引导程序从官方 Docker 仓库安装 Docker Engine（根据发行版使用 apt/dnf/yum），并将您的用户添加到 `docker` 组。之后需要重新登录。在 macOS 和 Windows 上，它会安装 Docker Desktop 并提示您在继续之前启动它。
+> **注意：** 在 Linux 上，引导程序从官方 Docker 仓库安装 Docker Engine（根据发行版使用 apt/dnf/yum），并将您的用户添加到 `docker` 组。安装程序会立即以该组身份继续，无需重新登录。在 macOS 和 Windows 上，它会安装 Docker Desktop 并提示您在继续之前启动它。
 
 ---
 

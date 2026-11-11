@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 またはリポジトリから `install.bat` / `install.ps1` をダウンロードしてダブルクリックします。
 
-> **注意：** Linuxでは、ブートストラップが公式DockerリポジトリからDocker Engineをインストールし（ディストリビューションによりapt/dnf/yum）、ユーザーを `docker` グループに追加します。その後ログアウト/ログインが必要です。macOSとWindowsではDocker Desktopをインストールし、続行前に起動するよう求めます。
+> **注意：** Linuxでは、ブートストラップが公式DockerリポジトリからDocker Engineをインストールし（ディストリビューションによりapt/dnf/yum）、ユーザーを `docker` グループに追加します。インストーラーはそのグループですぐに続行するため、ログアウトは不要です。macOSとWindowsではDocker Desktopをインストールし、続行前に起動するよう求めます。
 
 ---
 

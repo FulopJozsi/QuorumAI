@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 또는 저장소에서 `install.bat` / `install.ps1`을 다운로드하여 더블 클릭합니다.
 
-> **참고:** Linux에서 부트스트랩은 공식 Docker 저장소(배포판에 따라 apt/dnf/yum)에서 Docker Engine을 설치하고 사용자를 `docker` 그룹에 추가합니다. 이후 로그아웃 후 다시 로그인해야 합니다. macOS와 Windows에서는 Docker Desktop을 설치하고 계속하기 전에 시작하도록 안내합니다.
+> **참고:** Linux에서 부트스트랩은 공식 Docker 저장소(배포판에 따라 apt/dnf/yum)에서 Docker Engine을 설치하고 사용자를 `docker` 그룹에 추가합니다. 설치 프로그램은 해당 그룹으로 바로 계속 진행하므로 로그아웃할 필요가 없습니다. macOS와 Windows에서는 Docker Desktop을 설치하고 계속하기 전에 시작하도록 안내합니다.
 
 ---
 

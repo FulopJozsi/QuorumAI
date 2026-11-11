@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 Lub pobierz `install.bat` / `install.ps1` z repozytorium i kliknij dwukrotnie.
 
-> **Uwaga:** Na Linuksie skrypt bootstrap instaluje Docker Engine z oficjalnego repozytorium Docker (apt/dnf/yum w zależności od dystrybucji) i dodaje użytkownika do grupy `docker`. Wymagane jest wylogowanie i ponowne zalogowanie. Na macOS i Windows instaluje Docker Desktop i prosi o jego uruchomienie przed kontynuacją.
+> **Uwaga:** Na Linuksie skrypt bootstrap instaluje Docker Engine z oficjalnego repozytorium Docker (apt/dnf/yum w zależności od dystrybucji) i dodaje użytkownika do grupy `docker`. Instalator od razu kontynuuje z tą grupą, wylogowanie nie jest potrzebne. Na macOS i Windows instaluje Docker Desktop i prosi o jego uruchomienie przed kontynuacją.
 
 ---
 

@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 Au pakua `install.bat` / `install.ps1` kutoka kwenye hazina na bonyeza mara mbili.
 
-> **Kumbuka:** Kwenye Linux, bootstrap husanikisha Docker Engine kutoka kwenye hazina rasmi ya Docker (apt/dnf/yum kulingana na usambazaji) na kuongeza mtumiaji wako kwenye kikundi cha `docker`. Kutoka nje na kuingia tena kunahitajika baadaye. Kwenye macOS na Windows, husanikisha Docker Desktop na kukuomba uianzishe kabla ya kuendelea.
+> **Kumbuka:** Kwenye Linux, bootstrap husanikisha Docker Engine kutoka kwenye hazina rasmi ya Docker (apt/dnf/yum kulingana na usambazaji) na kuongeza mtumiaji wako kwenye kikundi cha `docker`. Kisakinishi kinaendelea mara moja na kikundi hicho, hakuna haja ya kutoka nje. Kwenye macOS na Windows, husanikisha Docker Desktop na kukuomba uianzishe kabla ya kuendelea.
 
 ---
 

@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 Of download `install.bat` / `install.ps1` uit de repository en dubbelklik erop.
 
-> **Opmerking:** Op Linux installeert bootstrap Docker Engine vanuit de officiële Docker-repository (apt/dnf/yum afhankelijk van de distributie) en voegt uw gebruiker toe aan de groep `docker`. Daarna is opnieuw inloggen vereist. Op macOS en Windows installeert het Docker Desktop en vraagt u dit te starten voordat u verdergaat.
+> **Opmerking:** Op Linux installeert bootstrap Docker Engine vanuit de officiële Docker-repository (apt/dnf/yum afhankelijk van de distributie) en voegt uw gebruiker toe aan de groep `docker`. De installer gaat meteen verder met die groep, opnieuw inloggen is niet nodig. Op macOS en Windows installeert het Docker Desktop en vraagt u dit te starten voordat u verdergaat.
 
 ---
 

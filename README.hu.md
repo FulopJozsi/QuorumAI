@@ -56,7 +56,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 Vagy töltsd le az `install.bat` / `install.ps1` fájlt a repóból és dupla kattintással futtasd.
 
-> **Megjegyzés:** Linuxon a bootstrap a hivatalos Docker repository-ból telepíti a Docker Engine-t (apt/dnf/yum a disztrótól függően) és hozzáadja a felhasználót a `docker` csoporthoz. Ehhez ki- és újra be kell jelentkezni. macOS és Windows esetén Docker Desktop telepítésére irányít és megvárja, hogy elindítsd, mielőtt folytatja.
+> **Megjegyzés:** Linuxon a bootstrap a hivatalos Docker repository-ból telepíti a Docker Engine-t (apt/dnf/yum a disztrótól függően) és hozzáadja a felhasználót a `docker` csoporthoz. A telepítő ezzel a csoporttal rögtön folytatja, nem kell ki- és bejelentkezni. macOS és Windows esetén Docker Desktop telepítésére irányít és megvárja, hogy elindítsd, mielőtt folytatja.
 
 ---
 

@@ -65,6 +65,10 @@ def _attach_tty() -> None:
 LANGS: Dict[str, Dict[str, str]] = {
     "en": {
         "lang_name": "English",
+        "license_format_invalid": "This does not look like a license key. It starts with QL- and continues with 32 letters/digits in groups (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Copy it from the license e-mail.",
+        "health_waiting": "Waiting for QuorumAI to start (http://localhost:{port}/health, up to 3 minutes)",
+        "health_failed": "QuorumAI did not answer within 3 minutes. The last orchestrator log lines:",
+        "health_license_hint": "The log mentions the license: check the key in .env (QUORUM_LICENSE_KEY), then run the installer again and choose Update. Help: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker has little memory ({gb} GB), so speech recognition and read-aloud (Whisper + Piper) are left out. You can add them later with Modify.",
         "install_kind_question": "How would you like to install?",
         "install_kind_quick": "Quick install (recommended): asks only for the license key, uses defaults for everything else and starts QuorumAI",
@@ -171,6 +175,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "hu": {
         "lang_name": "Magyar",
+        "license_format_invalid": "Ez nem licenckulcsnak tűnik. QL- előtaggal kezdődik, utána 32 betű/szám csoportokban (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Másold ki a licenc-e-mailből.",
+        "health_waiting": "Várakozás a QuorumAI indulására (http://localhost:{port}/health, legfeljebb 3 perc)",
+        "health_failed": "A QuorumAI 3 percen belül nem válaszolt. Az orchestrator naplójának utolsó sorai:",
+        "health_license_hint": "A napló a licencet említi: ellenőrizd a kulcsot a .env-ben (QUORUM_LICENSE_KEY), majd futtasd újra a telepítőt, és válaszd a Frissítést. Segítség: https://license.quorumai.eu",
         "quick_voice_skipped": "Kevés a Docker memóriája ({gb} GB), ezért a beszédfelismerés és a felolvasás (Whisper + Piper) kimarad. Később a Módosítással felvehető.",
         "install_kind_question": "Hogyan telepítsünk?",
         "install_kind_quick": "Gyors telepítés (ajánlott): csak a licenckulcsot kéri, minden mást alapértékkel állít be, és elindítja a QuorumAI-t",
@@ -277,6 +285,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "de": {
         "lang_name": "Deutsch",
+        "license_format_invalid": "Das sieht nicht wie ein Lizenzschlüssel aus. Er beginnt mit QL- und hat danach 32 Buchstaben/Ziffern in Gruppen (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopiere ihn aus der Lizenz-E-Mail.",
+        "health_waiting": "Warte auf den Start von QuorumAI (http://localhost:{port}/health, bis zu 3 Minuten)",
+        "health_failed": "QuorumAI hat innerhalb von 3 Minuten nicht geantwortet. Die letzten Zeilen des Orchestrator-Logs:",
+        "health_license_hint": "Das Log erwähnt die Lizenz: prüfe den Schlüssel in .env (QUORUM_LICENSE_KEY), starte dann den Installer erneut und wähle Aktualisieren. Hilfe: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker hat wenig Speicher ({gb} GB), daher werden Spracherkennung und Vorlesen (Whisper + Piper) ausgelassen. Später über Ändern hinzufügbar.",
         "install_kind_question": "Wie möchtest du installieren?",
         "install_kind_quick": "Schnellinstallation (empfohlen): fragt nur den Lizenzschlüssel ab, setzt alles andere auf Standardwerte und startet QuorumAI",
@@ -383,6 +395,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "fr": {
         "lang_name": "Français",
+        "license_format_invalid": "Cela ne ressemble pas à une clé de licence. Elle commence par QL- suivi de 32 lettres/chiffres en groupes (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Copiez-la depuis l'e-mail de licence.",
+        "health_waiting": "Attente du démarrage de QuorumAI (http://localhost:{port}/health, jusqu'à 3 minutes)",
+        "health_failed": "QuorumAI n'a pas répondu en 3 minutes. Dernières lignes du journal de l'orchestrateur :",
+        "health_license_hint": "Le journal mentionne la licence : vérifiez la clé dans .env (QUORUM_LICENSE_KEY), puis relancez l'installateur et choisissez Mettre à jour. Aide : https://license.quorumai.eu",
         "quick_voice_skipped": "Docker dispose de peu de mémoire ({gb} Go), la reconnaissance vocale et la lecture à voix haute (Whisper + Piper) sont donc omises. Ajout possible plus tard via Modifier.",
         "install_kind_question": "Comment souhaitez-vous installer ?",
         "install_kind_quick": "Installation rapide (recommandée) : demande seulement la clé de licence, utilise les valeurs par défaut et démarre QuorumAI",
@@ -489,6 +505,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "es": {
         "lang_name": "Español",
+        "license_format_invalid": "Esto no parece una clave de licencia. Empieza por QL- seguido de 32 letras/dígitos en grupos (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Cópiala del correo de la licencia.",
+        "health_waiting": "Esperando a que QuorumAI arranque (http://localhost:{port}/health, hasta 3 minutos)",
+        "health_failed": "QuorumAI no respondió en 3 minutos. Últimas líneas del registro del orquestador:",
+        "health_license_hint": "El registro menciona la licencia: revisa la clave en .env (QUORUM_LICENSE_KEY), vuelve a ejecutar el instalador y elige Actualizar. Ayuda: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker tiene poca memoria ({gb} GB), así que se omiten el reconocimiento de voz y la lectura en voz alta (Whisper + Piper). Puedes añadirlos luego con Modificar.",
         "install_kind_question": "¿Cómo quieres instalar?",
         "install_kind_quick": "Instalación rápida (recomendada): solo pide la clave de licencia, usa valores por defecto e inicia QuorumAI",
@@ -595,6 +615,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "pt": {
         "lang_name": "Português",
+        "license_format_invalid": "Isto não parece uma chave de licença. Começa por QL- seguido de 32 letras/dígitos em grupos (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Copie-a do e-mail da licença.",
+        "health_waiting": "A aguardar o arranque do QuorumAI (http://localhost:{port}/health, até 3 minutos)",
+        "health_failed": "O QuorumAI não respondeu em 3 minutos. Últimas linhas do registo do orquestrador:",
+        "health_license_hint": "O registo menciona a licença: verifique a chave no .env (QUORUM_LICENSE_KEY), execute de novo o instalador e escolha Atualizar. Ajuda: https://license.quorumai.eu",
         "quick_voice_skipped": "O Docker tem pouca memória ({gb} GB), por isso o reconhecimento de voz e a leitura em voz alta (Whisper + Piper) ficam de fora. Pode adicioná-los depois com Modificar.",
         "install_kind_question": "Como pretende instalar?",
         "install_kind_quick": "Instalação rápida (recomendada): pede apenas a chave de licença, usa valores padrão e inicia o QuorumAI",
@@ -701,6 +725,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ru": {
         "lang_name": "Русский",
+        "license_format_invalid": "Это не похоже на лицензионный ключ. Он начинается с QL-, далее 32 буквы/цифры группами (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Скопируйте его из письма с лицензией.",
+        "health_waiting": "Ожидание запуска QuorumAI (http://localhost:{port}/health, до 3 минут)",
+        "health_failed": "QuorumAI не ответил за 3 минуты. Последние строки журнала оркестратора:",
+        "health_license_hint": "В журнале упоминается лицензия: проверьте ключ в .env (QUORUM_LICENSE_KEY), затем снова запустите установщик и выберите «Обновить». Помощь: https://license.quorumai.eu",
         "quick_voice_skipped": "У Docker мало памяти ({gb} ГБ), поэтому распознавание речи и озвучивание (Whisper + Piper) не устанавливаются. Их можно добавить позже через «Изменить».",
         "install_kind_question": "Как установить?",
         "install_kind_quick": "Быстрая установка (рекомендуется): спрашивает только лицензионный ключ, остальное по умолчанию, и запускает QuorumAI",
@@ -807,6 +835,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "nl": {
         "lang_name": "Nederlands",
+        "license_format_invalid": "Dit lijkt geen licentiesleutel. Hij begint met QL- gevolgd door 32 letters/cijfers in groepen (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopieer hem uit de licentiemail.",
+        "health_waiting": "Wachten tot QuorumAI gestart is (http://localhost:{port}/health, maximaal 3 minuten)",
+        "health_failed": "QuorumAI antwoordde niet binnen 3 minuten. De laatste regels van het orchestrator-log:",
+        "health_license_hint": "Het log noemt de licentie: controleer de sleutel in .env (QUORUM_LICENSE_KEY), start de installer opnieuw en kies Bijwerken. Hulp: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker heeft weinig geheugen ({gb} GB), dus spraakherkenning en voorlezen (Whisper + Piper) worden overgeslagen. Later toe te voegen via Wijzigen.",
         "install_kind_question": "Hoe wil je installeren?",
         "install_kind_quick": "Snelle installatie (aanbevolen): vraagt alleen de licentiesleutel, gebruikt standaardwaarden en start QuorumAI",
@@ -913,6 +945,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "pl": {
         "lang_name": "Polski",
+        "license_format_invalid": "To nie wygląda na klucz licencyjny. Zaczyna się od QL-, potem 32 litery/cyfry w grupach (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Skopiuj go z e-maila z licencją.",
+        "health_waiting": "Czekam na uruchomienie QuorumAI (http://localhost:{port}/health, do 3 minut)",
+        "health_failed": "QuorumAI nie odpowiedział w ciągu 3 minut. Ostatnie wiersze logu orchestratora:",
+        "health_license_hint": "Log wspomina o licencji: sprawdź klucz w .env (QUORUM_LICENSE_KEY), uruchom instalator ponownie i wybierz Aktualizuj. Pomoc: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker ma mało pamięci ({gb} GB), więc rozpoznawanie mowy i czytanie na głos (Whisper + Piper) zostają pominięte. Można je dodać później przez Zmień.",
         "install_kind_question": "Jak chcesz zainstalować?",
         "install_kind_quick": "Szybka instalacja (zalecana): pyta tylko o klucz licencyjny, resztę ustawia domyślnie i uruchamia QuorumAI",
@@ -1019,6 +1055,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "uk": {
         "lang_name": "Українська",
+        "license_format_invalid": "Це не схоже на ліцензійний ключ. Він починається з QL-, далі 32 літери/цифри групами (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Скопіюйте його з листа з ліцензією.",
+        "health_waiting": "Очікування запуску QuorumAI (http://localhost:{port}/health, до 3 хвилин)",
+        "health_failed": "QuorumAI не відповів за 3 хвилини. Останні рядки журналу оркестратора:",
+        "health_license_hint": "У журналі згадується ліцензія: перевірте ключ у .env (QUORUM_LICENSE_KEY), потім знову запустіть інсталятор і виберіть «Оновити». Допомога: https://license.quorumai.eu",
         "quick_voice_skipped": "У Docker мало пам'яті ({gb} ГБ), тому розпізнавання мовлення й озвучування (Whisper + Piper) не встановлюються. Їх можна додати пізніше через «Змінити».",
         "install_kind_question": "Як встановити?",
         "install_kind_quick": "Швидке встановлення (рекомендовано): запитує лише ліцензійний ключ, решта за замовчуванням, і запускає QuorumAI",
@@ -1125,6 +1165,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sv": {
         "lang_name": "Svenska",
+        "license_format_invalid": "Det här ser inte ut som en licensnyckel. Den börjar med QL- följt av 32 bokstäver/siffror i grupper (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopiera den från licensmejlet.",
+        "health_waiting": "Väntar på att QuorumAI startar (http://localhost:{port}/health, upp till 3 minuter)",
+        "health_failed": "QuorumAI svarade inte inom 3 minuter. Sista raderna i orkestratorns logg:",
+        "health_license_hint": "Loggen nämner licensen: kontrollera nyckeln i .env (QUORUM_LICENSE_KEY), kör sedan installationsprogrammet igen och välj Uppdatera. Hjälp: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker har lite minne ({gb} GB), så taligenkänning och uppläsning (Whisper + Piper) hoppas över. Kan läggas till senare via Ändra.",
         "install_kind_question": "Hur vill du installera?",
         "install_kind_quick": "Snabbinstallation (rekommenderas): frågar bara efter licensnyckeln, standardvärden för resten och startar QuorumAI",
@@ -1231,6 +1275,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "it": {
         "lang_name": "Italiano",
+        "license_format_invalid": "Questa non sembra una chiave di licenza. Inizia con QL- seguito da 32 lettere/cifre a gruppi (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Copiala dall'e-mail della licenza.",
+        "health_waiting": "In attesa dell'avvio di QuorumAI (http://localhost:{port}/health, fino a 3 minuti)",
+        "health_failed": "QuorumAI non ha risposto entro 3 minuti. Ultime righe del log dell'orchestratore:",
+        "health_license_hint": "Il log cita la licenza: controlla la chiave in .env (QUORUM_LICENSE_KEY), poi riesegui l'installer e scegli Aggiorna. Aiuto: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker ha poca memoria ({gb} GB), quindi riconoscimento vocale e lettura ad alta voce (Whisper + Piper) vengono esclusi. Puoi aggiungerli più tardi con Modifica.",
         "install_kind_question": "Come vuoi installare?",
         "install_kind_quick": "Installazione rapida (consigliata): chiede solo la chiave di licenza, usa i valori predefiniti e avvia QuorumAI",
@@ -1337,6 +1385,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ro": {
         "lang_name": "Română",
+        "license_format_invalid": "Aceasta nu pare o cheie de licență. Începe cu QL- urmat de 32 de litere/cifre în grupuri (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Copiaz-o din e-mailul cu licența.",
+        "health_waiting": "Se așteaptă pornirea QuorumAI (http://localhost:{port}/health, până la 3 minute)",
+        "health_failed": "QuorumAI nu a răspuns în 3 minute. Ultimele rânduri din jurnalul orchestratorului:",
+        "health_license_hint": "Jurnalul menționează licența: verifică cheia din .env (QUORUM_LICENSE_KEY), apoi rulează din nou instalatorul și alege Actualizare. Ajutor: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker are puțină memorie ({gb} GB), așa că recunoașterea vocală și citirea cu voce tare (Whisper + Piper) sunt omise. Le poți adăuga mai târziu cu Modificare.",
         "install_kind_question": "Cum dorești să instalezi?",
         "install_kind_quick": "Instalare rapidă (recomandată): cere doar cheia de licență, folosește valorile implicite și pornește QuorumAI",
@@ -1443,6 +1495,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "cs": {
         "lang_name": "Čeština",
+        "license_format_invalid": "Tohle nevypadá jako licenční klíč. Začíná QL- a pokračuje 32 písmeny/číslicemi ve skupinách (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Zkopírujte ho z licenčního e-mailu.",
+        "health_waiting": "Čekám na spuštění QuorumAI (http://localhost:{port}/health, nejvýše 3 minuty)",
+        "health_failed": "QuorumAI do 3 minut neodpověděl. Poslední řádky logu orchestrátoru:",
+        "health_license_hint": "Log zmiňuje licenci: zkontrolujte klíč v .env (QUORUM_LICENSE_KEY), pak znovu spusťte instalátor a zvolte Aktualizovat. Pomoc: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker má málo paměti ({gb} GB), proto se rozpoznávání řeči a předčítání (Whisper + Piper) vynechá. Později lze přidat přes Upravit.",
         "install_kind_question": "Jak chcete instalovat?",
         "install_kind_quick": "Rychlá instalace (doporučeno): ptá se jen na licenční klíč, zbytek nastaví výchozí a spustí QuorumAI",
@@ -1549,6 +1605,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sk": {
         "lang_name": "Slovenčina",
+        "license_format_invalid": "Toto nevyzerá ako licenčný kľúč. Začína QL- a pokračuje 32 písmenami/číslicami v skupinách (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Skopírujte ho z licenčného e-mailu.",
+        "health_waiting": "Čakám na spustenie QuorumAI (http://localhost:{port}/health, najviac 3 minúty)",
+        "health_failed": "QuorumAI do 3 minút neodpovedal. Posledné riadky logu orchestrátora:",
+        "health_license_hint": "Log spomína licenciu: skontrolujte kľúč v .env (QUORUM_LICENSE_KEY), potom znova spustite inštalátor a zvoľte Aktualizovať. Pomoc: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker má málo pamäte ({gb} GB), preto sa rozpoznávanie reči a predčítavanie (Whisper + Piper) vynechá. Neskôr sa dá pridať cez Upraviť.",
         "install_kind_question": "Ako chcete inštalovať?",
         "install_kind_quick": "Rýchla inštalácia (odporúčané): pýta sa len na licenčný kľúč, zvyšok nastaví predvolene a spustí QuorumAI",
@@ -1655,6 +1715,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "bg": {
         "lang_name": "Български",
+        "license_format_invalid": "Това не прилича на лицензионен ключ. Започва с QL-, следвано от 32 букви/цифри на групи (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Копирайте го от имейла с лиценза.",
+        "health_waiting": "Изчакване QuorumAI да стартира (http://localhost:{port}/health, до 3 минути)",
+        "health_failed": "QuorumAI не отговори до 3 минути. Последните редове от журнала на оркестратора:",
+        "health_license_hint": "Журналът споменава лиценза: проверете ключа в .env (QUORUM_LICENSE_KEY), после стартирайте инсталатора отново и изберете Обновяване. Помощ: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker разполага с малко памет ({gb} GB), затова разпознаването на реч и четенето на глас (Whisper + Piper) се пропускат. Могат да се добавят по-късно чрез Промяна.",
         "install_kind_question": "Как искате да инсталирате?",
         "install_kind_quick": "Бърза инсталация (препоръчително): пита само за лицензионния ключ, останалото по подразбиране, и стартира QuorumAI",
@@ -1761,6 +1825,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "hr": {
         "lang_name": "Hrvatski",
+        "license_format_invalid": "Ovo ne izgleda kao licencni ključ. Počinje s QL-, a slijede 32 slova/znamenke u skupinama (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopirajte ga iz licencne e-pošte.",
+        "health_waiting": "Čekanje na pokretanje QuorumAI-ja (http://localhost:{port}/health, do 3 minute)",
+        "health_failed": "QuorumAI nije odgovorio u 3 minute. Posljednji retci zapisnika orkestratora:",
+        "health_license_hint": "Zapisnik spominje licencu: provjerite ključ u .env (QUORUM_LICENSE_KEY), zatim ponovno pokrenite instalacijski program i odaberite Ažuriraj. Pomoć: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker ima malo memorije ({gb} GB), pa se prepoznavanje govora i čitanje naglas (Whisper + Piper) izostavljaju. Kasnije se mogu dodati putem Izmjene.",
         "install_kind_question": "Kako želite instalirati?",
         "install_kind_quick": "Brza instalacija (preporučeno): traži samo licencni ključ, ostalo postavlja zadano i pokreće QuorumAI",
@@ -1867,6 +1935,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sl": {
         "lang_name": "Slovenščina",
+        "license_format_invalid": "To ni videti kot licenčni ključ. Začne se s QL-, sledi 32 črk/števk v skupinah (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopirajte ga iz licenčnega e-sporočila.",
+        "health_waiting": "Čakanje na zagon QuorumAI (http://localhost:{port}/health, največ 3 minute)",
+        "health_failed": "QuorumAI se v 3 minutah ni odzval. Zadnje vrstice dnevnika orkestratorja:",
+        "health_license_hint": "Dnevnik omenja licenco: preverite ključ v .env (QUORUM_LICENSE_KEY), nato znova zaženite namestitveni program in izberite Posodobi. Pomoč: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker ima malo pomnilnika ({gb} GB), zato sta prepoznavanje govora in branje na glas (Whisper + Piper) izpuščena. Pozneje ju lahko dodate z možnostjo Spremeni.",
         "install_kind_question": "Kako želite namestiti?",
         "install_kind_quick": "Hitra namestitev (priporočeno): vpraša le za licenčni ključ, ostalo nastavi privzeto in zažene QuorumAI",
@@ -1973,6 +2045,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "el": {
         "lang_name": "Ελληνικά",
+        "license_format_invalid": "Αυτό δεν μοιάζει με κλειδί άδειας. Ξεκινά με QL- και ακολουθούν 32 γράμματα/ψηφία σε ομάδες (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Αντιγράψτε το από το email της άδειας.",
+        "health_waiting": "Αναμονή για την εκκίνηση του QuorumAI (http://localhost:{port}/health, έως 3 λεπτά)",
+        "health_failed": "Το QuorumAI δεν απάντησε μέσα σε 3 λεπτά. Οι τελευταίες γραμμές του αρχείου καταγραφής του orchestrator:",
+        "health_license_hint": "Το αρχείο καταγραφής αναφέρει την άδεια: ελέγξτε το κλειδί στο .env (QUORUM_LICENSE_KEY), εκτελέστε ξανά το πρόγραμμα εγκατάστασης και επιλέξτε Ενημέρωση. Βοήθεια: https://license.quorumai.eu",
         "quick_voice_skipped": "Το Docker έχει λίγη μνήμη ({gb} GB), οπότε η αναγνώριση ομιλίας και η ανάγνωση φωναχτά (Whisper + Piper) παραλείπονται. Μπορείτε να τα προσθέσετε αργότερα με την Τροποποίηση.",
         "install_kind_question": "Πώς θέλετε να εγκαταστήσετε;",
         "install_kind_quick": "Γρήγορη εγκατάσταση (συνιστάται): ζητά μόνο το κλειδί άδειας, τα υπόλοιπα προεπιλογές, και εκκινεί το QuorumAI",
@@ -2079,6 +2155,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "da": {
         "lang_name": "Dansk",
+        "license_format_invalid": "Det ligner ikke en licensnøgle. Den starter med QL- efterfulgt af 32 bogstaver/cifre i grupper (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopiér den fra licensmailen.",
+        "health_waiting": "Venter på at QuorumAI starter (http://localhost:{port}/health, op til 3 minutter)",
+        "health_failed": "QuorumAI svarede ikke inden for 3 minutter. De sidste linjer i orkestratorens log:",
+        "health_license_hint": "Loggen nævner licensen: tjek nøglen i .env (QUORUM_LICENSE_KEY), kør derefter installationsprogrammet igen og vælg Opdater. Hjælp: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker har lidt hukommelse ({gb} GB), så talegenkendelse og oplæsning (Whisper + Piper) springes over. Kan tilføjes senere via Rediger.",
         "install_kind_question": "Hvordan vil du installere?",
         "install_kind_quick": "Hurtig installation (anbefalet): spørger kun om licensnøglen, bruger standardværdier og starter QuorumAI",
@@ -2185,6 +2265,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "fi": {
         "lang_name": "Suomi",
+        "license_format_invalid": "Tämä ei näytä lisenssiavaimelta. Se alkaa QL- ja jatkuu 32 kirjaimella/numerolla ryhmissä (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopioi se lisenssisähköpostista.",
+        "health_waiting": "Odotetaan QuorumAI:n käynnistymistä (http://localhost:{port}/health, enintään 3 minuuttia)",
+        "health_failed": "QuorumAI ei vastannut 3 minuutissa. Orkestraattorin lokin viimeiset rivit:",
+        "health_license_hint": "Loki mainitsee lisenssin: tarkista avain .env-tiedostosta (QUORUM_LICENSE_KEY), suorita asennusohjelma uudelleen ja valitse Päivitä. Apua: https://license.quorumai.eu",
         "quick_voice_skipped": "Dockerilla on vähän muistia ({gb} Gt), joten puheentunnistus ja ääneenluku (Whisper + Piper) jätetään pois. Ne voi lisätä myöhemmin Muokkaa-toiminnolla.",
         "install_kind_question": "Miten haluat asentaa?",
         "install_kind_quick": "Pika-asennus (suositeltu): kysyy vain lisenssiavaimen, muut oletusarvoilla, ja käynnistää QuorumAI:n",
@@ -2291,6 +2375,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "lt": {
         "lang_name": "Lietuvių",
+        "license_format_invalid": "Tai nepanašu į licencijos raktą. Jis prasideda QL-, toliau 32 raidės/skaitmenys grupėmis (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Nukopijuokite jį iš licencijos el. laiško.",
+        "health_waiting": "Laukiama, kol QuorumAI pasileis (http://localhost:{port}/health, iki 3 minučių)",
+        "health_failed": "QuorumAI neatsakė per 3 minutes. Paskutinės orkestratoriaus žurnalo eilutės:",
+        "health_license_hint": "Žurnale minima licencija: patikrinkite raktą .env faile (QUORUM_LICENSE_KEY), tada vėl paleiskite diegimo programą ir pasirinkite Atnaujinti. Pagalba: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker turi mažai atminties ({gb} GB), todėl kalbos atpažinimas ir skaitymas balsu (Whisper + Piper) praleidžiami. Vėliau juos galima pridėti per Keisti.",
         "install_kind_question": "Kaip norite diegti?",
         "install_kind_quick": "Greitas diegimas (rekomenduojama): klausia tik licencijos rakto, kitką nustato numatytai ir paleidžia QuorumAI",
@@ -2397,6 +2485,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "lv": {
         "lang_name": "Latviešu",
+        "license_format_invalid": "Tas neizskatās pēc licences atslēgas. Tā sākas ar QL-, tad 32 burti/cipari grupās (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Nokopējiet to no licences e-pasta.",
+        "health_waiting": "Gaida, kamēr QuorumAI startē (http://localhost:{port}/health, līdz 3 minūtēm)",
+        "health_failed": "QuorumAI 3 minūšu laikā neatbildēja. Orķestratora žurnāla pēdējās rindas:",
+        "health_license_hint": "Žurnālā minēta licence: pārbaudiet atslēgu .env (QUORUM_LICENSE_KEY), tad vēlreiz palaidiet instalētāju un izvēlieties Atjaunināt. Palīdzība: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker ir maz atmiņas ({gb} GB), tāpēc runas atpazīšana un nolasīšana (Whisper + Piper) tiek izlaista. Vēlāk tās var pievienot ar Mainīt.",
         "install_kind_question": "Kā vēlaties instalēt?",
         "install_kind_quick": "Ātrā instalēšana (ieteicams): jautā tikai licences atslēgu, pārējo iestata pēc noklusējuma un palaiž QuorumAI",
@@ -2503,6 +2595,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "et": {
         "lang_name": "Eesti",
+        "license_format_invalid": "See ei näe välja nagu litsentsivõti. See algab QL- ja jätkub 32 tähe/numbriga rühmadena (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopeerige see litsentsi e-kirjast.",
+        "health_waiting": "Ootan QuorumAI käivitumist (http://localhost:{port}/health, kuni 3 minutit)",
+        "health_failed": "QuorumAI ei vastanud 3 minuti jooksul. Orkestraatori logi viimased read:",
+        "health_license_hint": "Logi mainib litsentsi: kontrollige võtit .env-failis (QUORUM_LICENSE_KEY), seejärel käivitage paigaldaja uuesti ja valige Uuenda. Abi: https://license.quorumai.eu",
         "quick_voice_skipped": "Dockeril on vähe mälu ({gb} GB), seega kõnetuvastus ja ettelugemine (Whisper + Piper) jäetakse välja. Neid saab hiljem lisada valikuga Muuda.",
         "install_kind_question": "Kuidas soovite paigaldada?",
         "install_kind_quick": "Kiirpaigaldus (soovitatav): küsib ainult litsentsivõtit, ülejäänu vaikimisi ja käivitab QuorumAI",
@@ -2609,6 +2705,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ga": {
         "lang_name": "Gaeilge",
+        "license_format_invalid": "Ní cosúil é seo le heochair cheadúnais. Tosaíonn sí le QL- agus 32 litir/digit i ngrúpaí ina dhiaidh (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Cóipeáil í ón ríomhphost ceadúnais.",
+        "health_waiting": "Ag fanacht le QuorumAI a thosú (http://localhost:{port}/health, suas le 3 nóiméad)",
+        "health_failed": "Níor fhreagair QuorumAI laistigh de 3 nóiméad. Na línte deireanacha de logchomhad an ordóra:",
+        "health_license_hint": "Luann an logchomhad an ceadúnas: seiceáil an eochair in .env (QUORUM_LICENSE_KEY), ansin rith an suiteálaí arís agus roghnaigh Nuashonraigh. Cabhair: https://license.quorumai.eu",
         "quick_voice_skipped": "Tá beagán cuimhne ag Docker ({gb} GB), mar sin fágtar aithint cainte agus léamh os ard (Whisper + Piper) ar lár. Is féidir iad a chur leis níos déanaí le hAthraigh.",
         "install_kind_question": "Conas ar mhaith leat suiteáil?",
         "install_kind_quick": "Suiteáil thapa (molta): ní iarrann ach an eochair cheadúnais, réamhshocruithe don chuid eile, agus tosaíonn sé QuorumAI",
@@ -2715,6 +2815,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "mt": {
         "lang_name": "Malti",
+        "license_format_invalid": "Din ma tidhirx ċavetta tal-liċenzja. Tibda b'QL- u wara jkun hemm 32 ittra/ċifra fi gruppi (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Ikkopjaha mill-email tal-liċenzja.",
+        "health_waiting": "Qed nistenna li QuorumAI jibda (http://localhost:{port}/health, sa 3 minuti)",
+        "health_failed": "QuorumAI ma weġibx fi żmien 3 minuti. L-aħħar linji tal-log tal-orkestratur:",
+        "health_license_hint": "Il-log isemmi l-liċenzja: iċċekkja ċ-ċavetta f'.env (QUORUM_LICENSE_KEY), imbagħad erġa' mexxi l-installatur u agħżel Aġġorna. Għajnuna: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker għandu ftit memorja ({gb} GB), għalhekk l-għarfien tad-diskors u l-qari b'leħen għoli (Whisper + Piper) jitħallew barra. Tista' żżidhom aktar tard b'Immodifika.",
         "install_kind_question": "Kif trid tinstalla?",
         "install_kind_quick": "Installazzjoni malajr (rakkomandata): titlob biss iċ-ċavetta tal-liċenzja, il-bqija default, u tibda QuorumAI",
@@ -2821,6 +2925,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "no": {
         "lang_name": "Norsk",
+        "license_format_invalid": "Dette ser ikke ut som en lisensnøkkel. Den begynner med QL- etterfulgt av 32 bokstaver/sifre i grupper (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Kopier den fra lisens-e-posten.",
+        "health_waiting": "Venter på at QuorumAI starter (http://localhost:{port}/health, opptil 3 minutter)",
+        "health_failed": "QuorumAI svarte ikke innen 3 minutter. De siste linjene i orkestratorens logg:",
+        "health_license_hint": "Loggen nevner lisensen: sjekk nøkkelen i .env (QUORUM_LICENSE_KEY), kjør deretter installasjonsprogrammet igjen og velg Oppdater. Hjelp: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker har lite minne ({gb} GB), så talegjenkjenning og opplesing (Whisper + Piper) hoppes over. Kan legges til senere via Endre.",
         "install_kind_question": "Hvordan vil du installere?",
         "install_kind_quick": "Hurtiginstallasjon (anbefalt): spør bare om lisensnøkkelen, standardverdier for resten, og starter QuorumAI",
@@ -2927,6 +3035,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sr": {
         "lang_name": "Српски",
+        "license_format_invalid": "Ово не изгледа као лиценцни кључ. Почиње са QL-, затим 32 слова/цифре у групама (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Копирајте га из лиценцне е-поруке.",
+        "health_waiting": "Чекање да се QuorumAI покрене (http://localhost:{port}/health, до 3 минута)",
+        "health_failed": "QuorumAI није одговорио у року од 3 минута. Последњи редови дневника оркестратора:",
+        "health_license_hint": "Дневник помиње лиценцу: проверите кључ у .env (QUORUM_LICENSE_KEY), затим поново покрените инсталатер и изаберите Ажурирај. Помоћ: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker има мало меморије ({gb} GB), па се препознавање говора и читање наглас (Whisper + Piper) изостављају. Касније се могу додати преко опције Измени.",
         "install_kind_question": "Како желите да инсталирате?",
         "install_kind_quick": "Брза инсталација (препоручено): тражи само лиценцни кључ, остало подразумевано, и покреће QuorumAI",
@@ -3033,6 +3145,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "tr": {
         "lang_name": "Türkçe",
+        "license_format_invalid": "Bu bir lisans anahtarına benzemiyor. QL- ile başlar ve ardından gruplar halinde 32 harf/rakam gelir (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Lisans e-postasından kopyalayın.",
+        "health_waiting": "QuorumAI'nin başlaması bekleniyor (http://localhost:{port}/health, en fazla 3 dakika)",
+        "health_failed": "QuorumAI 3 dakika içinde yanıt vermedi. Orkestratör günlüğünün son satırları:",
+        "health_license_hint": "Günlük lisanstan bahsediyor: .env içindeki anahtarı (QUORUM_LICENSE_KEY) kontrol edin, ardından kurulumu yeniden çalıştırıp Güncelle'yi seçin. Yardım: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker'ın belleği az ({gb} GB), bu yüzden konuşma tanıma ve sesli okuma (Whisper + Piper) kurulmuyor. Daha sonra Değiştir ile eklenebilir.",
         "install_kind_question": "Nasıl kurmak istersiniz?",
         "install_kind_quick": "Hızlı kurulum (önerilen): yalnızca lisans anahtarını sorar, gerisini varsayılan yapar ve QuorumAI'yi başlatır",
@@ -3139,6 +3255,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ja": {
         "lang_name": "日本語",
+        "license_format_invalid": "ライセンスキーの形式ではありません。QL- で始まり、続いて 32 文字の英数字がグループで並びます（QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX）。ライセンスのメールからコピーしてください。",
+        "health_waiting": "QuorumAI の起動を待っています（http://localhost:{port}/health、最大 3 分）",
+        "health_failed": "QuorumAI が 3 分以内に応答しませんでした。オーケストレーターのログの最終行：",
+        "health_license_hint": "ログにライセンスへの言及があります：.env のキー（QUORUM_LICENSE_KEY）を確認し、インストーラーを再実行して「アップデート」を選んでください。ヘルプ：https://license.quorumai.eu",
         "quick_voice_skipped": "Docker のメモリが少ないため（{gb} GB）、音声認識と読み上げ（Whisper + Piper）は省略します。後から「変更」で追加できます。",
         "install_kind_question": "インストール方法を選んでください",
         "install_kind_quick": "クイックインストール（推奨）：ライセンスキーのみ入力、その他は既定値で設定し QuorumAI を起動",
@@ -3245,6 +3365,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "zh": {
         "lang_name": "中文",
+        "license_format_invalid": "这看起来不像许可证密钥。它以 QL- 开头，后面是分组的 32 个字母/数字（QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX）。请从许可证邮件中复制。",
+        "health_waiting": "正在等待 QuorumAI 启动（http://localhost:{port}/health，最多 3 分钟）",
+        "health_failed": "QuorumAI 在 3 分钟内没有响应。编排器日志的最后几行：",
+        "health_license_hint": "日志提到了许可证：请检查 .env 中的密钥（QUORUM_LICENSE_KEY），然后重新运行安装程序并选择“更新”。帮助：https://license.quorumai.eu",
         "quick_voice_skipped": "Docker 内存较少（{gb} GB），因此省略语音识别和朗读（Whisper + Piper）。之后可通过“修改”添加。",
         "install_kind_question": "您想如何安装？",
         "install_kind_quick": "快速安装（推荐）：只需输入许可证密钥，其余使用默认值，并启动 QuorumAI",
@@ -3351,6 +3475,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ko": {
         "lang_name": "한국어",
+        "license_format_invalid": "라이선스 키 형식이 아닙니다. QL-로 시작하고 그 뒤에 32자의 영문/숫자가 그룹으로 이어집니다(QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). 라이선스 이메일에서 복사하세요.",
+        "health_waiting": "QuorumAI 시작을 기다리는 중(http://localhost:{port}/health, 최대 3분)",
+        "health_failed": "QuorumAI가 3분 안에 응답하지 않았습니다. 오케스트레이터 로그의 마지막 줄:",
+        "health_license_hint": "로그에 라이선스가 언급되어 있습니다: .env의 키(QUORUM_LICENSE_KEY)를 확인한 뒤 설치 프로그램을 다시 실행하고 '업데이트'를 선택하세요. 도움말: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker 메모리가 적어({gb} GB) 음성 인식과 읽어 주기(Whisper + Piper)는 제외합니다. 나중에 '변경'으로 추가할 수 있습니다.",
         "install_kind_question": "어떻게 설치하시겠습니까?",
         "install_kind_quick": "빠른 설치(권장): 라이선스 키만 묻고 나머지는 기본값으로 설정한 뒤 QuorumAI를 시작합니다",
@@ -3457,6 +3585,10 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sw": {
         "lang_name": "Kiswahili",
+        "license_format_invalid": "Hii haionekani kama ufunguo wa leseni. Huanza na QL- kisha herufi/tarakimu 32 katika vikundi (QL-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX). Inakili kutoka kwenye barua pepe ya leseni.",
+        "health_waiting": "Inasubiri QuorumAI ianze (http://localhost:{port}/health, hadi dakika 3)",
+        "health_failed": "QuorumAI haikujibu ndani ya dakika 3. Mistari ya mwisho ya kumbukumbu ya orchestrator:",
+        "health_license_hint": "Kumbukumbu inataja leseni: kagua ufunguo kwenye .env (QUORUM_LICENSE_KEY), kisha endesha kisakinishi tena na uchague Sasisha. Msaada: https://license.quorumai.eu",
         "quick_voice_skipped": "Docker ina kumbukumbu kidogo ({gb} GB), kwa hiyo utambuzi wa sauti na kusoma kwa sauti (Whisper + Piper) vimeachwa. Unaweza kuviongeza baadaye kwa Badilisha.",
         "install_kind_question": "Ungependa kusakinisha vipi?",
         "install_kind_quick": "Usakinishaji wa haraka (unapendekezwa): unauliza tu ufunguo wa leseni, mengine ni chaguo-msingi, na unaanzisha QuorumAI",
@@ -4197,7 +4329,7 @@ COMPOSE_FILES: Dict[str, str] = {
     'postgres/compose.yml': 'services:\n  postgres:\n    image: postgres:17-alpine\n    container_name: quorum-postgres\n    env_file:\n      - ../.env\n    environment:\n      - POSTGRES_DB=quorum\n      - POSTGRES_USER=quorum\n      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-quorum}\n      - TZ=Europe/Budapest\n    volumes:\n      - ../data/postgres:/var/lib/postgresql/data\n      - ./init:/docker-entrypoint-initdb.d\n    ports:\n      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"\n    networks:\n      - quorum-net\n    healthcheck:\n      test: ["CMD-SHELL", "pg_isready -U quorum -d quorum"]\n      interval: 5s\n      timeout: 5s\n      retries: 10\n    restart: unless-stopped\n    profiles:\n      - postgres\n      - orchestrator\n\nnetworks:\n  quorum-net:\n    external: true\n',
     'bridges/telegram/compose.yml': '# Telegram bridge\n# Bot fogadja az üzeneteket és továbbítja az orchestrator /invoke endpointjára.\n# Csak a TELEGRAM_CHAT_ID-ban megadott chat jogosult kommunikálni.\n\nservices:\n  telegram:\n    image: fulopjozsef86/quorum-telegram:0.9.5\n    container_name: quorum-telegram\n    env_file:\n      - ../../.env\n    environment:\n      - TZ=Europe/Budapest\n      - ORCHESTRATOR_URL=http://orchestrator:8000\n      - AGENT=${TELEGRAM_AGENT:-dispatcher}\n      - WHISPER_URL=${WHISPER_URL:-http://orchestrator:8000}\n      - PIPER_URL=${PIPER_URL:-http://orchestrator:8000}\n      - VOICE_REPLY_ALWAYS=${VOICE_REPLY_ALWAYS:-false}\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    profiles:\n      - telegram\n\nnetworks:\n  quorum-net:\n    external: true\n',
     'mcps/home-assistant/compose.yml': 'services:\n  home-assistant-mcp:\n    image: fulopjozsef86/quorum-home-assistant-mcp:0.1.2\n    container_name: quorum-home-assistant-mcp\n    profiles: [ha]\n    env_file: ../../.env\n    environment:\n      - HA_URL\n      - HA_TOKEN\n    ports:\n      - "127.0.0.1:${HA_MCP_PORT:-4320}:4320"\n    networks:\n      - quorum-net\n    restart: unless-stopped\n\nnetworks:\n  quorum-net:\n    name: quorum-net\n    external: true\n',
-    'bridges/mic/compose.yml': '# Mic stack\n# openWakeWord ébresztőszó + Wyoming Whisper STT + Wyoming Piper TTS\n#\n# Indítás:\n#   docker compose --profile mic up -d --build mic\n#\n# A Whisper large-v3-turbo modell (~1.6 GB) és a Piper hu_HU-anna-medium hang az első\n# indításkor töltődik le a ../../data/wyoming/ könyvtárba.\n#\n# ── Platform-specifikus audio beállítások ───────────────────────────────────────\n#\n# LINUX (ez az alapértelmezett konfiguráció)\n#   A mic service PulseAudio Unix socket-en keresztül ér el hangot.\n#   Feltétel: PulseAudio fut a host-on és a /run/user/1000/pulse socket elérhető.\n#   Ha más UID-dal futtatsz (nem 1000), írd át a volume elérési útját:\n#     /run/user/<UID>/pulse:/run/pulse\n#\n# MACOS / WINDOWS\n#   Docker Desktop nem adja át az audio eszközöket, PulseAudio TCP mód kell,\n#   anonim auth-tal (cookie mount NEM kell). Az install.py telepítéskor\n#   automatikusan a TCP-s compose-t írja ki, és macOS-en a PulseAudio-t is\n#   beállítja (Homebrew esetén). Kézi beállítás:\n#\n#   macOS:\n#     brew install pulseaudio\n#     echo \'load-module module-native-protocol-tcp auth-anonymous=1 listen=127.0.0.1\' >> "$(brew --prefix)/etc/pulse/default.pa"\n#     brew services restart pulseaudio\n#\n#   Windows (natív PulseAudio, ajánlott):\n#     Telepítsd: https://pgaskin.net/pulseaudio-win32/  (szolgáltatásként fut)\n#     default.pa-ba: load-module module-native-protocol-tcp auth-anonymous=1\n#     Tűzfal 4713/TCP: az install.py létrehozza a szabályt (admin jog esetén).\n#\n#   Windows (WSL2 alternatíva):\n#     sudo apt install pulseaudio\n#     default.pa-ba: load-module module-native-protocol-tcp auth-anonymous=1\n#     pulseaudio --start   (és a compose-t WSL-en belülről futtasd)\n#\n#   Kézi átalakításnál a mic service-ből: töröld a privileged, devices,\n#   group_add sorokat és a pulse/machine-id mountokat, a PULSE_* env-eket\n#   cseréld erre: PULSE_SERVER=tcp:host.docker.internal:4713\n\nservices:\n  whisper:\n    image: rhasspy/wyoming-whisper:latest\n    container_name: quorum-whisper\n    command: --model large-v3-turbo --language hu --device cpu\n    # command: --model /data/whisper-base-hungarian-soup-ct2 --language hu --device cpu\n    environment:\n      - TZ=Europe/Budapest\n    volumes:\n      - ../../data/wyoming:/data\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    # `mic` → saját mikrofon-stack; `stt-tts` → orchestrator/GUI voice út\n    # (a Wyoming Whisper/Piper ekkor is elindul, a HTTP wrapper nélkül).\n    profiles:\n      - mic\n      - stt-tts\n\n  piper:\n    image: rhasspy/wyoming-piper:latest\n    container_name: quorum-piper\n    command: --voice hu_HU-anna-medium\n    environment:\n      - TZ=Europe/Budapest\n    volumes:\n      - ../../data/wyoming:/data\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    # `mic` → saját mikrofon-stack; `stt-tts` → orchestrator/GUI voice út\n    # (a Wyoming Whisper/Piper ekkor is elindul, a HTTP wrapper nélkül).\n    profiles:\n      - mic\n      - stt-tts\n\n  mic:\n    image: fulopjozsef86/quorum-mic:0.6.5\n    container_name: quorum-mic\n    # Linux: privileged + /dev/snd szükséges a sounddevice-hoz.\n    # macOS / Windows: töröld ezt a két sort, és a devices / group_add blokkot is.\n    privileged: true\n    env_file:\n      - ../../.env\n    environment:\n      - TZ=Europe/Budapest\n      - ORCHESTRATOR_URL=http://orchestrator:8000\n      - WHISPER_HOST=whisper\n      - PIPER_HOST=piper\n      - AGENT=mic_assistant\n      - THREAD_ID=mic-default\n      # Linux: PulseAudio Unix socket.\n      # macOS / Windows: cseréld le az alábbira:\n      #   PULSE_SERVER=tcp:host.docker.internal:4713\n      #   PULSE_COOKIE=/root/.config/pulse/cookie\n      - PULSE_SERVER=unix:/run/pulse/native\n      - PULSE_COOKIE=/run/pulse/cookie\n      - REQUEST_TIMEOUT=${MIC_REQUEST_TIMEOUT:-600}\n      # Phase 91: unread agent messages (outbox) polling interval in seconds while idle; 0 = off\n      - MIC_OUTBOX_POLL_S=${MIC_OUTBOX_POLL_S:-15}\n    # Linux: ALSA audio eszköz átadása.\n    # macOS / Windows: töröld ezt a blokkot.\n    devices:\n      - /dev/snd:/dev/snd\n    # Linux: audio csoport tagság az ALSA-hoz.\n    # macOS / Windows: töröld ezt a blokkot.\n    group_add:\n      - audio\n    volumes:\n      # Linux: PulseAudio socket és machine-id.\n      # macOS / Windows: cseréld le:\n      #   - ~/.config/pulse/cookie:/root/.config/pulse/cookie:ro\n      - /run/user/1000/pulse:/run/pulse\n      - /etc/machine-id:/etc/machine-id:ro\n    depends_on:\n      - whisper\n      - piper\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    profiles:\n      - mic\n\nnetworks:\n  quorum-net:\n    external: true\n',
+    'bridges/mic/compose.yml': '# Mic stack\n# openWakeWord ébresztőszó + Wyoming Whisper STT + Wyoming Piper TTS\n#\n# Indítás:\n#   docker compose --profile mic up -d --build mic\n#\n# A Whisper large-v3-turbo modell (~1.6 GB) és a Piper-hang (.env: WHISPER_LANGUAGE, PIPER_VOICE) az első\n# indításkor töltődik le a ../../data/wyoming/ könyvtárba.\n#\n# ── Platform-specifikus audio beállítások ───────────────────────────────────────\n#\n# LINUX (ez az alapértelmezett konfiguráció)\n#   A mic service PulseAudio Unix socket-en keresztül ér el hangot.\n#   Feltétel: PulseAudio fut a host-on és a /run/user/1000/pulse socket elérhető.\n#   Ha más UID-dal futtatsz (nem 1000), írd át a volume elérési útját:\n#     /run/user/<UID>/pulse:/run/pulse\n#\n# MACOS / WINDOWS\n#   Docker Desktop nem adja át az audio eszközöket, PulseAudio TCP mód kell,\n#   anonim auth-tal (cookie mount NEM kell). Az install.py telepítéskor\n#   automatikusan a TCP-s compose-t írja ki, és macOS-en a PulseAudio-t is\n#   beállítja (Homebrew esetén). Kézi beállítás:\n#\n#   macOS:\n#     brew install pulseaudio\n#     echo \'load-module module-native-protocol-tcp auth-anonymous=1 listen=127.0.0.1\' >> "$(brew --prefix)/etc/pulse/default.pa"\n#     brew services restart pulseaudio\n#\n#   Windows (natív PulseAudio, ajánlott):\n#     Telepítsd: https://pgaskin.net/pulseaudio-win32/  (szolgáltatásként fut)\n#     default.pa-ba: load-module module-native-protocol-tcp auth-anonymous=1\n#     Tűzfal 4713/TCP: az install.py létrehozza a szabályt (admin jog esetén).\n#\n#   Windows (WSL2 alternatíva):\n#     sudo apt install pulseaudio\n#     default.pa-ba: load-module module-native-protocol-tcp auth-anonymous=1\n#     pulseaudio --start   (és a compose-t WSL-en belülről futtasd)\n#\n#   Kézi átalakításnál a mic service-ből: töröld a privileged, devices,\n#   group_add sorokat és a pulse/machine-id mountokat, a PULSE_* env-eket\n#   cseréld erre: PULSE_SERVER=tcp:host.docker.internal:4713\n\nservices:\n  whisper:\n    image: rhasspy/wyoming-whisper:latest\n    container_name: quorum-whisper\n    command: --model ${WHISPER_MODEL:-large-v3-turbo} --language ${WHISPER_LANGUAGE:-hu} --device ${WHISPER_DEVICE:-cpu}\n    # command: --model /data/whisper-base-hungarian-soup-ct2 --language hu --device cpu\n    environment:\n      - TZ=Europe/Budapest\n    volumes:\n      - ../../data/wyoming:/data\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    # `mic` → saját mikrofon-stack; `stt-tts` → orchestrator/GUI voice út\n    # (a Wyoming Whisper/Piper ekkor is elindul, a HTTP wrapper nélkül).\n    profiles:\n      - mic\n      - stt-tts\n\n  piper:\n    image: rhasspy/wyoming-piper:latest\n    container_name: quorum-piper\n    # --update-voices: the newest voice catalogue (bg, et, lt, ja, ko voices are newer\n    # than the list bundled in the image); the voice itself is PIPER_VOICE in .env\n    command: --voice ${PIPER_VOICE:-hu_HU-anna-medium} --update-voices\n    environment:\n      - TZ=Europe/Budapest\n    volumes:\n      - ../../data/wyoming:/data\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    # `mic` → saját mikrofon-stack; `stt-tts` → orchestrator/GUI voice út\n    # (a Wyoming Whisper/Piper ekkor is elindul, a HTTP wrapper nélkül).\n    profiles:\n      - mic\n      - stt-tts\n\n  mic:\n    image: fulopjozsef86/quorum-mic:0.6.5\n    container_name: quorum-mic\n    # Linux: privileged + /dev/snd szükséges a sounddevice-hoz.\n    # macOS / Windows: töröld ezt a két sort, és a devices / group_add blokkot is.\n    privileged: true\n    env_file:\n      - ../../.env\n    environment:\n      - TZ=Europe/Budapest\n      - ORCHESTRATOR_URL=http://orchestrator:8000\n      - WHISPER_HOST=whisper\n      - PIPER_HOST=piper\n      - AGENT=mic_assistant\n      - THREAD_ID=mic-default\n      # Linux: PulseAudio Unix socket.\n      # macOS / Windows: cseréld le az alábbira:\n      #   PULSE_SERVER=tcp:host.docker.internal:4713\n      #   PULSE_COOKIE=/root/.config/pulse/cookie\n      - PULSE_SERVER=unix:/run/pulse/native\n      - PULSE_COOKIE=/run/pulse/cookie\n      - REQUEST_TIMEOUT=${MIC_REQUEST_TIMEOUT:-600}\n      # Phase 91: unread agent messages (outbox) polling interval in seconds while idle; 0 = off\n      - MIC_OUTBOX_POLL_S=${MIC_OUTBOX_POLL_S:-15}\n    # Linux: ALSA audio eszköz átadása.\n    # macOS / Windows: töröld ezt a blokkot.\n    devices:\n      - /dev/snd:/dev/snd\n    # Linux: audio csoport tagság az ALSA-hoz.\n    # macOS / Windows: töröld ezt a blokkot.\n    group_add:\n      - audio\n    volumes:\n      # Linux: PulseAudio socket és machine-id.\n      # macOS / Windows: cseréld le:\n      #   - ~/.config/pulse/cookie:/root/.config/pulse/cookie:ro\n      - /run/user/1000/pulse:/run/pulse\n      - /etc/machine-id:/etc/machine-id:ro\n    depends_on:\n      - whisper\n      - piper\n    networks:\n      - quorum-net\n    restart: unless-stopped\n    profiles:\n      - mic\n\nnetworks:\n  quorum-net:\n    external: true\n',
     'gui/compose.yml': 'services:\n  gui:\n    image: fulopjozsef86/quorum-gui:0.21.1\n    container_name: quorum-gui\n    profiles: [gui]\n    ports:\n      - "${GUI_PORT:-3000}:80"\n    restart: unless-stopped\n    networks:\n      - quorum-net\n\nnetworks:\n  quorum-net:\n    external: true\n',
     'mcps/manager/compose.yml': 'services:\n  mcp-manager:\n    image: fulopjozsef86/quorum-mcp-manager:0.1.0\n    container_name: quorum-mcp-manager\n    ports:\n      - "127.0.0.1:${MCP_MANAGER_PORT:-4400}:4400"\n    volumes:\n      - ../../data/mcp-manager:/app/data\n    env_file:\n      - ../../.env\n    environment:\n      - PORT=4400\n      - DATA_PATH=/app/data/mcps.json\n      - NODE_PATH=/app/data/node_modules\n      - NPM_CONFIG_CACHE=/app/data/npm_cache\n      - NPM_CONFIG_PREFIX=/app/data\n      - MANAGER_BRIDGE_URL=http://mcp-manager:4400\n    extra_hosts:\n      - "host.docker.internal:host-gateway"\n    networks:\n      quorum-net:\n        aliases:\n          - mcp-manager\n    restart: unless-stopped\n    healthcheck:\n      test: ["CMD", "curl", "-f", "http://localhost:4400/health"]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 60s\n    profiles:\n      - mcp-manager\n\n  # Generic TCP proxy: makes host 127.0.0.1-only services reachable inside Docker\n  # via host.docker.internal:<LISTEN_PORT>. Add more FORWARD_* entries as needed.\n  # Current forwards:\n  #   41186 → 127.0.0.1:41185  (Joplin Desktop Web Clipper)\n  localhost-proxy:\n    image: alpine/socat\n    container_name: quorum-localhost-proxy\n    network_mode: host\n    entrypoint: ["/bin/sh", "-c"]\n    command:\n      - |\n        socat TCP-LISTEN:41186,bind=0.0.0.0,reuseaddr,fork TCP4:127.0.0.1:41185 &\n        wait\n    restart: unless-stopped\n    profiles:\n      - mcp-manager\n\nnetworks:\n  quorum-net:\n    external: true\n',
     'mcps/playwright/compose.yml': 'services:\n  playwright:\n    image: mcr.microsoft.com/playwright/mcp\n    container_name: quorum-playwright\n    restart: unless-stopped\n    pull_policy: always\n    ports:\n      - "127.0.0.1:${PLAYWRIGHT_PORT:-8931}:8931"\n    stdin_open: true\n    init: true\n    shm_size: \'2gb\'\n    environment:\n      - NODE_ENV=production\n      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright\n      - XDG_CONFIG_HOME=/tmp/.config\n      - XDG_CACHE_HOME=/tmp/.cache\n      - XDG_RUNTIME_DIR=/tmp/.runtime\n      - TMPDIR=/tmp\n    extra_hosts:\n      - "host.docker.internal:host-gateway"\n    entrypoint: ["/bin/sh", "-c"]\n    command:\n      - |\n        # Install the browser with the image\'s OWN CLI (the same /app/cli.js that\n        # serves). `npx @playwright/mcp` fetched the newest npm release instead,\n        # whose browser revision drifted from the image\'s (e.g. 1247 vs 1246 ->\n        # "chrome-for-testing is not installed") whenever either side updated.\n        # Idempotent: an already installed matching revision is skipped.\n        echo "[playwright-mcp] Ensuring the image\'s own browser revision is installed..."\n        node /app/cli.js install-browser chromium\n        # Each MCP session has its own browser context; QuorumAI keeps one session per\n        # conversation (orchestrator/mcp_sessions.py), so agents do not collide.\n        # --isolated: an in-memory profile per session; with the default persistent\n        # profile a second open session failed ("Browser is already in use").\n        # --snapshot-mode none: the automatic snapshot after\n        # navigate/click is only written to a file (an agent cannot read the link); agents\n        # call browser_snapshot explicitly, which returns the page inline.\n        # Phase 93: screen recordings go to the shared workspace (hyperframes and the\n        # orchestrator see it as /app/workspace/video/screencasts). The container runs\n        # as `node` (uid 1000); the installer creates the directory as the host user.\n        [ -w /videos ] || echo "[playwright-mcp] WARNING: /videos is not writable for $$(id -un); screen recordings will fail (chown 1000 data/workspace/video/screencasts)"\n        exec node /app/cli.js \\\n          --headless \\\n          --browser chromium \\\n          --allowed-origins "*" \\\n          --allowed-hosts "*" \\\n          --no-sandbox \\\n          --port 8931 \\\n          --host 0.0.0.0 \\\n          --caps devtools \\\n          --output-dir /videos \\\n          --snapshot-mode none \\\n          --isolated\n    volumes:\n      - ../../data/playwright/browsers:/ms-playwright\n      - ../../data/playwright/tmp:/tmp\n      - ../../data/workspace/video/screencasts:/videos\n    networks:\n      quorum-net:\n        aliases:\n          - playwright\n    profiles:\n      - playwright\n    healthcheck:\n      test: ["CMD-SHELL", "node -e \\"require(\'http\').get(\'http://localhost:8931/mcp/\',r=>process.exit(r.statusCode<500?0:1)).on(\'error\',()=>process.exit(1))\\""]\n      interval: 30s\n      timeout: 10s\n      retries: 5\n      start_period: 120s\n\nnetworks:\n  quorum-net:\n    external: true\n',
@@ -4261,7 +4393,7 @@ services:
   piper:
     image: rhasspy/wyoming-piper:latest
     container_name: quorum-piper
-    command: --voice ${PIPER_VOICE:-hu_HU-anna-medium}
+    command: --voice ${PIPER_VOICE:-hu_HU-anna-medium} --update-voices
     environment:
       - TZ=Europe/Budapest
     volumes:
@@ -4318,14 +4450,8 @@ def _build_mic_compose(os_type: str, uid: int = 1000) -> str:
     if os_type == "Linux":
         content = COMPOSE_FILES["bridges/mic/compose.yml"]
         content = content.replace("/run/user/1000/pulse", f"/run/user/{uid}/pulse")
-        content = content.replace(
-            "--model large-v3-turbo --language hu --device cpu",
-            "--model ${WHISPER_MODEL:-large-v3-turbo} --language ${WHISPER_LANGUAGE:-hu} --device ${WHISPER_DEVICE:-cpu}",
-        )
-        content = content.replace(
-            "--voice hu_HU-anna-medium",
-            "--voice ${PIPER_VOICE:-hu_HU-anna-medium}",
-        )
+        # language and voice come from .env (WHISPER_LANGUAGE / PIPER_VOICE) since
+        # phase 97: the compose itself carries the ${...} placeholders now
         return content
     # macOS / Windows: TCP template — pin the mic image to the same tag as the
     # Linux compose so a future bump can't leave this variant stale (it once
@@ -5077,7 +5203,7 @@ def _ask_wake_word(s: Dict[str, str], existing_env: Dict[str, str]) -> Dict[str,
 # Run update_installer.py --write after modifying .env.example to sync.
 
 ENV_EXAMPLE_FILES: Dict[str, str] = {
-    '.env.example': '# QuorumAI - egyetlen .env a teljes stackhez\n#\n# Másold át: cp .env.example .env  és töltsd ki a szükséges mezőket.\n# Ez a fájl a projekt gyökerében él; minden layer innen olvassa a változókat.\n#\n# Amit NEM kell kitölteni: Ollama alapértelmezett, nincs kulcs szükséges.\n\nTZ=Europe/Budapest\n\nCOMPOSE_PROJECT_NAME=quorum\n\n# ── Docker Compose profilok ────────────────────────────────────────────────────\n# Ha be van állítva, a sima `docker compose up -d` automatikusan ezeket indítja.\n# Elérhető profilok: orchestrator, memory, mcp, postgres, telegram, mic, ha, gui, stt-tts, omnivoice, mcp-manager, joplin, playwright, auth, email, matrix, discord, irc, whatsapp, slack, signal, viber, graph, google-workspace, crm, jog-hu, atlassian, hyperframes, bash-mcp, bash-mcp-host, world-weather, global-news, lean\n# COMPOSE_PROFILES=orchestrator,memory,mcp,postgres,telegram\nCOMPOSE_PROFILES=orchestrator,memory,mcp,postgres,telegram,mic,ha,gui,stt-tts,mcp-manager,jog-hu\n\n# ── Auth & Multi-tenancy (17. fázis) ─────────────────────────────────────────\n# AUTH_MODE=none   - nincs hitelesítés, mindenki \'system\' userként fut (alapértelmezett)\n# AUTH_MODE=local  - egyszerű bearer token; felhasználók: LOCAL_USERS=user1:pass1,user2:pass2\n# AUTH_MODE=sso    - Keycloak OIDC/JWT; szükséges: auth profil + KEYCLOAK_* változók\nAUTH_MODE=none\n\n# Local mode felhasználók (AUTH_MODE=local)\n# Formátum: user1:jelszo1,user2:jelszo2\n# Bejelentkezés: Authorization: Bearer user1:jelszo1\n# LOCAL_USERS=alice:titok:admin,bob:titok2:guest\n# LOCAL_USERS=admin:changeme\n\n# Rate limiting, kérések per perc per felhasználó (csak AUTH_MODE != none esetén aktív)\n# RATE_LIMIT_PER_MINUTE=60\n\n# SSO (AUTH_MODE=sso), három lehetőség:\n#\n#   A) Belső Keycloak (auth profil + compose service):\n#      KEYCLOAK_URL=http://keycloak:8080\n#      KEYCLOAK_REALM=quorum\n#      KEYCLOAK_CLIENT_ID=quorum-orchestrator\n#\n#   B) Külső Keycloak (saját szervered / Keycloak Cloud):\n#      KEYCLOAK_URL=https://auth.example.com\n#      KEYCLOAK_REALM=quorum\n#      KEYCLOAK_CLIENT_ID=quorum-orchestrator\n#\n#   C) Más OIDC provider (Auth0, Okta, Authelia, stb.), felülírd a JWKS URL-t:\n#      OIDC_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json\n#      OIDC_AUDIENCE=quorum-orchestrator\n#      OIDC_ROLES_CLAIM=https://example.com/roles  # Auth0 custom claim\n#      # Okta: OIDC_ROLES_CLAIM=groups\n#      # Keycloak (default): OIDC_ROLES_CLAIM=realm_access.roles\n#\n# KEYCLOAK_URL=http://keycloak:8080        # Docker-belső URL (JWKS lekéréshez)\n# KEYCLOAK_PUBLIC_URL=http://localhost:8180 # Böngészőből elérhető URL (login redirect)\n#                                           # Ha nincs megadva, KEYCLOAK_URL értékét veszi át\n# KEYCLOAK_REALM=quorum\n# KEYCLOAK_CLIENT_ID=quorum-orchestrator\n# KEYCLOAK_CLIENT_SECRET=\n# OIDC_JWKS_URL=          # ha megadod, felülírja a Keycloak-ból számított JWKS URL-t\n# OIDC_AUDIENCE=          # ha üres, KEYCLOAK_CLIENT_ID értékét veszi át\n# OIDC_ROLES_CLAIM=realm_access.roles\n\n# Belső Keycloak admin (csak auth compose service esetén)\n# KEYCLOAK_ADMIN_USER=admin\n# KEYCLOAK_ADMIN_PASSWORD=changeme\n# KEYCLOAK_ADMIN_PORT=8180\n\n# ── Portok ────────────────────────────────────────────────────────────────────\n# Minden belső service csak 127.0.0.1-re van bindolva, más konténerekből\n# a quorum-net hálózaton érhető el, kívülről csak a host-ról.\n# Változtasd meg ha ütközés van a host-on.\n\n# Orchestrator FastAPI (localhost only)\nORCHESTRATOR_PORT=8000\n\n# Qdrant memória HTTP REST (localhost only; gRPC nincs kintről)\nQDRANT_HTTP_PORT=6333\n\n# FalkorDB knowledge graph (phase 18, optional)\nFALKORDB_PORT=6380\n# FALKORDB_URL=redis://graph:6379   # Docker-internal (set to enable knowledge graph)\n\n# PostgreSQL (localhost only)\nPOSTGRES_PORT=5433\n\n# MCP szerverek (localhost only, Claude Code a host-ról éri el)\nHU_TOOLS_PORT=4300\nEMAIL_MCP_PORT=4310\nHA_MCP_PORT=4320\nJOPLIN_MCP_PORT=4330\nGOOGLE_WORKSPACE_MCP_PORT=4350\nCRM_MCP_PORT=4301\nGRAFANA_MCP_PORT=4303\nGRAFANA_OPS_MCP_PORT=4311\nUPTIME_KUMA_MCP_PORT=4304\nJOG_HU_MCP_PORT=4302\nMCP_MANAGER_PORT=4400\nMCP_MANAGER_URL=http://mcp-manager:4400\n\n# Playwright MCP (localhost only)\nPLAYWRIGHT_PORT=8931\n\n# GUI (kintről elérhető, pl. böngésző)\nGUI_PORT=3000\n\n# ── PostgreSQL ─────────────────────────────────────────────────────────────────\nPOSTGRES_PASSWORD=changeme\n\n# ── GitHub integráció ─────────────────────────────────────────────────────────\n# Opcionális, emeli a GitHub API rate-limitet 60-ról 5000 req/óra értékre.\n# Szükséges privát repókhoz. Generálás: https://github.com/settings/tokens\n# (Fine-grained token: Contents: read-only elég)\n# GITHUB_TOKEN=\n\n# ── Webhook receiver (phase 14) ────────────────────────────────────────────────\n# Webhook secrets are configured via GUI Settings → Webhooks.\n# No .env variables needed, secrets are stored in data/orchestrator/webhooks.yaml.\n\n# ── Observability ──────────────────────────────────────────────────────────────\n# Hány napnál régebbi trace-eket töröljük automatikusan PostgreSQL-ből.\n# A törlés naponta 03:00-kor fut. 0 = nincs automatikus törlés.\nTRACE_RETENTION_DAYS=14\n\n# Stream timeout, másodpercek amennyi ideig a stream él esemény nélkül (ping-gel fenntartva).\n# Nagy, lassan futó modelleknél (pl. 27B+ CPU/RAM-on) érdemes növelni.\n# Default: 1800 (30 perc). CPU-n futó 70B modelleknél: 3600+\n# STREAM_MAX_SILENCE=1800\n\n# ── Telegram bridge ────────────────────────────────────────────────────────────\n# BOT_TOKEN: @BotFather adja a bot létrehozásakor.\n# CHAT_ID: a Telegram chat azonosítója, ahonnan a bot üzenetet fogad.\n#   Lekérdezés: küldj üzenetet a botnak, majd:\n#   curl https://api.telegram.org/bot<TOKEN>/getUpdates | jq \'.result[0].message.chat.id\'\nTELEGRAM_BOT_TOKEN=\nTELEGRAM_CHAT_ID=\n# Push értesítések: a chat_id, AHOVÁ az orchestrator értesítéseket küld (lehet ugyanaz, mint TELEGRAM_CHAT_ID)\nNOTIFY_TELEGRAM_CHAT_ID=\n# TELEGRAM_AGENT=dispatcher\n# Notify szerver URL (orchestrator → bridge push értesítés): automatikusan működik ha a container fut\n# TELEGRAM_NOTIFY_URL=http://telegram:5270\n# TELEGRAM_NOTIFY_PORT=5270\n\n# ── Mic bridge (6. fázis) ──────────────────────────────────────────────────────\n# PulseAudio socket a host-tól, ellenőrizd: ls /run/user/$(id -u)/pulse/\n# Ha nem 1000-es a UID-od, cseréld ki: /run/user/<UID>/pulse:/run/pulse\n# (Csak a compose.yml volumes: sorát kell módosítani, ezt az env értéket nem.)\n#\n# Hangfelismerési paraméterek, az alapértelmezések a legtöbb esetben megfelelők.\n# WAKE_WORD=Ok Szif\n# WAKE_WORD_FILENAME=ok_sif\n# WAKEWORD_THRESHOLD=0.7\n# SILENCE_MS=1500             # csend ms-ban ami mondat végét jelzi (Silero VAD alapú; régi SILENCE_TIMEOUT=1.5 megfelelője)\n# VAD_SPEECH_THRESHOLD=0.3   # Silero VAD speech küszöb minimum; auto-kalibrálás felülírhatja (indításkor 1s zajmérés)\n# MIC_GAIN=1.0               # Mikrofon erősítő szorzó, emeld (pl. 2.0-3.0) ha csendes a mikrofon (Bluetooth, olcsó USB)\n# MIC_DEVICE=0\n# MIC_STREAM_TIMEOUT=600      # max másodperc egy LLM stream válaszra\n# Barge-in: felhasználó TTS közben megszólal → TTS+LLM leáll, új input feldolgozódik\n# BARGE_IN_ENABLED=true\n# BARGE_IN_THRESHOLD=0.85     # Silero VAD küszöb TTS közben; immunity window (1.5s) kezeli az echót, 0.75 elegendő a valódi hanghoz\n# STOP_WORDS=stop,állj,megállj,elég  # barge-in szavak amik csak leállítanak (nem küldik tovább az LLM-nek)\n# MIC_OUTBOX_POLL_S=15        # tétlen állapotban ennyi másodpercenként felolvassa az ágensek olvasatlan üzeneteit (pl. háttér-alágens kész); 0 = kikapcsolva\n\n# ── STT/TTS Wyoming backend (13a fázis) ───────────────────────────────────────\n# Ezeket az orchestrator system-stt / system-tts tooljai olvassák.\n# A Wyoming Whisper/Piper a `mic` + `stt-tts` profilon fut (bridges/mic/compose.yml);\n# az orchestrator ezeket a service-eket hívja a quorum-net-en. Külső Wyoming\n# szerver esetén írd felül a host/portot.\nWHISPER_WYOMING_HOST=whisper\nWHISPER_WYOMING_PORT=10300\nPIPER_WYOMING_HOST=piper\nPIPER_WYOMING_PORT=10200\n# A modell/hang a Wyoming service compose-command-jában állítható\n# (bridges/mic/compose.yml): whisper `--model ... --language ... --device ...`,\n# piper `--voice hu_HU-anna-medium`.\n\n# ── Bridge hang-út (STT/TTS shim) ─────────────────────────────────────────────\n# A message-bridge-ek (telegram, discord, whatsapp, viber, signal, slack, matrix)\n# hangfeldolgozása az orchestrator közös shimjén megy keresztül, nem a régi\n# whisper-http/piper-http service-eken. A bridge-ek a\n# `${WHISPER_URL}/v1/audio/transcriptions` (STT) és `${PIPER_URL}/synthesize` (TTS)\n# útvonalakat hívják, amiket az orchestrator szolgál ki.\n# Alapértelmezés (a bridge compose-okban beépítve): http://orchestrator:8000.\n# Nem kötelező beállítani, csak akkor írd felül, ha külső STT/TTS backendre\n# akarod irányítani a bridge-eket.\n# WHISPER_URL=http://orchestrator:8000\n# PIPER_URL=http://orchestrator:8000\n\n# OmniVoice TTS (59. fázis) neurális hangszintézis, hangklónozás (pytorch alapú)\n# SAJÁT profilon fut (omnivoice) — 2026-09-02 óta külön választható az\n# stt-tts-től, mert egyedül ennek kell NVIDIA GPU/CUDA. GPU nélküli gépen\n# is megy (CPU mód, lassabban); az install.py GPU híján kiveszi a deploy blokkot.\n# Az orchestrator /tts/* endpointjain keresztül érhető el a GUI-ból is.\nOMNIVOICE_URL=http://omnivoice:5000\nOMNIVOICE_PORT=5002\n# OMNIVOICE_VOICE=hu-anna          # alapértelmezett hang ID\n# OMNIVOICE_AUTO_DOWNLOAD=true     # model súlyok auto-letöltése HuggingFace-ről induláskor\n\n# ── Home Assistant (5. és 19. fázis) ──────────────────────────────────────────\n# HA_URL: a Home Assistant példány base URL-je (belső hálózaton vagy Nabu Casa)\n# HA_TOKEN: Long-Lived Access Token, HA > Profil > Security (biztonság) > Long-Lived Access Tokens (Hosszú élettartamú hozzáférési tokenek)\n# HA_NOTIFY_SERVICE: a notify service neve, HA > Developer Tools (Fejlesztői eszközök) > Action (Műveletek) > keresd: notify\nHA_URL=http://homeassistant:8123\n# HA_TOKEN=\n# HA_NOTIFY_SERVICE=mobile_app_my_phone\n# CONVERSATION_API_KEY: Bearer token az orchestrator /conversation endpointjának védelméhez.\n# Ha nincs beállítva, az endpoint nyílt (helyi hálózaton általában OK).\n# CONVERSATION_API_KEY=\n\n# ORCHESTRATOR_API_KEY: Belső service-to-service token, bridge-ek (Telegram, Discord, stb.)\n# és a mic pipeline ezzel azonosítják magukat az orchestratoron.\n# AUTH_MODE=local/sso esetén kötelező, különben a bridge-ek 401-et kapnak.\n# Generálj egy véletlenszerű stringet: python3 -c "import secrets; print(secrets.token_hex(32))"\n# ORCHESTRATOR_API_KEY=\n\n# OPENAI_COMPAT_API_KEY: Bearer token az OpenAI-kompatibilis API-hoz (/v1/models, /v1/chat/completions).\n# Ha üres, a /v1/* végpontok nem aktívak (404). Külső eszközök (Cursor, OpenWebUI, stb.) ezt a tokent\n# adják meg api_key-ként, a base_url pedig: http://<gui-host>/v1\n# Generálj egy véletlenszerű stringet: python3 -c "import secrets; print(secrets.token_hex(32))"\n# OPENAI_COMPAT_API_KEY=sk-test\n\n# ── Licence (75. fázis) ────────────────────────────────────────────────────────\n# QUORUM_LICENSE_KEY: KÖTELEZŐ, üres értékkel az orchestrator el sem indul.\n# Formátum: "QL-..." licenckulcs (induláskor + 1-7 naponta a licence szerver\n# validálja), vagy közvetlenül egy aláírt JWT (offline telepítés, fájlos megújítás).\n# 30 napos ingyenes trial: https://license.quorumai.eu\n# A licence szerver címe biztonsági okból a kódba van égetve, nem konfigurálható.\n# QUORUM_LICENSE_KEY=\n\n# ── Web push (19. fázis) ───────────────────────────────────────────────────────\n# VAPID kulcspár generálása egyszer (az orchestrator konténerben):\n#   docker compose exec orchestrator python3 webpush.py\n# VAPID_EMAIL=admin@example.com\n# VAPID_PRIVATE_KEY=\n# VAPID_PUBLIC_KEY=\n\n# ── Matrix bridge (24. fázis) ─────────────────────────────────────────────────\n# Access token: Element → Settings → Help & About → Access Token\n# Vagy API: POST {homeserver}/_matrix/client/v3/login\nMATRIX_HOMESERVER=https://matrix.example.com\nMATRIX_USER_ID=@bot:example.com\nMATRIX_ACCESS_TOKEN=syt_...\n# MATRIX_DEVICE_ID=QuorumAI\n# MATRIX_ROOM_IDS=!abc:example.com,!def:example.com   (vesszővel; üres = minden szoba)\n# MATRIX_AGENT=assistant\n# MATRIX_NOTIFY_URL=http://matrix:5271\n# MATRIX_NOTIFY_PORT=5271\n\n# ── Discord bridge (25. fázis) ────────────────────────────────────────────────\n# Bot létrehozás: https://discord.com/developers/applications → New Application → Bot → Reset Token\n# Intents: Message Content Intent bekapcsolva a bot beállításoknál\n# Meghívó URL: OAuth2 → URL Generator → scope: bot + application.commands\n#   permissions: Send Messages, Read Message History, Attach Files\nDISCORD_BOT_TOKEN=...\n# DISCORD_GUILD_ID=          # Guild (szerver) ID; megadva → slash commands azonnal; üresen → globális (1 óra)\n# DISCORD_CHANNEL_IDS=       # Engedélyezett csatorna ID-k vesszővel; üres = minden csatorna\n# DISCORD_AGENT=dispatcher\n# DISCORD_NOTIFY_URL=http://discord:5272\n# DISCORD_NOTIFY_PORT=5272\n\n# ── IRC bridge (26. fázis) ────────────────────────────────────────────────────\nIRC_SERVER=irc.libera.chat\n# IRC_PORT=6667\n# IRC_USE_SSL=false\nIRC_NICK=quorum-bot\nIRC_CHANNEL=#quorum-ai\n# IRC_ALLOWED_NICKS=         # vesszős nick lista; üres = mindenki\n# IRC_AGENT=dispatcher\n# IRC_NOTIFY_URL=http://irc:5274\n# IRC_NOTIFY_PORT=5274\n\n# ── WhatsApp bridge (27. fázis) ───────────────────────────────────────────────\n# Meta Developer előkészítés: developers.facebook.com → App (Business) → WhatsApp product\n# Webhook URL: https://<publikus-host>/webhook  (ngrok fejlesztés alatt, reverse proxy production-ban)\nWA_PHONE_NUMBER_ID=         # Meta Developer Console → WhatsApp → API Setup\nWA_ACCESS_TOKEN=            # System user permanent token\nWA_VERIFY_TOKEN=            # Tetszőleges secret, webhook regisztrációhoz a Meta Console-ban\n# WA_APP_SECRET=            # App secret HMAC validációhoz (ajánlott); üresen → skip\n# WA_ALLOWED_PHONES=        # Engedélyezett telefonszámok (+36...); üres = mindenki\n# WA_AGENT=dispatcher\n# WA_PORT=5273\n# WHATSAPP_NOTIFY_URL=http://whatsapp:5273   # a /notify endpoint ugyanazon a porton van mint a webhook\n\n# ── Slack bridge (28. fázis) ─────────────────────────────────────────────────\n# Slack App létrehozás: https://api.slack.com/apps → Create App → Socket Mode\n# App-Level Token: Features → Socket Mode → Generate Token (connections:write)\n# Bot Token Scopes: chat:write, commands, files:read, app_mentions:read, im:read, im:history\n# Slash Command: /quorum regisztráció a Slack API console-ban\nSLACK_BOT_TOKEN=xoxb-...\nSLACK_APP_TOKEN=xapp-...\n# SLACK_ALLOWED_CHANNELS=         # Csatorna ID-k vesszővel; üres = minden csatorna\n# SLACK_COMMAND_PREFIX=quorum     # slash command prefix\n# SLACK_AGENT=dispatcher\n# SLACK_NOTIFY_URL=http://slack:5275\n# SLACK_NOTIFY_PORT=5275\n\n# ── Signal bridge (29. fázis) ────────────────────────────────────────────────\n# signal-cli REST API: bbernhard/signal-cli-rest-api Docker image\n# SIGNAL_CLI_URL=http://signal-cli:8080\nSIGNAL_PHONE=+3670...\n# SIGNAL_ALLOWED_SENDERS=        # Engedélyezett feladók (+36...); üres = mindenki\n# SIGNAL_AGENT=dispatcher\n# SIGNAL_NOTIFY_URL=http://signal:5276\n# SIGNAL_NOTIFY_PORT=5276\n\n# ── Viber bridge (30. fázis) ──────────────────────────────────────────────────\n# Viber Partner Account: https://partners.viber.com\n# Webhook regisztráció: POST https://chatapi.viber.com/pa/set_webhook\nVIBER_AUTH_TOKEN=              # Viber Partner Console-ból\n# VIBER_WEBHOOK_URL=https://     # publikus URL, ahova Viber push-ol (ngrok / reverse proxy)\n# VIBER_ALLOWED_IDS=             # Engedélyezett Viber user ID-k; üres = mindenki\n# VIBER_AGENT=dispatcher\n# VIBER_NOTIFY_URL=http://viber:5277\n# VIBER_NOTIFY_PORT=5277\n\n# ── Email MCP (23. fázis) ─────────────────────────────────────────────────────\n# Gmail-hez: 2FA bekapcsolva → Google Account → Security → App passwords\n# IMAP_SSL és SMTP_SSL automatikusan a portból következnek (993→SSL, 465→SSL, 587→STARTTLS)\nIMAP_HOST=imap.gmail.com\n# IMAP_PORT=993\nIMAP_USER=agent@example.com\n# IMAP_PASSWORD=app-specific-password\n\nSMTP_HOST=smtp.gmail.com\n# SMTP_PORT=587\nSMTP_USER=agent@example.com\n# SMTP_PASSWORD=app-specific-password\n# SMTP_FROM_NAME=QuorumAI Agent\n\n# ── Joplin MCP ────────────────────────────────────────────────────────────────\n# JOPLIN_BASE_URL: Joplin Desktop Web Clipper API URL (alapértelmezett a socat proxy-n keresztül)\n# JOPLIN_TOKEN: Web Clipper token, Joplin Desktop > Tools (Eszközök) > Web Clipper options (Web Clipper beállítások)\nJOPLIN_BASE_URL=http://host.docker.internal:41186\n# JOPLIN_TOKEN=\n\n# ── CRM MCP ───────────────────────────────────────────────────────────────────\n# Adapter-alapú CRM integráció, egy szerver, cserélhető backend.\n# Elérhető adapterek: minicrm | hubspot | pipedrive | billingo | szamlazzhu | salesautopilot | listmonk\nCRM_ADAPTER=minicrm\n\n# MiniCRM (https://www.minicrm.io, Beállítások > API)\n# MINICRM_SYSTEM_ID=\n# MINICRM_API_KEY=\n\n# HubSpot (Private App token: app.hubspot.com → Settings → Integrations → Private Apps)\n# HUBSPOT_API_KEY=\n\n# Pipedrive (API token: app.pipedrive.com → Settings → Personal preferences → API)\n# PIPEDRIVE_API_TOKEN=\n# PIPEDRIVE_DOMAIN=mycorp\n\n# Billingo (api.billingo.hu → API kulcsok)\n# BILLINGO_API_KEY=\n\n# Számlázz.hu (app.szamlazz.hu → Beállítások > API kulcs)\n# SZAMLAZZHU_API_KEY=\n\n# SalesAutopilot (account.salesautopilot.com → Beállítások → Integráció → API kulcsok)\n# SALESAUTOPILOT_API_KEY=        # format: username:password (API kulcspár)\n# SALESAUTOPILOT_LIST_IDS=       # vesszővel elválasztott lista ID-k (pl. 12345,67890)\n\n# Twenty CRM (docs.twenty.com, Settings → API & Webhooks → Create key)\n# TWENTY_API_URL=https://api.twenty.com   # cloud default; self-hosted: http://twenty:3000\n# TWENTY_API_KEY=\n\n# Listmonk (listmonk.app, self-hosted newsletter/mailing-list manager)\n# Használj dedikált API-felhasználót (Users → New → role "API"), ne az admin jelszót.\n# LISTMONK_API_URL=http://listmonk:9000   # nincs záró /api\n# LISTMONK_API_USERNAME=\n# LISTMONK_API_PASSWORD=                  # API access token\n# LISTMONK_LIST_IDS=                      # alapértelmezett lista ID-k create()-hez (vesszővel elválasztva)\n\n\n# ── n8n MCP (mcp-manager npx: @leonardsellem/n8n-mcp-server) ──────────────────\n# Egy futó n8n példány API-ja kell. A manager továbbadja ezeket a spawnolt szervernek.\n# N8N_API_URL=https://n8n.example.com/api/v1   # a teljes API URL, KÖTELEZŐ a /api/v1 vég\n# N8N_API_KEY=                                 # n8n Settings → API → új kulcs\n# N8N_WEBHOOK_USERNAME=                        # opcionális, webhook Basic auth\n# N8N_WEBHOOK_PASSWORD=\n\n\n# ── Grafana MCP ────────────────────────────────────────────────────────────────\n# Két konténer, EGY token:\n#   grafana-mcp      - a Grafana Labs hivatalos szervere (dashboardok, Loki,\n#                      Prometheus, Tempo, OnCall, Incident, Sift)\n#   grafana-ops-mcp  - a mi kiegészítésünk arra a kettőre, amit az nem tud:\n#                      tüzelő riasztások listája + Alertmanager silence\n# Token: Grafana → Administration → Service accounts → Add token\n#\n# FIGYELEM a portra: a 3000 a Grafana alapértelmezése, de gyakran foglalt\n# (Open WebUI, Next.js dev szerver stb.). A hivatalos MCP indulásnál\n# VALIDÁLJA a GRAFANA_URL-t, ha nem Grafana felel, minden hívás 403-at ad,\n# és a hibaüzenetből nem derül ki, hogy rossz szolgáltatásra mutat.\nGRAFANA_URL=http://host.docker.internal:3000\n# GRAFANA_SERVICE_ACCOUNT_TOKEN=glsa_...\n# Régi név, visszafelé kompatibilitásból még elfogadja a grafana-ops:\n# GRAFANA_API_KEY=glsa_...\n\n# ── Uptime Kuma MCP ────────────────────────────────────────────────────────────\n# Mód A (v2 API kulcs): Settings → API Keys → Add API Key\n# UPTIME_KUMA_API_KEY=uk2_...\n# Mód B (publikus státuszoldal, kulcs nélkül):\nUPTIME_KUMA_URL=http://host.docker.internal:3001\n# UPTIME_KUMA_STATUS_SLUG=main\n\n# ── Google Workspace MCP ──────────────────────────────────────────────────────\n# Gmail, Drive, Calendar, Chat, Docs, Sheets, Slides, egy szerveren\n# Nincs API kulcs, Google managed OAuth flow (nem kell GCP projekt)\n# Első indítás után egyszer szükséges:\n#   docker exec -it quorum-google-workspace sh -c \\\n#     \'cd /data && node /build/workspace-server/dist/headless-login.js\'\n# A token a data/google-workspace/ mappában tárolódik (perzisztens).\n\n# ── Atlassian MCP ──────────────────────────────────────────────────────────────\n# API token generálása: https://id.atlassian.com/manage-profile/security/api-tokens\nJIRA_URL=https://example.atlassian.net\nJIRA_EMAIL=nev.nev@example.com\nJIRA_API_TOKEN=ATATT3x...\n\nCONFLUENCE_URL=https://example.atlassian.net\nCONFLUENCE_EMAIL=nev.nev@example.com\nCONFLUENCE_API_TOKEN=ATATT3x...\n# Szinkronizálandó Confluence space-kulcsok (vesszővel elválasztva; üres = minden)\nCONFLUENCE_SPACES=\n# Szinkronizálási időköz másodpercben (alapértelmezett: 86400 = napi egyszer)\nCONFLUENCE_SYNC_INTERVAL=86400\n# Kényszer-újraindexelés (1/true/yes = minden oldal újrafeldolgozva, verziókontroll figyelmen kívül)\n#FORCE_RESYNC=false\n\n# Confluence MCP + sync Qdrant kapcsolat (a projekt megosztott Qdrant példányára mutat, quorum-net-en)\nQDRANT_HOST=qdrant\nQDRANT_PORT=6334\nCOLLECTION_NAME=confluence\n\n# ── global-news MCP (70. fázis) ───────────────────────────────────────────────\n# Globális hírek, GDELT (kulcs nélkül) + opcionális Guardian/NewsAPI\nGLOBAL_NEWS_PORT=4308\n# GUARDIAN_API_KEY=   # ingyenes: open-platform.theguardian.com\n# NEWSAPI_KEY=        # ingyenes: newsapi.org (100 req/nap)\n# GLOBAL_NEWS_API_KEY= # Bearer token az MCP saját védelmére\n\n# ── AI Act (74b fázis) ─────────────────────────────────────────────────────────\n# RFC 3161 TSA endpoint, üresen hagyva: csak hash-lánc (offline is teljes megfelelés)\n# AI_ACT_TSA_URL=https://freetsa.org/tsr\n# PII maszkolás mélysége: üres=regex-only (gyors), full=Presidio+spaCy (erőforrás-igényes)\n# AI_ACT_PII_MODE=full\n\n# ── world-weather MCP (69. fázis) ─────────────────────────────────────────────\n# Globális időjárás, Open-Meteo, API kulcs nélkül\nWEATHER_MCP_PORT=4307\n# WEATHER_MCP_API_KEY=   # Bearer token; üres = nyílt hozzáférés\n\n# ── lean MCP (83. fázis) ──────────────────────────────────────────────────────\n# Lean 4 proof-checking. A toolchain ~1,5 GB (dedikált MCP), a proof-ellenőrzés\n# CPU/memória-igényes → konténer-plafon, itt BŐVÍTHETŐ.\nLEAN_MCP_PORT=4309\n# LEAN_MCP_API_KEY=      # Bearer token; üres = nyílt a belső hálózaton\n# LEAN_MCP_TIMEOUT=60    # egy proof-ellenőrzés időkorlátja (s)\n# LEAN_MCP_MEM_LIMIT=2g  # memória-plafon (Mathlib-OOM ellen); emeld, ha kell\n# LEAN_MCP_CPUS=2        # CPU-plafon\n# LEAN_TOOLCHAIN=stable  # reprodukálhatósághoz pinneld, pl. v4.15.0\n\n# ── bash-mcp (68. fázis) ───────────────────────────────────────────────────────\n# Remote bash/python execution, 3 hozzáférési szint (workspace / docker / host)\nBASH_MCP_PORT=4306\n# BASH_MCP_API_KEY:  a natív host bash MCP (bash-mcp-native, 86. fázis) KÖTELEZŐ kulcsa.\n#   Az orchestrator X-Bash-MCP-Key headerben küldi, a natív szerver kulcs nélkül el sem indul.\n#   A telepítő mindig legenerálja (ha üres); a natív bináris ugyanebből a .env-ből olvassa.\n#   A konténeres bash-mcp nem használja.\n# BASH_MCP_API_KEY=\n# Natív host bash MCP (bash-mcp-native, 86. fázis), a gépen, ahol a bináris fut:\n# BASH_MCP_NATIVE_PORT=4316  # saját port (a BASH_MCP_PORT a konténeres bash-mcp-é)\n# BASH_MCP_BIND=loopback     # loopback | docker (ugyanazon a Linux hoston futó QuorumAI-nak) | all (satellite) | <IP>\n# BASH_MCP_WORKDIR=/workspace\n# BASH_MCP_TIMEOUT=60\n# BASH_MCP_ALLOWED_COMMANDS= # regex whitelist; üres = minden engedélyezett\n\n# ── HyperFrames MCP ───────────────────────────────────────────────────────────\n# HTML → MP4 videó renderelés, TTS, transcribe, háttéreltávolítás\nHYPERFRAMES_PORT=4305\n# OMNIVOICE_URL az OmniVoice service-re mutat (59. fázis) magyar TTS-hez\n# Alapértelmezett: http://omnivoice:5000 (belső hálózaton)\n',
+    '.env.example': '# QuorumAI - egyetlen .env a teljes stackhez\n#\n# Másold át: cp .env.example .env  és töltsd ki a szükséges mezőket.\n# Ez a fájl a projekt gyökerében él; minden layer innen olvassa a változókat.\n#\n# Amit NEM kell kitölteni: Ollama alapértelmezett, nincs kulcs szükséges.\n\nTZ=Europe/Budapest\n\nCOMPOSE_PROJECT_NAME=quorum\n\n# ── Docker Compose profilok ────────────────────────────────────────────────────\n# Ha be van állítva, a sima `docker compose up -d` automatikusan ezeket indítja.\n# Elérhető profilok: orchestrator, memory, mcp, postgres, telegram, mic, ha, gui, stt-tts, omnivoice, mcp-manager, joplin, playwright, auth, email, matrix, discord, irc, whatsapp, slack, signal, viber, graph, google-workspace, crm, jog-hu, atlassian, hyperframes, bash-mcp, bash-mcp-host, world-weather, global-news, lean\n# COMPOSE_PROFILES=orchestrator,memory,mcp,postgres,telegram\nCOMPOSE_PROFILES=orchestrator,memory,mcp,postgres,telegram,mic,ha,gui,stt-tts,mcp-manager,jog-hu\n\n# ── Auth & Multi-tenancy (17. fázis) ─────────────────────────────────────────\n# AUTH_MODE=none   - nincs hitelesítés, mindenki \'system\' userként fut (alapértelmezett)\n# AUTH_MODE=local  - egyszerű bearer token; felhasználók: LOCAL_USERS=user1:pass1,user2:pass2\n# AUTH_MODE=sso    - Keycloak OIDC/JWT; szükséges: auth profil + KEYCLOAK_* változók\nAUTH_MODE=none\n\n# Local mode felhasználók (AUTH_MODE=local)\n# Formátum: user1:jelszo1,user2:jelszo2\n# Bejelentkezés: Authorization: Bearer user1:jelszo1\n# LOCAL_USERS=alice:titok:admin,bob:titok2:guest\n# LOCAL_USERS=admin:changeme\n\n# Rate limiting, kérések per perc per felhasználó (csak AUTH_MODE != none esetén aktív)\n# RATE_LIMIT_PER_MINUTE=60\n\n# SSO (AUTH_MODE=sso), három lehetőség:\n#\n#   A) Belső Keycloak (auth profil + compose service):\n#      KEYCLOAK_URL=http://keycloak:8080\n#      KEYCLOAK_REALM=quorum\n#      KEYCLOAK_CLIENT_ID=quorum-orchestrator\n#\n#   B) Külső Keycloak (saját szervered / Keycloak Cloud):\n#      KEYCLOAK_URL=https://auth.example.com\n#      KEYCLOAK_REALM=quorum\n#      KEYCLOAK_CLIENT_ID=quorum-orchestrator\n#\n#   C) Más OIDC provider (Auth0, Okta, Authelia, stb.), felülírd a JWKS URL-t:\n#      OIDC_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json\n#      OIDC_AUDIENCE=quorum-orchestrator\n#      OIDC_ROLES_CLAIM=https://example.com/roles  # Auth0 custom claim\n#      # Okta: OIDC_ROLES_CLAIM=groups\n#      # Keycloak (default): OIDC_ROLES_CLAIM=realm_access.roles\n#\n# KEYCLOAK_URL=http://keycloak:8080        # Docker-belső URL (JWKS lekéréshez)\n# KEYCLOAK_PUBLIC_URL=http://localhost:8180 # Böngészőből elérhető URL (login redirect)\n#                                           # Ha nincs megadva, KEYCLOAK_URL értékét veszi át\n# KEYCLOAK_REALM=quorum\n# KEYCLOAK_CLIENT_ID=quorum-orchestrator\n# KEYCLOAK_CLIENT_SECRET=\n# OIDC_JWKS_URL=          # ha megadod, felülírja a Keycloak-ból számított JWKS URL-t\n# OIDC_AUDIENCE=          # ha üres, KEYCLOAK_CLIENT_ID értékét veszi át\n# OIDC_ROLES_CLAIM=realm_access.roles\n\n# Belső Keycloak admin (csak auth compose service esetén)\n# KEYCLOAK_ADMIN_USER=admin\n# KEYCLOAK_ADMIN_PASSWORD=changeme\n# KEYCLOAK_ADMIN_PORT=8180\n\n# ── Portok ────────────────────────────────────────────────────────────────────\n# Minden belső service csak 127.0.0.1-re van bindolva, más konténerekből\n# a quorum-net hálózaton érhető el, kívülről csak a host-ról.\n# Változtasd meg ha ütközés van a host-on.\n\n# Orchestrator FastAPI (localhost only)\nORCHESTRATOR_PORT=8000\n\n# Qdrant memória HTTP REST (localhost only; gRPC nincs kintről)\nQDRANT_HTTP_PORT=6333\n\n# FalkorDB knowledge graph (phase 18, optional)\nFALKORDB_PORT=6380\n# FALKORDB_URL=redis://graph:6379   # Docker-internal (set to enable knowledge graph)\n\n# PostgreSQL (localhost only)\nPOSTGRES_PORT=5433\n\n# MCP szerverek (localhost only, Claude Code a host-ról éri el)\nHU_TOOLS_PORT=4300\nEMAIL_MCP_PORT=4310\nHA_MCP_PORT=4320\nJOPLIN_MCP_PORT=4330\nGOOGLE_WORKSPACE_MCP_PORT=4350\nCRM_MCP_PORT=4301\nGRAFANA_MCP_PORT=4303\nGRAFANA_OPS_MCP_PORT=4311\nUPTIME_KUMA_MCP_PORT=4304\nJOG_HU_MCP_PORT=4302\nMCP_MANAGER_PORT=4400\nMCP_MANAGER_URL=http://mcp-manager:4400\n\n# Playwright MCP (localhost only)\nPLAYWRIGHT_PORT=8931\n\n# GUI (kintről elérhető, pl. böngésző)\nGUI_PORT=3000\n\n# ── PostgreSQL ─────────────────────────────────────────────────────────────────\nPOSTGRES_PASSWORD=changeme\n\n# ── GitHub integráció ─────────────────────────────────────────────────────────\n# Opcionális, emeli a GitHub API rate-limitet 60-ról 5000 req/óra értékre.\n# Szükséges privát repókhoz. Generálás: https://github.com/settings/tokens\n# (Fine-grained token: Contents: read-only elég)\n# GITHUB_TOKEN=\n\n# ── Webhook receiver (phase 14) ────────────────────────────────────────────────\n# Webhook secrets are configured via GUI Settings → Webhooks.\n# No .env variables needed, secrets are stored in data/orchestrator/webhooks.yaml.\n\n# ── Observability ──────────────────────────────────────────────────────────────\n# Hány napnál régebbi trace-eket töröljük automatikusan PostgreSQL-ből.\n# A törlés naponta 03:00-kor fut. 0 = nincs automatikus törlés.\nTRACE_RETENTION_DAYS=14\n\n# Stream timeout, másodpercek amennyi ideig a stream él esemény nélkül (ping-gel fenntartva).\n# Nagy, lassan futó modelleknél (pl. 27B+ CPU/RAM-on) érdemes növelni.\n# Default: 1800 (30 perc). CPU-n futó 70B modelleknél: 3600+\n# STREAM_MAX_SILENCE=1800\n\n# ── Telegram bridge ────────────────────────────────────────────────────────────\n# BOT_TOKEN: @BotFather adja a bot létrehozásakor.\n# CHAT_ID: a Telegram chat azonosítója, ahonnan a bot üzenetet fogad.\n#   Lekérdezés: küldj üzenetet a botnak, majd:\n#   curl https://api.telegram.org/bot<TOKEN>/getUpdates | jq \'.result[0].message.chat.id\'\nTELEGRAM_BOT_TOKEN=\nTELEGRAM_CHAT_ID=\n# Push értesítések: a chat_id, AHOVÁ az orchestrator értesítéseket küld (lehet ugyanaz, mint TELEGRAM_CHAT_ID)\nNOTIFY_TELEGRAM_CHAT_ID=\n# TELEGRAM_AGENT=dispatcher\n# Notify szerver URL (orchestrator → bridge push értesítés): automatikusan működik ha a container fut\n# TELEGRAM_NOTIFY_URL=http://telegram:5270\n# TELEGRAM_NOTIFY_PORT=5270\n\n# ── Mic bridge (6. fázis) ──────────────────────────────────────────────────────\n# PulseAudio socket a host-tól, ellenőrizd: ls /run/user/$(id -u)/pulse/\n# Ha nem 1000-es a UID-od, cseréld ki: /run/user/<UID>/pulse:/run/pulse\n# (Csak a compose.yml volumes: sorát kell módosítani, ezt az env értéket nem.)\n#\n# Hangfelismerési paraméterek, az alapértelmezések a legtöbb esetben megfelelők.\n# WAKE_WORD=Ok Szif\n# WAKE_WORD_FILENAME=ok_sif\n# WAKEWORD_THRESHOLD=0.7\n# SILENCE_MS=1500             # csend ms-ban ami mondat végét jelzi (Silero VAD alapú; régi SILENCE_TIMEOUT=1.5 megfelelője)\n# VAD_SPEECH_THRESHOLD=0.3   # Silero VAD speech küszöb minimum; auto-kalibrálás felülírhatja (indításkor 1s zajmérés)\n# MIC_GAIN=1.0               # Mikrofon erősítő szorzó, emeld (pl. 2.0-3.0) ha csendes a mikrofon (Bluetooth, olcsó USB)\n# MIC_DEVICE=0\n# MIC_STREAM_TIMEOUT=600      # max másodperc egy LLM stream válaszra\n# Barge-in: felhasználó TTS közben megszólal → TTS+LLM leáll, új input feldolgozódik\n# BARGE_IN_ENABLED=true\n# BARGE_IN_THRESHOLD=0.85     # Silero VAD küszöb TTS közben; immunity window (1.5s) kezeli az echót, 0.75 elegendő a valódi hanghoz\n# STOP_WORDS=stop,állj,megállj,elég  # barge-in szavak amik csak leállítanak (nem küldik tovább az LLM-nek)\n# MIC_OUTBOX_POLL_S=15        # tétlen állapotban ennyi másodpercenként felolvassa az ágensek olvasatlan üzeneteit (pl. háttér-alágens kész); 0 = kikapcsolva\n\n# ── STT/TTS Wyoming backend (13a fázis) ───────────────────────────────────────\n# Ezeket az orchestrator system-stt / system-tts tooljai olvassák.\n# A Wyoming Whisper/Piper a `mic` + `stt-tts` profilon fut (bridges/mic/compose.yml);\n# az orchestrator ezeket a service-eket hívja a quorum-net-en. Külső Wyoming\n# szerver esetén írd felül a host/portot.\nWHISPER_WYOMING_HOST=whisper\nWHISPER_WYOMING_PORT=10300\nPIPER_WYOMING_HOST=piper\nPIPER_WYOMING_PORT=10200\n# Beszédfelismerés nyelve és felolvasó hang (97. fázis): a telepítő a választott\n# nyelvből állítja be, a bridges/mic/compose.yml olvassa. Hangok:\n# https://huggingface.co/rhasspy/piper-voices (pl. en_US-amy-medium, de_DE-thorsten-medium).\nWHISPER_LANGUAGE=hu\nPIPER_VOICE=hu_HU-anna-medium\n# WHISPER_MODEL=large-v3-turbo\n# WHISPER_DEVICE=cpu\n\n# ── Bridge hang-út (STT/TTS shim) ─────────────────────────────────────────────\n# A message-bridge-ek (telegram, discord, whatsapp, viber, signal, slack, matrix)\n# hangfeldolgozása az orchestrator közös shimjén megy keresztül, nem a régi\n# whisper-http/piper-http service-eken. A bridge-ek a\n# `${WHISPER_URL}/v1/audio/transcriptions` (STT) és `${PIPER_URL}/synthesize` (TTS)\n# útvonalakat hívják, amiket az orchestrator szolgál ki.\n# Alapértelmezés (a bridge compose-okban beépítve): http://orchestrator:8000.\n# Nem kötelező beállítani, csak akkor írd felül, ha külső STT/TTS backendre\n# akarod irányítani a bridge-eket.\n# WHISPER_URL=http://orchestrator:8000\n# PIPER_URL=http://orchestrator:8000\n\n# OmniVoice TTS (59. fázis) neurális hangszintézis, hangklónozás (pytorch alapú)\n# SAJÁT profilon fut (omnivoice) — 2026-09-02 óta külön választható az\n# stt-tts-től, mert egyedül ennek kell NVIDIA GPU/CUDA. GPU nélküli gépen\n# is megy (CPU mód, lassabban); az install.py GPU híján kiveszi a deploy blokkot.\n# Az orchestrator /tts/* endpointjain keresztül érhető el a GUI-ból is.\nOMNIVOICE_URL=http://omnivoice:5000\nOMNIVOICE_PORT=5002\n# OMNIVOICE_VOICE=hu-anna          # alapértelmezett hang ID\n# OMNIVOICE_AUTO_DOWNLOAD=true     # model súlyok auto-letöltése HuggingFace-ről induláskor\n\n# ── Home Assistant (5. és 19. fázis) ──────────────────────────────────────────\n# HA_URL: a Home Assistant példány base URL-je (belső hálózaton vagy Nabu Casa)\n# HA_TOKEN: Long-Lived Access Token, HA > Profil > Security (biztonság) > Long-Lived Access Tokens (Hosszú élettartamú hozzáférési tokenek)\n# HA_NOTIFY_SERVICE: a notify service neve, HA > Developer Tools (Fejlesztői eszközök) > Action (Műveletek) > keresd: notify\nHA_URL=http://homeassistant:8123\n# HA_TOKEN=\n# HA_NOTIFY_SERVICE=mobile_app_my_phone\n# CONVERSATION_API_KEY: Bearer token az orchestrator /conversation endpointjának védelméhez.\n# Ha nincs beállítva, az endpoint nyílt (helyi hálózaton általában OK).\n# CONVERSATION_API_KEY=\n\n# ORCHESTRATOR_API_KEY: Belső service-to-service token, bridge-ek (Telegram, Discord, stb.)\n# és a mic pipeline ezzel azonosítják magukat az orchestratoron.\n# AUTH_MODE=local/sso esetén kötelező, különben a bridge-ek 401-et kapnak.\n# Generálj egy véletlenszerű stringet: python3 -c "import secrets; print(secrets.token_hex(32))"\n# ORCHESTRATOR_API_KEY=\n\n# OPENAI_COMPAT_API_KEY: Bearer token az OpenAI-kompatibilis API-hoz (/v1/models, /v1/chat/completions).\n# Ha üres, a /v1/* végpontok nem aktívak (404). Külső eszközök (Cursor, OpenWebUI, stb.) ezt a tokent\n# adják meg api_key-ként, a base_url pedig: http://<gui-host>/v1\n# Generálj egy véletlenszerű stringet: python3 -c "import secrets; print(secrets.token_hex(32))"\n# OPENAI_COMPAT_API_KEY=sk-test\n\n# ── Licence (75. fázis) ────────────────────────────────────────────────────────\n# QUORUM_LICENSE_KEY: KÖTELEZŐ, üres értékkel az orchestrator el sem indul.\n# Formátum: "QL-..." licenckulcs (induláskor + 1-7 naponta a licence szerver\n# validálja), vagy közvetlenül egy aláírt JWT (offline telepítés, fájlos megújítás).\n# 30 napos ingyenes trial: https://license.quorumai.eu\n# A licence szerver címe biztonsági okból a kódba van égetve, nem konfigurálható.\n# QUORUM_LICENSE_KEY=\n\n# ── Web push (19. fázis) ───────────────────────────────────────────────────────\n# VAPID kulcspár generálása egyszer (az orchestrator konténerben):\n#   docker compose exec orchestrator python3 webpush.py\n# VAPID_EMAIL=admin@example.com\n# VAPID_PRIVATE_KEY=\n# VAPID_PUBLIC_KEY=\n\n# ── Matrix bridge (24. fázis) ─────────────────────────────────────────────────\n# Access token: Element → Settings → Help & About → Access Token\n# Vagy API: POST {homeserver}/_matrix/client/v3/login\nMATRIX_HOMESERVER=https://matrix.example.com\nMATRIX_USER_ID=@bot:example.com\nMATRIX_ACCESS_TOKEN=syt_...\n# MATRIX_DEVICE_ID=QuorumAI\n# MATRIX_ROOM_IDS=!abc:example.com,!def:example.com   (vesszővel; üres = minden szoba)\n# MATRIX_AGENT=assistant\n# MATRIX_NOTIFY_URL=http://matrix:5271\n# MATRIX_NOTIFY_PORT=5271\n\n# ── Discord bridge (25. fázis) ────────────────────────────────────────────────\n# Bot létrehozás: https://discord.com/developers/applications → New Application → Bot → Reset Token\n# Intents: Message Content Intent bekapcsolva a bot beállításoknál\n# Meghívó URL: OAuth2 → URL Generator → scope: bot + application.commands\n#   permissions: Send Messages, Read Message History, Attach Files\nDISCORD_BOT_TOKEN=...\n# DISCORD_GUILD_ID=          # Guild (szerver) ID; megadva → slash commands azonnal; üresen → globális (1 óra)\n# DISCORD_CHANNEL_IDS=       # Engedélyezett csatorna ID-k vesszővel; üres = minden csatorna\n# DISCORD_AGENT=dispatcher\n# DISCORD_NOTIFY_URL=http://discord:5272\n# DISCORD_NOTIFY_PORT=5272\n\n# ── IRC bridge (26. fázis) ────────────────────────────────────────────────────\nIRC_SERVER=irc.libera.chat\n# IRC_PORT=6667\n# IRC_USE_SSL=false\nIRC_NICK=quorum-bot\nIRC_CHANNEL=#quorum-ai\n# IRC_ALLOWED_NICKS=         # vesszős nick lista; üres = mindenki\n# IRC_AGENT=dispatcher\n# IRC_NOTIFY_URL=http://irc:5274\n# IRC_NOTIFY_PORT=5274\n\n# ── WhatsApp bridge (27. fázis) ───────────────────────────────────────────────\n# Meta Developer előkészítés: developers.facebook.com → App (Business) → WhatsApp product\n# Webhook URL: https://<publikus-host>/webhook  (ngrok fejlesztés alatt, reverse proxy production-ban)\nWA_PHONE_NUMBER_ID=         # Meta Developer Console → WhatsApp → API Setup\nWA_ACCESS_TOKEN=            # System user permanent token\nWA_VERIFY_TOKEN=            # Tetszőleges secret, webhook regisztrációhoz a Meta Console-ban\n# WA_APP_SECRET=            # App secret HMAC validációhoz (ajánlott); üresen → skip\n# WA_ALLOWED_PHONES=        # Engedélyezett telefonszámok (+36...); üres = mindenki\n# WA_AGENT=dispatcher\n# WA_PORT=5273\n# WHATSAPP_NOTIFY_URL=http://whatsapp:5273   # a /notify endpoint ugyanazon a porton van mint a webhook\n\n# ── Slack bridge (28. fázis) ─────────────────────────────────────────────────\n# Slack App létrehozás: https://api.slack.com/apps → Create App → Socket Mode\n# App-Level Token: Features → Socket Mode → Generate Token (connections:write)\n# Bot Token Scopes: chat:write, commands, files:read, app_mentions:read, im:read, im:history\n# Slash Command: /quorum regisztráció a Slack API console-ban\nSLACK_BOT_TOKEN=xoxb-...\nSLACK_APP_TOKEN=xapp-...\n# SLACK_ALLOWED_CHANNELS=         # Csatorna ID-k vesszővel; üres = minden csatorna\n# SLACK_COMMAND_PREFIX=quorum     # slash command prefix\n# SLACK_AGENT=dispatcher\n# SLACK_NOTIFY_URL=http://slack:5275\n# SLACK_NOTIFY_PORT=5275\n\n# ── Signal bridge (29. fázis) ────────────────────────────────────────────────\n# signal-cli REST API: bbernhard/signal-cli-rest-api Docker image\n# SIGNAL_CLI_URL=http://signal-cli:8080\nSIGNAL_PHONE=+3670...\n# SIGNAL_ALLOWED_SENDERS=        # Engedélyezett feladók (+36...); üres = mindenki\n# SIGNAL_AGENT=dispatcher\n# SIGNAL_NOTIFY_URL=http://signal:5276\n# SIGNAL_NOTIFY_PORT=5276\n\n# ── Viber bridge (30. fázis) ──────────────────────────────────────────────────\n# Viber Partner Account: https://partners.viber.com\n# Webhook regisztráció: POST https://chatapi.viber.com/pa/set_webhook\nVIBER_AUTH_TOKEN=              # Viber Partner Console-ból\n# VIBER_WEBHOOK_URL=https://     # publikus URL, ahova Viber push-ol (ngrok / reverse proxy)\n# VIBER_ALLOWED_IDS=             # Engedélyezett Viber user ID-k; üres = mindenki\n# VIBER_AGENT=dispatcher\n# VIBER_NOTIFY_URL=http://viber:5277\n# VIBER_NOTIFY_PORT=5277\n\n# ── Email MCP (23. fázis) ─────────────────────────────────────────────────────\n# Gmail-hez: 2FA bekapcsolva → Google Account → Security → App passwords\n# IMAP_SSL és SMTP_SSL automatikusan a portból következnek (993→SSL, 465→SSL, 587→STARTTLS)\nIMAP_HOST=imap.gmail.com\n# IMAP_PORT=993\nIMAP_USER=agent@example.com\n# IMAP_PASSWORD=app-specific-password\n\nSMTP_HOST=smtp.gmail.com\n# SMTP_PORT=587\nSMTP_USER=agent@example.com\n# SMTP_PASSWORD=app-specific-password\n# SMTP_FROM_NAME=QuorumAI Agent\n\n# ── Joplin MCP ────────────────────────────────────────────────────────────────\n# JOPLIN_BASE_URL: Joplin Desktop Web Clipper API URL (alapértelmezett a socat proxy-n keresztül)\n# JOPLIN_TOKEN: Web Clipper token, Joplin Desktop > Tools (Eszközök) > Web Clipper options (Web Clipper beállítások)\nJOPLIN_BASE_URL=http://host.docker.internal:41186\n# JOPLIN_TOKEN=\n\n# ── CRM MCP ───────────────────────────────────────────────────────────────────\n# Adapter-alapú CRM integráció, egy szerver, cserélhető backend.\n# Elérhető adapterek: minicrm | hubspot | pipedrive | billingo | szamlazzhu | salesautopilot | listmonk\nCRM_ADAPTER=minicrm\n\n# MiniCRM (https://www.minicrm.io, Beállítások > API)\n# MINICRM_SYSTEM_ID=\n# MINICRM_API_KEY=\n\n# HubSpot (Private App token: app.hubspot.com → Settings → Integrations → Private Apps)\n# HUBSPOT_API_KEY=\n\n# Pipedrive (API token: app.pipedrive.com → Settings → Personal preferences → API)\n# PIPEDRIVE_API_TOKEN=\n# PIPEDRIVE_DOMAIN=mycorp\n\n# Billingo (api.billingo.hu → API kulcsok)\n# BILLINGO_API_KEY=\n\n# Számlázz.hu (app.szamlazz.hu → Beállítások > API kulcs)\n# SZAMLAZZHU_API_KEY=\n\n# SalesAutopilot (account.salesautopilot.com → Beállítások → Integráció → API kulcsok)\n# SALESAUTOPILOT_API_KEY=        # format: username:password (API kulcspár)\n# SALESAUTOPILOT_LIST_IDS=       # vesszővel elválasztott lista ID-k (pl. 12345,67890)\n\n# Twenty CRM (docs.twenty.com, Settings → API & Webhooks → Create key)\n# TWENTY_API_URL=https://api.twenty.com   # cloud default; self-hosted: http://twenty:3000\n# TWENTY_API_KEY=\n\n# Listmonk (listmonk.app, self-hosted newsletter/mailing-list manager)\n# Használj dedikált API-felhasználót (Users → New → role "API"), ne az admin jelszót.\n# LISTMONK_API_URL=http://listmonk:9000   # nincs záró /api\n# LISTMONK_API_USERNAME=\n# LISTMONK_API_PASSWORD=                  # API access token\n# LISTMONK_LIST_IDS=                      # alapértelmezett lista ID-k create()-hez (vesszővel elválasztva)\n\n\n# ── n8n MCP (mcp-manager npx: @leonardsellem/n8n-mcp-server) ──────────────────\n# Egy futó n8n példány API-ja kell. A manager továbbadja ezeket a spawnolt szervernek.\n# N8N_API_URL=https://n8n.example.com/api/v1   # a teljes API URL, KÖTELEZŐ a /api/v1 vég\n# N8N_API_KEY=                                 # n8n Settings → API → új kulcs\n# N8N_WEBHOOK_USERNAME=                        # opcionális, webhook Basic auth\n# N8N_WEBHOOK_PASSWORD=\n\n\n# ── Grafana MCP ────────────────────────────────────────────────────────────────\n# Két konténer, EGY token:\n#   grafana-mcp      - a Grafana Labs hivatalos szervere (dashboardok, Loki,\n#                      Prometheus, Tempo, OnCall, Incident, Sift)\n#   grafana-ops-mcp  - a mi kiegészítésünk arra a kettőre, amit az nem tud:\n#                      tüzelő riasztások listája + Alertmanager silence\n# Token: Grafana → Administration → Service accounts → Add token\n#\n# FIGYELEM a portra: a 3000 a Grafana alapértelmezése, de gyakran foglalt\n# (Open WebUI, Next.js dev szerver stb.). A hivatalos MCP indulásnál\n# VALIDÁLJA a GRAFANA_URL-t, ha nem Grafana felel, minden hívás 403-at ad,\n# és a hibaüzenetből nem derül ki, hogy rossz szolgáltatásra mutat.\nGRAFANA_URL=http://host.docker.internal:3000\n# GRAFANA_SERVICE_ACCOUNT_TOKEN=glsa_...\n# Régi név, visszafelé kompatibilitásból még elfogadja a grafana-ops:\n# GRAFANA_API_KEY=glsa_...\n\n# ── Uptime Kuma MCP ────────────────────────────────────────────────────────────\n# Mód A (v2 API kulcs): Settings → API Keys → Add API Key\n# UPTIME_KUMA_API_KEY=uk2_...\n# Mód B (publikus státuszoldal, kulcs nélkül):\nUPTIME_KUMA_URL=http://host.docker.internal:3001\n# UPTIME_KUMA_STATUS_SLUG=main\n\n# ── Google Workspace MCP ──────────────────────────────────────────────────────\n# Gmail, Drive, Calendar, Chat, Docs, Sheets, Slides, egy szerveren\n# Nincs API kulcs, Google managed OAuth flow (nem kell GCP projekt)\n# Első indítás után egyszer szükséges:\n#   docker exec -it quorum-google-workspace sh -c \\\n#     \'cd /data && node /build/workspace-server/dist/headless-login.js\'\n# A token a data/google-workspace/ mappában tárolódik (perzisztens).\n\n# ── Atlassian MCP ──────────────────────────────────────────────────────────────\n# API token generálása: https://id.atlassian.com/manage-profile/security/api-tokens\nJIRA_URL=https://example.atlassian.net\nJIRA_EMAIL=nev.nev@example.com\nJIRA_API_TOKEN=ATATT3x...\n\nCONFLUENCE_URL=https://example.atlassian.net\nCONFLUENCE_EMAIL=nev.nev@example.com\nCONFLUENCE_API_TOKEN=ATATT3x...\n# Szinkronizálandó Confluence space-kulcsok (vesszővel elválasztva; üres = minden)\nCONFLUENCE_SPACES=\n# Szinkronizálási időköz másodpercben (alapértelmezett: 86400 = napi egyszer)\nCONFLUENCE_SYNC_INTERVAL=86400\n# Kényszer-újraindexelés (1/true/yes = minden oldal újrafeldolgozva, verziókontroll figyelmen kívül)\n#FORCE_RESYNC=false\n\n# Confluence MCP + sync Qdrant kapcsolat (a projekt megosztott Qdrant példányára mutat, quorum-net-en)\nQDRANT_HOST=qdrant\nQDRANT_PORT=6334\nCOLLECTION_NAME=confluence\n\n# ── global-news MCP (70. fázis) ───────────────────────────────────────────────\n# Globális hírek, GDELT (kulcs nélkül) + opcionális Guardian/NewsAPI\nGLOBAL_NEWS_PORT=4308\n# GUARDIAN_API_KEY=   # ingyenes: open-platform.theguardian.com\n# NEWSAPI_KEY=        # ingyenes: newsapi.org (100 req/nap)\n# GLOBAL_NEWS_API_KEY= # Bearer token az MCP saját védelmére\n\n# ── AI Act (74b fázis) ─────────────────────────────────────────────────────────\n# RFC 3161 TSA endpoint, üresen hagyva: csak hash-lánc (offline is teljes megfelelés)\n# AI_ACT_TSA_URL=https://freetsa.org/tsr\n# PII maszkolás mélysége: üres=regex-only (gyors), full=Presidio+spaCy (erőforrás-igényes)\n# AI_ACT_PII_MODE=full\n\n# ── world-weather MCP (69. fázis) ─────────────────────────────────────────────\n# Globális időjárás, Open-Meteo, API kulcs nélkül\nWEATHER_MCP_PORT=4307\n# WEATHER_MCP_API_KEY=   # Bearer token; üres = nyílt hozzáférés\n\n# ── lean MCP (83. fázis) ──────────────────────────────────────────────────────\n# Lean 4 proof-checking. A toolchain ~1,5 GB (dedikált MCP), a proof-ellenőrzés\n# CPU/memória-igényes → konténer-plafon, itt BŐVÍTHETŐ.\nLEAN_MCP_PORT=4309\n# LEAN_MCP_API_KEY=      # Bearer token; üres = nyílt a belső hálózaton\n# LEAN_MCP_TIMEOUT=60    # egy proof-ellenőrzés időkorlátja (s)\n# LEAN_MCP_MEM_LIMIT=2g  # memória-plafon (Mathlib-OOM ellen); emeld, ha kell\n# LEAN_MCP_CPUS=2        # CPU-plafon\n# LEAN_TOOLCHAIN=stable  # reprodukálhatósághoz pinneld, pl. v4.15.0\n\n# ── bash-mcp (68. fázis) ───────────────────────────────────────────────────────\n# Remote bash/python execution, 3 hozzáférési szint (workspace / docker / host)\nBASH_MCP_PORT=4306\n# BASH_MCP_API_KEY:  a natív host bash MCP (bash-mcp-native, 86. fázis) KÖTELEZŐ kulcsa.\n#   Az orchestrator X-Bash-MCP-Key headerben küldi, a natív szerver kulcs nélkül el sem indul.\n#   A telepítő mindig legenerálja (ha üres); a natív bináris ugyanebből a .env-ből olvassa.\n#   A konténeres bash-mcp nem használja.\n# BASH_MCP_API_KEY=\n# Natív host bash MCP (bash-mcp-native, 86. fázis), a gépen, ahol a bináris fut:\n# BASH_MCP_NATIVE_PORT=4316  # saját port (a BASH_MCP_PORT a konténeres bash-mcp-é)\n# BASH_MCP_BIND=loopback     # loopback | docker (ugyanazon a Linux hoston futó QuorumAI-nak) | all (satellite) | <IP>\n# BASH_MCP_WORKDIR=/workspace\n# BASH_MCP_TIMEOUT=60\n# BASH_MCP_ALLOWED_COMMANDS= # regex whitelist; üres = minden engedélyezett\n\n# ── HyperFrames MCP ───────────────────────────────────────────────────────────\n# HTML → MP4 videó renderelés, TTS, transcribe, háttéreltávolítás\nHYPERFRAMES_PORT=4305\n# OMNIVOICE_URL az OmniVoice service-re mutat (59. fázis) magyar TTS-hez\n# Alapértelmezett: http://omnivoice:5000 (belső hálózaton)\n',
 }
 
 # ── Host scripts ─────────────────────────────────────────────────────────────
@@ -5506,6 +5632,38 @@ def _try_gen_vapid() -> Optional[Tuple[str, str]]:
         return None
 
 
+# ── Speech language (phase 97) ────────────────────────────────────────────────
+
+# installer language -> (Whisper --language, Piper voice). Whisper has no Irish:
+# English. No Piper voice for ga/mt: an English one; hr: the Serbian voice (the
+# two are mutually intelligible, espeak reads Latin script). pt: the ASCII-named
+# Brazilian voice (the European one is "tugão", a non-ASCII name in a CLI arg).
+SPEECH: Dict[str, Tuple[str, str]] = {
+    "hu": ("hu", "hu_HU-anna-medium"), "en": ("en", "en_US-amy-medium"),
+    "de": ("de", "de_DE-thorsten-medium"), "fr": ("fr", "fr_FR-siwis-medium"),
+    "es": ("es", "es_ES-davefx-medium"), "pt": ("pt", "pt_BR-faber-medium"),
+    "ru": ("ru", "ru_RU-irina-medium"), "nl": ("nl", "nl_NL-mls-medium"),
+    "pl": ("pl", "pl_PL-gosia-medium"), "uk": ("uk", "uk_UA-ukrainian_tts-medium"),
+    "sv": ("sv", "sv_SE-nst-medium"), "it": ("it", "it_IT-paola-medium"),
+    "ro": ("ro", "ro_RO-mihai-medium"), "cs": ("cs", "cs_CZ-jirka-medium"),
+    "sk": ("sk", "sk_SK-lili-medium"), "bg": ("bg", "bg_BG-dimitar-medium"),
+    "hr": ("hr", "sr_RS-serbski_institut-medium"), "sl": ("sl", "sl_SI-artur-medium"),
+    "el": ("el", "el_GR-rapunzelina-medium"), "da": ("da", "da_DK-talesyntese-medium"),
+    "fi": ("fi", "fi_FI-harri-medium"), "lt": ("lt", "lt_LT-ingute-medium"),
+    "lv": ("lv", "lv_LV-aivars-medium"), "et": ("et", "et_EE-news-medium"),
+    "ga": ("en", "en_GB-alba-medium"), "mt": ("mt", "en_GB-alba-medium"),
+    "no": ("no", "no_NO-talesyntese-medium"), "sr": ("sr", "sr_RS-serbski_institut-medium"),
+    "tr": ("tr", "tr_TR-dfki-medium"), "ja": ("ja", "ja_JP-hi_fi_captain-medium"),
+    "zh": ("zh", "zh_CN-huayan-medium"), "ko": ("ko", "ko_KR-kss-medium"),
+    "sw": ("sw", "sw_CD-lanfrica-medium"),
+}
+
+
+def _lang_code(s: Optional[Dict[str, str]]) -> str:
+    """Code of an installer string table (the dict object from LANGS)."""
+    return next((c for c, v in LANGS.items() if v is s), "")
+
+
 # ── .env generation ───────────────────────────────────────────────────────────
 
 # Former installer-managed provider keys; only preserved from an existing .env.
@@ -5526,6 +5684,7 @@ def build_env(
     tz: str = "Europe/Budapest",
     orchestrator_url: str = "",
     satellite: bool = False,
+    lang: str = "",
 ) -> str:
     profiles = ",".join(m["profile"] for m in modules if m.get("profile"))
 
@@ -5670,6 +5829,15 @@ def build_env(
     if not satellite:
         lines.append("")
         lines.append(f"TRACE_RETENTION_DAYS={existing_env.get('TRACE_RETENTION_DAYS', '14')}")
+
+    # Phase 97: speech recognition language and read-aloud voice follow the
+    # installer language (they were Hungarian for everyone). An existing value wins.
+    if any(m["id"] in ("stt-tts", "mic") for m in modules):
+        w_lang, p_voice = SPEECH.get(lang, SPEECH["hu"])
+        lines.append("")
+        lines.append("# Speech: Whisper language and Piper voice (https://huggingface.co/rhasspy/piper-voices)")
+        for key, val in (("WHISPER_LANGUAGE", w_lang), ("PIPER_VOICE", p_voice)):
+            lines.append(f"{key}={env_vars.get(key) or existing_env.get(key) or _env_default(key, val)}")
         stream_silence = existing_env.get("STREAM_MAX_SILENCE", "")
         if stream_silence:
             lines.append(f"STREAM_MAX_SILENCE={stream_silence}")
@@ -5896,17 +6064,43 @@ def _ask_license_key(s: Dict[str, str], existing_env: Dict[str, str]) -> str:
     """
     existing = _env_default("QUORUM_LICENSE_KEY", existing_env.get("QUORUM_LICENSE_KEY", ""))
     if not _FANCY_MENU:
+        existing = _normalize_license(existing)
+        if existing and not _license_format_ok(existing):
+            print("  " + t(s, "license_format_invalid"))
         return existing
     while True:
         prompt = "  QUORUM_LICENSE_KEY (free 30-day trial: https://license.quorumai.eu)"
         if existing:
             raw = ask(prompt + " [keep existing]", "").strip()
-            value = raw if raw else existing
+            value = _normalize_license(raw) if raw else existing
         else:
-            value = ask(prompt, "").strip()
-        if value:
-            return value
-        print("  QUORUM_LICENSE_KEY is required, the orchestrator will not start without it.")
+            value = _normalize_license(ask(prompt, ""))
+        if not value:
+            print("  QUORUM_LICENSE_KEY is required, the orchestrator will not start without it.")
+            continue
+        if value != existing and not _license_format_ok(value):
+            # a typo here only surfaced as a crash-looping orchestrator after start
+            print("  " + t(s, "license_format_invalid"))
+            continue
+        return value
+
+
+# QL- + uppercase UUID (QuorumLicense LicenseKeyService), QL-TEST- support keys,
+# or a raw signed JWT (offline mode, see orchestrator/license.py).
+_LICENSE_RE = re.compile(
+    r"^(QL-[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}"
+    r"|QL-TEST-[0-9A-Z-]+"
+    r"|[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$"
+)
+
+
+def _normalize_license(raw: str) -> str:
+    value = (raw or "").strip().strip("\"'").strip()
+    return value.upper() if value.upper().startswith("QL-") else value
+
+
+def _license_format_ok(value: str) -> bool:
+    return bool(_LICENSE_RE.match(value))
 
 
 def _ask_ai_act_tsa(s: Dict[str, str], existing_env: Dict[str, str]) -> str:
@@ -6053,7 +6247,7 @@ def modify_mode(s: Dict[str, str], install_dir: Path) -> None:
         env_vars["AI_ACT_PII_MODE"] = _ask_ai_act_pii(s, existing_env)
 
     print(t(s, "writing_files"))
-    env_content = build_env(new_modules, ports, env_vars, existing_env)
+    env_content = build_env(new_modules, ports, env_vars, existing_env, lang=_lang_code(s))
     env_path.write_text(env_content, encoding="utf-8")
     print(t(s, "env_written", path=env_path))
     if compat_key:
@@ -6093,6 +6287,8 @@ def modify_mode(s: Dict[str, str], install_dir: Path) -> None:
     code = compose_up(install_dir)
     if code == 0:
         print(t(s, "start_ok"))
+        _check_started(s, new_modules, ports.get("ORCHESTRATOR_PORT")
+                       or int(existing_env.get("ORCHESTRATOR_PORT", "8000") or 8000))
     else:
         print(t(s, "start_fail", code=str(code)))
 
@@ -6158,7 +6354,8 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
         print("\n" + t(s, "headless_no_license") + "\n")
 
     print(t(s, "writing_files"))
-    env_content = build_env(modules, ports, env_vars, {}, orchestrator_url=orchestrator_url, satellite=satellite)
+    env_content = build_env(modules, ports, env_vars, {}, orchestrator_url=orchestrator_url, satellite=satellite,
+                            lang=_lang_code(s))
     env_path = install_dir / ".env"
     env_path.write_text(env_content, encoding="utf-8")
     print(t(s, "env_written", path=env_path))
@@ -6200,9 +6397,12 @@ def _start_and_summarize(s: Dict[str, str], install_dir: Path, modules: List[dic
         print(t(s, "start_fail", code=str(code)))
         return
 
-    # Summary
     gui_port = ports.get("GUI_PORT", 3000)
     api_port = ports.get("ORCHESTRATOR_PORT", 8000)
+    if not _check_started(s, modules, api_port):
+        return
+
+    # Summary
     has_gui = any(m["id"] == "gui" for m in modules)
 
     print()
@@ -6214,6 +6414,52 @@ def _start_and_summarize(s: Dict[str, str], install_dir: Path, modules: List[dic
     print(t(s, "next_steps"))
     if any(m["id"] == "orchestrator" for m in modules):
         print(t(s, "llm_hint"))
+
+
+def _wait_for_health(s: Dict[str, str], port: int) -> bool:
+    """Phase 97: `compose up -d` returns 0 even when the orchestrator crash-loops
+    (e.g. a wrong license key); success is only claimed once /health answers."""
+    import time
+    import urllib.request
+    timeout = int(os.environ.get("QUORUM_HEALTH_TIMEOUT", "180"))
+    print(t(s, "health_waiting", port=str(port)), end="", flush=True)
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{port}/health", timeout=3) as resp:
+                if resp.status == 200:
+                    print(" OK")
+                    return True
+        except Exception:  # noqa: BLE001
+            pass
+        print(".", end="", flush=True)
+        time.sleep(3)
+    print()
+    return False
+
+
+def _report_unhealthy(s: Dict[str, str]) -> None:
+    print("\n" + t(s, "health_failed"))
+    try:
+        r = run(["docker", "logs", "--tail", "20", "quorum-orchestrator"], check=False)
+        out = f"{r.stdout or ''}{r.stderr or ''}"
+    except Exception as exc:  # noqa: BLE001
+        out = str(exc)
+    for line in out.strip().splitlines()[-20:]:
+        print("    " + line)
+    if "licens" in out.lower():
+        print("\n" + t(s, "health_license_hint"))
+    print("\n  docker compose logs -f orchestrator")
+
+
+def _check_started(s: Dict[str, str], modules: List[dict], port: int) -> bool:
+    """True when there is no orchestrator here (satellite) or it answers /health."""
+    if not any(m["id"] == "orchestrator" for m in modules):
+        return True
+    if _wait_for_health(s, port):
+        return True
+    _report_unhealthy(s)
+    return False
 
 
 # ── Quick install and update (phase 97) ───────────────────────────────────────
@@ -6297,7 +6543,7 @@ def quick_install(s: Dict[str, str], install_dir: Path) -> None:
 
     print(t(s, "writing_files"))
     env_path = install_dir / ".env"
-    env_path.write_text(build_env(modules, ports, env_vars, {}), encoding="utf-8")
+    env_path.write_text(build_env(modules, ports, env_vars, {}, lang=_lang_code(s)), encoding="utf-8")
     print(t(s, "env_written", path=env_path))
     setup_install_dir(install_dir, modules)
     _customize_mic_compose(install_dir, modules, s)
@@ -6392,7 +6638,7 @@ def update_install(s: Dict[str, str], install_dir: Path) -> None:
 
     new_env = build_env(modules, {}, _default_env_vars(modules, existing_env), existing_env,
                         orchestrator_url=existing_env.get("ORCHESTRATOR_URL", "") if satellite else "",
-                        satellite=satellite)
+                        satellite=satellite, lang=_lang_code(s))
     added = _append_missing_env(env_path, new_env)
     if added:
         print(t(s, "env_keys_added", keys=", ".join(added)))
@@ -6422,6 +6668,9 @@ def update_install(s: Dict[str, str], install_dir: Path) -> None:
     print(t(s, "starting"))
     code = compose_up(install_dir)
     print(t(s, "start_ok") if code == 0 else t(s, "start_fail", code=str(code)))
+    if code == 0:
+        port = existing_env.get("ORCHESTRATOR_PORT", "8000")
+        _check_started(s, modules, int(port) if port.isdigit() else 8000)
     print(t(s, "done"))
 
 # ── Main ──────────────────────────────────────────────────────────────────────

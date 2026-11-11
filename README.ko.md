@@ -39,6 +39,8 @@ QuorumAI는 하나 이상의 LLM을 AI 에이전트 팀으로 변환합니다. �
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+설치 프로그램은 기본적으로 **빠른 설치**로 시작합니다. 라이선스 키만 묻고(30일 무료 체험: https://license.quorumai.eu) 나머지는 기본값으로 설정한 뒤 QuorumAI를 시작합니다. **고급**에서는 모듈과 포트를 모두 선택할 수 있습니다. **업데이트**하려면 같은 명령을 다시 실행하세요. 기존 설치를 찾아 설정과 데이터를 유지하고 새 버전을 내려받습니다.
+
 **Windows (PowerShell — 관리자 권한으로 실행):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

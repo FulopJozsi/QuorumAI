@@ -39,6 +39,8 @@ Le programme d'installation bootstrap vérifie la présence de Python 3 et Docke
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+L'installateur propose par défaut une **installation rapide** : il ne demande que la clé de licence (essai gratuit de 30 jours : https://license.quorumai.eu), utilise les valeurs par défaut pour le reste et démarre QuorumAI. **Avancée** conserve le menu complet des modules et ports. **Pour mettre à jour**, relancez la même commande : elle détecte l'installation existante, conserve paramètres et données et télécharge les nouvelles versions.
+
 **Windows (PowerShell — exécuter en tant qu'Administrateur) :**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

@@ -39,6 +39,8 @@ Bootstrap-установщик проверяет наличие Python 3 и Doc
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+Установщик по умолчанию предлагает **быструю установку**: спрашивает только лицензионный ключ (бесплатный 30-дневный пробный период: https://license.quorumai.eu), остальное настраивает по умолчанию и запускает QuorumAI. **Расширенный** режим сохраняет полное меню модулей и портов. **Для обновления** запустите ту же команду снова: она найдёт существующую установку, сохранит настройки и данные и загрузит новые версии.
+
 **Windows (PowerShell — запустить от имени Администратора):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

@@ -32,11 +32,56 @@ except ImportError:
     except ImportError:
         _FANCY_MENU = False
 
+
+def _attach_tty() -> None:
+    """Phase 97: read the answers from the terminal even when stdin is a pipe.
+
+    `curl -fsSL …/install.sh | bash` (and `curl …/install.py | python3`) hand the
+    script itself to stdin, so isatty() is False and the installer used to fall
+    silently into headless mode: no license-key prompt, no `compose up`. When a
+    controlling terminal exists, switch stdin to it. Ansible/CI have none (the
+    open fails) and keep the headless behaviour; QUORUM_UNATTENDED=1 forces it.
+    """
+    global _FANCY_MENU
+    if _msvcrt is not None or sys.stdin.isatty() or os.environ.get("QUORUM_UNATTENDED") == "1":
+        return
+    try:
+        tty_fd = os.open("/dev/tty", os.O_RDWR)
+    except OSError:
+        return
+    if not os.isatty(tty_fd):
+        os.close(tty_fd)
+        return
+    # Put the terminal on fd 0 instead of swapping the sys.stdin object: a text
+    # file opened on /dev/tty never returns a single raw keypress from read(1),
+    # so the arrow menus hung (caught by installtest/pty_bootstrap.py). Nothing
+    # has been read from the pipe yet, so sys.stdin simply continues on the tty.
+    os.dup2(tty_fd, 0)
+    os.close(tty_fd)
+    _FANCY_MENU = sys.stdin.isatty()
+
 # ── Language strings ──────────────────────────────────────────────────────────
 
 LANGS: Dict[str, Dict[str, str]] = {
     "en": {
         "lang_name": "English",
+        "quick_voice_skipped": "Docker has little memory ({gb} GB), so speech recognition and read-aloud (Whisper + Piper) are left out. You can add them later with Modify.",
+        "install_kind_question": "How would you like to install?",
+        "install_kind_quick": "Quick install (recommended): asks only for the license key, uses defaults for everything else and starts QuorumAI",
+        "install_kind_advanced": "Advanced: choose modules, ports and keys one by one",
+        "port_shifted": "{name}: port {port} is in use, using {new} instead",
+        "compose_backup": "Previous compose files saved to: {path}",
+        "env_keys_added": "New settings appended to .env: {keys}",
+        "images_changed": "New versions:",
+        "images_unchanged": "Image versions are unchanged, pulling and restarting anyway.",
+        "pulling": "Downloading images (the first time this can be several GB and take a while)...",
+        "pull_failed": "Image download finished with an error ({code}), starting with the images already present.",
+        "docker_daemon_down": "Docker is not running. Start Docker Desktop (macOS/Windows) or the docker service (Linux), then press Enter.",
+        "docker_permission": "You have no permission to use Docker. Log out and back in (docker group), or run: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker is still not reachable:\n{err}",
+        "headless_no_license": "WARNING: no license key (QUORUM_LICENSE_KEY) and no terminal to ask for it. The orchestrator will not start without it. Run the installer in a terminal or set QUORUM_LICENSE_KEY. Free 30-day trial: https://license.quorumai.eu",
+        "llm_hint": "First step in the GUI: Settings > Providers, add an LLM provider there (API key or local Ollama).",
+        "quick_summary": "Quick install into {dir}. Modules: {mods}",
         "welcome": "Welcome to the QuorumAI installer!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Your choice",
@@ -51,7 +96,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Installation directory [{default}]",
         "dir_created": "Directory created: {path}",
         "existing_found": "Existing QuorumAI installation found in: {path}",
-        "existing_opts": "1) Modify (add/remove modules, change ports)\n2) Fresh reinstall\n3) Quit",
+        "existing_opts": "1) Update (recommended): download new versions, settings and data are kept\n2) Modify (add/remove modules, change ports)\n3) Fresh reinstall\n4) Quit",
         "select_modules": "Select modules to install (minimum set is pre-checked):",
         "module_required": "(required)",
         "module_optional": "(optional)",
@@ -126,6 +171,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "hu": {
         "lang_name": "Magyar",
+        "quick_voice_skipped": "Kevés a Docker memóriája ({gb} GB), ezért a beszédfelismerés és a felolvasás (Whisper + Piper) kimarad. Később a Módosítással felvehető.",
+        "install_kind_question": "Hogyan telepítsünk?",
+        "install_kind_quick": "Gyors telepítés (ajánlott): csak a licenckulcsot kéri, minden mást alapértékkel állít be, és elindítja a QuorumAI-t",
+        "install_kind_advanced": "Haladó: modulok, portok és kulcsok egyenként",
+        "port_shifted": "{name}: a(z) {port} port foglalt, helyette: {new}",
+        "compose_backup": "A régi compose fájlok mentve ide: {path}",
+        "env_keys_added": "Új beállítások a .env végén: {keys}",
+        "images_changed": "Új verziók:",
+        "images_unchanged": "Az image-verziók nem változtak, a letöltés és az újraindítás így is lefut.",
+        "pulling": "Image-ek letöltése (első alkalommal több GB is lehet, eltarthat egy ideig)...",
+        "pull_failed": "Az image-letöltés hibával zárult ({code}), az indítás a meglévő image-ekkel folytatódik.",
+        "docker_daemon_down": "A Docker nem fut. Indítsd el a Docker Desktopot (macOS/Windows) vagy a docker szolgáltatást (Linux), majd nyomj Enter-t.",
+        "docker_permission": "Nincs jogod a Dockerhez. Jelentkezz ki és be (docker csoport), vagy futtasd így: sg docker -c 'python3 install.py'",
+        "docker_still_down": "A Docker továbbra sem érhető el:\n{err}",
+        "headless_no_license": "FIGYELEM: nincs licenckulcs (QUORUM_LICENSE_KEY), és nem volt terminál a bekéréséhez. Nélküle az orchestrator nem indul el. Futtasd a telepítőt terminálban, vagy add meg a QUORUM_LICENSE_KEY változót. Ingyenes 30 napos próba: https://license.quorumai.eu",
+        "llm_hint": "Első lépés a GUI-ban: Beállítások > Providerek, itt adj meg egy LLM-szolgáltatót (API-kulcs vagy helyi Ollama).",
+        "quick_summary": "Gyors telepítés ide: {dir}. Modulok: {mods}",
         "welcome": "Üdvözöl a QuorumAI telepítő!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Választásod",
@@ -140,7 +202,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Telepítési mappa [{default}]",
         "dir_created": "Mappa létrehozva: {path}",
         "existing_found": "Meglévő QuorumAI telepítés található itt: {path}",
-        "existing_opts": "1) Módosítás (modul hozzáadás/eltávolítás, port változtatás)\n2) Teljes újratelepítés\n3) Kilépés",
+        "existing_opts": "1) Frissítés (ajánlott): új verziók letöltése, a beállítások és az adatok maradnak\n2) Módosítás (modul hozzáadás/eltávolítás, port változtatás)\n3) Teljes újratelepítés\n4) Kilépés",
         "select_modules": "Válaszd ki a telepítendő modulokat (a minimum set előre be van jelölve):",
         "module_required": "(kötelező)",
         "module_optional": "(opcionális)",
@@ -215,6 +277,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "de": {
         "lang_name": "Deutsch",
+        "quick_voice_skipped": "Docker hat wenig Speicher ({gb} GB), daher werden Spracherkennung und Vorlesen (Whisper + Piper) ausgelassen. Später über Ändern hinzufügbar.",
+        "install_kind_question": "Wie möchtest du installieren?",
+        "install_kind_quick": "Schnellinstallation (empfohlen): fragt nur den Lizenzschlüssel ab, setzt alles andere auf Standardwerte und startet QuorumAI",
+        "install_kind_advanced": "Erweitert: Module, Ports und Schlüssel einzeln wählen",
+        "port_shifted": "{name}: Port {port} ist belegt, stattdessen {new}",
+        "compose_backup": "Bisherige Compose-Dateien gesichert unter: {path}",
+        "env_keys_added": "Neue Einstellungen an .env angehängt: {keys}",
+        "images_changed": "Neue Versionen:",
+        "images_unchanged": "Image-Versionen unverändert, Download und Neustart laufen trotzdem.",
+        "pulling": "Images werden geladen (beim ersten Mal mehrere GB, das kann dauern)...",
+        "pull_failed": "Image-Download mit Fehler beendet ({code}), Start mit den vorhandenen Images.",
+        "docker_daemon_down": "Docker läuft nicht. Starte Docker Desktop (macOS/Windows) oder den Docker-Dienst (Linux) und drücke dann Enter.",
+        "docker_permission": "Keine Berechtigung für Docker. Ab- und wieder anmelden (Gruppe docker) oder ausführen: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker ist weiterhin nicht erreichbar:\n{err}",
+        "headless_no_license": "WARNUNG: kein Lizenzschlüssel (QUORUM_LICENSE_KEY) und kein Terminal zur Abfrage. Ohne ihn startet der Orchestrator nicht. Installer im Terminal ausführen oder QUORUM_LICENSE_KEY setzen. Kostenlose 30-Tage-Testversion: https://license.quorumai.eu",
+        "llm_hint": "Erster Schritt in der GUI: Einstellungen > Provider, dort einen LLM-Anbieter hinzufügen (API-Schlüssel oder lokales Ollama).",
+        "quick_summary": "Schnellinstallation nach {dir}. Module: {mods}",
         "welcome": "Willkommen beim QuorumAI-Installer!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Ihre Wahl",
@@ -229,7 +308,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Installationsverzeichnis [{default}]",
         "dir_created": "Verzeichnis erstellt: {path}",
         "existing_found": "Vorhandene QuorumAI-Installation gefunden in: {path}",
-        "existing_opts": "1) Ändern (Module hinzufügen/entfernen, Ports ändern)\n2) Neuinstallation\n3) Beenden",
+        "existing_opts": "1) Aktualisieren (empfohlen): neue Versionen laden, Einstellungen und Daten bleiben erhalten\n2) Ändern (Module hinzufügen/entfernen, Ports ändern)\n3) Neuinstallation\n4) Beenden",
         "select_modules": "Module auswählen (Mindestset ist vorausgewählt):",
         "module_required": "(erforderlich)",
         "module_optional": "(optional)",
@@ -304,6 +383,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "fr": {
         "lang_name": "Français",
+        "quick_voice_skipped": "Docker dispose de peu de mémoire ({gb} Go), la reconnaissance vocale et la lecture à voix haute (Whisper + Piper) sont donc omises. Ajout possible plus tard via Modifier.",
+        "install_kind_question": "Comment souhaitez-vous installer ?",
+        "install_kind_quick": "Installation rapide (recommandée) : demande seulement la clé de licence, utilise les valeurs par défaut et démarre QuorumAI",
+        "install_kind_advanced": "Avancée : choisir modules, ports et clés un par un",
+        "port_shifted": "{name} : le port {port} est occupé, utilisation de {new}",
+        "compose_backup": "Anciens fichiers compose sauvegardés dans : {path}",
+        "env_keys_added": "Nouveaux paramètres ajoutés à .env : {keys}",
+        "images_changed": "Nouvelles versions :",
+        "images_unchanged": "Versions des images inchangées, téléchargement et redémarrage quand même.",
+        "pulling": "Téléchargement des images (la première fois plusieurs Go, cela peut prendre du temps)...",
+        "pull_failed": "Le téléchargement des images a échoué ({code}), démarrage avec les images déjà présentes.",
+        "docker_daemon_down": "Docker ne tourne pas. Démarrez Docker Desktop (macOS/Windows) ou le service docker (Linux), puis appuyez sur Entrée.",
+        "docker_permission": "Pas de permission pour Docker. Déconnectez-vous puis reconnectez-vous (groupe docker), ou lancez : sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker reste injoignable :\n{err}",
+        "headless_no_license": "ATTENTION : aucune clé de licence (QUORUM_LICENSE_KEY) et aucun terminal pour la demander. L'orchestrateur ne démarrera pas sans elle. Lancez l'installateur dans un terminal ou définissez QUORUM_LICENSE_KEY. Essai gratuit de 30 jours : https://license.quorumai.eu",
+        "llm_hint": "Première étape dans la GUI : Paramètres > Fournisseurs, ajoutez-y un fournisseur LLM (clé API ou Ollama local).",
+        "quick_summary": "Installation rapide dans {dir}. Modules : {mods}",
         "welcome": "Bienvenue dans l'installateur QuorumAI !",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Votre choix",
@@ -318,7 +414,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Répertoire d'installation [{default}]",
         "dir_created": "Répertoire créé : {path}",
         "existing_found": "Installation QuorumAI existante trouvée dans : {path}",
-        "existing_opts": "1) Modifier (ajouter/supprimer des modules, changer les ports)\n2) Réinstallation complète\n3) Quitter",
+        "existing_opts": "1) Mettre à jour (recommandé) : télécharger les nouvelles versions, paramètres et données conservés\n2) Modifier (ajouter/supprimer des modules, changer les ports)\n3) Réinstallation complète\n4) Quitter",
         "select_modules": "Sélectionner les modules (le minimum est présélectionné) :",
         "module_required": "(requis)",
         "module_optional": "(optionnel)",
@@ -393,6 +489,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "es": {
         "lang_name": "Español",
+        "quick_voice_skipped": "Docker tiene poca memoria ({gb} GB), así que se omiten el reconocimiento de voz y la lectura en voz alta (Whisper + Piper). Puedes añadirlos luego con Modificar.",
+        "install_kind_question": "¿Cómo quieres instalar?",
+        "install_kind_quick": "Instalación rápida (recomendada): solo pide la clave de licencia, usa valores por defecto e inicia QuorumAI",
+        "install_kind_advanced": "Avanzada: elegir módulos, puertos y claves uno a uno",
+        "port_shifted": "{name}: el puerto {port} está ocupado, se usa {new}",
+        "compose_backup": "Archivos compose anteriores guardados en: {path}",
+        "env_keys_added": "Nuevos ajustes añadidos a .env: {keys}",
+        "images_changed": "Nuevas versiones:",
+        "images_unchanged": "Las versiones de las imágenes no cambiaron, se descarga y reinicia igualmente.",
+        "pulling": "Descargando imágenes (la primera vez pueden ser varios GB y tardar)...",
+        "pull_failed": "La descarga de imágenes terminó con error ({code}), se inicia con las imágenes existentes.",
+        "docker_daemon_down": "Docker no está en marcha. Inicia Docker Desktop (macOS/Windows) o el servicio docker (Linux) y pulsa Intro.",
+        "docker_permission": "No tienes permiso para usar Docker. Cierra sesión y vuelve a entrar (grupo docker) o ejecuta: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker sigue sin estar disponible:\n{err}",
+        "headless_no_license": "AVISO: no hay clave de licencia (QUORUM_LICENSE_KEY) ni terminal para pedirla. El orquestador no arrancará sin ella. Ejecuta el instalador en un terminal o define QUORUM_LICENSE_KEY. Prueba gratuita de 30 días: https://license.quorumai.eu",
+        "llm_hint": "Primer paso en la GUI: Ajustes > Proveedores, añade ahí un proveedor LLM (clave API u Ollama local).",
+        "quick_summary": "Instalación rápida en {dir}. Módulos: {mods}",
         "welcome": "¡Bienvenido al instalador de QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Tu elección",
@@ -407,7 +520,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Directorio de instalación [{default}]",
         "dir_created": "Directorio creado: {path}",
         "existing_found": "Instalación existente de QuorumAI encontrada en: {path}",
-        "existing_opts": "1) Modificar (añadir/eliminar módulos, cambiar puertos)\n2) Reinstalación completa\n3) Salir",
+        "existing_opts": "1) Actualizar (recomendado): descargar nuevas versiones, se conservan ajustes y datos\n2) Modificar (añadir/eliminar módulos, cambiar puertos)\n3) Reinstalación completa\n4) Salir",
         "select_modules": "Seleccionar módulos (el mínimo está preseleccionado):",
         "module_required": "(requerido)",
         "module_optional": "(opcional)",
@@ -482,6 +595,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "pt": {
         "lang_name": "Português",
+        "quick_voice_skipped": "O Docker tem pouca memória ({gb} GB), por isso o reconhecimento de voz e a leitura em voz alta (Whisper + Piper) ficam de fora. Pode adicioná-los depois com Modificar.",
+        "install_kind_question": "Como pretende instalar?",
+        "install_kind_quick": "Instalação rápida (recomendada): pede apenas a chave de licença, usa valores padrão e inicia o QuorumAI",
+        "install_kind_advanced": "Avançada: escolher módulos, portas e chaves um a um",
+        "port_shifted": "{name}: a porta {port} está ocupada, a usar {new}",
+        "compose_backup": "Ficheiros compose anteriores guardados em: {path}",
+        "env_keys_added": "Novas definições acrescentadas ao .env: {keys}",
+        "images_changed": "Novas versões:",
+        "images_unchanged": "Versões das imagens inalteradas, a transferir e reiniciar na mesma.",
+        "pulling": "A transferir imagens (na primeira vez podem ser vários GB e demorar)...",
+        "pull_failed": "A transferência das imagens terminou com erro ({code}), a iniciar com as imagens existentes.",
+        "docker_daemon_down": "O Docker não está a correr. Inicie o Docker Desktop (macOS/Windows) ou o serviço docker (Linux) e prima Enter.",
+        "docker_permission": "Sem permissão para usar o Docker. Termine a sessão e entre de novo (grupo docker) ou execute: sg docker -c 'python3 install.py'",
+        "docker_still_down": "O Docker continua inacessível:\n{err}",
+        "headless_no_license": "AVISO: sem chave de licença (QUORUM_LICENSE_KEY) e sem terminal para a pedir. O orquestrador não arranca sem ela. Execute o instalador num terminal ou defina QUORUM_LICENSE_KEY. Teste gratuito de 30 dias: https://license.quorumai.eu",
+        "llm_hint": "Primeiro passo na GUI: Definições > Fornecedores, adicione aí um fornecedor LLM (chave API ou Ollama local).",
+        "quick_summary": "Instalação rápida em {dir}. Módulos: {mods}",
         "welcome": "Bem-vindo ao instalador QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Sua escolha",
@@ -496,7 +626,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Diretório de instalação [{default}]",
         "dir_created": "Diretório criado: {path}",
         "existing_found": "Instalação existente do QuorumAI encontrada em: {path}",
-        "existing_opts": "1) Modificar (adicionar/remover módulos, alterar portas)\n2) Reinstalação completa\n3) Sair",
+        "existing_opts": "1) Atualizar (recomendado): transferir novas versões, definições e dados mantidos\n2) Modificar (adicionar/remover módulos, alterar portas)\n3) Reinstalação completa\n4) Sair",
         "select_modules": "Selecionar módulos (o mínimo está pré-selecionado):",
         "module_required": "(obrigatório)",
         "module_optional": "(opcional)",
@@ -571,6 +701,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ru": {
         "lang_name": "Русский",
+        "quick_voice_skipped": "У Docker мало памяти ({gb} ГБ), поэтому распознавание речи и озвучивание (Whisper + Piper) не устанавливаются. Их можно добавить позже через «Изменить».",
+        "install_kind_question": "Как установить?",
+        "install_kind_quick": "Быстрая установка (рекомендуется): спрашивает только лицензионный ключ, остальное по умолчанию, и запускает QuorumAI",
+        "install_kind_advanced": "Расширенная: модули, порты и ключи по одному",
+        "port_shifted": "{name}: порт {port} занят, используется {new}",
+        "compose_backup": "Прежние compose-файлы сохранены в: {path}",
+        "env_keys_added": "Новые настройки добавлены в .env: {keys}",
+        "images_changed": "Новые версии:",
+        "images_unchanged": "Версии образов не изменились, загрузка и перезапуск всё равно выполняются.",
+        "pulling": "Загрузка образов (в первый раз это может быть несколько ГБ и занять время)...",
+        "pull_failed": "Загрузка образов завершилась с ошибкой ({code}), запуск с имеющимися образами.",
+        "docker_daemon_down": "Docker не запущен. Запустите Docker Desktop (macOS/Windows) или службу docker (Linux) и нажмите Enter.",
+        "docker_permission": "Нет прав на Docker. Выйдите из системы и войдите снова (группа docker) или выполните: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker по-прежнему недоступен:\n{err}",
+        "headless_no_license": "ВНИМАНИЕ: нет лицензионного ключа (QUORUM_LICENSE_KEY) и нет терминала, чтобы его запросить. Без него оркестратор не запустится. Запустите установщик в терминале или задайте QUORUM_LICENSE_KEY. Бесплатный 30-дневный пробный период: https://license.quorumai.eu",
+        "llm_hint": "Первый шаг в GUI: Настройки > Провайдеры, добавьте там LLM-провайдера (API-ключ или локальный Ollama).",
+        "quick_summary": "Быстрая установка в {dir}. Модули: {mods}",
         "welcome": "Добро пожаловать в установщик QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Ваш выбор",
@@ -585,7 +732,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Каталог установки [{default}]",
         "dir_created": "Каталог создан: {path}",
         "existing_found": "Найдена существующая установка QuorumAI в: {path}",
-        "existing_opts": "1) Изменить (добавить/удалить модули, изменить порты)\n2) Полная переустановка\n3) Выход",
+        "existing_opts": "1) Обновить (рекомендуется): загрузить новые версии, настройки и данные сохраняются\n2) Изменить (добавить/удалить модули, изменить порты)\n3) Полная переустановка\n4) Выход",
         "select_modules": "Выберите модули для установки (минимальный набор уже отмечен):",
         "module_required": "(обязательно)",
         "module_optional": "(опционально)",
@@ -660,6 +807,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "nl": {
         "lang_name": "Nederlands",
+        "quick_voice_skipped": "Docker heeft weinig geheugen ({gb} GB), dus spraakherkenning en voorlezen (Whisper + Piper) worden overgeslagen. Later toe te voegen via Wijzigen.",
+        "install_kind_question": "Hoe wil je installeren?",
+        "install_kind_quick": "Snelle installatie (aanbevolen): vraagt alleen de licentiesleutel, gebruikt standaardwaarden en start QuorumAI",
+        "install_kind_advanced": "Geavanceerd: modules, poorten en sleutels één voor één kiezen",
+        "port_shifted": "{name}: poort {port} is bezet, {new} wordt gebruikt",
+        "compose_backup": "Vorige compose-bestanden opgeslagen in: {path}",
+        "env_keys_added": "Nieuwe instellingen toegevoegd aan .env: {keys}",
+        "images_changed": "Nieuwe versies:",
+        "images_unchanged": "Image-versies ongewijzigd, downloaden en herstarten gebeurt toch.",
+        "pulling": "Images downloaden (de eerste keer kan dit enkele GB zijn en even duren)...",
+        "pull_failed": "Downloaden van images eindigde met een fout ({code}), starten met de aanwezige images.",
+        "docker_daemon_down": "Docker draait niet. Start Docker Desktop (macOS/Windows) of de docker-service (Linux) en druk op Enter.",
+        "docker_permission": "Geen toestemming voor Docker. Log uit en weer in (groep docker) of voer uit: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker is nog steeds niet bereikbaar:\n{err}",
+        "headless_no_license": "WAARSCHUWING: geen licentiesleutel (QUORUM_LICENSE_KEY) en geen terminal om erom te vragen. Zonder sleutel start de orchestrator niet. Voer de installer uit in een terminal of stel QUORUM_LICENSE_KEY in. Gratis proefperiode van 30 dagen: https://license.quorumai.eu",
+        "llm_hint": "Eerste stap in de GUI: Instellingen > Providers, voeg daar een LLM-provider toe (API-sleutel of lokale Ollama).",
+        "quick_summary": "Snelle installatie in {dir}. Modules: {mods}",
         "welcome": "Welkom bij de QuorumAI-installer!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Uw keuze",
@@ -674,7 +838,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Installatiedirectory [{default}]",
         "dir_created": "Directory aangemaakt: {path}",
         "existing_found": "Bestaande QuorumAI-installatie gevonden in: {path}",
-        "existing_opts": "1) Aanpassen (modules toevoegen/verwijderen, poorten wijzigen)\n2) Volledig opnieuw installeren\n3) Afsluiten",
+        "existing_opts": "1) Bijwerken (aanbevolen): nieuwe versies downloaden, instellingen en gegevens blijven behouden\n2) Aanpassen (modules toevoegen/verwijderen, poorten wijzigen)\n3) Volledig opnieuw installeren\n4) Afsluiten",
         "select_modules": "Selecteer te installeren modules (minimum is voorgeselecteerd):",
         "module_required": "(vereist)",
         "module_optional": "(optioneel)",
@@ -749,6 +913,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "pl": {
         "lang_name": "Polski",
+        "quick_voice_skipped": "Docker ma mało pamięci ({gb} GB), więc rozpoznawanie mowy i czytanie na głos (Whisper + Piper) zostają pominięte. Można je dodać później przez Zmień.",
+        "install_kind_question": "Jak chcesz zainstalować?",
+        "install_kind_quick": "Szybka instalacja (zalecana): pyta tylko o klucz licencyjny, resztę ustawia domyślnie i uruchamia QuorumAI",
+        "install_kind_advanced": "Zaawansowana: wybór modułów, portów i kluczy po kolei",
+        "port_shifted": "{name}: port {port} jest zajęty, używam {new}",
+        "compose_backup": "Poprzednie pliki compose zapisano w: {path}",
+        "env_keys_added": "Nowe ustawienia dopisane do .env: {keys}",
+        "images_changed": "Nowe wersje:",
+        "images_unchanged": "Wersje obrazów bez zmian, pobieranie i restart i tak zostaną wykonane.",
+        "pulling": "Pobieranie obrazów (za pierwszym razem może to być kilka GB i potrwać)...",
+        "pull_failed": "Pobieranie obrazów zakończyło się błędem ({code}), start z istniejącymi obrazami.",
+        "docker_daemon_down": "Docker nie działa. Uruchom Docker Desktop (macOS/Windows) lub usługę docker (Linux), a potem naciśnij Enter.",
+        "docker_permission": "Brak uprawnień do Dockera. Wyloguj się i zaloguj ponownie (grupa docker) albo uruchom: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker nadal jest niedostępny:\n{err}",
+        "headless_no_license": "UWAGA: brak klucza licencyjnego (QUORUM_LICENSE_KEY) i brak terminala, by o niego zapytać. Bez niego orchestrator się nie uruchomi. Uruchom instalator w terminalu lub ustaw QUORUM_LICENSE_KEY. Darmowy 30-dniowy okres próbny: https://license.quorumai.eu",
+        "llm_hint": "Pierwszy krok w GUI: Ustawienia > Dostawcy, dodaj tam dostawcę LLM (klucz API lub lokalna Ollama).",
+        "quick_summary": "Szybka instalacja do {dir}. Moduły: {mods}",
         "welcome": "Witaj w instalatorze QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Twój wybór",
@@ -763,7 +944,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Katalog instalacji [{default}]",
         "dir_created": "Katalog utworzony: {path}",
         "existing_found": "Znaleziono istniejącą instalację QuorumAI w: {path}",
-        "existing_opts": "1) Modyfikuj (dodaj/usuń moduły, zmień porty)\n2) Czysta reinstalacja\n3) Zakończ",
+        "existing_opts": "1) Aktualizuj (zalecane): pobierz nowe wersje, ustawienia i dane zostają\n2) Modyfikuj (dodaj/usuń moduły, zmień porty)\n3) Czysta reinstalacja\n4) Zakończ",
         "select_modules": "Wybierz moduły do instalacji (zestaw minimalny jest wstępnie zaznaczony):",
         "module_required": "(wymagany)",
         "module_optional": "(opcjonalny)",
@@ -838,6 +1019,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "uk": {
         "lang_name": "Українська",
+        "quick_voice_skipped": "У Docker мало пам'яті ({gb} ГБ), тому розпізнавання мовлення й озвучування (Whisper + Piper) не встановлюються. Їх можна додати пізніше через «Змінити».",
+        "install_kind_question": "Як встановити?",
+        "install_kind_quick": "Швидке встановлення (рекомендовано): запитує лише ліцензійний ключ, решта за замовчуванням, і запускає QuorumAI",
+        "install_kind_advanced": "Розширене: модулі, порти й ключі по одному",
+        "port_shifted": "{name}: порт {port} зайнятий, використовується {new}",
+        "compose_backup": "Попередні compose-файли збережено в: {path}",
+        "env_keys_added": "Нові налаштування додано до .env: {keys}",
+        "images_changed": "Нові версії:",
+        "images_unchanged": "Версії образів не змінилися, завантаження й перезапуск усе одно виконуються.",
+        "pulling": "Завантаження образів (уперше це може бути кілька ГБ і тривати певний час)...",
+        "pull_failed": "Завантаження образів завершилося з помилкою ({code}), запуск з наявними образами.",
+        "docker_daemon_down": "Docker не запущено. Запустіть Docker Desktop (macOS/Windows) або службу docker (Linux) і натисніть Enter.",
+        "docker_permission": "Немає прав на Docker. Вийдіть із системи й увійдіть знову (група docker) або виконайте: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker і далі недоступний:\n{err}",
+        "headless_no_license": "УВАГА: немає ліцензійного ключа (QUORUM_LICENSE_KEY) і немає термінала, щоб його запитати. Без нього оркестратор не запуститься. Запустіть інсталятор у терміналі або задайте QUORUM_LICENSE_KEY. Безкоштовний 30-денний пробний період: https://license.quorumai.eu",
+        "llm_hint": "Перший крок у GUI: Налаштування > Провайдери, додайте там LLM-провайдера (API-ключ або локальний Ollama).",
+        "quick_summary": "Швидке встановлення в {dir}. Модулі: {mods}",
         "welcome": "Ласкаво просимо до інсталятора QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Ваш вибір",
@@ -852,7 +1050,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Директорія встановлення [{default}]",
         "dir_created": "Директорію створено: {path}",
         "existing_found": "Знайдено наявне встановлення QuorumAI у: {path}",
-        "existing_opts": "1) Змінити (додати/видалити модулі, змінити порти)\n2) Повторне встановлення з нуля\n3) Вийти",
+        "existing_opts": "1) Оновити (рекомендовано): завантажити нові версії, налаштування й дані зберігаються\n2) Змінити (додати/видалити модулі, змінити порти)\n3) Повторне встановлення з нуля\n4) Вийти",
         "select_modules": "Виберіть модулі для встановлення (мінімальний набір вже позначено):",
         "module_required": "(обов'язково)",
         "module_optional": "(необов'язково)",
@@ -927,6 +1125,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sv": {
         "lang_name": "Svenska",
+        "quick_voice_skipped": "Docker har lite minne ({gb} GB), så taligenkänning och uppläsning (Whisper + Piper) hoppas över. Kan läggas till senare via Ändra.",
+        "install_kind_question": "Hur vill du installera?",
+        "install_kind_quick": "Snabbinstallation (rekommenderas): frågar bara efter licensnyckeln, standardvärden för resten och startar QuorumAI",
+        "install_kind_advanced": "Avancerad: välj moduler, portar och nycklar en i taget",
+        "port_shifted": "{name}: port {port} är upptagen, använder {new}",
+        "compose_backup": "Tidigare compose-filer sparade i: {path}",
+        "env_keys_added": "Nya inställningar tillagda i .env: {keys}",
+        "images_changed": "Nya versioner:",
+        "images_unchanged": "Image-versionerna är oförändrade, hämtning och omstart görs ändå.",
+        "pulling": "Hämtar images (första gången kan det vara flera GB och ta en stund)...",
+        "pull_failed": "Hämtningen av images avslutades med fel ({code}), startar med befintliga images.",
+        "docker_daemon_down": "Docker körs inte. Starta Docker Desktop (macOS/Windows) eller docker-tjänsten (Linux) och tryck sedan Enter.",
+        "docker_permission": "Du saknar behörighet till Docker. Logga ut och in igen (gruppen docker) eller kör: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker kan fortfarande inte nås:\n{err}",
+        "headless_no_license": "VARNING: ingen licensnyckel (QUORUM_LICENSE_KEY) och ingen terminal att fråga i. Utan den startar inte orkestratorn. Kör installationsprogrammet i en terminal eller ange QUORUM_LICENSE_KEY. Gratis 30-dagars provperiod: https://license.quorumai.eu",
+        "llm_hint": "Första steget i GUI:t: Inställningar > Leverantörer, lägg till en LLM-leverantör där (API-nyckel eller lokal Ollama).",
+        "quick_summary": "Snabbinstallation i {dir}. Moduler: {mods}",
         "welcome": "Välkommen till QuorumAI-installationsprogrammet!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Ditt val",
@@ -941,7 +1156,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Installationskatalog [{default}]",
         "dir_created": "Katalog skapad: {path}",
         "existing_found": "Befintlig QuorumAI-installation hittades i: {path}",
-        "existing_opts": "1) Ändra (lägg till/ta bort moduler, ändra portar)\n2) Ominstallation från grunden\n3) Avsluta",
+        "existing_opts": "1) Uppdatera (rekommenderas): hämta nya versioner, inställningar och data behålls\n2) Ändra (lägg till/ta bort moduler, ändra portar)\n3) Ominstallation från grunden\n4) Avsluta",
         "select_modules": "Välj moduler att installera (minimiuppsättningen är förvald):",
         "module_required": "(obligatorisk)",
         "module_optional": "(valfri)",
@@ -1016,6 +1231,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "it": {
         "lang_name": "Italiano",
+        "quick_voice_skipped": "Docker ha poca memoria ({gb} GB), quindi riconoscimento vocale e lettura ad alta voce (Whisper + Piper) vengono esclusi. Puoi aggiungerli più tardi con Modifica.",
+        "install_kind_question": "Come vuoi installare?",
+        "install_kind_quick": "Installazione rapida (consigliata): chiede solo la chiave di licenza, usa i valori predefiniti e avvia QuorumAI",
+        "install_kind_advanced": "Avanzata: scegli moduli, porte e chiavi uno per uno",
+        "port_shifted": "{name}: la porta {port} è occupata, uso {new}",
+        "compose_backup": "File compose precedenti salvati in: {path}",
+        "env_keys_added": "Nuove impostazioni aggiunte a .env: {keys}",
+        "images_changed": "Nuove versioni:",
+        "images_unchanged": "Versioni delle immagini invariate, download e riavvio vengono eseguiti comunque.",
+        "pulling": "Download delle immagini (la prima volta possono essere diversi GB e richiedere tempo)...",
+        "pull_failed": "Il download delle immagini è terminato con errore ({code}), avvio con le immagini presenti.",
+        "docker_daemon_down": "Docker non è in esecuzione. Avvia Docker Desktop (macOS/Windows) o il servizio docker (Linux), poi premi Invio.",
+        "docker_permission": "Nessun permesso per Docker. Esci e rientra (gruppo docker) oppure esegui: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker non è ancora raggiungibile:\n{err}",
+        "headless_no_license": "ATTENZIONE: nessuna chiave di licenza (QUORUM_LICENSE_KEY) e nessun terminale per chiederla. Senza di essa l'orchestratore non parte. Esegui l'installer in un terminale o imposta QUORUM_LICENSE_KEY. Prova gratuita di 30 giorni: https://license.quorumai.eu",
+        "llm_hint": "Primo passo nella GUI: Impostazioni > Provider, aggiungi lì un provider LLM (chiave API o Ollama locale).",
+        "quick_summary": "Installazione rapida in {dir}. Moduli: {mods}",
         "welcome": "Benvenuto nel programma di installazione di QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "La tua scelta",
@@ -1030,7 +1262,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Directory di installazione [{default}]",
         "dir_created": "Directory creata: {path}",
         "existing_found": "Installazione QuorumAI esistente trovata in: {path}",
-        "existing_opts": "1) Modifica (aggiungi/rimuovi moduli, cambia porte)\n2) Reinstallazione completa\n3) Esci",
+        "existing_opts": "1) Aggiorna (consigliato): scarica le nuove versioni, impostazioni e dati restano\n2) Modifica (aggiungi/rimuovi moduli, cambia porte)\n3) Reinstallazione completa\n4) Esci",
         "select_modules": "Seleziona i moduli da installare (il set minimo è pre-selezionato):",
         "module_required": "(obbligatorio)",
         "module_optional": "(opzionale)",
@@ -1105,6 +1337,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ro": {
         "lang_name": "Română",
+        "quick_voice_skipped": "Docker are puțină memorie ({gb} GB), așa că recunoașterea vocală și citirea cu voce tare (Whisper + Piper) sunt omise. Le poți adăuga mai târziu cu Modificare.",
+        "install_kind_question": "Cum dorești să instalezi?",
+        "install_kind_quick": "Instalare rapidă (recomandată): cere doar cheia de licență, folosește valorile implicite și pornește QuorumAI",
+        "install_kind_advanced": "Avansată: alege module, porturi și chei pe rând",
+        "port_shifted": "{name}: portul {port} este ocupat, se folosește {new}",
+        "compose_backup": "Fișierele compose anterioare au fost salvate în: {path}",
+        "env_keys_added": "Setări noi adăugate în .env: {keys}",
+        "images_changed": "Versiuni noi:",
+        "images_unchanged": "Versiunile imaginilor nu s-au schimbat, descărcarea și repornirea se fac oricum.",
+        "pulling": "Se descarcă imaginile (prima dată pot fi câțiva GB și poate dura)...",
+        "pull_failed": "Descărcarea imaginilor s-a încheiat cu eroare ({code}), pornire cu imaginile existente.",
+        "docker_daemon_down": "Docker nu rulează. Pornește Docker Desktop (macOS/Windows) sau serviciul docker (Linux), apoi apasă Enter.",
+        "docker_permission": "Nu ai permisiune pentru Docker. Deconectează-te și reconectează-te (grupul docker) sau rulează: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker tot nu este accesibil:\n{err}",
+        "headless_no_license": "ATENȚIE: nu există cheie de licență (QUORUM_LICENSE_KEY) și nici terminal pentru a o cere. Fără ea orchestratorul nu pornește. Rulează instalatorul într-un terminal sau setează QUORUM_LICENSE_KEY. Probă gratuită de 30 de zile: https://license.quorumai.eu",
+        "llm_hint": "Primul pas în GUI: Setări > Furnizori, adaugă acolo un furnizor LLM (cheie API sau Ollama local).",
+        "quick_summary": "Instalare rapidă în {dir}. Module: {mods}",
         "welcome": "Bun venit la programul de instalare QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Alegerea ta",
@@ -1119,7 +1368,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Directorul de instalare [{default}]",
         "dir_created": "Director creat: {path}",
         "existing_found": "S-a găsit o instalare QuorumAI existentă în: {path}",
-        "existing_opts": "1) Modifică (adaugă/elimină module, schimbă porturi)\n2) Reinstalare completă\n3) Ieșire",
+        "existing_opts": "1) Actualizare (recomandat): descarcă versiunile noi, setările și datele rămân\n2) Modifică (adaugă/elimină module, schimbă porturi)\n3) Reinstalare completă\n4) Ieșire",
         "select_modules": "Selectează modulele de instalat (setul minim este pre-bifat):",
         "module_required": "(obligatoriu)",
         "module_optional": "(opțional)",
@@ -1194,6 +1443,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "cs": {
         "lang_name": "Čeština",
+        "quick_voice_skipped": "Docker má málo paměti ({gb} GB), proto se rozpoznávání řeči a předčítání (Whisper + Piper) vynechá. Později lze přidat přes Upravit.",
+        "install_kind_question": "Jak chcete instalovat?",
+        "install_kind_quick": "Rychlá instalace (doporučeno): ptá se jen na licenční klíč, zbytek nastaví výchozí a spustí QuorumAI",
+        "install_kind_advanced": "Pokročilá: moduly, porty a klíče jeden po druhém",
+        "port_shifted": "{name}: port {port} je obsazený, použije se {new}",
+        "compose_backup": "Předchozí soubory compose uloženy do: {path}",
+        "env_keys_added": "Nová nastavení přidána do .env: {keys}",
+        "images_changed": "Nové verze:",
+        "images_unchanged": "Verze obrazů se nezměnily, stažení a restart proběhne i tak.",
+        "pulling": "Stahování obrazů (poprvé to může být několik GB a chvíli trvat)...",
+        "pull_failed": "Stahování obrazů skončilo chybou ({code}), spouštím se stávajícími obrazy.",
+        "docker_daemon_down": "Docker neběží. Spusťte Docker Desktop (macOS/Windows) nebo službu docker (Linux) a stiskněte Enter.",
+        "docker_permission": "Nemáte oprávnění k Dockeru. Odhlaste se a znovu přihlaste (skupina docker), nebo spusťte: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker je stále nedostupný:\n{err}",
+        "headless_no_license": "UPOZORNĚNÍ: chybí licenční klíč (QUORUM_LICENSE_KEY) a není terminál, kde se na něj zeptat. Bez něj se orchestrátor nespustí. Spusťte instalátor v terminálu nebo nastavte QUORUM_LICENSE_KEY. Bezplatná 30denní zkušební verze: https://license.quorumai.eu",
+        "llm_hint": "První krok v GUI: Nastavení > Poskytovatelé, přidejte tam poskytovatele LLM (API klíč nebo lokální Ollama).",
+        "quick_summary": "Rychlá instalace do {dir}. Moduly: {mods}",
         "welcome": "Vítejte v instalátoru QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Vaše volba",
@@ -1208,7 +1474,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Instalační adresář [{default}]",
         "dir_created": "Adresář vytvořen: {path}",
         "existing_found": "Nalezena existující instalace QuorumAI v: {path}",
-        "existing_opts": "1) Upravit (přidat/odebrat moduly, změnit porty)\n2) Nová instalace\n3) Ukončit",
+        "existing_opts": "1) Aktualizovat (doporučeno): stáhnout nové verze, nastavení a data zůstanou\n2) Upravit (přidat/odebrat moduly, změnit porty)\n3) Nová instalace\n4) Ukončit",
         "select_modules": "Vyberte moduly k instalaci (minimální sada je předem zaškrtnuta):",
         "module_required": "(povinné)",
         "module_optional": "(volitelné)",
@@ -1283,6 +1549,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sk": {
         "lang_name": "Slovenčina",
+        "quick_voice_skipped": "Docker má málo pamäte ({gb} GB), preto sa rozpoznávanie reči a predčítavanie (Whisper + Piper) vynechá. Neskôr sa dá pridať cez Upraviť.",
+        "install_kind_question": "Ako chcete inštalovať?",
+        "install_kind_quick": "Rýchla inštalácia (odporúčané): pýta sa len na licenčný kľúč, zvyšok nastaví predvolene a spustí QuorumAI",
+        "install_kind_advanced": "Pokročilá: moduly, porty a kľúče jeden po druhom",
+        "port_shifted": "{name}: port {port} je obsadený, použije sa {new}",
+        "compose_backup": "Predchádzajúce súbory compose uložené do: {path}",
+        "env_keys_added": "Nové nastavenia pridané do .env: {keys}",
+        "images_changed": "Nové verzie:",
+        "images_unchanged": "Verzie obrazov sa nezmenili, stiahnutie a reštart prebehne aj tak.",
+        "pulling": "Sťahovanie obrazov (prvýkrát to môže byť niekoľko GB a chvíľu trvať)...",
+        "pull_failed": "Sťahovanie obrazov skončilo chybou ({code}), spúšťam s existujúcimi obrazmi.",
+        "docker_daemon_down": "Docker nebeží. Spustite Docker Desktop (macOS/Windows) alebo službu docker (Linux) a stlačte Enter.",
+        "docker_permission": "Nemáte oprávnenie k Dockeru. Odhláste sa a znova prihláste (skupina docker), alebo spustite: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker je stále nedostupný:\n{err}",
+        "headless_no_license": "UPOZORNENIE: chýba licenčný kľúč (QUORUM_LICENSE_KEY) a nie je terminál na jeho zadanie. Bez neho sa orchestrátor nespustí. Spustite inštalátor v termináli alebo nastavte QUORUM_LICENSE_KEY. Bezplatná 30-dňová skúšobná verzia: https://license.quorumai.eu",
+        "llm_hint": "Prvý krok v GUI: Nastavenia > Poskytovatelia, pridajte tam poskytovateľa LLM (API kľúč alebo lokálna Ollama).",
+        "quick_summary": "Rýchla inštalácia do {dir}. Moduly: {mods}",
         "welcome": "Vitajte v inštalátore QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Vaša voľba",
@@ -1297,7 +1580,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Inštalačný adresár [{default}]",
         "dir_created": "Adresár vytvorený: {path}",
         "existing_found": "Nájdená existujúca inštalácia QuorumAI v: {path}",
-        "existing_opts": "1) Upraviť (pridať/odobrať moduly, zmeniť porty)\n2) Nová inštalácia\n3) Ukončiť",
+        "existing_opts": "1) Aktualizovať (odporúčané): stiahnuť nové verzie, nastavenia a údaje zostanú\n2) Upraviť (pridať/odobrať moduly, zmeniť porty)\n3) Nová inštalácia\n4) Ukončiť",
         "select_modules": "Vyberte moduly na inštaláciu (minimálna sada je predvolene zaškrtnutá):",
         "module_required": "(povinné)",
         "module_optional": "(voliteľné)",
@@ -1372,6 +1655,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "bg": {
         "lang_name": "Български",
+        "quick_voice_skipped": "Docker разполага с малко памет ({gb} GB), затова разпознаването на реч и четенето на глас (Whisper + Piper) се пропускат. Могат да се добавят по-късно чрез Промяна.",
+        "install_kind_question": "Как искате да инсталирате?",
+        "install_kind_quick": "Бърза инсталация (препоръчително): пита само за лицензионния ключ, останалото по подразбиране, и стартира QuorumAI",
+        "install_kind_advanced": "Разширена: модули, портове и ключове един по един",
+        "port_shifted": "{name}: порт {port} е зает, използва се {new}",
+        "compose_backup": "Предишните compose файлове са запазени в: {path}",
+        "env_keys_added": "Нови настройки, добавени в .env: {keys}",
+        "images_changed": "Нови версии:",
+        "images_unchanged": "Версиите на образите не са променени, изтеглянето и рестартът се изпълняват въпреки това.",
+        "pulling": "Изтегляне на образи (първия път може да са няколко GB и да отнеме време)...",
+        "pull_failed": "Изтеглянето на образите завърши с грешка ({code}), стартиране с наличните образи.",
+        "docker_daemon_down": "Docker не работи. Стартирайте Docker Desktop (macOS/Windows) или услугата docker (Linux) и натиснете Enter.",
+        "docker_permission": "Нямате права за Docker. Излезте и влезте отново (група docker) или изпълнете: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker все още е недостъпен:\n{err}",
+        "headless_no_license": "ВНИМАНИЕ: няма лицензионен ключ (QUORUM_LICENSE_KEY) и няма терминал, за да бъде поискан. Без него оркестраторът няма да стартира. Пуснете инсталатора в терминал или задайте QUORUM_LICENSE_KEY. Безплатен 30-дневен пробен период: https://license.quorumai.eu",
+        "llm_hint": "Първа стъпка в GUI: Настройки > Доставчици, добавете там LLM доставчик (API ключ или локален Ollama).",
+        "quick_summary": "Бърза инсталация в {dir}. Модули: {mods}",
         "welcome": "Добре дошли в инсталатора на QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Вашият избор",
@@ -1386,7 +1686,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Инсталационна директория [{default}]",
         "dir_created": "Директорията е създадена: {path}",
         "existing_found": "Открита е съществуваща инсталация на QuorumAI в: {path}",
-        "existing_opts": "1) Промяна (добавяне/премахване на модули, смяна на портове)\n2) Нова инсталация\n3) Изход",
+        "existing_opts": "1) Обновяване (препоръчително): изтегляне на нови версии, настройките и данните се запазват\n2) Промяна (добавяне/премахване на модули, смяна на портове)\n3) Нова инсталация\n4) Изход",
         "select_modules": "Изберете модули за инсталиране (минималният набор е предварително отметнат):",
         "module_required": "(задължителен)",
         "module_optional": "(незадължителен)",
@@ -1461,6 +1761,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "hr": {
         "lang_name": "Hrvatski",
+        "quick_voice_skipped": "Docker ima malo memorije ({gb} GB), pa se prepoznavanje govora i čitanje naglas (Whisper + Piper) izostavljaju. Kasnije se mogu dodati putem Izmjene.",
+        "install_kind_question": "Kako želite instalirati?",
+        "install_kind_quick": "Brza instalacija (preporučeno): traži samo licencni ključ, ostalo postavlja zadano i pokreće QuorumAI",
+        "install_kind_advanced": "Napredna: moduli, portovi i ključevi jedan po jedan",
+        "port_shifted": "{name}: port {port} je zauzet, koristi se {new}",
+        "compose_backup": "Prethodne compose datoteke spremljene u: {path}",
+        "env_keys_added": "Nove postavke dodane u .env: {keys}",
+        "images_changed": "Nove verzije:",
+        "images_unchanged": "Verzije slika nisu promijenjene, preuzimanje i ponovno pokretanje se ipak izvode.",
+        "pulling": "Preuzimanje slika (prvi put to može biti nekoliko GB i potrajati)...",
+        "pull_failed": "Preuzimanje slika završilo je s greškom ({code}), pokretanje s postojećim slikama.",
+        "docker_daemon_down": "Docker ne radi. Pokrenite Docker Desktop (macOS/Windows) ili uslugu docker (Linux), zatim pritisnite Enter.",
+        "docker_permission": "Nemate dozvolu za Docker. Odjavite se i ponovno prijavite (grupa docker) ili pokrenite: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker je i dalje nedostupan:\n{err}",
+        "headless_no_license": "UPOZORENJE: nema licencnog ključa (QUORUM_LICENSE_KEY) ni terminala za upit. Bez njega se orkestrator neće pokrenuti. Pokrenite instalacijski program u terminalu ili postavite QUORUM_LICENSE_KEY. Besplatna 30-dnevna proba: https://license.quorumai.eu",
+        "llm_hint": "Prvi korak u GUI-ju: Postavke > Pružatelji, dodajte tamo LLM pružatelja (API ključ ili lokalni Ollama).",
+        "quick_summary": "Brza instalacija u {dir}. Moduli: {mods}",
         "welcome": "Dobrodošli u instalacijski program QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Vaš izbor",
@@ -1475,7 +1792,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Instalacijski direktorij [{default}]",
         "dir_created": "Direktorij je stvoren: {path}",
         "existing_found": "Pronađena je postojeća instalacija QuorumAI u: {path}",
-        "existing_opts": "1) Izmijeni (dodaj/ukloni module, promijeni portove)\n2) Nova instalacija\n3) Izlaz",
+        "existing_opts": "1) Ažuriraj (preporučeno): preuzmi nove verzije, postavke i podaci ostaju\n2) Izmijeni (dodaj/ukloni module, promijeni portove)\n3) Nova instalacija\n4) Izlaz",
         "select_modules": "Odaberite module za instalaciju (minimalni skup je unaprijed označen):",
         "module_required": "(obavezno)",
         "module_optional": "(neobavezno)",
@@ -1550,6 +1867,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sl": {
         "lang_name": "Slovenščina",
+        "quick_voice_skipped": "Docker ima malo pomnilnika ({gb} GB), zato sta prepoznavanje govora in branje na glas (Whisper + Piper) izpuščena. Pozneje ju lahko dodate z možnostjo Spremeni.",
+        "install_kind_question": "Kako želite namestiti?",
+        "install_kind_quick": "Hitra namestitev (priporočeno): vpraša le za licenčni ključ, ostalo nastavi privzeto in zažene QuorumAI",
+        "install_kind_advanced": "Napredna: moduli, vrata in ključi enega za drugim",
+        "port_shifted": "{name}: vrata {port} so zasedena, uporabljena bodo {new}",
+        "compose_backup": "Prejšnje datoteke compose shranjene v: {path}",
+        "env_keys_added": "Nove nastavitve dodane v .env: {keys}",
+        "images_changed": "Nove različice:",
+        "images_unchanged": "Različice slik so nespremenjene, prenos in ponovni zagon se vseeno izvedeta.",
+        "pulling": "Prenašanje slik (prvič je to lahko več GB in traja nekaj časa)...",
+        "pull_failed": "Prenos slik se je končal z napako ({code}), zagon z obstoječimi slikami.",
+        "docker_daemon_down": "Docker ne teče. Zaženite Docker Desktop (macOS/Windows) ali storitev docker (Linux), nato pritisnite Enter.",
+        "docker_permission": "Nimate dovoljenja za Docker. Odjavite se in znova prijavite (skupina docker) ali zaženite: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker še vedno ni dosegljiv:\n{err}",
+        "headless_no_license": "OPOZORILO: ni licenčnega ključa (QUORUM_LICENSE_KEY) in ni terminala, da bi ga vprašali. Brez njega se orkestrator ne zažene. Zaženite namestitveni program v terminalu ali nastavite QUORUM_LICENSE_KEY. Brezplačen 30-dnevni preizkus: https://license.quorumai.eu",
+        "llm_hint": "Prvi korak v GUI: Nastavitve > Ponudniki, tam dodajte ponudnika LLM (ključ API ali lokalni Ollama).",
+        "quick_summary": "Hitra namestitev v {dir}. Moduli: {mods}",
         "welcome": "Dobrodošli v namestitvenem programu QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Vaša izbira",
@@ -1564,7 +1898,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Namestitveni imenik [{default}]",
         "dir_created": "Imenik je ustvarjen: {path}",
         "existing_found": "Najdena je obstoječa namestitev QuorumAI v: {path}",
-        "existing_opts": "1) Spremeni (dodaj/odstrani module, spremeni vrata)\n2) Nova namestitev\n3) Izhod",
+        "existing_opts": "1) Posodobi (priporočeno): prenese nove različice, nastavitve in podatki ostanejo\n2) Spremeni (dodaj/odstrani module, spremeni vrata)\n3) Nova namestitev\n4) Izhod",
         "select_modules": "Izberite module za namestitev (najmanjši nabor je vnaprej označen):",
         "module_required": "(obvezno)",
         "module_optional": "(neobvezno)",
@@ -1639,6 +1973,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "el": {
         "lang_name": "Ελληνικά",
+        "quick_voice_skipped": "Το Docker έχει λίγη μνήμη ({gb} GB), οπότε η αναγνώριση ομιλίας και η ανάγνωση φωναχτά (Whisper + Piper) παραλείπονται. Μπορείτε να τα προσθέσετε αργότερα με την Τροποποίηση.",
+        "install_kind_question": "Πώς θέλετε να εγκαταστήσετε;",
+        "install_kind_quick": "Γρήγορη εγκατάσταση (συνιστάται): ζητά μόνο το κλειδί άδειας, τα υπόλοιπα προεπιλογές, και εκκινεί το QuorumAI",
+        "install_kind_advanced": "Προχωρημένη: επιλογή μονάδων, θυρών και κλειδιών ένα προς ένα",
+        "port_shifted": "{name}: η θύρα {port} είναι κατειλημμένη, χρησιμοποιείται η {new}",
+        "compose_backup": "Τα προηγούμενα αρχεία compose αποθηκεύτηκαν στο: {path}",
+        "env_keys_added": "Νέες ρυθμίσεις προστέθηκαν στο .env: {keys}",
+        "images_changed": "Νέες εκδόσεις:",
+        "images_unchanged": "Οι εκδόσεις των images δεν άλλαξαν, η λήψη και η επανεκκίνηση γίνονται ούτως ή άλλως.",
+        "pulling": "Λήψη images (την πρώτη φορά μπορεί να είναι αρκετά GB και να διαρκέσει)...",
+        "pull_failed": "Η λήψη των images τελείωσε με σφάλμα ({code}), εκκίνηση με τα υπάρχοντα images.",
+        "docker_daemon_down": "Το Docker δεν εκτελείται. Ξεκινήστε το Docker Desktop (macOS/Windows) ή την υπηρεσία docker (Linux) και πατήστε Enter.",
+        "docker_permission": "Δεν έχετε δικαίωμα χρήσης του Docker. Αποσυνδεθείτε και συνδεθείτε ξανά (ομάδα docker) ή εκτελέστε: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Το Docker παραμένει μη προσβάσιμο:\n{err}",
+        "headless_no_license": "ΠΡΟΣΟΧΗ: δεν υπάρχει κλειδί άδειας (QUORUM_LICENSE_KEY) ούτε τερματικό για να ζητηθεί. Χωρίς αυτό ο orchestrator δεν ξεκινά. Εκτελέστε το πρόγραμμα εγκατάστασης σε τερματικό ή ορίστε QUORUM_LICENSE_KEY. Δωρεάν δοκιμή 30 ημερών: https://license.quorumai.eu",
+        "llm_hint": "Πρώτο βήμα στο GUI: Ρυθμίσεις > Πάροχοι, προσθέστε εκεί έναν πάροχο LLM (κλειδί API ή τοπικό Ollama).",
+        "quick_summary": "Γρήγορη εγκατάσταση στο {dir}. Μονάδες: {mods}",
         "welcome": "Καλώς ήρθατε στον εγκαταστάτη του QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Η επιλογή σας",
@@ -1653,7 +2004,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Κατάλογος εγκατάστασης [{default}]",
         "dir_created": "Ο κατάλογος δημιουργήθηκε: {path}",
         "existing_found": "Βρέθηκε υπάρχουσα εγκατάσταση QuorumAI στο: {path}",
-        "existing_opts": "1) Τροποποίηση (προσθήκη/αφαίρεση modules, αλλαγή θυρών)\n2) Νέα εγκατάσταση\n3) Έξοδος",
+        "existing_opts": "1) Ενημέρωση (συνιστάται): λήψη νέων εκδόσεων, οι ρυθμίσεις και τα δεδομένα διατηρούνται\n2) Τροποποίηση (προσθήκη/αφαίρεση modules, αλλαγή θυρών)\n3) Νέα εγκατάσταση\n4) Έξοδος",
         "select_modules": "Επιλέξτε τα modules προς εγκατάσταση (το ελάχιστο σύνολο είναι προεπιλεγμένο):",
         "module_required": "(υποχρεωτικό)",
         "module_optional": "(προαιρετικό)",
@@ -1728,6 +2079,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "da": {
         "lang_name": "Dansk",
+        "quick_voice_skipped": "Docker har lidt hukommelse ({gb} GB), så talegenkendelse og oplæsning (Whisper + Piper) springes over. Kan tilføjes senere via Rediger.",
+        "install_kind_question": "Hvordan vil du installere?",
+        "install_kind_quick": "Hurtig installation (anbefalet): spørger kun om licensnøglen, bruger standardværdier og starter QuorumAI",
+        "install_kind_advanced": "Avanceret: vælg moduler, porte og nøgler én ad gangen",
+        "port_shifted": "{name}: port {port} er optaget, bruger {new}",
+        "compose_backup": "Tidligere compose-filer gemt i: {path}",
+        "env_keys_added": "Nye indstillinger tilføjet til .env: {keys}",
+        "images_changed": "Nye versioner:",
+        "images_unchanged": "Image-versionerne er uændrede, hentning og genstart udføres alligevel.",
+        "pulling": "Henter images (første gang kan det være flere GB og tage et stykke tid)...",
+        "pull_failed": "Hentning af images endte med en fejl ({code}), starter med de eksisterende images.",
+        "docker_daemon_down": "Docker kører ikke. Start Docker Desktop (macOS/Windows) eller docker-tjenesten (Linux), og tryk derefter Enter.",
+        "docker_permission": "Du har ikke adgang til Docker. Log ud og ind igen (gruppen docker), eller kør: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker kan stadig ikke nås:\n{err}",
+        "headless_no_license": "ADVARSEL: ingen licensnøgle (QUORUM_LICENSE_KEY) og ingen terminal at spørge i. Uden den starter orkestratoren ikke. Kør installationsprogrammet i en terminal eller angiv QUORUM_LICENSE_KEY. Gratis 30-dages prøve: https://license.quorumai.eu",
+        "llm_hint": "Første skridt i GUI'en: Indstillinger > Udbydere, tilføj en LLM-udbyder der (API-nøgle eller lokal Ollama).",
+        "quick_summary": "Hurtig installation i {dir}. Moduler: {mods}",
         "welcome": "Velkommen til QuorumAI-installationsprogrammet!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Dit valg",
@@ -1742,7 +2110,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Installationsmappe [{default}]",
         "dir_created": "Mappe oprettet: {path}",
         "existing_found": "Eksisterende QuorumAI-installation fundet i: {path}",
-        "existing_opts": "1) Rediger (tilføj/fjern moduler, skift porte)\n2) Ny installation\n3) Afslut",
+        "existing_opts": "1) Opdater (anbefalet): hent nye versioner, indstillinger og data bevares\n2) Rediger (tilføj/fjern moduler, skift porte)\n3) Ny installation\n4) Afslut",
         "select_modules": "Vælg moduler, der skal installeres (minimumssættet er forudvalgt):",
         "module_required": "(påkrævet)",
         "module_optional": "(valgfri)",
@@ -1817,6 +2185,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "fi": {
         "lang_name": "Suomi",
+        "quick_voice_skipped": "Dockerilla on vähän muistia ({gb} Gt), joten puheentunnistus ja ääneenluku (Whisper + Piper) jätetään pois. Ne voi lisätä myöhemmin Muokkaa-toiminnolla.",
+        "install_kind_question": "Miten haluat asentaa?",
+        "install_kind_quick": "Pika-asennus (suositeltu): kysyy vain lisenssiavaimen, muut oletusarvoilla, ja käynnistää QuorumAI:n",
+        "install_kind_advanced": "Edistynyt: valitse moduulit, portit ja avaimet yksitellen",
+        "port_shifted": "{name}: portti {port} on varattu, käytetään porttia {new}",
+        "compose_backup": "Aiemmat compose-tiedostot tallennettu: {path}",
+        "env_keys_added": "Uudet asetukset lisätty .env-tiedostoon: {keys}",
+        "images_changed": "Uudet versiot:",
+        "images_unchanged": "Image-versiot eivät muuttuneet, lataus ja uudelleenkäynnistys tehdään silti.",
+        "pulling": "Ladataan imageja (ensimmäisellä kerralla useita gigatavuja, voi kestää hetken)...",
+        "pull_failed": "Imagejen lataus päättyi virheeseen ({code}), käynnistetään olemassa olevilla imageilla.",
+        "docker_daemon_down": "Docker ei ole käynnissä. Käynnistä Docker Desktop (macOS/Windows) tai docker-palvelu (Linux) ja paina Enter.",
+        "docker_permission": "Sinulla ei ole oikeutta Dockeriin. Kirjaudu ulos ja takaisin (docker-ryhmä) tai suorita: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker ei edelleenkään vastaa:\n{err}",
+        "headless_no_license": "VAROITUS: lisenssiavain (QUORUM_LICENSE_KEY) puuttuu, eikä päätettä ole sen kysymiseen. Ilman sitä orkestraattori ei käynnisty. Suorita asennusohjelma päätteessä tai aseta QUORUM_LICENSE_KEY. Ilmainen 30 päivän kokeilu: https://license.quorumai.eu",
+        "llm_hint": "Ensimmäinen vaihe GUI:ssa: Asetukset > Palveluntarjoajat, lisää sinne LLM-palveluntarjoaja (API-avain tai paikallinen Ollama).",
+        "quick_summary": "Pika-asennus kansioon {dir}. Moduulit: {mods}",
         "welcome": "Tervetuloa QuorumAI-asennusohjelmaan!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Valintasi",
@@ -1831,7 +2216,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Asennushakemisto [{default}]",
         "dir_created": "Hakemisto luotu: {path}",
         "existing_found": "Olemassa oleva QuorumAI-asennus löytyi sijainnista: {path}",
-        "existing_opts": "1) Muokkaa (lisää/poista moduuleja, muuta portteja)\n2) Uusi asennus\n3) Lopeta",
+        "existing_opts": "1) Päivitä (suositeltu): lataa uudet versiot, asetukset ja tiedot säilyvät\n2) Muokkaa (lisää/poista moduuleja, muuta portteja)\n3) Uusi asennus\n4) Lopeta",
         "select_modules": "Valitse asennettavat moduulit (vähimmäisjoukko on esivalittu):",
         "module_required": "(pakollinen)",
         "module_optional": "(valinnainen)",
@@ -1906,6 +2291,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "lt": {
         "lang_name": "Lietuvių",
+        "quick_voice_skipped": "Docker turi mažai atminties ({gb} GB), todėl kalbos atpažinimas ir skaitymas balsu (Whisper + Piper) praleidžiami. Vėliau juos galima pridėti per Keisti.",
+        "install_kind_question": "Kaip norite diegti?",
+        "install_kind_quick": "Greitas diegimas (rekomenduojama): klausia tik licencijos rakto, kitką nustato numatytai ir paleidžia QuorumAI",
+        "install_kind_advanced": "Išplėstinis: moduliai, prievadai ir raktai po vieną",
+        "port_shifted": "{name}: prievadas {port} užimtas, naudojamas {new}",
+        "compose_backup": "Ankstesni compose failai išsaugoti: {path}",
+        "env_keys_added": "Nauji nustatymai pridėti į .env: {keys}",
+        "images_changed": "Naujos versijos:",
+        "images_unchanged": "Atvaizdų versijos nepasikeitė, atsisiuntimas ir paleidimas iš naujo vis tiek vykdomi.",
+        "pulling": "Atsisiunčiami atvaizdai (pirmą kartą tai gali būti keli GB ir užtrukti)...",
+        "pull_failed": "Atvaizdų atsisiuntimas baigėsi klaida ({code}), paleidžiama su esamais atvaizdais.",
+        "docker_daemon_down": "Docker neveikia. Paleiskite Docker Desktop (macOS/Windows) arba docker tarnybą (Linux) ir paspauskite Enter.",
+        "docker_permission": "Neturite teisių naudoti Docker. Atsijunkite ir vėl prisijunkite (grupė docker) arba paleiskite: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker vis dar nepasiekiamas:\n{err}",
+        "headless_no_license": "DĖMESIO: nėra licencijos rakto (QUORUM_LICENSE_KEY) ir nėra terminalo jam paklausti. Be jo orkestratorius nepasileis. Paleiskite diegimo programą terminale arba nustatykite QUORUM_LICENSE_KEY. Nemokamas 30 dienų bandymas: https://license.quorumai.eu",
+        "llm_hint": "Pirmas žingsnis GUI: Nustatymai > Teikėjai, pridėkite ten LLM teikėją (API raktas arba vietinis Ollama).",
+        "quick_summary": "Greitas diegimas į {dir}. Moduliai: {mods}",
         "welcome": "Sveiki atvykę į QuorumAI diegimo programą!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Jūsų pasirinkimas",
@@ -1920,7 +2322,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Diegimo katalogas [{default}]",
         "dir_created": "Katalogas sukurtas: {path}",
         "existing_found": "Rastas esamas QuorumAI diegimas: {path}",
-        "existing_opts": "1) Keisti (pridėti/pašalinti modulius, keisti prievadus)\n2) Nauja diegimo programa\n3) Išeiti",
+        "existing_opts": "1) Atnaujinti (rekomenduojama): atsisiųsti naujas versijas, nustatymai ir duomenys išlieka\n2) Keisti (pridėti/pašalinti modulius, keisti prievadus)\n3) Nauja diegimo programa\n4) Išeiti",
         "select_modules": "Pasirinkite diegtinus modulius (minimalus rinkinys jau pažymėtas):",
         "module_required": "(privaloma)",
         "module_optional": "(nebūtina)",
@@ -1995,6 +2397,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "lv": {
         "lang_name": "Latviešu",
+        "quick_voice_skipped": "Docker ir maz atmiņas ({gb} GB), tāpēc runas atpazīšana un nolasīšana (Whisper + Piper) tiek izlaista. Vēlāk tās var pievienot ar Mainīt.",
+        "install_kind_question": "Kā vēlaties instalēt?",
+        "install_kind_quick": "Ātrā instalēšana (ieteicams): jautā tikai licences atslēgu, pārējo iestata pēc noklusējuma un palaiž QuorumAI",
+        "install_kind_advanced": "Paplašinātā: moduļi, porti un atslēgas pa vienam",
+        "port_shifted": "{name}: ports {port} ir aizņemts, tiek izmantots {new}",
+        "compose_backup": "Iepriekšējie compose faili saglabāti: {path}",
+        "env_keys_added": "Jauni iestatījumi pievienoti .env: {keys}",
+        "images_changed": "Jaunas versijas:",
+        "images_unchanged": "Attēlu versijas nav mainījušās, lejupielāde un restartēšana tiek veikta tik un tā.",
+        "pulling": "Lejupielādē attēlus (pirmo reizi tie var būt vairāki GB un aizņemt laiku)...",
+        "pull_failed": "Attēlu lejupielāde beidzās ar kļūdu ({code}), palaišana ar esošajiem attēliem.",
+        "docker_daemon_down": "Docker nedarbojas. Palaidiet Docker Desktop (macOS/Windows) vai docker servisu (Linux) un nospiediet Enter.",
+        "docker_permission": "Jums nav tiesību izmantot Docker. Izrakstieties un pierakstieties vēlreiz (grupa docker) vai palaidiet: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker joprojām nav sasniedzams:\n{err}",
+        "headless_no_license": "UZMANĪBU: nav licences atslēgas (QUORUM_LICENSE_KEY) un nav termināļa, lai to pajautātu. Bez tās orķestrators nestartēsies. Palaidiet instalētāju terminālī vai iestatiet QUORUM_LICENSE_KEY. Bezmaksas 30 dienu izmēģinājums: https://license.quorumai.eu",
+        "llm_hint": "Pirmais solis GUI: Iestatījumi > Nodrošinātāji, pievienojiet tur LLM nodrošinātāju (API atslēga vai lokāls Ollama).",
+        "quick_summary": "Ātrā instalēšana mapē {dir}. Moduļi: {mods}",
         "welcome": "Laipni lūdzam QuorumAI instalācijas programmā!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Jūsu izvēle",
@@ -2009,7 +2428,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Instalācijas katalogs [{default}]",
         "dir_created": "Katalogs izveidots: {path}",
         "existing_found": "Atrasta esoša QuorumAI instalācija: {path}",
-        "existing_opts": "1) Mainīt (pievienot/noņemt moduļus, mainīt portus)\n2) Jauna instalācija\n3) Iziet",
+        "existing_opts": "1) Atjaunināt (ieteicams): lejupielādēt jaunās versijas, iestatījumi un dati saglabājas\n2) Mainīt (pievienot/noņemt moduļus, mainīt portus)\n3) Jauna instalācija\n4) Iziet",
         "select_modules": "Izvēlieties instalējamos moduļus (minimālais komplekts jau atzīmēts):",
         "module_required": "(obligāti)",
         "module_optional": "(nebūt.)",
@@ -2084,6 +2503,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "et": {
         "lang_name": "Eesti",
+        "quick_voice_skipped": "Dockeril on vähe mälu ({gb} GB), seega kõnetuvastus ja ettelugemine (Whisper + Piper) jäetakse välja. Neid saab hiljem lisada valikuga Muuda.",
+        "install_kind_question": "Kuidas soovite paigaldada?",
+        "install_kind_quick": "Kiirpaigaldus (soovitatav): küsib ainult litsentsivõtit, ülejäänu vaikimisi ja käivitab QuorumAI",
+        "install_kind_advanced": "Täpsem: moodulid, pordid ja võtmed ükshaaval",
+        "port_shifted": "{name}: port {port} on hõivatud, kasutatakse porti {new}",
+        "compose_backup": "Varasemad compose-failid salvestatud: {path}",
+        "env_keys_added": "Uued seaded lisatud .env-faili: {keys}",
+        "images_changed": "Uued versioonid:",
+        "images_unchanged": "Pildiversioonid ei muutunud, allalaadimine ja taaskäivitus tehakse ikkagi.",
+        "pulling": "Pilte laaditakse alla (esimesel korral võib see olla mitu GB ja aega võtta)...",
+        "pull_failed": "Piltide allalaadimine lõppes veaga ({code}), käivitatakse olemasolevate piltidega.",
+        "docker_daemon_down": "Docker ei tööta. Käivitage Docker Desktop (macOS/Windows) või docker-teenus (Linux) ja vajutage Enter.",
+        "docker_permission": "Teil pole Dockeri kasutamise õigust. Logige välja ja uuesti sisse (grupp docker) või käivitage: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker pole endiselt kättesaadav:\n{err}",
+        "headless_no_license": "HOIATUS: litsentsivõti (QUORUM_LICENSE_KEY) puudub ja küsimiseks pole terminali. Ilma selleta orkestraator ei käivitu. Käivitage paigaldaja terminalis või määrake QUORUM_LICENSE_KEY. Tasuta 30-päevane prooviperiood: https://license.quorumai.eu",
+        "llm_hint": "Esimene samm GUI-s: Seaded > Pakkujad, lisage seal LLM-pakkuja (API-võti või kohalik Ollama).",
+        "quick_summary": "Kiirpaigaldus kausta {dir}. Moodulid: {mods}",
         "welcome": "Tere tulemast QuorumAI installerisse!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Sinu valik",
@@ -2098,7 +2534,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Paigalduskataloog [{default}]",
         "dir_created": "Kataloog loodud: {path}",
         "existing_found": "Olemasolev QuorumAI paigaldus leitud: {path}",
-        "existing_opts": "1) Muuda (lisa/eemalda mooduleid, muuda porte)\n2) Uus paigaldus\n3) Välju",
+        "existing_opts": "1) Uuenda (soovitatav): laadi alla uued versioonid, seaded ja andmed jäävad alles\n2) Muuda (lisa/eemalda mooduleid, muuda porte)\n3) Uus paigaldus\n4) Välju",
         "select_modules": "Vali paigaldatavad moodulid (minimaalne komplekt on juba märgitud):",
         "module_required": "(kohustuslik)",
         "module_optional": "(valikuline)",
@@ -2173,6 +2609,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ga": {
         "lang_name": "Gaeilge",
+        "quick_voice_skipped": "Tá beagán cuimhne ag Docker ({gb} GB), mar sin fágtar aithint cainte agus léamh os ard (Whisper + Piper) ar lár. Is féidir iad a chur leis níos déanaí le hAthraigh.",
+        "install_kind_question": "Conas ar mhaith leat suiteáil?",
+        "install_kind_quick": "Suiteáil thapa (molta): ní iarrann ach an eochair cheadúnais, réamhshocruithe don chuid eile, agus tosaíonn sé QuorumAI",
+        "install_kind_advanced": "Ardleibhéal: roghnaigh modúil, poirt agus eochracha ceann ar cheann",
+        "port_shifted": "{name}: tá port {port} in úsáid, úsáidtear {new} ina ionad",
+        "compose_backup": "Sábháladh na comhaid compose roimhe seo i: {path}",
+        "env_keys_added": "Socruithe nua curtha le .env: {keys}",
+        "images_changed": "Leaganacha nua:",
+        "images_unchanged": "Níor athraigh leaganacha na n-íomhánna, déantar íoslódáil agus atosú mar sin féin.",
+        "pulling": "Íomhánna á n-íoslódáil (an chéad uair d'fhéadfadh go mbeadh roinnt GB ann agus go dtógfadh sé tamall)...",
+        "pull_failed": "Chríochnaigh íoslódáil na n-íomhánna le hearráid ({code}), ag tosú leis na híomhánna atá ann.",
+        "docker_daemon_down": "Níl Docker ag rith. Tosaigh Docker Desktop (macOS/Windows) nó an tseirbhís docker (Linux), ansin brúigh Enter.",
+        "docker_permission": "Níl cead agat Docker a úsáid. Logáil amach agus isteach arís (grúpa docker), nó rith: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Níl Docker ar fáil fós:\n{err}",
+        "headless_no_license": "RABHADH: níl eochair cheadúnais (QUORUM_LICENSE_KEY) ann agus níl teirminéal ann chun í a iarraidh. Ní thosóidh an t-ordóir gan í. Rith an suiteálaí i dteirminéal nó socraigh QUORUM_LICENSE_KEY. Triail saor in aisce 30 lá: https://license.quorumai.eu",
+        "llm_hint": "An chéad chéim sa GUI: Socruithe > Soláthraithe, cuir soláthraí LLM leis ansin (eochair API nó Ollama áitiúil).",
+        "quick_summary": "Suiteáil thapa i {dir}. Modúil: {mods}",
         "welcome": "Fáilte go dtí suiteálaí QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Do rogha",
@@ -2187,7 +2640,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Eolaire suiteála [{default}]",
         "dir_created": "Cruthaíodh an t-eolaire: {path}",
         "existing_found": "Aimsíodh suiteáil QuorumAI atá ann cheana: {path}",
-        "existing_opts": "1) Athraigh (cuir/bain modúil, athraigh poirt)\n2) Suiteáil nua\n3) Scoir",
+        "existing_opts": "1) Nuashonraigh (molta): íoslódáil leaganacha nua, coimeádtar socruithe agus sonraí\n2) Athraigh (cuir/bain modúil, athraigh poirt)\n3) Suiteáil nua\n4) Scoir",
         "select_modules": "Roghnaigh na modúil le suiteáil (tá an tacar íosta roghnaithe cheana féin):",
         "module_required": "(éigeantach)",
         "module_optional": "(roghnach)",
@@ -2262,6 +2715,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "mt": {
         "lang_name": "Malti",
+        "quick_voice_skipped": "Docker għandu ftit memorja ({gb} GB), għalhekk l-għarfien tad-diskors u l-qari b'leħen għoli (Whisper + Piper) jitħallew barra. Tista' żżidhom aktar tard b'Immodifika.",
+        "install_kind_question": "Kif trid tinstalla?",
+        "install_kind_quick": "Installazzjoni malajr (rakkomandata): titlob biss iċ-ċavetta tal-liċenzja, il-bqija default, u tibda QuorumAI",
+        "install_kind_advanced": "Avvanzata: agħżel moduli, ports u ċwievet wieħed wieħed",
+        "port_shifted": "{name}: il-port {port} huwa okkupat, qed jintuża {new}",
+        "compose_backup": "Il-fajls compose ta' qabel ġew salvati f': {path}",
+        "env_keys_added": "Settings ġodda miżjuda ma' .env: {keys}",
+        "images_changed": "Verżjonijiet ġodda:",
+        "images_unchanged": "Il-verżjonijiet tal-images ma nbidlux, it-tniżżil u l-istartjar mill-ġdid isiru xorta.",
+        "pulling": "Qed jitniżżlu l-images (l-ewwel darba jistgħu jkunu diversi GB u jieħdu ftit ħin)...",
+        "pull_failed": "It-tniżżil tal-images intemm bi żball ({code}), qed jibda bl-images li diġà hemm.",
+        "docker_daemon_down": "Docker mhux qed jaħdem. Ibda Docker Desktop (macOS/Windows) jew is-servizz docker (Linux), imbagħad agħfas Enter.",
+        "docker_permission": "M'għandekx permess tuża Docker. Oħroġ u erġa' idħol (grupp docker), jew mexxi: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker għadu mhux aċċessibbli:\n{err}",
+        "headless_no_license": "TWISSIJA: m'hemmx ċavetta tal-liċenzja (QUORUM_LICENSE_KEY) u m'hemmx terminal biex tintalab. Mingħajrha l-orkestratur ma jibdiex. Mexxi l-installatur f'terminal jew issettja QUORUM_LICENSE_KEY. Prova b'xejn ta' 30 jum: https://license.quorumai.eu",
+        "llm_hint": "L-ewwel pass fil-GUI: Settings > Fornituri, żid hemm fornitur LLM (ċavetta API jew Ollama lokali).",
+        "quick_summary": "Installazzjoni malajr f' {dir}. Moduli: {mods}",
         "welcome": "Merħba fl-installatur ta' QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "L-għażla tiegħek",
@@ -2276,7 +2746,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Direttorju tal-installazzjoni [{default}]",
         "dir_created": "Id-direttorju nħoloq: {path}",
         "existing_found": "Instabet installazzjoni eżistenti ta' QuorumAI f': {path}",
-        "existing_opts": "1) Immodifika (żid/neħħi moduli, ibdel il-ports)\n2) Installazzjoni ġdida\n3) Oħroġ",
+        "existing_opts": "1) Aġġorna (rakkomandat): niżżel verżjonijiet ġodda, is-settings u d-data jibqgħu\n2) Immodifika (żid/neħħi moduli, ibdel il-ports)\n3) Installazzjoni ġdida\n4) Oħroġ",
         "select_modules": "Agħżel il-moduli li trid tinstalla (is-sett minimu diġà mmarkat):",
         "module_required": "(meħtieġ)",
         "module_optional": "(opzjonali)",
@@ -2351,6 +2821,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "no": {
         "lang_name": "Norsk",
+        "quick_voice_skipped": "Docker har lite minne ({gb} GB), så talegjenkjenning og opplesing (Whisper + Piper) hoppes over. Kan legges til senere via Endre.",
+        "install_kind_question": "Hvordan vil du installere?",
+        "install_kind_quick": "Hurtiginstallasjon (anbefalt): spør bare om lisensnøkkelen, standardverdier for resten, og starter QuorumAI",
+        "install_kind_advanced": "Avansert: velg moduler, porter og nøkler én etter én",
+        "port_shifted": "{name}: port {port} er opptatt, bruker {new}",
+        "compose_backup": "Tidligere compose-filer lagret i: {path}",
+        "env_keys_added": "Nye innstillinger lagt til i .env: {keys}",
+        "images_changed": "Nye versjoner:",
+        "images_unchanged": "Image-versjonene er uendret, nedlasting og omstart utføres likevel.",
+        "pulling": "Laster ned images (første gang kan det være flere GB og ta litt tid)...",
+        "pull_failed": "Nedlasting av images endte med feil ({code}), starter med eksisterende images.",
+        "docker_daemon_down": "Docker kjører ikke. Start Docker Desktop (macOS/Windows) eller docker-tjenesten (Linux), og trykk deretter Enter.",
+        "docker_permission": "Du har ikke tilgang til Docker. Logg ut og inn igjen (gruppen docker), eller kjør: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker er fortsatt ikke tilgjengelig:\n{err}",
+        "headless_no_license": "ADVARSEL: ingen lisensnøkkel (QUORUM_LICENSE_KEY) og ingen terminal å spørre i. Uten den starter ikke orkestratoren. Kjør installasjonsprogrammet i en terminal eller sett QUORUM_LICENSE_KEY. Gratis 30-dagers prøveperiode: https://license.quorumai.eu",
+        "llm_hint": "Første steg i GUI-en: Innstillinger > Leverandører, legg til en LLM-leverandør der (API-nøkkel eller lokal Ollama).",
+        "quick_summary": "Hurtiginstallasjon i {dir}. Moduler: {mods}",
         "welcome": "Velkommen til QuorumAI-installasjonsprogrammet!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Ditt valg",
@@ -2365,7 +2852,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Installasjonsmappe [{default}]",
         "dir_created": "Mappe opprettet: {path}",
         "existing_found": "Fant en eksisterende QuorumAI-installasjon i: {path}",
-        "existing_opts": "1) Endre (legg til/fjern moduler, endre porter)\n2) Ny installasjon\n3) Avslutt",
+        "existing_opts": "1) Oppdater (anbefalt): last ned nye versjoner, innstillinger og data beholdes\n2) Endre (legg til/fjern moduler, endre porter)\n3) Ny installasjon\n4) Avslutt",
         "select_modules": "Velg moduler som skal installeres (minimumssettet er forhåndsmerket):",
         "module_required": "(påkrevd)",
         "module_optional": "(valgfri)",
@@ -2440,6 +2927,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sr": {
         "lang_name": "Српски",
+        "quick_voice_skipped": "Docker има мало меморије ({gb} GB), па се препознавање говора и читање наглас (Whisper + Piper) изостављају. Касније се могу додати преко опције Измени.",
+        "install_kind_question": "Како желите да инсталирате?",
+        "install_kind_quick": "Брза инсталација (препоручено): тражи само лиценцни кључ, остало подразумевано, и покреће QuorumAI",
+        "install_kind_advanced": "Напредна: модули, портови и кључеви један по један",
+        "port_shifted": "{name}: порт {port} је заузет, користи се {new}",
+        "compose_backup": "Претходне compose датотеке сачуване у: {path}",
+        "env_keys_added": "Нова подешавања додата у .env: {keys}",
+        "images_changed": "Нове верзије:",
+        "images_unchanged": "Верзије слика нису промењене, преузимање и поновно покретање се ипак изводе.",
+        "pulling": "Преузимање слика (први пут то може бити неколико GB и потрајати)...",
+        "pull_failed": "Преузимање слика завршено је са грешком ({code}), покретање са постојећим сликама.",
+        "docker_daemon_down": "Docker не ради. Покрените Docker Desktop (macOS/Windows) или сервис docker (Linux), затим притисните Enter.",
+        "docker_permission": "Немате дозволу за Docker. Одјавите се и поново пријавите (група docker) или покрените: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker је и даље недоступан:\n{err}",
+        "headless_no_license": "УПОЗОРЕЊЕ: нема лиценцног кључа (QUORUM_LICENSE_KEY) ни терминала да се затражи. Без њега оркестратор се неће покренути. Покрените инсталатер у терминалу или поставите QUORUM_LICENSE_KEY. Бесплатна 30-дневна проба: https://license.quorumai.eu",
+        "llm_hint": "Први корак у GUI-ју: Подешавања > Провајдери, додајте тамо LLM провајдера (API кључ или локални Ollama).",
+        "quick_summary": "Брза инсталација у {dir}. Модули: {mods}",
         "welcome": "Добродошли у QuorumAI инсталатер!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Ваш избор",
@@ -2454,7 +2958,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Директоријум за инсталацију [{default}]",
         "dir_created": "Директоријум направљен: {path}",
         "existing_found": "Пронађена је постојећа QuorumAI инсталација у: {path}",
-        "existing_opts": "1) Измени (додај/уклони модуле, промени портове)\n2) Нова инсталација\n3) Изађи",
+        "existing_opts": "1) Ажурирај (препоручено): преузми нове верзије, подешавања и подаци остају\n2) Измени (додај/уклони модуле, промени портове)\n3) Нова инсталација\n4) Изађи",
         "select_modules": "Изаберите модуле за инсталацију (минимални скуп је унапред означен):",
         "module_required": "(обавезно)",
         "module_optional": "(опционо)",
@@ -2529,6 +3033,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "tr": {
         "lang_name": "Türkçe",
+        "quick_voice_skipped": "Docker'ın belleği az ({gb} GB), bu yüzden konuşma tanıma ve sesli okuma (Whisper + Piper) kurulmuyor. Daha sonra Değiştir ile eklenebilir.",
+        "install_kind_question": "Nasıl kurmak istersiniz?",
+        "install_kind_quick": "Hızlı kurulum (önerilen): yalnızca lisans anahtarını sorar, gerisini varsayılan yapar ve QuorumAI'yi başlatır",
+        "install_kind_advanced": "Gelişmiş: modülleri, portları ve anahtarları tek tek seçin",
+        "port_shifted": "{name}: {port} portu kullanımda, yerine {new} kullanılıyor",
+        "compose_backup": "Önceki compose dosyaları şuraya kaydedildi: {path}",
+        "env_keys_added": "Yeni ayarlar .env dosyasına eklendi: {keys}",
+        "images_changed": "Yeni sürümler:",
+        "images_unchanged": "İmaj sürümleri değişmedi, indirme ve yeniden başlatma yine de yapılıyor.",
+        "pulling": "İmajlar indiriliyor (ilk seferde birkaç GB olabilir ve zaman alabilir)...",
+        "pull_failed": "İmaj indirme hatayla bitti ({code}), mevcut imajlarla başlatılıyor.",
+        "docker_daemon_down": "Docker çalışmıyor. Docker Desktop'u (macOS/Windows) veya docker hizmetini (Linux) başlatın, ardından Enter'a basın.",
+        "docker_permission": "Docker kullanma izniniz yok. Oturumu kapatıp yeniden açın (docker grubu) veya şunu çalıştırın: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker hâlâ erişilemiyor:\n{err}",
+        "headless_no_license": "UYARI: lisans anahtarı (QUORUM_LICENSE_KEY) yok ve sormak için terminal yok. Anahtar olmadan orkestratör başlamaz. Kurulumu bir terminalde çalıştırın veya QUORUM_LICENSE_KEY ayarlayın. Ücretsiz 30 günlük deneme: https://license.quorumai.eu",
+        "llm_hint": "GUI'de ilk adım: Ayarlar > Sağlayıcılar, oraya bir LLM sağlayıcısı ekleyin (API anahtarı veya yerel Ollama).",
+        "quick_summary": "{dir} konumuna hızlı kurulum. Modüller: {mods}",
         "welcome": "QuorumAI kurulumuna hoş geldiniz!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Seçiminiz",
@@ -2543,7 +3064,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Kurulum dizini [{default}]",
         "dir_created": "Dizin oluşturuldu: {path}",
         "existing_found": "Mevcut bir QuorumAI kurulumu bulundu: {path}",
-        "existing_opts": "1) Değiştir (modül ekle/kaldır, port değiştir)\n2) Yeniden kur\n3) Çık",
+        "existing_opts": "1) Güncelle (önerilen): yeni sürümleri indir, ayarlar ve veriler korunur\n2) Değiştir (modül ekle/kaldır, port değiştir)\n3) Yeniden kur\n4) Çık",
         "select_modules": "Kurulacak modülleri seçin (asgari küme önceden işaretlidir):",
         "module_required": "(zorunlu)",
         "module_optional": "(isteğe bağlı)",
@@ -2618,6 +3139,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ja": {
         "lang_name": "日本語",
+        "quick_voice_skipped": "Docker のメモリが少ないため（{gb} GB）、音声認識と読み上げ（Whisper + Piper）は省略します。後から「変更」で追加できます。",
+        "install_kind_question": "インストール方法を選んでください",
+        "install_kind_quick": "クイックインストール（推奨）：ライセンスキーのみ入力、その他は既定値で設定し QuorumAI を起動",
+        "install_kind_advanced": "詳細設定：モジュール、ポート、キーを個別に選択",
+        "port_shifted": "{name}：ポート {port} は使用中のため {new} を使用します",
+        "compose_backup": "以前の compose ファイルの保存先：{path}",
+        "env_keys_added": ".env に新しい設定を追加しました：{keys}",
+        "images_changed": "新しいバージョン：",
+        "images_unchanged": "イメージのバージョンは変わっていませんが、取得と再起動は実行します。",
+        "pulling": "イメージをダウンロード中（初回は数 GB になり時間がかかることがあります）...",
+        "pull_failed": "イメージのダウンロードがエラーで終了しました（{code}）。既存のイメージで起動します。",
+        "docker_daemon_down": "Docker が起動していません。Docker Desktop（macOS/Windows）または docker サービス（Linux）を起動してから Enter を押してください。",
+        "docker_permission": "Docker を使う権限がありません。ログアウトして再ログインする（docker グループ）か、次を実行してください：sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker にまだ接続できません：\n{err}",
+        "headless_no_license": "警告：ライセンスキー（QUORUM_LICENSE_KEY）がなく、入力するための端末もありません。キーがないとオーケストレーターは起動しません。端末でインストーラーを実行するか QUORUM_LICENSE_KEY を設定してください。30 日間の無料トライアル：https://license.quorumai.eu",
+        "llm_hint": "GUI での最初の手順：設定 > プロバイダーで LLM プロバイダーを追加してください（API キーまたはローカル Ollama）。",
+        "quick_summary": "{dir} にクイックインストール。モジュール：{mods}",
         "welcome": "QuorumAI インストーラーへようこそ！",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "選択してください",
@@ -2632,7 +3170,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "インストールディレクトリ [{default}]",
         "dir_created": "ディレクトリを作成しました: {path}",
         "existing_found": "既存の QuorumAI インストールが見つかりました: {path}",
-        "existing_opts": "1) 変更（モジュールの追加/削除、ポートの変更）\n2) 新規インストール\n3) 終了",
+        "existing_opts": "1) アップデート（推奨）：新しいバージョンを取得、設定とデータは保持\n2) 変更（モジュールの追加/削除、ポートの変更）\n3) 新規インストール\n4) 終了",
         "select_modules": "インストールするモジュールを選択してください（最小セットはあらかじめ選択済み）:",
         "module_required": "（必須）",
         "module_optional": "（任意）",
@@ -2707,6 +3245,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "zh": {
         "lang_name": "中文",
+        "quick_voice_skipped": "Docker 内存较少（{gb} GB），因此省略语音识别和朗读（Whisper + Piper）。之后可通过“修改”添加。",
+        "install_kind_question": "您想如何安装？",
+        "install_kind_quick": "快速安装（推荐）：只需输入许可证密钥，其余使用默认值，并启动 QuorumAI",
+        "install_kind_advanced": "高级：逐一选择模块、端口和密钥",
+        "port_shifted": "{name}：端口 {port} 已被占用，改用 {new}",
+        "compose_backup": "旧的 compose 文件已保存到：{path}",
+        "env_keys_added": "已向 .env 追加新设置：{keys}",
+        "images_changed": "新版本：",
+        "images_unchanged": "镜像版本未变，仍会执行拉取和重启。",
+        "pulling": "正在下载镜像（首次可能有数 GB，需要一些时间）...",
+        "pull_failed": "镜像下载出错结束（{code}），将使用现有镜像启动。",
+        "docker_daemon_down": "Docker 未运行。请启动 Docker Desktop（macOS/Windows）或 docker 服务（Linux），然后按 Enter。",
+        "docker_permission": "您没有使用 Docker 的权限。请注销后重新登录（docker 组），或运行：sg docker -c 'python3 install.py'",
+        "docker_still_down": "仍无法连接 Docker：\n{err}",
+        "headless_no_license": "警告：没有许可证密钥（QUORUM_LICENSE_KEY），也没有终端可供输入。没有它编排器无法启动。请在终端中运行安装程序或设置 QUORUM_LICENSE_KEY。30 天免费试用：https://license.quorumai.eu",
+        "llm_hint": "GUI 中的第一步：设置 > 提供商，在此添加 LLM 提供商（API 密钥或本地 Ollama）。",
+        "quick_summary": "快速安装到 {dir}。模块：{mods}",
         "welcome": "欢迎使用 QuorumAI 安装程序！",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "您的选择",
@@ -2721,7 +3276,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "安装目录 [{default}]",
         "dir_created": "目录已创建：{path}",
         "existing_found": "在以下位置找到现有的 QuorumAI 安装：{path}",
-        "existing_opts": "1) 修改（添加/删除模块，更改端口）\n2) 全新重新安装\n3) 退出",
+        "existing_opts": "1) 更新（推荐）：下载新版本，保留设置和数据\n2) 修改（添加/删除模块，更改端口）\n3) 全新重新安装\n4) 退出",
         "select_modules": "选择要安装的模块（最小集合已预先选中）：",
         "module_required": "（必须）",
         "module_optional": "（可选）",
@@ -2796,6 +3351,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "ko": {
         "lang_name": "한국어",
+        "quick_voice_skipped": "Docker 메모리가 적어({gb} GB) 음성 인식과 읽어 주기(Whisper + Piper)는 제외합니다. 나중에 '변경'으로 추가할 수 있습니다.",
+        "install_kind_question": "어떻게 설치하시겠습니까?",
+        "install_kind_quick": "빠른 설치(권장): 라이선스 키만 묻고 나머지는 기본값으로 설정한 뒤 QuorumAI를 시작합니다",
+        "install_kind_advanced": "고급: 모듈, 포트, 키를 하나씩 선택",
+        "port_shifted": "{name}: 포트 {port}이(가) 사용 중이어서 {new}을(를) 사용합니다",
+        "compose_backup": "이전 compose 파일 저장 위치: {path}",
+        "env_keys_added": ".env에 새 설정을 추가했습니다: {keys}",
+        "images_changed": "새 버전:",
+        "images_unchanged": "이미지 버전은 그대로지만 내려받기와 재시작은 진행합니다.",
+        "pulling": "이미지를 내려받는 중(처음에는 수 GB이며 시간이 걸릴 수 있습니다)...",
+        "pull_failed": "이미지 내려받기가 오류로 끝났습니다({code}). 기존 이미지로 시작합니다.",
+        "docker_daemon_down": "Docker가 실행 중이 아닙니다. Docker Desktop(macOS/Windows) 또는 docker 서비스(Linux)를 시작한 뒤 Enter를 누르세요.",
+        "docker_permission": "Docker를 사용할 권한이 없습니다. 로그아웃 후 다시 로그인하거나(docker 그룹) 다음을 실행하세요: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker에 여전히 연결할 수 없습니다:\n{err}",
+        "headless_no_license": "경고: 라이선스 키(QUORUM_LICENSE_KEY)가 없고 입력받을 터미널도 없습니다. 키가 없으면 오케스트레이터가 시작되지 않습니다. 터미널에서 설치 프로그램을 실행하거나 QUORUM_LICENSE_KEY를 설정하세요. 30일 무료 체험: https://license.quorumai.eu",
+        "llm_hint": "GUI의 첫 단계: 설정 > 제공자에서 LLM 제공자를 추가하세요(API 키 또는 로컬 Ollama).",
+        "quick_summary": "{dir}에 빠른 설치. 모듈: {mods}",
         "welcome": "QuorumAI 설치 프로그램에 오신 것을 환영합니다!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "선택하세요",
@@ -2810,7 +3382,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "설치 디렉터리 [{default}]",
         "dir_created": "디렉터리 생성됨: {path}",
         "existing_found": "기존 QuorumAI 설치가 발견됨: {path}",
-        "existing_opts": "1) 수정 (모듈 추가/제거, 포트 변경)\n2) 새로 설치\n3) 종료",
+        "existing_opts": "1) 업데이트(권장): 새 버전을 내려받고 설정과 데이터는 유지합니다\n2) 수정 (모듈 추가/제거, 포트 변경)\n3) 새로 설치\n4) 종료",
         "select_modules": "설치할 모듈 선택 (최소 세트는 미리 선택됨):",
         "module_required": "(필수)",
         "module_optional": "(선택)",
@@ -2885,6 +3457,23 @@ LANGS: Dict[str, Dict[str, str]] = {
     },
     "sw": {
         "lang_name": "Kiswahili",
+        "quick_voice_skipped": "Docker ina kumbukumbu kidogo ({gb} GB), kwa hiyo utambuzi wa sauti na kusoma kwa sauti (Whisper + Piper) vimeachwa. Unaweza kuviongeza baadaye kwa Badilisha.",
+        "install_kind_question": "Ungependa kusakinisha vipi?",
+        "install_kind_quick": "Usakinishaji wa haraka (unapendekezwa): unauliza tu ufunguo wa leseni, mengine ni chaguo-msingi, na unaanzisha QuorumAI",
+        "install_kind_advanced": "Wa hali ya juu: chagua moduli, bandari na funguo moja baada ya nyingine",
+        "port_shifted": "{name}: bandari {port} inatumika, inatumika {new} badala yake",
+        "compose_backup": "Faili za compose za awali zimehifadhiwa katika: {path}",
+        "env_keys_added": "Mipangilio mipya imeongezwa kwenye .env: {keys}",
+        "images_changed": "Matoleo mapya:",
+        "images_unchanged": "Matoleo ya picha hayajabadilika, upakuaji na kuanzisha upya vinafanyika hata hivyo.",
+        "pulling": "Inapakua picha (mara ya kwanza inaweza kuwa GB kadhaa na kuchukua muda)...",
+        "pull_failed": "Upakuaji wa picha umeisha kwa hitilafu ({code}), inaanzisha kwa picha zilizopo.",
+        "docker_daemon_down": "Docker haifanyi kazi. Anzisha Docker Desktop (macOS/Windows) au huduma ya docker (Linux), kisha bonyeza Enter.",
+        "docker_permission": "Huna ruhusa ya kutumia Docker. Toka na uingie tena (kikundi docker), au endesha: sg docker -c 'python3 install.py'",
+        "docker_still_down": "Docker bado haipatikani:\n{err}",
+        "headless_no_license": "ONYO: hakuna ufunguo wa leseni (QUORUM_LICENSE_KEY) wala terminal ya kuuuliza. Bila huo orchestrator haitaanza. Endesha kisakinishi kwenye terminal au weka QUORUM_LICENSE_KEY. Jaribio la bure la siku 30: https://license.quorumai.eu",
+        "llm_hint": "Hatua ya kwanza kwenye GUI: Mipangilio > Watoa huduma, ongeza mtoa huduma wa LLM hapo (ufunguo wa API au Ollama ya ndani).",
+        "quick_summary": "Usakinishaji wa haraka kwenye {dir}. Moduli: {mods}",
         "welcome": "Karibu kwenye kisaidizi cha usakinishaji wa QuorumAI!",
         "select_lang": "Select language / Válassz nyelvet:",
         "choose": "Chaguo lako",
@@ -2899,7 +3488,7 @@ LANGS: Dict[str, Dict[str, str]] = {
         "install_dir_prompt": "Saraka ya usakinishaji [{default}]",
         "dir_created": "Saraka imeundwa: {path}",
         "existing_found": "Usakinishaji wa QuorumAI uliopo umepatikana katika: {path}",
-        "existing_opts": "1) Badilisha (ongeza/ondoa moduli, badilisha bandari)\n2) Usakinishaji mpya kabisa\n3) Toka",
+        "existing_opts": "1) Sasisha (inapendekezwa): pakua matoleo mapya, mipangilio na data hubaki\n2) Badilisha (ongeza/ondoa moduli, badilisha bandari)\n3) Usakinishaji mpya kabisa\n4) Toka",
         "select_modules": "Chagua moduli za kusakinisha (seti ndogo imechaguliwa mapema):",
         "module_required": "(inahitajika)",
         "module_optional": "(si lazima)",
@@ -3953,7 +4542,7 @@ def run_menu(title: str, options: List[str], default: int = 0) -> int:
             selected = (selected - 1) % total
         elif key == '\x1b[B':
             selected = (selected + 1) % total
-        elif key == '\r':
+        elif key in ('\r', '\n'):
             sys.stdout.write(f"\033[{total + 1}A")
             sys.stdout.write(f"✔ {title} {_MENU_GREEN}{options[selected]}{_MENU_RESET}{_MENU_CLR}\n")
             for _ in range(total):
@@ -3992,7 +4581,7 @@ def run_checkbox(title: str, options: List[str], init: List[bool],
         elif key == ' ':
             if not (locked and locked[cursor]):
                 selected[cursor] = not selected[cursor]
-        elif key == '\r':
+        elif key in ('\r', '\n'):
             sys.stdout.write(f"\033[{total + 1}A")
             count = sum(selected)
             sys.stdout.write(
@@ -4077,22 +4666,54 @@ def select_install_mode(s: Dict[str, str]) -> str:
         print(t(s, "invalid"))
 
 
+def select_install_kind(s: Dict[str, str]) -> str:
+    """Phase 97: 'quick' (license key only, defaults, auto start) or 'advanced'.
+
+    QUORUM_INSTALL_TYPE pre-answers it. Headless runs default to 'advanced' so
+    existing Ansible/CI automation (env-driven prompts) behaves as before.
+    """
+    env_kind = os.environ.get("QUORUM_INSTALL_TYPE")
+    if env_kind in ("quick", "advanced"):
+        return env_kind
+    if not _FANCY_MENU:
+        return "advanced"
+    print()
+    idx = run_menu(t(s, "install_kind_question"),
+                   [t(s, "install_kind_quick"), t(s, "install_kind_advanced")])
+    return "advanced" if idx else "quick"
+
+
 # ── Language selection ────────────────────────────────────────────────────────
+
+def _locale_lang() -> str:
+    """Two-letter installer language from the system locale ('' if unknown)."""
+    for var in ("LC_ALL", "LC_MESSAGES", "LANG"):
+        val = os.environ.get(var, "")
+        if not val or val in ("C", "POSIX") or val.startswith("C."):
+            continue
+        code = val.split(".")[0].split("_")[0].lower()
+        code = {"nb": "no", "nn": "no"}.get(code, code)
+        return code if code in LANGS else ""
+    return ""
+
 
 def select_language() -> Dict[str, str]:
     env_lang = os.environ.get("QUORUM_LANG")
     if env_lang in LANGS:
         return LANGS[env_lang]
+    # Phase 97: the system language is pre-selected, so usually Enter is enough
+    default_code = _locale_lang() or "en"
+    default_idx = LANG_ORDER.index(default_code)
     if _FANCY_MENU:
         opts = [LANGS[c]["lang_name"] for c in LANG_ORDER]
         print()
-        idx = run_menu(LANGS["en"]["select_lang"], opts)
+        idx = run_menu(LANGS["en"]["select_lang"], opts, default=default_idx)
         return LANGS[LANG_ORDER[idx]]
     print("\n" + LANGS["en"]["select_lang"])
     for i, code in enumerate(LANG_ORDER, 1):
         print(f"  {i:2}. {LANGS[code]['lang_name']}")
     while True:
-        raw = ask("", "1")
+        raw = ask("", str(default_idx + 1))
         try:
             idx = int(raw) - 1
             if 0 <= idx < len(LANG_ORDER):
@@ -4178,6 +4799,40 @@ def check_docker(s: Dict[str, str]) -> None:
     except Exception:
         print(t(s, "docker_compose_missing"))
         sys.exit(1)
+
+    _check_docker_daemon(s)
+
+
+def _docker_daemon_error() -> str:
+    """'' when the Docker daemon answers, else its error text (stderr)."""
+    try:
+        r = run(["docker", "info", "--format", "{{.ServerVersion}}"], check=False)
+    except Exception as exc:  # noqa: BLE001
+        return str(exc)
+    if r.returncode == 0:
+        return ""
+    return (r.stderr or r.stdout or f"exit {r.returncode}").strip()
+
+
+def _check_docker_daemon(s: Dict[str, str]) -> None:
+    """Phase 97: the client alone is not enough. A stopped Docker Desktop or a
+    missing docker-group membership only failed at `compose up`, with an error a
+    trial user could not act on. Say what to do; wait for a started daemon."""
+    for attempt in range(4):
+        err = _docker_daemon_error()
+        if not err:
+            return
+        if "permission denied" in err.lower():
+            print(t(s, "docker_permission"))
+            sys.exit(1)
+        if not _FANCY_MENU:
+            # headless: never block; the files are still written, start is manual
+            print(t(s, "docker_still_down", err=err))
+            return
+        if attempt == 3:
+            print(t(s, "docker_still_down", err=err))
+            sys.exit(1)
+        ask(t(s, "docker_daemon_down"), "")
 
 # ── Install directory ─────────────────────────────────────────────────────────
 
@@ -5192,6 +5847,11 @@ def compose_up(install_dir: Path, services: Optional[List[str]] = None) -> int:
     return stream(cmd, cwd=install_dir)
 
 
+def compose_pull(install_dir: Path) -> int:
+    """Phase 97: fetch the images of the active profiles (new tags after an update)."""
+    return stream(["docker", "compose", "pull"], cwd=install_dir)
+
+
 def compose_stop(install_dir: Path, services: List[str]) -> None:
     stream(["docker", "compose", "stop"] + services, cwd=install_dir)
 
@@ -5399,6 +6059,10 @@ def modify_mode(s: Dict[str, str], install_dir: Path) -> None:
     if compat_key:
         print(t(s, "openai_compat_key_info", api_key=compat_key))
 
+    # Phase 97: rewrite the compose files too, so a modify run also brings the
+    # installer's current (pinned) image versions; the old ones are backed up.
+    print(t(s, "compose_backup", path=str(_backup_compose(install_dir))))
+    setup_install_dir(install_dir, new_modules, satellite=_is_satellite_env(existing_env))
     _customize_mic_compose(install_dir, new_modules, s)
     _setup_mic_host(new_modules, s)
     _customize_omnivoice_compose(install_dir, s)
@@ -5419,20 +6083,18 @@ def modify_mode(s: Dict[str, str], install_dir: Path) -> None:
         svc = [sn for m in removed for sn in m["services"]]
         compose_stop(install_dir, svc)
 
-    docker_added = [m for m in added if m.get("services")]
-    if docker_added or ports:
-        print(t(s, "starting"))
-        if docker_added:
-            svc = [sn for m in docker_added for sn in m["services"]]
-            code = compose_up(install_dir, svc)
-        else:
-            # Port change, restart affected services
-            print(t(s, "port_restart"))
-            code = compose_up(install_dir)
-        if code == 0:
-            print(t(s, "start_ok"))
-        else:
-            print(t(s, "start_fail", code=str(code)))
+    # Phase 97: pull + a full `up -d`: added modules start, and services whose
+    # image tag changed with the refreshed compose files are recreated.
+    print(t(s, "pulling"))
+    code = compose_pull(install_dir)
+    if code != 0:
+        print(t(s, "pull_failed", code=str(code)))
+    print(t(s, "starting"))
+    code = compose_up(install_dir)
+    if code == 0:
+        print(t(s, "start_ok"))
+    else:
+        print(t(s, "start_fail", code=str(code)))
 
     print(t(s, "done"))
 
@@ -5491,6 +6153,10 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
         env_vars["AI_ACT_TSA_URL"] = _ask_ai_act_tsa(s, {})
         env_vars["AI_ACT_PII_MODE"] = _ask_ai_act_pii(s, {})
 
+    if (not satellite and any(m["id"] == "orchestrator" for m in modules)
+            and not env_vars.get("QUORUM_LICENSE_KEY")):
+        print("\n" + t(s, "headless_no_license") + "\n")
+
     print(t(s, "writing_files"))
     env_content = build_env(modules, ports, env_vars, {}, orchestrator_url=orchestrator_url, satellite=satellite)
     env_path = install_dir / ".env"
@@ -5518,8 +6184,14 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
     if not _post_install_start_ask(s):
         return
 
+    _start_and_summarize(s, install_dir, modules, ports)
+
+
+def _start_and_summarize(s: Dict[str, str], install_dir: Path, modules: List[dict],
+                         ports: Dict[str, int]) -> None:
     ensure_network()
 
+    print(t(s, "pulling"))
     print(t(s, "starting"))
     code = compose_up(install_dir)
     if code == 0:
@@ -5540,39 +6212,277 @@ def fresh_install(s: Dict[str, str], install_dir: Path, satellite: bool = False)
         print(t(s, "gui_url", port=str(gui_port)))
     print()
     print(t(s, "next_steps"))
+    if any(m["id"] == "orchestrator" for m in modules):
+        print(t(s, "llm_hint"))
+
+
+# ── Quick install and update (phase 97) ───────────────────────────────────────
+
+# Quick install = the required modules plus these. stt-tts (Whisper + Piper) is
+# the GUI microphone, the read-aloud answers and the bridges' voice messages, so
+# it is in, unless Docker has too little memory: the Whisper model (~1.6 GB) and
+# its CPU load would endanger the first start on a small Docker Desktop VM.
+# mic (host audio + wake word) and omnivoice (GPU) stay "Modify" options.
+QUICK_MODULE_IDS = ("gui", "mcp-manager", "graph", "stt-tts")
+QUICK_VOICE_MIN_MEM = 7 * 1024 ** 3   # Docker Desktop "8 GB" reports ~7.7 GiB
+
+
+def _docker_mem_bytes() -> int:
+    """Memory Docker can use (the Docker Desktop VM on macOS/Windows); 0 = unknown."""
+    try:
+        r = run(["docker", "info", "--format", "{{.MemTotal}}"], check=False)
+        return int((r.stdout or "").strip())
+    except Exception:  # noqa: BLE001
+        return 0
+
+
+def _quick_module_ids(s: Dict[str, str]) -> Tuple[str, ...]:
+    mem = _docker_mem_bytes()
+    if 0 < mem < QUICK_VOICE_MIN_MEM:
+        print(t(s, "quick_voice_skipped", gb=f"{mem / 1024 ** 3:.1f}"))
+        return tuple(i for i in QUICK_MODULE_IDS if i != "stt-tts")
+    return QUICK_MODULE_IDS
+
+
+def _port_free(port: int) -> bool:
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        try:
+            sock.bind(("0.0.0.0", port))
+            return True
+        except OSError:
+            return False
+
+
+def _auto_ports(s: Dict[str, str], modules: List[dict], existing_env: Dict[str, str]) -> Dict[str, int]:
+    """Default ports without questions; a busy one moves to the next free port."""
+    ports: Dict[str, int] = {}
+    taken: set = set()
+    for m in modules:
+        for label, env_key, default_port in m["ports"]:
+            raw = _env_default(env_key, existing_env.get(env_key, ""))
+            want = int(raw) if raw.isdigit() else default_port
+            port = want
+            while (port in taken or not _port_free(port)) and port < want + 100:
+                port += 1
+            if port != want:
+                print(t(s, "port_shifted", name=label, port=str(want), new=str(port)))
+            ports[env_key] = port
+            taken.add(port)
+    return ports
+
+
+def _default_env_vars(modules: List[dict], existing_env: Dict[str, str]) -> Dict[str, str]:
+    """Module env vars with their defaults (env overrides, existing values kept), no prompts."""
+    env: Dict[str, str] = {}
+    for m in modules:
+        for key, _required, default, _hint in m["env_vars"]:
+            if key in ("OPENAI_COMPAT_API_KEY", "QUORUM_LICENSE_KEY"):
+                continue
+            env[key] = _env_default(key, existing_env.get(key, default))
+    return env
+
+
+def quick_install(s: Dict[str, str], install_dir: Path) -> None:
+    quick_ids = _quick_module_ids(s)
+    modules = [m for m in MODULES if m["required"] or m["id"] in quick_ids]
+    print("\n" + t(s, "quick_summary", dir=str(install_dir), mods=", ".join(m["label"] for m in modules)))
+    ports = _auto_ports(s, modules, {})
+    env_vars = _default_env_vars(modules, {})
+    _apply_generated_secrets(env_vars, s)
+    env_vars["QUORUM_LICENSE_KEY"] = _ask_license_key(s, {})
+    env_vars["OPENAI_COMPAT_API_KEY"] = ""
+    env_vars["AI_ACT_TSA_URL"] = _env_default("AI_ACT_TSA_URL", "")
+    env_vars["AI_ACT_PII_MODE"] = _env_default("AI_ACT_PII_MODE", "")
+
+    print(t(s, "writing_files"))
+    env_path = install_dir / ".env"
+    env_path.write_text(build_env(modules, ports, env_vars, {}), encoding="utf-8")
+    print(t(s, "env_written", path=env_path))
+    setup_install_dir(install_dir, modules)
+    _customize_mic_compose(install_dir, modules, s)
+    _customize_omnivoice_compose(install_dir, s)
+    create_data_dirs(install_dir, modules)
+    print(t(s, "dirs_created"))
+    _setup_host_modules(modules, {**ports, **env_vars}, install_dir)
+
+    if not env_vars["QUORUM_LICENSE_KEY"]:
+        # no key and no terminal: the orchestrator would only crash-loop
+        print("\n" + t(s, "headless_no_license"))
+        print(t(s, "nostart_hint"))
+        return
+    _start_and_summarize(s, install_dir, modules, ports)
+
+
+def _is_satellite_env(env: Dict[str, str]) -> bool:
+    url = env.get("ORCHESTRATOR_URL", "")
+    return bool(url) and url != "http://orchestrator:8000"
+
+
+def _backup_compose(install_dir: Path) -> Path:
+    """Copy the current compose files to backup/compose-<timestamp>/ before a rewrite."""
+    from datetime import datetime
+    dst_root = install_dir / "backup" / f"compose-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    for rel in COMPOSE_FILES:
+        src = install_dir / rel
+        if src.is_file():
+            dst = dst_root / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+    return dst_root
+
+
+def _active_images(install_dir: Path) -> Dict[str, str]:
+    """image name -> tag of the services the .env profiles enable ({} on error)."""
+    try:
+        r = run(["docker", "compose", "config", "--images"], cwd=install_dir, check=False)
+    except Exception:  # noqa: BLE001
+        return {}
+    if r.returncode != 0 or not isinstance(r.stdout, str):
+        return {}
+    tags: Dict[str, str] = {}
+    for img in r.stdout.split():
+        if ":" in img.rsplit("/", 1)[-1]:
+            name, _, tag = img.rpartition(":")
+        else:
+            name, tag = img, "latest"
+        tags[name] = tag
+    return tags
+
+
+def _append_missing_env(env_path: Path, new_env_text: str) -> List[str]:
+    """Append keys the current installer would write but the .env lacks entirely.
+
+    Existing lines are never touched (build_env would drop hand-added keys), and a
+    key that is present only as a comment counts as present: an update must not
+    switch on, e.g., API-key auth that the operator left commented out.
+    """
+    current = env_path.read_text(encoding="utf-8") if env_path.exists() else ""
+    present = set(re.findall(r"^\s*#?\s*([A-Z][A-Z0-9_]*)\s*=", current, flags=re.M))
+    missing: List[Tuple[str, str]] = []
+    for line in new_env_text.splitlines():
+        m = re.match(r"^([A-Z][A-Z0-9_]*)=(.*)$", line)
+        if m and m.group(1) not in present:
+            missing.append((m.group(1), m.group(2)))
+    if missing:
+        from datetime import date
+        block = [f"\n# added by installer update {date.today().isoformat()}"]
+        block += [f"{k}={v}" for k, v in missing]
+        with env_path.open("a", encoding="utf-8") as fh:
+            if current and not current.endswith("\n"):
+                fh.write("\n")
+            fh.write("\n".join(block) + "\n")
+    return [k for k, _ in missing]
+
+
+def update_install(s: Dict[str, str], install_dir: Path) -> None:
+    """Re-run on an existing install: new compose files (image tags), keep .env and data."""
+    env_path = install_dir / ".env"
+    existing_env = parse_env_file(env_path)
+    profiles = {p for p in existing_env.get("COMPOSE_PROFILES", "").split(",") if p}
+    modules = [m for m in MODULES if m.get("profile") and m["profile"] in profiles]
+    satellite = _is_satellite_env(existing_env)
+
+    old_tags = _active_images(install_dir)
+    print(t(s, "compose_backup", path=str(_backup_compose(install_dir))))
+    setup_install_dir(install_dir, modules, satellite=satellite)
+    _customize_mic_compose(install_dir, modules, s)
+    _customize_omnivoice_compose(install_dir, s)
+    create_data_dirs(install_dir, modules)
+
+    new_env = build_env(modules, {}, _default_env_vars(modules, existing_env), existing_env,
+                        orchestrator_url=existing_env.get("ORCHESTRATOR_URL", "") if satellite else "",
+                        satellite=satellite)
+    added = _append_missing_env(env_path, new_env)
+    if added:
+        print(t(s, "env_keys_added", keys=", ".join(added)))
+
+    new_tags = _active_images(install_dir)
+    changed = [(n, old_tags.get(n, "-"), tg) for n, tg in sorted(new_tags.items())
+               if old_tags.get(n) != tg]
+    if changed:
+        print(t(s, "images_changed"))
+        for name, old, new in changed:
+            print(f"  {name}: {old} -> {new}")
+    elif new_tags:
+        print(t(s, "images_unchanged"))
+
+    if not any(m.get("services") for m in modules):
+        print(t(s, "done"))
+        return
+    if not _FANCY_MENU and os.environ.get("QUORUM_INSTALL_TYPE") != "quick":
+        print(t(s, "nostart_hint"))
+        return
+
+    ensure_network()
+    print(t(s, "pulling"))
+    code = compose_pull(install_dir)
+    if code != 0:
+        print(t(s, "pull_failed", code=str(code)))
+    print(t(s, "starting"))
+    code = compose_up(install_dir)
+    print(t(s, "start_ok") if code == 0 else t(s, "start_fail", code=str(code)))
+    print(t(s, "done"))
 
 # ── Main ──────────────────────────────────────────────────────────────────────
+
+def _existing_install_menu(s: Dict[str, str], install_dir: Path) -> None:
+    """Existing .env found: 1) update (default) 2) modify 3) fresh reinstall 4) quit.
+
+    QUORUM_EXISTING=update|modify|reinstall pre-answers it. Headless runs pick
+    'modify' when QUORUM_MODULES is set (the Ansible add/remove flow), else 'update'.
+    """
+    env_choice = os.environ.get("QUORUM_EXISTING")
+    choice = {"update": "1", "modify": "2", "reinstall": "3"}.get(env_choice or "", "")
+    print()
+    if not choice:
+        if _FANCY_MENU:
+            opts = [re.sub(r"^\d+\)\s*", "", o) for o in t(s, "existing_opts").split("\n")]
+            choice = str(run_menu(t(s, "existing_found", path=install_dir), opts) + 1)
+        else:
+            print(t(s, "existing_found", path=install_dir))
+            print(t(s, "existing_opts"))
+            choice = ask(t(s, "choose"), "2" if os.environ.get("QUORUM_MODULES") is not None else "1")
+    if choice == "1":
+        update_install(s, install_dir)
+    elif choice == "2":
+        modify_mode(s, install_dir)
+    elif choice == "3":
+        mode = select_install_mode(s)
+        fresh_install(s, install_dir, satellite=(mode == "satellite"))
+    else:
+        print(t(s, "abort"))
+
 
 def main() -> None:
     if "--help" in sys.argv or "-h" in sys.argv:
         print(__doc__)
         sys.exit(0)
 
+    _attach_tty()
     print()
     s = select_language()
     print("\n" + t(s, "welcome") + "\n")
 
     check_docker(s)
 
-    install_dir = choose_install_dir(s)
+    # Phase 97: a re-run on the default folder offers the update first, and a new
+    # install defaults to the quick path (license key only, defaults, auto start).
+    default_dir = Path(_env_default("QUORUM_INSTALL_DIR", str(Path.home() / "quorum"))).expanduser().resolve()
+    if is_existing_install(default_dir):
+        _existing_install_menu(s, default_dir)
+        return
 
+    if select_install_kind(s) == "quick":
+        if not default_dir.exists():
+            default_dir.mkdir(parents=True)
+            print(t(s, "dir_created", path=default_dir))
+        quick_install(s, default_dir)
+        return
+
+    install_dir = choose_install_dir(s)
     if is_existing_install(install_dir):
-        print()
-        if _FANCY_MENU:
-            opts = [re.sub(r"^\d+\)\s*", "", o) for o in t(s, "existing_opts").split("\n")]
-            idx = run_menu(t(s, "existing_found", path=install_dir), opts)
-            choice = str(idx + 1)
-        else:
-            print(t(s, "existing_found", path=install_dir))
-            print(t(s, "existing_opts"))
-            choice = ask(t(s, "choose"), "1")
-        if choice == "1":
-            modify_mode(s, install_dir)
-        elif choice == "2":
-            mode = select_install_mode(s)
-            fresh_install(s, install_dir, satellite=(mode == "satellite"))
-        else:
-            print(t(s, "abort"))
+        _existing_install_menu(s, install_dir)
     else:
         mode = select_install_mode(s)
         fresh_install(s, install_dir, satellite=(mode == "satellite"))

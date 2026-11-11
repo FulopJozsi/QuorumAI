@@ -39,6 +39,8 @@ QuorumAIは1つ以上のLLMをAIエージェントのチームに変換します
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+インストーラーは既定で**クイックインストール**から始まります。ライセンスキーのみを入力し（30 日間の無料トライアル：https://license.quorumai.eu）、その他は既定値で設定して QuorumAI を起動します。**詳細設定**ではモジュールとポートを個別に選べます。**アップデート**するには同じコマンドをもう一度実行してください。既存のインストールを検出し、設定とデータを保持したまま新しいバージョンを取得します。
+
 **Windows（PowerShell — 管理者として実行）：**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

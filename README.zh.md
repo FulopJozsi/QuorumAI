@@ -39,6 +39,8 @@ QuorumAI 将一个或多个 LLM 转变为 AI 智能体团队，能够：
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+安装程序默认采用**快速安装**：只需输入许可证密钥（30 天免费试用：https://license.quorumai.eu），其余使用默认值，并启动 QuorumAI。**高级**模式保留完整的模块和端口菜单。**更新**时再次运行同一命令：它会找到现有安装，保留设置和数据，并拉取新版本。
+
 **Windows（PowerShell — 以管理员身份运行）：**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

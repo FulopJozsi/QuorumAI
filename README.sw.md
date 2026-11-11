@@ -39,6 +39,8 @@ Kisanikisha cha bootstrap huangalia kama Python 3 na Docker zipo, huzisanikisha 
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+Kisakinishi huanza kwa chaguo-msingi na **usakinishaji wa haraka**: kinauliza tu ufunguo wa leseni (jaribio la bure la siku 30: https://license.quorumai.eu), kinatumia chaguo-msingi kwa mengine na kuanzisha QuorumAI. **Wa hali ya juu** huhifadhi menyu kamili ya moduli na bandari. **Kusasisha**, endesha amri ile ile tena: kinapata usakinishaji uliopo, kinahifadhi mipangilio na data na kupakua matoleo mapya.
+
 **Windows (PowerShell — endesha kama Msimamizi):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

@@ -47,6 +47,8 @@ A bootstrap telepítő ellenőrzi, hogy megvan-e Python 3 és Docker, szükség 
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+A telepítő alapból **gyors telepítéssel** indul: csak a licenckulcsot kéri (ingyenes 30 napos próba: https://license.quorumai.eu), minden mást alapértékkel állít be, és elindítja a QuorumAI-t. A **Haladó** mód a teljes modul- és portmenü. **Frissítéshez** futtasd újra ugyanezt a parancsot: megtalálja a meglévő telepítést, a beállítások és az adatok maradnak, és letölti az új verziókat.
+
 **Windows (PowerShell — rendszergazdaként futtatva):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

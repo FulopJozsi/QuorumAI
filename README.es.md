@@ -39,6 +39,8 @@ El instalador bootstrap comprueba si Python 3 y Docker están instalados, los in
 curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh | bash
 ```
 
+El instalador empieza por defecto con una **instalación rápida**: solo pide la clave de licencia (prueba gratuita de 30 días: https://license.quorumai.eu), usa valores por defecto para lo demás e inicia QuorumAI. **Avanzada** mantiene el menú completo de módulos y puertos. **Para actualizar**, ejecuta el mismo comando otra vez: detecta la instalación existente, conserva ajustes y datos y descarga las nuevas versiones.
+
 **Windows (PowerShell — ejecutar como Administrador):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex

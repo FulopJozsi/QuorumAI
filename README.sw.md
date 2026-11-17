@@ -11,7 +11,7 @@ QuorumAI ni mfumo wa kupanga mawakala wengi wa AI, unaoweza kujihifadhi mwenyewe
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">Anza hapa — jisajili kupata jaribio la bure la siku 30 »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">Anza hapa: jisajili kupata jaribio la bure la siku 30 »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ QuorumAI ni mfumo wa kupanga mawakala wengi wa AI, unaoweza kujihifadhi mwenyewe
 
 QuorumAI hubadilisha LLM moja au zaidi kuwa timu ya mawakala wa AI ambao wanaweza:
 
-- Kujibu maswali, kusoma habari, na kudhibiti vifaa vya nyumba mahiri — ikianzishwa kupitia kipaza sauti, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber, au IRC.
+- Kujibu maswali, kusoma habari, na kudhibiti vifaa vya nyumba mahiri: ikianzishwa kupitia kipaza sauti, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber, au IRC.
 - Kukabidhi kazi kati ya majukumu maalum (Mkurugenzi Mkuu, msanidi programu, mauzo) na kudumisha kumbukumbu ya muda mrefu kati ya vikao kwa kutumia utafutaji wa vektori wa Qdrant.
 - Kutekeleza kazi kwa kujitegemea kupitia kipanga ratiba cha moyo, kuomba idhini ya binadamu inapohitajika (HITL), na kuonyesha uwezo wote wa nje kama seva ya MCP (Itifaki ya Muktadha wa Mfano).
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 Kisakinishi huanza kwa chaguo-msingi na **usakinishaji wa haraka**: kinauliza tu ufunguo wa leseni (jaribio la bure la siku 30: https://license.quorumai.eu), kinatumia chaguo-msingi kwa mengine na kuanzisha QuorumAI. **Wa hali ya juu** huhifadhi menyu kamili ya moduli na bandari. **Kusasisha**, endesha amri ile ile tena: kinapata usakinishaji uliopo, kinahifadhi mipangilio na data na kupakua matoleo mapya.
 
-**Windows (PowerShell — endesha kama Msimamizi):**
+**Windows (PowerShell, endesha kama Msimamizi):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ Au pakua `install.bat` / `install.ps1` kutoka kwenye hazina na bonyeza mara mbil
 
 ### Una Python 3 na Docker tayari?
 
-Nakili hazina na endesha kisanikisha cha mwingiliano moja kwa moja — pip wala utegemezi wa ziada hauhitajiki:
+Nakili hazina na endesha kisanikisha cha mwingiliano moja kwa moja: pip wala utegemezi wa ziada hauhitajiki:
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ Kisanikisha:
 - Kinaandika `.env` kutoka majibu yako, kinaunda saraka za bind-mount za `data/` na kuendesha `docker compose up -d`.
 - Kiolesura cha kisanikisha kinapatikana katika lugha 16.
 
-**Hali ya Satellite** — kuendesha kipaza sauti, madaraja au seva za MCP kwenye mashine tofauti:
+**Hali ya Satellite:** kuendesha kipaza sauti, madaraja au seva za MCP kwenye mashine tofauti:
 ```bash
 python3 install.py   # chagua "Satellite" unapoulizwa
 ```
@@ -126,7 +126,7 @@ Fungua GUI kwenye `http://localhost:3000`.
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Kila tabaka lipo katika saraka yake mwenyewe yenye `compose.yml` yake mwenyewe. `compose.yml` ya mzizi inaunganisha tabaka zote kupitia `include:` na wasifu wa Docker Compose — unaanzisha tu unachohitaji.
+Kila tabaka lipo katika saraka yake mwenyewe yenye `compose.yml` yake mwenyewe. `compose.yml` ya mzizi inaunganisha tabaka zote kupitia `include:` na wasifu wa Docker Compose: unaanzisha tu unachohitaji.
 
 ---
 
@@ -134,15 +134,15 @@ Kila tabaka lipo katika saraka yake mwenyewe yenye `compose.yml` yake mwenyewe. 
 
 ### Upangaji wa Msingi
 
-- **Mazingira ya utekelezaji ya LangGraph** — grafu ya mawakala wa mashine ya hali, ukaguzi wa hali wa HITL asilia, `AsyncPostgresSaver`.
-- **FastAPI HTTP API** — `POST /invoke`, `GET /health`, utiririshaji, kipokezi cha webhook, uwasilishaji wa arifa za kusukuma.
-- **agents.yaml** — tangaza mawakala katika YAML: jina, jukumu, mtoa huduma, mfano, njia ya ombi la mfumo, zana.
-- **Upakiaji moto** — `POST /agents/reload` huhuisha `agents.yaml` bila kuanzisha upya chombo.
-- **Itifaki ya zana ya MCP** — kila uwezo wa nje ni seva ya MCP; mawakala hugundua zana kiotomatiki.
-- **Kumbukumbu ya vektori ya Qdrant** — utafutaji mseto wa kisemantiki + BM42 wa kileksika, vipachikwaji vya lugha nyingi multilingual-e5-large, makusanyo ya kila wakala, uondoaji nakala kwa kosini, ukumbushaji ulioanuwaiwa kwa MMR.
-- **Ujumuishaji wa kumbukumbu wa usiku** — kazi ya «ndoto» iliyopangwa inayochuja historia ya vikao vya PostgreSQL kuwa ukweli wa muda mrefu wa Qdrant; inaunganisha maendeleo, huondoa maingizo ya muda mfupi yaliyopitwa na wakati; hali inafuatiliwa katika PostgreSQL.
-- **PostgreSQL** — kikaguzi cha `AsyncPostgresSaver` cha LangGraph + jedwali za kazi na maoni.
-- **Grafu ya maarifa** — FalkorDB (inayooana na Redis), maswali ya Cypher ya mtumiaji, uchimbaji wa moja kwa moja wa taasisi.
+- **Mazingira ya utekelezaji ya LangGraph:** grafu ya mawakala wa mashine ya hali, ukaguzi wa hali wa HITL asilia, `AsyncPostgresSaver`.
+- **FastAPI HTTP API:** `POST /invoke`, `GET /health`, utiririshaji, kipokezi cha webhook, uwasilishaji wa arifa za kusukuma.
+- **agents.yaml:** tangaza mawakala katika YAML: jina, jukumu, mtoa huduma, mfano, njia ya ombi la mfumo, zana.
+- **Upakiaji moto:** `POST /agents/reload` huhuisha `agents.yaml` bila kuanzisha upya chombo.
+- **Itifaki ya zana ya MCP:** kila uwezo wa nje ni seva ya MCP; mawakala hugundua zana kiotomatiki.
+- **Kumbukumbu ya vektori ya Qdrant:** utafutaji mseto wa kisemantiki + BM42 wa kileksika, vipachikwaji vya lugha nyingi multilingual-e5-large, makusanyo ya kila wakala, uondoaji nakala kwa kosini, ukumbushaji ulioanuwaiwa kwa MMR.
+- **Ujumuishaji wa kumbukumbu wa usiku:** kazi ya «ndoto» iliyopangwa inayochuja historia ya vikao vya PostgreSQL kuwa ukweli wa muda mrefu wa Qdrant; inaunganisha maendeleo, huondoa maingizo ya muda mfupi yaliyopitwa na wakati; hali inafuatiliwa katika PostgreSQL.
+- **PostgreSQL:** kikaguzi cha `AsyncPostgresSaver` cha LangGraph + jedwali za kazi na maoni.
+- **Grafu ya maarifa:** FalkorDB (inayooana na Redis), maswali ya Cypher ya mtumiaji, uchimbaji wa moja kwa moja wa taasisi.
 
 ### Watoa huduma wa LLM (kwa kila wakala, umewekwa katika agents.yaml)
 
@@ -161,9 +161,11 @@ Kila tabaka lipo katika saraka yake mwenyewe yenye `compose.yml` yake mwenyewe. 
 | | Eden AI (mkusanyaji) |
 | | NVIDIA NIM (kiwango cha bure kinapatikana) |
 
-Hakuna ufunguo wa API unaohitajika kuanza — Ollama inafanya kazi ndani ya nchi bila malipo.
+Hakuna ufunguo wa API unaohitajika kuanza: Ollama inafanya kazi ndani ya nchi bila malipo.
 
-**Madimbwi ya watoa huduma** — seva nyingi za ndani zinazofanana (k.m. mashine sita za Ollama) zinaweza kukusanywa kwenye dimbwi lenye jina. Mpanga njia hugawanya maombi kwa usawazishaji wa mzigo wa least-connections; iwapo wanachama wote wa dimbwi wameshindwa, inarudi kwenye mnyororo wa kawaida wa fallback. Imesanidiwa katika `providers.yaml` na inaweza kusimamiwa kutoka kichupo cha Watoa Huduma kwenye GUI.
+**Madimbwi ya watoa huduma:** seva nyingi za ndani zinazofanana (k.m. mashine sita za Ollama) zinaweza kukusanywa kwenye dimbwi lenye jina. Mpanga njia hugawanya maombi kwa usawazishaji wa mzigo wa least-connections; iwapo wanachama wote wa dimbwi wameshindwa, inarudi kwenye mnyororo wa kawaida wa fallback. Imesanidiwa katika `providers.yaml` na inaweza kusimamiwa kutoka kichupo cha Watoa Huduma kwenye GUI.
+
+**Akiba na upoozaji:** wito ukishindwa, wakala huhamia kipengele kinachofuata cha mnyororo wake wa akiba na hupoza tu kilichoshindwa: modeli moja (seva yake ya upstream imelemewa, modeli haijulikani au haimo kwenye mpango), modeli zote za bure (`:free`) za muunganisho (kiwango cha bure kimekwisha) au mtoa huduma mzima (kikomo cha akaunti, hitilafu ya uthibitishaji au ya muunganisho). Upoozaji huanza na dakika 5 na huongezeka mara mbili kwa kila hitilafu mpya, hadi dakika 60; wito uliofanikiwa huuondoa.
 
 ### Uigizaji wa kampuni ya mawakala wengi
 
@@ -172,10 +174,10 @@ Hakuna ufunguo wa API unaohitajika kuanza — Ollama inafanya kazi ndani ya nchi
 - **Mawakala wasaidizi wa nyuma**: `invoke_agent` husubiri hadi dakika 5; kazi ndefu zaidi huendelea nyuma kama kazi ya kanban, na wakala aliyeita huripoti matokeo mwenyewe inapokamilika (GUI moja kwa moja, madaraja yote, maikrofoni). Kila uendeshaji wa wakala msaidizi una uzi wake unaoweza kukaguliwa.
 - **Hali ya kujifunza na ufuatiliaji wa maendeleo**: zana ya `text-compare` hulinganisha ukariri (shairi, maandishi ya uigizaji, fasili) neno kwa neno na huripoti mara moja ubeti ulioachwa; katika vikao vya sauti wakala huzungumza mwenyewe baada ya ukimya, kwa vidokezo vya hatua kwa hatua (neno la kwanza, mstari, ubeti). Zana ya `progress` huonyesha kila zamu kazi imefikia wapi, huhifadhi maendeleo ya kujifunza kwa kila mtumiaji kwa siku kadhaa, na kuyageuza kuwa kazi ya kanban kwa mwito mmoja. Mawakala walio tayari: kifurushi cha sekta `education`. Maikrofoni inaweza pia kusikiliza mfululizo bila neno la kuamsha, kwa mipangilio ya kila wakala (kiwango cha ukimya, hatua za kukumbusha, kusimama kiotomatiki); wakala ambaye maikrofoni inazungumza naye huchaguliwa kwenye GUI.
 - Mawakala wa mstari wa bomba: vitanzi vya mpangaji → mtekelezaji → mkaguzi yenye hali inayoshirikiwa.
-- **Mawakala wa kujitegemea (Deep)** — weka `deep: true` kwenye wakala yoyote au hatua ya mstari wa bomba ili kuwezesha mzunguko wa LangGraph ReAct uliojengwa ndani. Wakala hupanga, hutekeleza na kurudia kwa uhuru — huita zana mara kwa mara hadi kazi ikamilike au kikomo cha hiari cha simu za zana kifikiwe (`deep_max_steps`, 0 = bila kikomo). Inaweza kusanidiwa kwa kila wakala na kwa kila hatua ya mstari wa bomba; kibonyezi kinapatikana kwenye GUI Agent Builder.
+- **Mawakala wa kujitegemea (Deep):** weka `deep: true` kwenye wakala yoyote au hatua ya mstari wa bomba ili kuwezesha mzunguko wa LangGraph ReAct uliojengwa ndani. Wakala hupanga, hutekeleza na kurudia kwa uhuru: huita zana mara kwa mara hadi kazi ikamilike au kikomo cha hiari cha simu za zana kifikiwe (`deep_max_steps`, 0 = bila kikomo). Inaweza kusanidiwa kwa kila wakala na kwa kila hatua ya mstari wa bomba; kibonyezi kinapatikana kwenye GUI Agent Builder.
 - Maktaba ya ujuzi: faili za ujuzi za Markdown, upakiaji wa uchawi kwa kila wakala, soko la jamii la kushirikiana.
 - Eneo la kazi linaloshirikiwa: mawakala wanaweza kusoma na kuandika eneo la faili linaloshirikiwa.
-- **Zana za utawala** — mawakala wenye jukumu la `admin` wanaweza kuunda na kufuta mawakala, ujuzi, seva za MCP, kazi za cron na ratiba za moyo wakati wa utekelezaji kupitia zana za `system-admin`. Kila kitendo cha kuandika kinahitaji idhini ya HITL kabla ya utekelezaji.
+- **Zana za utawala:** mawakala wenye jukumu la `admin` wanaweza kuunda na kufuta mawakala, ujuzi, seva za MCP, kazi za cron na ratiba za moyo wakati wa utekelezaji kupitia zana za `system-admin`. Kila kitendo cha kuandika kinahitaji idhini ya HITL kabla ya utekelezaji.
 
 ### Usimamizi wa kazi na uhuru
 
@@ -184,30 +186,51 @@ Hakuna ufunguo wa API unaohitajika kuanza — Ollama inafanya kazi ndani ya nchi
 - Utekelezaji wa kujitegemea na malango ya idhini ya HITL (Telegram `/approve`, vitufe vya GUI).
 - Arifa za kusukuma: Telegram, Home Assistant `notify`, kusukuma wavuti (VAPID). Kazi zinaweza kubainisha uga wa `notify_channel` ili ujumbe wa kukamilika uwasilishwe kwa daraja sahihi bila kujali kikao kilichounda kazi hiyo. Mawakala wanaweza kuita `list_notify_channels()` kupata orodha ya njia zinazopatikana wakati wa utekelezaji.
 
-**Kazi za siku nyingi** — mfano unaopendekezwa kwa kazi ndefu inayochukua masaa au siku:
+**Kazi za siku nyingi:** mfano unaopendekezwa kwa kazi ndefu inayochukua masaa au siku:
 1. Unda kazi yenye kichwa na maelezo (kupitia gumzo, Telegram, au ubao wa Kanban wa GUI).
 2. Wakala (au wewe) huita `set_subtasks` kuigawanya katika hatua zilizo na majina.
-3. Kila uendeshaji wa heartbeat huchukua kazi ndogo inayofuata inayosubiri, kuikamilisha, na kusimama — vikao vya LLM vya kibinafsi hubaki vifupi na vilivyolenga.
+3. Kila uendeshaji wa heartbeat huchukua kazi ndogo inayofuata inayosubiri, kuikamilisha, na kusimama: vikao vya LLM vya kibinafsi hubaki vifupi na vilivyolenga.
 4. Maendeleo, maamuzi, na matokeo ya kati huhifadhiwa kama maoni ya kazi ili kila uendeshaji unaofuata uwe na muktadha kamili wa kilichotokea kabla.
 5. Kazi zote ndogo zinapokamilika, wakala hufunga kazi na kutuma arifa ya ukamilishaji.
 
-Mfano huu unafanya kazi bila mabadiliko ya msimbo — umejengwa juu ya zana za kazi zilizopo (`set_subtasks`, `get_next_subtask`, `complete_subtask`) ambazo wakala yeyote mwenye chanzo cha zana `tasks` tayari ana ufikiaji wake.
+Mfano huu unafanya kazi bila mabadiliko ya msimbo: umejengwa juu ya zana za kazi zilizopo (`set_subtasks`, `get_next_subtask`, `complete_subtask`) ambazo wakala yeyote mwenye chanzo cha zana `tasks` tayari ana ufikiaji wake.
+
+### Muundo wa usalama
+
+QuorumAI hutenganisha kile ambacho msimbo unalazimisha na kile inachoomba tu kutoka kwa modeli. Kwa kuwa maandishi ya nje yamewekwa alama, kuna uwezekano mkubwa modeli itapuuza maagizo yaliyofichwa katika ukurasa wa wavuti au hati, lakini huo ni uwezekano, si dhamana. Ikidanganywa hata hivyo, bado inaweza kutumia zana zake tu, na katika hatua hatari mtu ndiye anayeamua.
+
+**Kinachotekelezwa na msimbo:**
+- **Orodha ya zana zinazoruhusiwa kwa kila wakala.** Wakala hupata tu seva za MCP na makundi ya zana za mfumo yaliyoorodheshwa katika usanidi wake (`tools:` katika `agents.yaml`, au Agent Builder). Wakala wa masoko asiye na MCP ya Grafana hana zana yoyote ya Grafana ya kuita, bila kujali ingizo lake linasema nini.
+- **Uainishaji wa hatari.** Zana zilizojengwa ndani zina kiwango cha hatari kisichobadilika (`write_file`, `delete_file`, `python_repl` na `http_post` ni za juu), amri za shell huainishwa kwa mfumo (`rm -r`, `curl | sh`, `ssh`, reverse shell na nyinginezo), na seva za MCP kwa mpangilio wao wa `risk:` katika `mcps.yaml`.
+- **Idhini ya lazima ya binadamu.** Ukiwa na `ai_act_mode: true`, kila wito wa hatari kubwa husimama kabla ya kutekelezwa na kusubiri mtu auidhinishe au aukatae (katika GUI au kwenye bridge yoyote ya gumzo). Ukaguzi unaendeshwa katika grafu ya wakala, si katika modeli, hivyo modeli haiwezi kuuruka.
+- **Mabadiliko ya mfumo daima yanahitaji binadamu.** Kuunda au kufuta mawakala, seva za MCP, skill na ratiba (zana za `system-admin`) husimama kwa idhini kila wito, ukiwa na `ai_act_mode` au bila. Ni mawakala wenye `allowed_roles: [admin]` pekee wanaopata zana hizi.
+- **Kukataliwa ni kwa mwisho.** Wito uliokataliwa hautekelezwi; badala yake modeli hupata matokeo `[REJECTED]`.
+- **Mipangilio chaguo-msingi ya mtandao.** API ya orchestrator, Qdrant, PostgreSQL na seva za MCP husikiliza kwenye `127.0.0.1` pekee.
+
+**Imewekwa alama kwa modeli:** matokeo ya zana hufika kwa modeli ndani ya fremu ambayo mistari yake ya mwanzo na mwisho ina kitambulisho cha nasibu kwa kila wito, pamoja na tangazo `[TOOL DATA ...]`; matokeo ya mawakala wadogo, kumbukumbu zilizorejeshwa na ukweli wa grafu huwekwa alama vivyo hivyo (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Chochote ndani ya data kinachoiga alama hizi au mstari wa mwisho wa fremu huonyeshwa kama nukuu, hivyo ukurasa hauwezi kufunga fremu mapema na kuendelea kana kwamba ni mtumiaji. Maelekezo ya mfumo yanaiambia modeli isifuate kamwe maagizo yaliyomo ndani. Hii inafanya prompt injection kuwa ngumu zaidi, lakini ni agizo kwa modeli, si dhamana. Safu inayotekelezwa hapo juu ndiyo inayopunguza madhara.
+
+**Maoni ya pili ya hiari:** Guardian (hapa chini) ni modeli tofauti inayokagua wito wa hatari kubwa na inaweza kuuzuia. Inaongeza kwenye safu inayotekelezwa; haichukui nafasi yake.
+
+**Kabla ya kusambaza:**
+- `AUTH_MODE=none` (chaguo-msingi) ni kwa mtumiaji mmoja kwenye mashine moja. Bandari ya GUI inafikiwa kutoka mtandaoni na hupitisha API, hivyo kwenye mtandao wowote wa pamoja weka `AUTH_MODE=local` au `sso` (angalia *Uthibitishaji na usimamizi wa wakala wengi*).
+- Kuandika kwenye kumbukumbu (`remember`) hakukaguliwi wala hakuhitaji idhini; maingizo yaliyorejeshwa huwekwa alama kama data isiyoaminika, kama ilivyo hapo juu.
+- Kisakinishi cha mstari mmoja hupeleka hati moja kwa moja kwa bash. Ili kuisoma kwanza: `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, ikague, kisha `bash install.sh`.
 
 ### Usimamizi wa usalama (Quadrumviratus)
 
 Tabaka la hiari kwa kila wakala ambalo linakagua kila simu ya zana yenye hatari kabla ya kutekelezwa. Imewezeshwa kwa `guardian: true` katika `agents.yaml`; mawakala bila bendera hii hawathiriwa.
 
-- **Guardian** — simu ya LLM iliyotengwa (bila zana) inayotathmini jina la zana na hoja na kurudisha: `NONE` (endelea), `SOFT VETO: sababu` (uamuzi wa binadamu unahitajika) au `HARD VETO: sababu` (kizuizi cha haraka).
-- **Msuluhishi (Arbiter)** — anawashwa kwenye SOFT VETO; anazalisha ripoti ya uchambuzi wa Markdown na kusimamisha grafu kupitia LangGraph `interrupt()`. Opereta anaidhinisha au kukataa kupitia Telegram `/approve` au GUI — mtiririko sawa na HITL.
-- **Mwanahistoria (Historian)** — kazi ya mapigo ya moyo inayosoma kumbukumbu ya ukaguzi ya Guardian kutoka kwa kumbukumbu na kuandika ripoti iliyoandaliwa kwenye jedwali la PostgreSQL `historian_reports`.
-- **Uainishaji wa hatari** — seva za MCP zimewekwa alama `risk: low` au `risk: high` katika `mcps.yaml`. Zana za kumbukumbu, kazi, na idhini zimewekwa kando kila wakati bila kujali kiwango cha hatari.
+- **Guardian:** simu ya LLM iliyotengwa (bila zana) inayotathmini jina la zana na hoja na kurudisha: `NONE` (endelea), `SOFT VETO: sababu` (uamuzi wa binadamu unahitajika) au `HARD VETO: sababu` (kizuizi cha haraka).
+- **Msuluhishi (Arbiter):** anawashwa kwenye SOFT VETO; anazalisha ripoti ya uchambuzi wa Markdown na kusimamisha grafu kupitia LangGraph `interrupt()`. Opereta anaidhinisha au kukataa kupitia Telegram `/approve` au GUI: mtiririko sawa na HITL.
+- **Mwanahistoria (Historian):** kazi ya mapigo ya moyo inayosoma kumbukumbu ya ukaguzi ya Guardian kutoka kwa kumbukumbu na kuandika ripoti iliyoandaliwa kwenye jedwali la PostgreSQL `historian_reports`.
+- **Uainishaji wa hatari:** seva za MCP zimewekwa alama `risk: low` au `risk: high` katika `mcps.yaml`. Zana za kumbukumbu, kazi, na idhini zimewekwa kando kila wakati bila kujali kiwango cha hatari.
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # si lazima — inarithi mtoa huduma wa wakala ikiwa tupu
+    guardian_provider: anthropic        # si lazima: inarithi mtoa huduma wa wakala ikiwa tupu
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # zana zote za playwright zinahitaji idhini ya Guardian
   - name: hu-tools
-    risk: low         # hali ya hewa, habari — zinapitishwa bila ukaguzi
+    risk: low         # hali ya hewa, habari: zinapitishwa bila ukaguzi
 ```
 
 Mwisho wa `/guardian/log` unarejesha kumbukumbu ya ukaguzi ya moja kwa moja (maamuzi 1,000 ya hivi karibuni).
@@ -228,13 +251,13 @@ Mwisho wa `/guardian/log` unarejesha kumbukumbu ya ukaguzi ya moja kwa moja (maa
 
 | Hali | Maelezo |
 |---|---|
-| `AUTH_MODE=none` | Wazi — bila uthibitishaji (chaguo-msingi, inafaa kwa matumizi ya ndani ya nchi) |
+| `AUTH_MODE=none` | Wazi: bila uthibitishaji (chaguo-msingi, inafaa kwa matumizi ya ndani ya nchi) |
 | `AUTH_MODE=local` | Tokeni ya Bearer; watumiaji wamewekwa katika `LOCAL_USERS=mtumiaji1:nywila1,...` |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT, au mtoa huduma wowote wa OIDC (Auth0, Okta, Authelia, …) |
 
 **Utenganisho kwa kila mtumiaji.** Katika hali ya watumiaji wengi, kumbukumbu
 na grafu ya maarifa ya kila mtumiaji zimetenganishwa: kumbukumbu ya muda mrefu
-huingia katika mkusanyo wake wa Qdrant na grafu katika `scope` yake — kusoma
+huingia katika mkusanyo wake wa Qdrant na grafu katika `scope` yake: kusoma
 huona data yake mwenyewe na safu ya pamoja iliyoandaliwa na msimamizi, kamwe si
 ya mtumiaji mwingine. Matengenezo ya usiku pia hufanyika **kwa kila
 mtumiaji**.
@@ -251,7 +274,7 @@ Inakubali webhooks zilizosainiwa kutoka: GitHub, Gitea, Drone CI, Grafana, n8n, 
 
 ### Hifadhi nakala na kudumisha usanidi
 
-Data yote ya wakati wa utekelezaji iko katika `data/` kama bind mounts; usanidi wote katika faili za YAML — hakuna hali iliyofichwa ndani ya kontena.
+Data yote ya wakati wa utekelezaji iko katika `data/` kama bind mounts; usanidi wote katika faili za YAML: hakuna hali iliyofichwa ndani ya kontena.
 
 **Tengeneza nakala ya hifadhi** (inajumuisha `.env` + `data/`):
 
@@ -294,15 +317,15 @@ Kila daraja linaonyesha `/notify` (arifa za kusukuma kutoka kwa mpanga) na `/hea
 
 Wasifu wa Compose: `mic`
 
-- openWakeWord — neno la kuamsha linaloweza kusanidiwa (chaguo-msingi: "Ok Szif").
-- Wyoming Whisper — STT ya ndani ya nchi, bila wingu.
-- Wyoming Piper — TTS ya ndani ya nchi.
+- openWakeWord: neno la kuamsha linaloweza kusanidiwa (chaguo-msingi: "Ok Szif").
+- Wyoming Whisper: STT ya ndani ya nchi, bila wingu.
+- Wyoming Piper: TTS ya ndani ya nchi.
 - Muunganiko wa socket ya PulseAudio kwa kompyuta za Linux.
 
 **Maelezo ya jukwaa:**
 
-- **Linux** — kisakinishi hugundua UID yako na kuunganisha socket sahihi ya PulseAudio (`/run/user/<uid>/pulse`) kiotomatiki.
-- **macOS / Windows** — Docker Desktop haipitishi vifaa vya sauti. Kisakinishi huandika usanidi wa PulseAudio TCP badala yake. Sanidi PulseAudio katika hali ya TCP kabla ya kuanzisha chombo cha mic:
+- **Linux:** kisakinishi hugundua UID yako na kuunganisha socket sahihi ya PulseAudio (`/run/user/<uid>/pulse`) kiotomatiki.
+- **macOS / Windows:** Docker Desktop haipitishi vifaa vya sauti. Kisakinishi huandika usanidi wa PulseAudio TCP badala yake. Sanidi PulseAudio katika hali ya TCP kabla ya kuanzisha chombo cha mic:
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows (asili): pakua PulseAudio kwa Windows, ondoa maoni ya `module-native-protocol-tcp` katika `default.pa`, ruhusu bandari 4713 kwenye ngome ya moto.
@@ -323,7 +346,7 @@ Inaonyesha Whisper na Piper kama APIs za HTTP ambazo mawakala wanaweza kuziita k
 
 ## GUI
 
-Wasifu wa Compose: `gui` — inapatikana kwenye `http://localhost:3000`
+Wasifu wa Compose: `gui`: inapatikana kwenye `http://localhost:3000`
 
 Imejengwa kwa React, Vite, na Tailwind CSS.
 
@@ -347,7 +370,7 @@ Imejengwa kwa React, Vite, na Tailwind CSS.
 ### Mahitaji ya awali
 
 - Docker Engine 24+ na Docker Compose v2.
-- Python 3.8+ kwa `install.py` — bila pip au virtualenv.
+- Python 3.8+ kwa `install.py`: bila pip au virtualenv.
 - Kwa mifano ya ndani ya nchi: Ollama inayofanya kazi kwenye mwenyeji kwenye bandari 11434.
 
 ### Unda mtandao ulioshirikiwa (mara moja kwa kila mwenyeji)
@@ -396,43 +419,43 @@ Nakili `.env.example` kwenda `.env` na jaza unachohitaji. Faili ya `.env.example
 
 | Ufunguo | Chaguo-msingi | Maelezo |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | Wasifu ulioanishwa kwa koma wa kuanzisha |
+| `COMPOSE_PROFILES` |: | Wasifu ulioanishwa kwa koma wa kuanzisha |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | Bandari ya FastAPI ya mpanga |
 | `GUI_PORT` | `3000` | Bandari ya GUI |
 | `QDRANT_HTTP_PORT` | `6333` | Bandari ya REST ya Qdrant |
 | `POSTGRES_PORT` | `5433` | Bandari ya PostgreSQL |
-| `POSTGRES_PASSWORD` | `changeme` | Nywila ya PostgreSQL — ibadilishe! |
+| `POSTGRES_PASSWORD` | `changeme` | Nywila ya PostgreSQL: ibadilishe! |
 | `TRACE_RETENTION_DAYS` | `14` | Futa kiotomatiki nyayo za zamani kuliko siku N |
-| `ANTHROPIC_API_KEY` | — | Inahitajika kwa mtoa huduma wa Anthropic |
-| `OPENROUTER_API_KEY` | — | Inahitajika kwa OpenRouter |
-| `OPENAI_API_KEY` | — | Inahitajika kwa OpenAI |
-| `GOOGLE_API_KEY` | — | Inahitajika kwa Google Gemini |
-| `TELEGRAM_BOT_TOKEN` | — | Inahitajika kwa daraja la Telegram |
-| `TELEGRAM_CHAT_ID` | — | Kitambulisho cha gumzo la Telegram cha kukubali ujumbe |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | Kitambulisho cha gumzo kwa arifa za ukamilishaji wa kazi (sawa na `TELEGRAM_CHAT_ID` kama ni moja) |
-| `MATRIX_HOMESERVER` | — | URL ya seva ya Matrix |
-| `MATRIX_ACCESS_TOKEN` | — | Tokeni ya ufikiaji ya boti ya Matrix |
-| `DISCORD_BOT_TOKEN` | — | Inahitajika kwa daraja la Discord |
-| `SLACK_BOT_TOKEN` | — | Inahitajika kwa daraja la Slack |
-| `SLACK_APP_TOKEN` | — | Inahitajika kwa Slack Socket Mode |
-| `SIGNAL_PHONE` | — | Nambari ya simu kwa daraja la Signal |
-| `VIBER_AUTH_TOKEN` | — | Inahitajika kwa daraja la Viber |
+| `ANTHROPIC_API_KEY` |: | Inahitajika kwa mtoa huduma wa Anthropic |
+| `OPENROUTER_API_KEY` |: | Inahitajika kwa OpenRouter |
+| `OPENAI_API_KEY` |: | Inahitajika kwa OpenAI |
+| `GOOGLE_API_KEY` |: | Inahitajika kwa Google Gemini |
+| `TELEGRAM_BOT_TOKEN` |: | Inahitajika kwa daraja la Telegram |
+| `TELEGRAM_CHAT_ID` |: | Kitambulisho cha gumzo la Telegram cha kukubali ujumbe |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | Kitambulisho cha gumzo kwa arifa za ukamilishaji wa kazi (sawa na `TELEGRAM_CHAT_ID` kama ni moja) |
+| `MATRIX_HOMESERVER` |: | URL ya seva ya Matrix |
+| `MATRIX_ACCESS_TOKEN` |: | Tokeni ya ufikiaji ya boti ya Matrix |
+| `DISCORD_BOT_TOKEN` |: | Inahitajika kwa daraja la Discord |
+| `SLACK_BOT_TOKEN` |: | Inahitajika kwa daraja la Slack |
+| `SLACK_APP_TOKEN` |: | Inahitajika kwa Slack Socket Mode |
+| `SIGNAL_PHONE` |: | Nambari ya simu kwa daraja la Signal |
+| `VIBER_AUTH_TOKEN` |: | Inahitajika kwa daraja la Viber |
 | `HA_URL` | `http://homeassistant:8123` | URL ya msingi ya Home Assistant |
-| `HA_TOKEN` | — | Tokeni ya ufikiaji ya muda mrefu ya HA |
-| `IMAP_HOST` | — | Seva ya IMAP kwa Email MCP |
-| `SMTP_HOST` | — | Seva ya SMTP kwa Email MCP |
-| `FALKORDB_URL` | — | Weka ili kuwezesha grafu ya maarifa |
-| `VAPID_EMAIL` | — | Inahitajika kwa arifa za kusukuma wavuti |
-| `VAPID_PRIVATE_KEY` | — | Inazalishwa kiotomatiki na kisakinishi (inahitaji kifurushi cha Python `cryptography`); vinginevyo endesha `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | Inazalishwa pamoja na ufunguo wa siri |
+| `HA_TOKEN` |: | Tokeni ya ufikiaji ya muda mrefu ya HA |
+| `IMAP_HOST` |: | Seva ya IMAP kwa Email MCP |
+| `SMTP_HOST` |: | Seva ya SMTP kwa Email MCP |
+| `FALKORDB_URL` |: | Weka ili kuwezesha grafu ya maarifa |
+| `VAPID_EMAIL` |: | Inahitajika kwa arifa za kusukuma wavuti |
+| `VAPID_PRIVATE_KEY` |: | Inazalishwa kiotomatiki na kisakinishi (inahitaji kifurushi cha Python `cryptography`); vinginevyo endesha `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | Inazalishwa pamoja na ufunguo wa siri |
 | `HU_TOOLS_PORT` | `4300` | Bandari ya MCP ya hu-tools |
 | `WHISPER_URL` | `http://whisper-http:8000` | URL ya huduma ya STT |
 | `PIPER_URL` | `http://piper-http:5000` | URL ya huduma ya TTS |
-| `ORCHESTRATOR_API_KEY` | — | Inazalishwa kiotomatiki na kisakinishi; tokeni ya huduma-kwa-huduma kwa madaraja (inahitajika katika `AUTH_MODE=local/sso`) |
-| `CONVERSATION_API_KEY` | — | Inazalishwa kiotomatiki na kisakinishi; inalinda mwisho wa HA `/conversation` (tupu = wazi) |
+| `ORCHESTRATOR_API_KEY` |: | Inazalishwa kiotomatiki na kisakinishi; tokeni ya huduma-kwa-huduma kwa madaraja (inahitajika katika `AUTH_MODE=local/sso`) |
+| `CONVERSATION_API_KEY` |: | Inazalishwa kiotomatiki na kisakinishi; inalinda mwisho wa HA `/conversation` (tupu = wazi) |
 
-Mawakala yanasanidiwa katika `orchestrator/agents.yaml` — si katika `.env`.
+Mawakala yanasanidiwa katika `orchestrator/agents.yaml`: si katika `.env`.
 
 ---
 
@@ -493,7 +516,7 @@ Ongeza `crm` kwenye orodha ya `tools:` ya wakala katika `agents.yaml` ili kumpa 
 
 ---
 
-## jog.gov.hu MCP — Utafutaji wa Sheria ya Hungaria
+## jog.gov.hu MCP: Utafutaji wa Sheria ya Hungaria
 
 MCP ya jog.gov.hu (`mcps/jog-hu/`) hutoa taarifa za kisheria za Hungaria kwa mawakala ya AI katika hali mbili za utumiaji:
 
@@ -501,7 +524,7 @@ MCP ya jog.gov.hu (`mcps/jog-hu/`) hutoa taarifa za kisheria za Hungaria kwa maw
 
 | Zana | Maelezo |
 |---|---|
-| `search_njt_laws(keywords)` | Utafutaji wa maneno muhimu kwenye njt.jog.gov.hu — inarudisha majina ya sheria yanayolingana na URL |
+| `search_njt_laws(keywords)` | Utafutaji wa maneno muhimu kwenye njt.jog.gov.hu: inarudisha majina ya sheria yanayolingana na URL |
 | `get_law_text(law_id, section)` | Maandishi kamili au sehemu ya sheria kutoka njt.hu (k.m. `"2012. évi I. törvény"`, sehemu `"69"`) |
 | `list_recent_laws(category, days)` | Sheria za hivi karibuni kutoka kipengele cha RSS cha Magyar Közlöny |
 
@@ -511,18 +534,18 @@ MCP ya jog.gov.hu (`mcps/jog-hu/`) hutoa taarifa za kisheria za Hungaria kwa maw
 |---|---|
 | `search_law(question)` | Swali la lugha ya kawaida → jibu la AI + marejeo ya sheria yaliyonukuliwa (jog.gov.hu) |
 
-reCAPTCHA v3 hupima vikao kwa msingi wa **sifa ya IP**, si uonyeshaji wa picha. Anwani za IP za kontena za Docker na seva za wingu/VPS zinaainishwa kama masafa ya kituo cha data na kupata alama ya chini ya uaminifu — bila kujali maboresho ya alama ya kidole cha kivinjari. Mashine ya nyumbani au ofisini yenye **IP ya makazi** inapata alama ya juu ya kutosha kupita. Onyeshaji wa picha **hauhitajiki** — kivinjari hufanya kazi bila kichwa; onyeshaji hana umuhimu.
+reCAPTCHA v3 hupima vikao kwa msingi wa **sifa ya IP**, si uonyeshaji wa picha. Anwani za IP za kontena za Docker na seva za wingu/VPS zinaainishwa kama masafa ya kituo cha data na kupata alama ya chini ya uaminifu: bila kujali maboresho ya alama ya kidole cha kivinjari. Mashine ya nyumbani au ofisini yenye **IP ya makazi** inapata alama ya juu ya kutosha kupita. Onyeshaji wa picha **hauhitajiki:** kivinjari hufanya kazi bila kichwa; onyeshaji hana umuhimu.
 
-**Kuanza haraka (zana za Docker — zinafanya kazi daima):**
+**Kuanza haraka (zana za Docker, zinafanya kazi daima):**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**Anzisha seva ya mwenyeji (utafutaji wa AI — IP ya makazi inahitajika):**
+**Anzisha seva ya mwenyeji (utafutaji wa AI, IP ya makazi inahitajika):**
 ```bash
 # Inafanya kazi kwenye: kompyuta ya mezani au kompyuta ya mkononi ya nyumbani/ofisini (Windows, macOS, Linux)
 # HAIFANYI KAZI kwenye: seva za wingu/VPS (anwani za IP za kituo cha data zimezuiwa na reCAPTCHA)
-# Onyeshaji wa picha HAUHITAJIKI — hufanya kazi bila kichwa
+# Onyeshaji wa picha HAUHITAJIKI: hufanya kazi bila kichwa
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -537,7 +560,7 @@ python3 mcps/jog-hu/host_server.py --stop          # simamisha daemon
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# Hiari — tu iwapo host_server.py inafanya kazi:
+# Hiari: tu iwapo host_server.py inafanya kazi:
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

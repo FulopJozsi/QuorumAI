@@ -11,7 +11,7 @@ QuorumAI est un système d'orchestration multi-agents modulaire et auto-héberg�
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">Commencer — inscrivez-vous pour un essai gratuit de 30 jours »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">Commencer: inscrivez-vous pour un essai gratuit de 30 jours »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ QuorumAI est un système d'orchestration multi-agents modulaire et auto-héberg�
 
 QuorumAI transforme un ou plusieurs LLM en une équipe d'agents IA capables de :
 
-- Répondre à des questions, lire les actualités, contrôler des appareils domotiques — depuis un microphone, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber ou IRC.
+- Répondre à des questions, lire les actualités, contrôler des appareils domotiques: depuis un microphone, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber ou IRC.
 - Déléguer le travail entre des rôles spécialisés (PDG, développeur, commercial) et maintenir une mémoire à long terme entre les sessions grâce à la recherche vectorielle Qdrant.
 - Exécuter des tâches de manière autonome via un planificateur heartbeat, demander une approbation humaine si nécessaire (HITL) et exposer chaque capacité externe comme serveur MCP (Model Context Protocol).
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 L'installateur propose par défaut une **installation rapide** : il ne demande que la clé de licence (essai gratuit de 30 jours : https://license.quorumai.eu), utilise les valeurs par défaut pour le reste et démarre QuorumAI. **Avancée** conserve le menu complet des modules et ports. **Pour mettre à jour**, relancez la même commande : elle détecte l'installation existante, conserve paramètres et données et télécharge les nouvelles versions.
 
-**Windows (PowerShell — exécuter en tant qu'Administrateur) :**
+**Windows (PowerShell, exécuter en tant qu'Administrateur) :**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ Ou téléchargez `install.bat` / `install.ps1` depuis le dépôt et double-cliqu
 
 ### Vous avez déjà Python 3 et Docker ?
 
-Clonez le dépôt et exécutez l'installateur interactif directement — pip et dépendances supplémentaires ne sont pas nécessaires :
+Clonez le dépôt et exécutez l'installateur interactif directement: pip et dépendances supplémentaires ne sont pas nécessaires :
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ L'installateur :
 - Écrit `.env` à partir de vos réponses, crée les répertoires bind-mount `data/` et exécute `docker compose up -d`.
 - L'interface de l'installateur est disponible en 16 langues.
 
-**Mode Satellite** — exécuter le micro, des bridges ou des serveurs MCP sur une machine séparée :
+**Mode Satellite:** exécuter le micro, des bridges ou des serveurs MCP sur une machine séparée :
 ```bash
 python3 install.py   # choisissez "Satellite" lorsque demandé
 ```
@@ -126,7 +126,7 @@ Interface graphique : `http://localhost:3000`
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Chaque couche réside dans son propre répertoire avec son propre `compose.yml`. La `compose.yml` racine regroupe toutes les couches via `include:` et les profils Docker Compose — vous ne démarrez que ce dont vous avez besoin.
+Chaque couche réside dans son propre répertoire avec son propre `compose.yml`. La `compose.yml` racine regroupe toutes les couches via `include:` et les profils Docker Compose: vous ne démarrez que ce dont vous avez besoin.
 
 ---
 
@@ -134,15 +134,15 @@ Chaque couche réside dans son propre répertoire avec son propre `compose.yml`.
 
 ### Orchestration principale
 
-- **Runtime LangGraph** — graphe d'agents à machine d'état, checkpointing HITL natif, `AsyncPostgresSaver`.
-- **API HTTP FastAPI** — `POST /invoke`, `GET /health`, streaming, récepteur webhook, relais de notifications push.
-- **agents.yaml** — déclarez les agents en YAML : nom, rôle, fournisseur, modèle, chemin du prompt système, outils.
-- **Rechargement à chaud** — `POST /agents/reload` recharge `agents.yaml` sans redémarrer le conteneur.
-- **Protocole d'outils MCP** — chaque capacité externe est un serveur MCP ; les agents découvrent les outils automatiquement.
-- **Mémoire vectorielle Qdrant** — recherche hybride sémantique + BM42 lexicale, embeddings multilingual-e5-large, collections par agent, déduplication cosinus, rappel diversifié par MMR.
-- **Consolidation mémorielle nocturne** — tâche de « rêve » planifiée qui distille l'historique de session PostgreSQL en faits Qdrant à long terme ; fusionne les progressions, supprime les entrées éphémères obsolètes ; état suivi dans PostgreSQL.
-- **PostgreSQL** — checkpointer `AsyncPostgresSaver` + tables de tâches et commentaires.
-- **Graphe de connaissances** — FalkorDB (compatible Redis), requêtes Cypher par utilisateur, extraction automatique d'entités.
+- **Runtime LangGraph:** graphe d'agents à machine d'état, checkpointing HITL natif, `AsyncPostgresSaver`.
+- **API HTTP FastAPI:** `POST /invoke`, `GET /health`, streaming, récepteur webhook, relais de notifications push.
+- **agents.yaml:** déclarez les agents en YAML : nom, rôle, fournisseur, modèle, chemin du prompt système, outils.
+- **Rechargement à chaud:** `POST /agents/reload` recharge `agents.yaml` sans redémarrer le conteneur.
+- **Protocole d'outils MCP:** chaque capacité externe est un serveur MCP ; les agents découvrent les outils automatiquement.
+- **Mémoire vectorielle Qdrant:** recherche hybride sémantique + BM42 lexicale, embeddings multilingual-e5-large, collections par agent, déduplication cosinus, rappel diversifié par MMR.
+- **Consolidation mémorielle nocturne:** tâche de « rêve » planifiée qui distille l'historique de session PostgreSQL en faits Qdrant à long terme ; fusionne les progressions, supprime les entrées éphémères obsolètes ; état suivi dans PostgreSQL.
+- **PostgreSQL:** checkpointer `AsyncPostgresSaver` + tables de tâches et commentaires.
+- **Graphe de connaissances:** FalkorDB (compatible Redis), requêtes Cypher par utilisateur, extraction automatique d'entités.
 
 ### Fournisseurs LLM (par agent, configurés dans agents.yaml)
 
@@ -161,9 +161,11 @@ Chaque couche réside dans son propre répertoire avec son propre `compose.yml`.
 | | Eden AI (agrégateur) |
 | | NVIDIA NIM (niveau gratuit disponible) |
 
-Aucune clé API n'est nécessaire pour commencer — Ollama fonctionne localement et gratuitement.
+Aucune clé API n'est nécessaire pour commencer: Ollama fonctionne localement et gratuitement.
 
-**Pools de fournisseurs** — plusieurs serveurs locaux identiques (p. ex. six machines Ollama) peuvent être regroupés dans un pool nommé. L'orchestrateur distribue les requêtes par algorithme least-connections ; si tous les membres du pool échouent, il bascule sur la chaîne de fallback habituelle. Configuré dans `providers.yaml`, gérable depuis l'onglet Fournisseurs de la GUI.
+**Pools de fournisseurs:** plusieurs serveurs locaux identiques (p. ex. six machines Ollama) peuvent être regroupés dans un pool nommé. L'orchestrateur distribue les requêtes par algorithme least-connections ; si tous les membres du pool échouent, il bascule sur la chaîne de fallback habituelle. Configuré dans `providers.yaml`, gérable depuis l'onglet Fournisseurs de la GUI.
+
+**Repli et refroidissement :** quand un appel échoue, l'agent passe à l'entrée suivante de sa chaîne de repli et ne refroidit que ce qui a échoué : un modèle (son hôte en amont est surchargé, le modèle est inconnu ou absent de l'abonnement), tous les modèles gratuits (`:free`) d'une connexion (le quota gratuit est épuisé) ou tout le fournisseur (limite de débit du compte, erreur d'authentification ou de connexion). Un refroidissement commence à 5 minutes et double à chaque nouvel échec, jusqu'à 60 minutes ; un appel réussi le lève.
 
 ### Simulation d'entreprise multi-agents
 
@@ -172,10 +174,10 @@ Aucune clé API n'est nécessaire pour commencer — Ollama fonctionne localemen
 - **Sous-agents en arrière-plan** : `invoke_agent` attend jusqu'à 5 minutes ; une exécution plus longue continue en arrière-plan comme tâche kanban, et l'agent appelant rapporte le résultat de lui-même une fois terminé (GUI en direct, tous les bridges, micro). Chaque exécution de sous-agent a son propre fil consultable.
 - **Mode apprentissage et suivi de progression** : l'outil `text-compare` compare une récitation (poème, texte de rôle, définitions) mot à mot et signale aussitôt une strophe sautée ; en session vocale, l'agent reprend la parole de lui-même après un silence, avec des indices gradués (premier mot, vers, strophe). L'outil `progress` montre à chaque tour où en est le travail, conserve la progression d'apprentissage par utilisateur d'un jour à l'autre et la transforme en tâche kanban en un seul appel. Agents prêts à l'emploi : le pack sectoriel `education`. Le micro peut aussi écouter en continu sans mot d'activation, réglé par agent (seuil de silence, paliers de relance, arrêt automatique) ; l'agent auquel parle le micro se choisit dans la GUI.
 - Agents pipeline : boucles planificateur → exécuteur → réviseur avec état partagé.
-- **Agents autonomes (Deep)** — définissez `deep: true` sur un agent ou une étape de pipeline pour activer la boucle ReAct LangGraph intégrée. L'agent planifie, exécute et itère de façon autonome — il appelle des outils successivement jusqu'à ce que la tâche soit terminée ou que la limite optionnelle d'appels d'outils soit atteinte (`deep_max_steps`, 0 = illimité). Configurable par agent et par étape de pipeline ; bascule disponible dans le GUI Agent Builder.
+- **Agents autonomes (Deep):** définissez `deep: true` sur un agent ou une étape de pipeline pour activer la boucle ReAct LangGraph intégrée. L'agent planifie, exécute et itère de façon autonome: il appelle des outils successivement jusqu'à ce que la tâche soit terminée ou que la limite optionnelle d'appels d'outils soit atteinte (`deep_max_steps`, 0 = illimité). Configurable par agent et par étape de pipeline ; bascule disponible dans le GUI Agent Builder.
 - Bibliothèque de compétences : fichiers Markdown de compétences, chargement paresseux par agent, place de marché communautaire pour le partage.
 - Espace de travail partagé : les agents peuvent lire et écrire dans une zone de fichiers partagée.
-- **Outils d'administration** — les agents dotés du rôle `admin` peuvent créer et supprimer des agents, des compétences, des serveurs MCP, des tâches cron et des planifications heartbeat au moment de l'exécution via les outils `system-admin`. Chaque action d'écriture nécessite une approbation HITL avant exécution.
+- **Outils d'administration:** les agents dotés du rôle `admin` peuvent créer et supprimer des agents, des compétences, des serveurs MCP, des tâches cron et des planifications heartbeat au moment de l'exécution via les outils `system-admin`. Chaque action d'écriture nécessite une approbation HITL avant exécution.
 
 ### Gestion des tâches et autonomie
 
@@ -184,30 +186,51 @@ Aucune clé API n'est nécessaire pour commencer — Ollama fonctionne localemen
 - Exécution autonome avec points d'approbation HITL (Telegram `/approve`, boutons GUI).
 - Notifications push : Telegram, Home Assistant `notify`, web push (VAPID). Les tâches peuvent spécifier un champ `notify_channel` pour que le message de fin soit toujours envoyé au bon bridge, quelle que soit la session qui a créé la tâche. Les agents peuvent appeler `list_notify_channels()` pour découvrir les canaux disponibles au moment de l'exécution.
 
-**Tâches sur plusieurs jours** — le modèle recommandé pour les travaux de longue durée s'étalant sur des heures ou des jours :
+**Tâches sur plusieurs jours:** le modèle recommandé pour les travaux de longue durée s'étalant sur des heures ou des jours :
 1. Créez une tâche avec un titre et une description (via le chat, Telegram ou le tableau Kanban de l'interface).
 2. L'agent (ou vous) appelle `set_subtasks` pour la diviser en étapes nommées.
-3. Chaque exécution heartbeat récupère la prochaine sous-tâche en attente, l'accomplit et s'arrête — les sessions LLM individuelles restent courtes et ciblées.
+3. Chaque exécution heartbeat récupère la prochaine sous-tâche en attente, l'accomplit et s'arrête: les sessions LLM individuelles restent courtes et ciblées.
 4. La progression, les décisions et les résultats intermédiaires sont stockés en commentaires de tâche, de sorte que chaque exécution suivante dispose du contexte complet de ce qui s'est passé avant.
 5. Lorsque toutes les sous-tâches sont terminées, l'agent ferme la tâche et envoie une notification de complétion.
 
-Ce modèle fonctionne sans modification de code — il repose sur les outils de tâches existants (`set_subtasks`, `get_next_subtask`, `complete_subtask`) auxquels tout agent disposant de la source d'outils `tasks` a accès.
+Ce modèle fonctionne sans modification de code: il repose sur les outils de tâches existants (`set_subtasks`, `get_next_subtask`, `complete_subtask`) auxquels tout agent disposant de la source d'outils `tasks` a accès.
+
+### Modèle de sécurité
+
+QuorumAI sépare ce que le code impose de ce qu'il demande seulement au modèle. Comme le texte externe est marqué, le modèle ignorera très probablement des instructions cachées dans une page web ou un document, mais c'est une probabilité, pas une garantie. S'il est tout de même trompé, il ne peut utiliser que ses propres outils, et pour les étapes risquées c'est un humain qui décide.
+
+**Imposé par le code :**
+- **Liste d'outils autorisés par agent.** Un agent ne reçoit que les serveurs MCP et groupes d'outils système listés dans sa propre configuration (`tools:` dans `agents.yaml`, ou l'Agent Builder). Un agent marketing sans le MCP Grafana n'a aucun outil Grafana à appeler, quoi que dise son entrée.
+- **Classification des risques.** Les outils intégrés ont un niveau de risque fixe (`write_file`, `delete_file`, `python_repl` et `http_post` sont élevés), les commandes shell sont classées par motif (`rm -r`, `curl | sh`, `ssh`, reverse shells et similaires) et les serveurs MCP selon leur réglage `risk:` dans `mcps.yaml`.
+- **Approbation humaine obligatoire.** Avec `ai_act_mode: true`, chaque appel à haut risque s'arrête avant de s'exécuter et attend qu'un humain l'approuve ou le rejette (dans la GUI ou sur n'importe quel bridge de chat). La vérification s'exécute dans le graphe de l'agent, pas dans le modèle, donc le modèle ne peut pas la contourner.
+- **Les modifications du système exigent toujours un humain.** Créer ou supprimer des agents, serveurs MCP, skills et planifications (les outils `system-admin`) attend une approbation à chaque appel, avec ou sans `ai_act_mode`. Seuls les agents avec `allowed_roles: [admin]` reçoivent ces outils.
+- **Un refus est définitif.** Un appel refusé ne s'exécute pas ; le modèle reçoit à la place un résultat `[REJECTED]`.
+- **Valeurs réseau par défaut.** L'API de l'orchestrateur, Qdrant, PostgreSQL et les serveurs MCP n'écoutent que sur `127.0.0.1`.
+
+**Marqué pour le modèle :** la sortie des outils parvient au modèle dans un cadre dont les lignes de début et de fin portent un identifiant aléatoire par appel, avec un avertissement `[TOOL DATA ...]` ; les résultats des sous-agents, les souvenirs rappelés et les faits du graphe sont marqués de la même façon (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Tout ce qui, dans les données, imite ces marqueurs ou la ligne de fin du cadre apparaît sous forme citée, si bien qu'une page ne peut pas fermer le cadre prématurément et poursuivre comme si elle était l'utilisateur. Le prompt système demande au modèle de ne jamais suivre les instructions trouvées à l'intérieur. Cela rend l'injection de prompt bien plus difficile, mais c'est une instruction au modèle, pas une garantie. C'est la couche imposée ci-dessus qui limite les dégâts.
+
+**Second avis facultatif :** le Guardian (ci-dessous) est un modèle distinct qui examine les appels à haut risque et peut y opposer son veto. Il complète la couche imposée, il ne la remplace pas.
+
+**Avant le déploiement :**
+- `AUTH_MODE=none` (par défaut) est prévu pour un utilisateur sur une machine. Le port de la GUI est accessible depuis le réseau et relaie l'API, donc sur tout réseau partagé, réglez `AUTH_MODE=local` ou `sso` (voir *Authentification et multi-tenancy*).
+- Les écritures en mémoire (`remember`) ne sont ni examinées ni soumises à approbation ; les entrées rappelées sont marquées comme données non fiables, comme ci-dessus.
+- L'installateur en une ligne envoie un script directement à bash. Pour le lire d'abord : `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, relisez-le, puis `bash install.sh`.
 
 ### Supervision de sécurité (Quadrumvirat)
 
 Une couche optionnelle par agent qui contrôle chaque appel d'outil risqué avant son exécution. Activée avec `guardian: true` dans `agents.yaml` ; les agents sans ce drapeau ne sont pas affectés.
 
-- **Guardian** — un appel LLM isolé (sans outils) qui évalue le nom et les arguments de l'outil et retourne : `NONE` (continuer), `SOFT VETO: raison` (décision humaine requise) ou `HARD VETO: raison` (blocage immédiat).
-- **Arbitre** — activé sur SOFT VETO ; génère un rapport d'analyse Markdown et suspend le graphe via LangGraph `interrupt()`. L'opérateur approuve ou refuse via Telegram `/approve` ou l'interface — même flux que le HITL.
-- **Historien** — une tâche heartbeat qui lit le journal d'audit Guardian en mémoire et écrit un rapport structuré dans la table PostgreSQL `historian_reports`.
-- **Classification des risques** — les serveurs MCP sont étiquetés `risk: low` ou `risk: high` dans `mcps.yaml`. Les outils de mémoire, de tâche et d'approbation sont toujours exclus du contrôle.
+- **Guardian:** un appel LLM isolé (sans outils) qui évalue le nom et les arguments de l'outil et retourne : `NONE` (continuer), `SOFT VETO: raison` (décision humaine requise) ou `HARD VETO: raison` (blocage immédiat).
+- **Arbitre:** activé sur SOFT VETO ; génère un rapport d'analyse Markdown et suspend le graphe via LangGraph `interrupt()`. L'opérateur approuve ou refuse via Telegram `/approve` ou l'interface: même flux que le HITL.
+- **Historien:** une tâche heartbeat qui lit le journal d'audit Guardian en mémoire et écrit un rapport structuré dans la table PostgreSQL `historian_reports`.
+- **Classification des risques:** les serveurs MCP sont étiquetés `risk: low` ou `risk: high` dans `mcps.yaml`. Les outils de mémoire, de tâche et d'approbation sont toujours exclus du contrôle.
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # optionnel — hérite du provider de l'agent si vide
+    guardian_provider: anthropic        # optionnel: hérite du provider de l'agent si vide
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # tous les outils playwright nécessitent l'approbation du Guardian
   - name: hu-tools
-    risk: low         # météo, actualités — transmis sans contrôle
+    risk: low         # météo, actualités: transmis sans contrôle
 ```
 
 L'endpoint `/guardian/log` retourne le journal d'audit en direct (1 000 dernières décisions).
@@ -228,13 +251,13 @@ L'endpoint `/guardian/log` retourne le journal d'audit en direct (1 000 dernièr
 
 | Mode | Description |
 |---|---|
-| `AUTH_MODE=none` | Ouvert — sans authentification (par défaut, pour usage local) |
+| `AUTH_MODE=none` | Ouvert: sans authentification (par défaut, pour usage local) |
 | `AUTH_MODE=local` | Token Bearer ; utilisateurs définis dans `LOCAL_USERS=user1:pass1,...` |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT ou tout fournisseur OIDC (Auth0, Okta, Authelia, …) |
 
 **Isolation par utilisateur.** En mode multi-utilisateur, la mémoire et le
 graphe de connaissances de chaque utilisateur sont séparés : la mémoire à long
-terme va dans sa propre collection Qdrant et le graphe dans son propre `scope` —
+terme va dans sa propre collection Qdrant et le graphe dans son propre `scope`:
 une lecture voit ses propres données et la couche commune gérée par
 l'administrateur, jamais celles d'un autre. La maintenance nocturne s'exécute
 également **par utilisateur**.
@@ -251,7 +274,7 @@ Accepte des webhooks signés depuis : GitHub, Gitea, Drone CI, Grafana, n8n, Sla
 
 ### Sauvegarde et persistance de la configuration
 
-Toutes les données d'exécution sont dans `data/` en bind mounts ; toute la configuration dans des fichiers YAML — aucun état caché dans les conteneurs.
+Toutes les données d'exécution sont dans `data/` en bind mounts ; toute la configuration dans des fichiers YAML: aucun état caché dans les conteneurs.
 
 **Créer une sauvegarde** (inclut `.env` + `data/`) :
 
@@ -294,15 +317,15 @@ Chaque bridge expose `/notify` (pour les notifications push depuis l'orchestrate
 
 Profil Compose : `mic`
 
-- openWakeWord — mot de réveil configurable (par défaut : "Ok Szif").
-- Wyoming Whisper — STT local, sans cloud requis.
-- Wyoming Piper — TTS local.
+- openWakeWord: mot de réveil configurable (par défaut : "Ok Szif").
+- Wyoming Whisper: STT local, sans cloud requis.
+- Wyoming Piper: TTS local.
 - Montage de socket PulseAudio pour bureaux Linux.
 
 **Notes sur la plateforme :**
 
-- **Linux** — l'installateur détecte votre UID et monte automatiquement le bon socket PulseAudio (`/run/user/<uid>/pulse`).
-- **macOS / Windows** — Docker Desktop ne transfère pas les périphériques audio. L'installateur écrit une configuration PulseAudio TCP à la place. Configurez PulseAudio en mode TCP avant de démarrer le conteneur mic :
+- **Linux:** l'installateur détecte votre UID et monte automatiquement le bon socket PulseAudio (`/run/user/<uid>/pulse`).
+- **macOS / Windows:** Docker Desktop ne transfère pas les périphériques audio. L'installateur écrit une configuration PulseAudio TCP à la place. Configurez PulseAudio en mode TCP avant de démarrer le conteneur mic :
   - macOS : `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2) : `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows (natif) : téléchargez PulseAudio pour Windows, décommentez `module-native-protocol-tcp` dans `default.pa`, autorisez le port 4713 dans le pare-feu.
@@ -323,7 +346,7 @@ Expose Whisper et Piper comme des API HTTP que les agents peuvent appeler en tan
 
 ## Interface graphique
 
-Profil Compose : `gui` — disponible à `http://localhost:3000`
+Profil Compose : `gui`: disponible à `http://localhost:3000`
 
 Construit avec React, Vite et Tailwind CSS.
 
@@ -347,7 +370,7 @@ Construit avec React, Vite et Tailwind CSS.
 ### Prérequis
 
 - Docker Engine 24+ et Docker Compose v2.
-- Python 3.8+ pour `install.py` — ni pip ni virtualenv requis.
+- Python 3.8+ pour `install.py`: ni pip ni virtualenv requis.
 - Pour les modèles locaux : Ollama en cours d'exécution sur l'hôte au port 11434.
 
 ### Créer le réseau partagé (une fois par hôte)
@@ -396,43 +419,43 @@ Copiez `.env.example` dans `.env` et remplissez ce dont vous avez besoin. Le fic
 
 | Clé | Défaut | Description |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | Profils à démarrer, séparés par des virgules |
+| `COMPOSE_PROFILES` |: | Profils à démarrer, séparés par des virgules |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | Port FastAPI de l'orchestrateur |
 | `GUI_PORT` | `3000` | Port GUI |
 | `QDRANT_HTTP_PORT` | `6333` | Port REST Qdrant |
 | `POSTGRES_PORT` | `5433` | Port PostgreSQL |
-| `POSTGRES_PASSWORD` | `changeme` | Mot de passe PostgreSQL — à modifier ! |
+| `POSTGRES_PASSWORD` | `changeme` | Mot de passe PostgreSQL: à modifier ! |
 | `TRACE_RETENTION_DAYS` | `14` | Suppression automatique des traces après N jours |
-| `ANTHROPIC_API_KEY` | — | Requis pour le fournisseur Anthropic |
-| `OPENROUTER_API_KEY` | — | Requis pour OpenRouter |
-| `OPENAI_API_KEY` | — | Requis pour OpenAI |
-| `GOOGLE_API_KEY` | — | Requis pour Google Gemini |
-| `TELEGRAM_BOT_TOKEN` | — | Requis pour le bridge Telegram |
-| `TELEGRAM_CHAT_ID` | — | ID du chat Telegram à accepter |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | ID du chat pour les notifications de fin de tâche (identique à `TELEGRAM_CHAT_ID` si pareil) |
-| `MATRIX_HOMESERVER` | — | URL du serveur Matrix |
-| `MATRIX_ACCESS_TOKEN` | — | Token d'accès du bot Matrix |
-| `DISCORD_BOT_TOKEN` | — | Requis pour le bridge Discord |
-| `SLACK_BOT_TOKEN` | — | Requis pour le bridge Slack |
-| `SLACK_APP_TOKEN` | — | Requis pour Slack Socket Mode |
-| `SIGNAL_PHONE` | — | Numéro de téléphone pour le bridge Signal |
-| `VIBER_AUTH_TOKEN` | — | Requis pour le bridge Viber |
+| `ANTHROPIC_API_KEY` |: | Requis pour le fournisseur Anthropic |
+| `OPENROUTER_API_KEY` |: | Requis pour OpenRouter |
+| `OPENAI_API_KEY` |: | Requis pour OpenAI |
+| `GOOGLE_API_KEY` |: | Requis pour Google Gemini |
+| `TELEGRAM_BOT_TOKEN` |: | Requis pour le bridge Telegram |
+| `TELEGRAM_CHAT_ID` |: | ID du chat Telegram à accepter |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | ID du chat pour les notifications de fin de tâche (identique à `TELEGRAM_CHAT_ID` si pareil) |
+| `MATRIX_HOMESERVER` |: | URL du serveur Matrix |
+| `MATRIX_ACCESS_TOKEN` |: | Token d'accès du bot Matrix |
+| `DISCORD_BOT_TOKEN` |: | Requis pour le bridge Discord |
+| `SLACK_BOT_TOKEN` |: | Requis pour le bridge Slack |
+| `SLACK_APP_TOKEN` |: | Requis pour Slack Socket Mode |
+| `SIGNAL_PHONE` |: | Numéro de téléphone pour le bridge Signal |
+| `VIBER_AUTH_TOKEN` |: | Requis pour le bridge Viber |
 | `HA_URL` | `http://homeassistant:8123` | URL de base de Home Assistant |
-| `HA_TOKEN` | — | Token d'accès longue durée HA |
-| `IMAP_HOST` | — | Serveur IMAP pour le MCP Email |
-| `SMTP_HOST` | — | Serveur SMTP pour le MCP Email |
-| `FALKORDB_URL` | — | Définir pour activer le graphe de connaissances |
-| `VAPID_EMAIL` | — | Requis pour les notifications web push |
-| `VAPID_PRIVATE_KEY` | — | Généré automatiquement par l'installateur (nécessite le paquet Python `cryptography`) ; sinon : `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | Généré avec la clé privée |
+| `HA_TOKEN` |: | Token d'accès longue durée HA |
+| `IMAP_HOST` |: | Serveur IMAP pour le MCP Email |
+| `SMTP_HOST` |: | Serveur SMTP pour le MCP Email |
+| `FALKORDB_URL` |: | Définir pour activer le graphe de connaissances |
+| `VAPID_EMAIL` |: | Requis pour les notifications web push |
+| `VAPID_PRIVATE_KEY` |: | Généré automatiquement par l'installateur (nécessite le paquet Python `cryptography`) ; sinon : `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | Généré avec la clé privée |
 | `HU_TOOLS_PORT` | `4300` | Port MCP hu-tools |
 | `WHISPER_URL` | `http://whisper-http:8000` | URL du service STT |
 | `PIPER_URL` | `http://piper-http:5000` | URL du service TTS |
-| `ORCHESTRATOR_API_KEY` | — | Généré automatiquement par l'installateur ; token service-à-service pour les bridges (requis en `AUTH_MODE=local/sso`) |
-| `CONVERSATION_API_KEY` | — | Généré automatiquement par l'installateur ; protège l'endpoint HA `/conversation` (vide = ouvert) |
+| `ORCHESTRATOR_API_KEY` |: | Généré automatiquement par l'installateur ; token service-à-service pour les bridges (requis en `AUTH_MODE=local/sso`) |
+| `CONVERSATION_API_KEY` |: | Généré automatiquement par l'installateur ; protège l'endpoint HA `/conversation` (vide = ouvert) |
 
-La configuration des agents se trouve dans `orchestrator/agents.yaml` — pas dans `.env`.
+La configuration des agents se trouve dans `orchestrator/agents.yaml`: pas dans `.env`.
 
 ---
 
@@ -493,7 +516,7 @@ Ajoutez `crm` à la liste `tools:` d'un agent dans `agents.yaml` pour lui donner
 
 ---
 
-## jog.gov.hu MCP — Recherche juridique hongroise
+## jog.gov.hu MCP: Recherche juridique hongroise
 
 Le MCP jog.gov.hu (`mcps/jog-hu/`) fournit des informations juridiques hongroises aux agents IA selon deux modes de déploiement :
 
@@ -501,7 +524,7 @@ Le MCP jog.gov.hu (`mcps/jog-hu/`) fournit des informations juridiques hongroise
 
 | Outil | Description |
 |---|---|
-| `search_njt_laws(keywords)` | Recherche par mots-clés sur njt.jog.gov.hu — renvoie les titres et URL des lois correspondantes |
+| `search_njt_laws(keywords)` | Recherche par mots-clés sur njt.jog.gov.hu: renvoie les titres et URL des lois correspondantes |
 | `get_law_text(law_id, section)` | Texte complet ou partiel d'une loi depuis njt.hu (ex. `"2012. évi I. törvény"`, section `"69"`) |
 | `list_recent_laws(category, days)` | Lois récentes issues du flux RSS du Magyar Közlöny |
 
@@ -511,18 +534,18 @@ Le MCP jog.gov.hu (`mcps/jog-hu/`) fournit des informations juridiques hongroise
 |---|---|
 | `search_law(question)` | Question en langage naturel → réponse IA + références législatives citées (jog.gov.hu) |
 
-reCAPTCHA v3 évalue les sessions principalement en fonction de la **réputation IP**. Les adresses IP des conteneurs Docker et des serveurs cloud/VPS sont classées comme plages de datacentre et reçoivent un score de confiance trop faible — indépendamment des correctifs d'empreinte du navigateur. Une machine à domicile ou au bureau sur une **IP résidentielle** obtient un score suffisamment élevé pour passer. Un affichage graphique **n'est pas requis** — le navigateur fonctionne en mode sans interface (headless) ; l'affichage est sans importance.
+reCAPTCHA v3 évalue les sessions principalement en fonction de la **réputation IP**. Les adresses IP des conteneurs Docker et des serveurs cloud/VPS sont classées comme plages de datacentre et reçoivent un score de confiance trop faible: indépendamment des correctifs d'empreinte du navigateur. Une machine à domicile ou au bureau sur une **IP résidentielle** obtient un score suffisamment élevé pour passer. Un affichage graphique **n'est pas requis:** le navigateur fonctionne en mode sans interface (headless) ; l'affichage est sans importance.
 
-**Démarrage rapide (outils Docker — fonctionne toujours) :**
+**Démarrage rapide (outils Docker, fonctionne toujours) :**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**Démarrer le serveur hôte (recherche IA — IP résidentielle requise) :**
+**Démarrer le serveur hôte (recherche IA, IP résidentielle requise) :**
 ```bash
 # Fonctionne sur : bureau ou ordinateur portable personnel/professionnel (Windows, macOS, Linux)
 # Ne fonctionne PAS sur : serveurs cloud/VPS (adresses IP de datacentre bloquées par reCAPTCHA)
-# Affichage graphique NON requis — fonctionne en mode headless
+# Affichage graphique NON requis: fonctionne en mode headless
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -537,7 +560,7 @@ python3 mcps/jog-hu/host_server.py --stop          # arrêter le daemon
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# Optionnel — uniquement si host_server.py est en cours d'exécution :
+# Optionnel: uniquement si host_server.py est en cours d'exécution :
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

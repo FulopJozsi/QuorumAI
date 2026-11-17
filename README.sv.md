@@ -11,7 +11,7 @@ QuorumAI är ett modulärt, självhostat multi-agent AI-orkestreringssystem bygg
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">Kom igång — registrera dig för en 30 dagars gratis provperiod »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">Kom igång: registrera dig för en 30 dagars gratis provperiod »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ QuorumAI är ett modulärt, självhostat multi-agent AI-orkestreringssystem bygg
 
 QuorumAI omvandlar en eller flera LLM:er till ett team av AI-agenter som kan:
 
-- Svara på frågor, läsa nyheter och styra smarta hemenheter — utlöst via mikrofon, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber eller IRC.
+- Svara på frågor, läsa nyheter och styra smarta hemenheter: utlöst via mikrofon, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber eller IRC.
 - Delegera arbete mellan specialiserade roller (VD, utvecklare, försäljning) och upprätthålla långtidsminne mellan sessioner med Qdrant vektorsökning.
 - Utföra uppgifter autonomt via en heartbeat-schemaläggare, begära mänskligt godkännande vid behov (HITL) och exponera varje extern förmåga som en MCP-server (Model Context Protocol).
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 Installationsprogrammet börjar som standard med en **snabbinstallation**: det frågar bara efter licensnyckeln (gratis 30-dagars provperiod: https://license.quorumai.eu), använder standardvärden för resten och startar QuorumAI. **Avancerad** behåller hela modul- och portmenyn. **För att uppdatera**, kör samma kommando igen: det hittar den befintliga installationen, behåller inställningar och data och hämtar de nya versionerna.
 
-**Windows (PowerShell — kör som Administratör):**
+**Windows (PowerShell, kör som Administratör):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ Eller ladda ner `install.bat` / `install.ps1` från repositoryt och dubbelklicka
 
 ### Har du redan Python 3 och Docker?
 
-Klona repositoryt och kör det interaktiva installationsprogrammet direkt — pip eller extra beroenden krävs inte:
+Klona repositoryt och kör det interaktiva installationsprogrammet direkt: pip eller extra beroenden krävs inte:
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ Installationsprogrammet:
 - Skriver `.env` från dina svar, skapar `data/` bind-mount-kataloger och kör `docker compose up -d`.
 - Installationsprogrammets gränssnitt är tillgängligt på 16 språk.
 
-**Satellite-läge** — kör mikrofon, bryggor eller MCP-servrar på en separat maskin:
+**Satellite-läge:** kör mikrofon, bryggor eller MCP-servrar på en separat maskin:
 ```bash
 python3 install.py   # välj "Satellite" när du tillfrågas
 ```
@@ -126,7 +126,7 @@ curl -X POST http://localhost:8000/invoke \
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Varje lager finns i sin egen katalog med sin egen `compose.yml`. Root-`compose.yml` samlar alla lager via `include:` och Docker Compose-profiler — du startar bara det du behöver.
+Varje lager finns i sin egen katalog med sin egen `compose.yml`. Root-`compose.yml` samlar alla lager via `include:` och Docker Compose-profiler: du startar bara det du behöver.
 
 ---
 
@@ -134,15 +134,15 @@ Varje lager finns i sin egen katalog med sin egen `compose.yml`. Root-`compose.y
 
 ### Kärnokestrering
 
-- **LangGraph-körningsmiljö** — tillståndsmaskin-agentgraf, inbyggt HITL-checkpointing, `AsyncPostgresSaver`.
-- **FastAPI HTTP API** — `POST /invoke`, `GET /health`, streaming, webhook-mottagare, push-notifieringsrelä.
-- **agents.yaml** — deklarera agenter i YAML: namn, roll, leverantör, modell, systemprompt-sökväg, verktyg.
-- **Varm omladdning** — `POST /agents/reload` laddar om `agents.yaml` utan containeromstart.
-- **MCP-verktygsprotokoll** — varje extern förmåga är en MCP-server; agenter upptäcker verktyg automatiskt.
-- **Qdrant vektorminne** — hybrid semantisk + BM42 lexikal sökning, flerspråkiga multilingual-e5-large-embeddings, agentspecifika samlingar, kosinus-deduplicering, MMR-diversifierad återhämtning.
-- **Nattlig minneskonsolidering** — schemalagt dröm-jobb destillerar PostgreSQL-sessionshistorik till långsiktiga Qdrant-fakta; slår samman progressioner, tar bort inaktuella flyktiga poster; tillstånd spåras i PostgreSQL.
-- **PostgreSQL** — LangGraph `AsyncPostgresSaver`-checkpointer + uppgifts- och kommentarstabeller.
-- **Kunskapsgraf** — FalkorDB (Redis-kompatibel), användarspecifika Cypher-frågor, automatisk enhetsextraktion.
+- **LangGraph-körningsmiljö:** tillståndsmaskin-agentgraf, inbyggt HITL-checkpointing, `AsyncPostgresSaver`.
+- **FastAPI HTTP API:** `POST /invoke`, `GET /health`, streaming, webhook-mottagare, push-notifieringsrelä.
+- **agents.yaml:** deklarera agenter i YAML: namn, roll, leverantör, modell, systemprompt-sökväg, verktyg.
+- **Varm omladdning:** `POST /agents/reload` laddar om `agents.yaml` utan containeromstart.
+- **MCP-verktygsprotokoll:** varje extern förmåga är en MCP-server; agenter upptäcker verktyg automatiskt.
+- **Qdrant vektorminne:** hybrid semantisk + BM42 lexikal sökning, flerspråkiga multilingual-e5-large-embeddings, agentspecifika samlingar, kosinus-deduplicering, MMR-diversifierad återhämtning.
+- **Nattlig minneskonsolidering:** schemalagt dröm-jobb destillerar PostgreSQL-sessionshistorik till långsiktiga Qdrant-fakta; slår samman progressioner, tar bort inaktuella flyktiga poster; tillstånd spåras i PostgreSQL.
+- **PostgreSQL:** LangGraph `AsyncPostgresSaver`-checkpointer + uppgifts- och kommentarstabeller.
+- **Kunskapsgraf:** FalkorDB (Redis-kompatibel), användarspecifika Cypher-frågor, automatisk enhetsextraktion.
 
 ### LLM-leverantörer (per agent, konfigurerade i agents.yaml)
 
@@ -161,9 +161,11 @@ Varje lager finns i sin egen katalog med sin egen `compose.yml`. Root-`compose.y
 | | Eden AI (aggregator) |
 | | NVIDIA NIM (gratis nivå tillgänglig) |
 
-Ingen API-nyckel behövs för att komma igång — Ollama körs lokalt och kostnadsfritt.
+Ingen API-nyckel behövs för att komma igång: Ollama körs lokalt och kostnadsfritt.
 
-**Leverantörspooler** — flera identiska lokala servrar (t.ex. sex Ollama-maskiner) kan grupperas i en namngiven pool. Orkestratorn fördelar förfrågningar med least-connections-algoritmen; om alla poolmedlemmar misslyckas faller den tillbaka på den vanliga fallback-kedjan. Konfigureras i `providers.yaml` och hanteras via fliken Leverantörer i GUI.
+**Leverantörspooler:** flera identiska lokala servrar (t.ex. sex Ollama-maskiner) kan grupperas i en namngiven pool. Orkestratorn fördelar förfrågningar med least-connections-algoritmen; om alla poolmedlemmar misslyckas faller den tillbaka på den vanliga fallback-kedjan. Konfigureras i `providers.yaml` och hanteras via fliken Leverantörer i GUI.
+
+**Reserv och nedkylning:** när ett anrop misslyckas går agenten vidare till nästa post i sin reservkedja och kyler bara ned det som misslyckades: en modell (dess upstream-värd är överbelastad, modellen är okänd eller ingår inte i planen), alla gratismodeller (`:free`) i en anslutning (gratiskvoten är slut) eller hela leverantören (kontots hastighetsgräns, autentiserings- eller anslutningsfel). En nedkylning börjar på 5 minuter och fördubblas vid varje nytt fel, upp till 60 minuter; ett lyckat anrop tar bort den.
 
 ### Multi-agent företagssimulering
 
@@ -172,10 +174,10 @@ Ingen API-nyckel behövs för att komma igång — Ollama körs lokalt och kostn
 - **Underagenter i bakgrunden**: `invoke_agent` väntar upp till 5 minuter; en längre körning fortsätter i bakgrunden som en kanban-uppgift, och den anropande agenten rapporterar resultatet själv när den är klar (GUI live, alla bryggor, mikrofon). Varje underagentkörning har en egen tråd som kan granskas.
 - **Inlärningsläge och framstegsuppföljning**: verktyget `text-compare` jämför en uppläsning ur minnet (dikt, rollmanus, definitioner) ord för ord och påpekar direkt en överhoppad strof; i röstsessioner tar agenten själv till orda efter en tystnad, med stegvisa ledtrådar (första ordet, raden, strofen). Verktyget `progress` visar varje tur var arbetet står, sparar inlärningsframstegen per användare över flera dagar och gör om dem till en kanban-uppgift med ett enda anrop. Färdiga agenter: branschpaketet `education`. Mikrofonen kan också lyssna oavbrutet utan väckningsord, inställt per agent (tystnadströskel, stegvisa påminnelser, automatiskt stopp); vilken agent mikrofonen talar med väljs i GUI:t.
 - Pipeline-agenter: planerare → utförare → granskare-slingor med delat tillstånd.
-- **Autonoma (Deep) agenter** — ange `deep: true` på valfri agent eller pipeline-fas för att aktivera den inbyggda LangGraph ReAct-loopen. Agenten planerar, utför och itererar autonomt — anropar verktyg upprepade gånger tills uppgiften är klar eller den valfria gränsen för verktygsanrop nås (`deep_max_steps`, 0 = obegränsat). Konfigurerbart per agent och fas; växel tillgänglig i GUI Agent Builder.
+- **Autonoma (Deep) agenter:** ange `deep: true` på valfri agent eller pipeline-fas för att aktivera den inbyggda LangGraph ReAct-loopen. Agenten planerar, utför och itererar autonomt: anropar verktyg upprepade gånger tills uppgiften är klar eller den valfria gränsen för verktygsanrop nås (`deep_max_steps`, 0 = obegränsat). Konfigurerbart per agent och fas; växel tillgänglig i GUI Agent Builder.
 - Kompetensbibliotek: Markdown-kompetensfiler, lat inläsning per agent, gemenskapsmarknadsplats för delning.
 - Delat arbetsområde: agenter kan läsa och skriva till ett gemensamt filområde.
-- **Administrationsverktyg** — agenter med rollen `admin` kan skapa och ta bort agenter, kompetenser, MCP-servrar, cron-jobb och heartbeat-scheman vid körning via `system-admin`-verktyg. Varje skrivåtgärd kräver HITL-godkännande innan den utförs.
+- **Administrationsverktyg:** agenter med rollen `admin` kan skapa och ta bort agenter, kompetenser, MCP-servrar, cron-jobb och heartbeat-scheman vid körning via `system-admin`-verktyg. Varje skrivåtgärd kräver HITL-godkännande innan den utförs.
 
 ### Uppgiftshantering och autonomi
 
@@ -184,30 +186,51 @@ Ingen API-nyckel behövs för att komma igång — Ollama körs lokalt och kostn
 - Autonom körning med HITL-godkännandeportar (Telegram `/approve`, GUI-knappar).
 - Push-notifieringar: Telegram, Home Assistant `notify`, web push (VAPID). Uppgifter kan ange ett `notify_channel`-fält så att slutförandemeddelandet alltid skickas till rätt brygga, oavsett vilken session som skapade uppgiften. Agenter kan anropa `list_notify_channels()` för att vid körning hitta tillgängliga kanaler.
 
-**Flerdagsuppgifter** — det rekommenderade mönstret för långvarigt arbete som sträcker sig över timmar eller dagar:
+**Flerdagsuppgifter:** det rekommenderade mönstret för långvarigt arbete som sträcker sig över timmar eller dagar:
 1. Skapa en uppgift med titel och beskrivning (via chatt, Telegram eller GUI:ns Kanban-tavla).
 2. Agenten (eller du) anropar `set_subtasks` för att dela upp det i namngivna steg.
-3. Varje heartbeat-körning tar nästa väntande deluppgift, slutför den och stoppar — enskilda LLM-sessioner förblir korta och fokuserade.
+3. Varje heartbeat-körning tar nästa väntande deluppgift, slutför den och stoppar: enskilda LLM-sessioner förblir korta och fokuserade.
 4. Framsteg, beslut och mellanresultat lagras som uppgiftskommentarer så att varje efterföljande körning har full kontext av vad som hänt innan.
 5. När alla deluppgifter är klara stänger agenten uppgiften och skickar ett slutförandemeddelande.
 
-Det här mönstret fungerar utan kodändringar — det bygger på de befintliga uppgiftsverktygen (`set_subtasks`, `get_next_subtask`, `complete_subtask`) som varje agent med verktygskällan `tasks` redan har tillgång till.
+Det här mönstret fungerar utan kodändringar: det bygger på de befintliga uppgiftsverktygen (`set_subtasks`, `get_next_subtask`, `complete_subtask`) som varje agent med verktygskällan `tasks` redan har tillgång till.
+
+### Säkerhetsmodell
+
+QuorumAI skiljer på det koden tvingar fram och det den bara ber modellen om. Eftersom extern text är märkt ignorerar modellen med stor sannolikhet instruktioner som gömts i en webbsida eller ett dokument, men det är en sannolikhet, ingen garanti. Om den ändå vilseleds kan den fortfarande bara använda sina egna verktyg, och vid riskfyllda steg bestämmer en människa.
+
+**Framtvingat i koden:**
+- **Tillåtna verktyg per agent.** En agent får bara de MCP-servrar och systemverktygsgrupper som står i dess egen konfiguration (`tools:` i `agents.yaml`, eller Agent Builder). En marknadsföringsagent utan Grafana-MCP har inget Grafana-verktyg att anropa, vad dess indata än säger.
+- **Riskklassning.** Inbyggda verktyg har en fast risknivå (`write_file`, `delete_file`, `python_repl` och `http_post` är höga), skalkommandon klassas efter mönster (`rm -r`, `curl | sh`, `ssh`, reverse shells och liknande) och MCP-servrar efter sin `risk:`-inställning i `mcps.yaml`.
+- **Obligatoriskt mänskligt godkännande.** Med `ai_act_mode: true` stannar varje högriskanrop innan det körs och väntar på att en människa godkänner eller avvisar det (i GUI:t eller i valfri chattbrygga). Kontrollen körs i agentens graf, inte i modellen, så modellen kan inte hoppa över den.
+- **Systemändringar kräver alltid en människa.** Att skapa eller ta bort agenter, MCP-servrar, skills och scheman (verktygen `system-admin`) väntar på godkännande vid varje anrop, med eller utan `ai_act_mode`. Bara agenter med `allowed_roles: [admin]` får dessa verktyg över huvud taget.
+- **Ett avslag är slutgiltigt.** Ett avvisat anrop körs inte; modellen får i stället resultatet `[REJECTED]`.
+- **Standardinställningar för nätverk.** Orkestratorns API, Qdrant, PostgreSQL och MCP-servrarna lyssnar bara på `127.0.0.1`.
+
+**Märkt för modellen:** verktygsutdata når modellen i en ram vars start- och slutrad bär ett slumpmässigt id per anrop, med en `[TOOL DATA ...]`-notering; resultat från underagenter, hämtade minnen och graffakta märks på samma sätt (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Allt i datan som härmar dessa markörer eller ramens slutrad visas i citerad form, så en sida kan inte stänga ramen i förtid och fortsätta som användaren. Systemprompten säger åt modellen att aldrig följa instruktioner som finns där i. Det gör prompt injection mycket svårare, men det är en instruktion till modellen, ingen garanti. Det framtvingade lagret ovan är det som begränsar skadan.
+
+**Valfri andra åsikt:** Guardian (nedan) är en separat modell som granskar högriskanrop och kan lägga in veto. Den kompletterar det framtvingade lagret, den ersätter det inte.
+
+**Före driftsättning:**
+- `AUTH_MODE=none` (standard) är avsett för en användare på en maskin. GUI-porten nås från nätverket och vidarebefordrar API:et, så ställ in `AUTH_MODE=local` eller `sso` på alla delade nätverk (se *Autentisering och multitenancy*).
+- Skrivningar till minnet (`remember`) granskas inte och kräver inget godkännande; hämtade poster märks som opålitlig data, som ovan.
+- Installationsprogrammet på en rad skickar ett skript direkt till bash. För att läsa det först: `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, granska det och kör sedan `bash install.sh`.
 
 ### Säkerhetstillsyn (Quadrumviratus)
 
 Ett valfritt lager per agent som granskar varje riskabelt verktygsanrop innan det körs. Aktiveras med `guardian: true` i `agents.yaml`; agenter utan denna flagga påverkas inte.
 
-- **Guardian** — ett isolerat LLM-anrop (utan verktyg) som utvärderar verktygets namn och argument och returnerar: `NONE` (fortsätt), `SOFT VETO: anledning` (mänskligt beslut krävs) eller `HARD VETO: anledning` (omedelbar blockering).
-- **Skiljedomare (Arbiter)** — aktiveras vid SOFT VETO; genererar en Markdown-analysrapport och pausar grafen via LangGraph `interrupt()`. Operatören godkänner eller avvisar via Telegram `/approve` eller GUI — samma flöde som HITL.
-- **Historiker** — ett heartbeat-jobb som läser Guardian-granskningsloggen i minnet och skriver en strukturerad rapport till PostgreSQL-tabellen `historian_reports`.
-- **Riskklassificering** — MCP-servrar märks i `mcps.yaml` med `risk: low` eller `risk: high`. Minnes-, uppgifts- och godkännandeverktyg är alltid undantagna från granskning.
+- **Guardian:** ett isolerat LLM-anrop (utan verktyg) som utvärderar verktygets namn och argument och returnerar: `NONE` (fortsätt), `SOFT VETO: anledning` (mänskligt beslut krävs) eller `HARD VETO: anledning` (omedelbar blockering).
+- **Skiljedomare (Arbiter):** aktiveras vid SOFT VETO; genererar en Markdown-analysrapport och pausar grafen via LangGraph `interrupt()`. Operatören godkänner eller avvisar via Telegram `/approve` eller GUI: samma flöde som HITL.
+- **Historiker:** ett heartbeat-jobb som läser Guardian-granskningsloggen i minnet och skriver en strukturerad rapport till PostgreSQL-tabellen `historian_reports`.
+- **Riskklassificering:** MCP-servrar märks i `mcps.yaml` med `risk: low` eller `risk: high`. Minnes-, uppgifts- och godkännandeverktyg är alltid undantagna från granskning.
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # valfritt — ärver agentens leverantör om tomt
+    guardian_provider: anthropic        # valfritt: ärver agentens leverantör om tomt
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # alla playwright-verktyg kräver Guardian-godkännande
   - name: hu-tools
-    risk: low         # väder, nyheter — vidarebefordras utan granskning
+    risk: low         # väder, nyheter: vidarebefordras utan granskning
 ```
 
 Endpointen `/guardian/log` returnerar den live granskningsloggen (senaste 1 000 beslut).
@@ -228,13 +251,13 @@ Endpointen `/guardian/log` returnerar den live granskningsloggen (senaste 1 000 
 
 | Läge | Beskrivning |
 |---|---|
-| `AUTH_MODE=none` | Öppet — ingen autentisering (standard, lämpligt för lokal användning) |
+| `AUTH_MODE=none` | Öppet: ingen autentisering (standard, lämpligt för lokal användning) |
 | `AUTH_MODE=local` | Bearer-token; användare definierade i `LOCAL_USERS=user1:pass1,...` |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT, eller valfri OIDC-leverantör (Auth0, Okta, Authelia, …) |
 
 **Isolering per användare.** I fleranvändarläge är varje användares minne
 och kunskapsgraf separerade: långtidsminnet hamnar i användarens egen
-Qdrant-collection och grafen i dess egen `scope` — en läsning ser de egna
+Qdrant-collection och grafen i dess egen `scope`: en läsning ser de egna
 uppgifterna och det administratörskurerade gemensamma lagret, aldrig en annan
 användares. Även det nattliga underhållet körs **per användare**.
 
@@ -250,7 +273,7 @@ Tar emot signerade webhooks från: GitHub, Gitea, Drone CI, Grafana, n8n, Slack,
 
 ### Säkerhetskopiering och konfigurationspersistens
 
-All körningsdata finns i `data/` som bind-monteringar; all konfiguration i YAML-filer — inget dolt tillstånd inuti containrar.
+All körningsdata finns i `data/` som bind-monteringar; all konfiguration i YAML-filer: inget dolt tillstånd inuti containrar.
 
 **Skapa säkerhetskopia** (inkluderar `.env` + `data/`):
 
@@ -293,15 +316,15 @@ Varje brygga exponerar `/notify` (för push-notifieringar från orkestratorn) oc
 
 Compose-profil: `mic`
 
-- openWakeWord — konfigurerbart aktiveringsord (standard: "Ok Szif").
-- Wyoming Whisper — lokal STT, ingen molntjänst krävs.
-- Wyoming Piper — lokal TTS.
+- openWakeWord: konfigurerbart aktiveringsord (standard: "Ok Szif").
+- Wyoming Whisper: lokal STT, ingen molntjänst krävs.
+- Wyoming Piper: lokal TTS.
 - PulseAudio-socket-montering för Linux-skrivbord.
 
 **Plattformsnoteringar:**
 
-- **Linux** — installationsprogrammet identifierar ditt UID och monterar automatiskt rätt PulseAudio-socket (`/run/user/<uid>/pulse`).
-- **macOS / Windows** — Docker Desktop vidarebefordrar inte ljudenheter. Installationsprogrammet skriver istället en PulseAudio TCP-konfiguration. Konfigurera PulseAudio i TCP-läge innan du startar mic-containern:
+- **Linux:** installationsprogrammet identifierar ditt UID och monterar automatiskt rätt PulseAudio-socket (`/run/user/<uid>/pulse`).
+- **macOS / Windows:** Docker Desktop vidarebefordrar inte ljudenheter. Installationsprogrammet skriver istället en PulseAudio TCP-konfiguration. Konfigurera PulseAudio i TCP-läge innan du startar mic-containern:
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows (native): ladda ned PulseAudio för Windows, avkommentera `module-native-protocol-tcp` i `default.pa`, tillåt port 4713 i brandväggen.
@@ -322,7 +345,7 @@ Exponerar Whisper och Piper som HTTP-API:er som agenter kan anropa som `system-s
 
 ## GUI
 
-Compose-profil: `gui` — tillgängligt på `http://localhost:3000`
+Compose-profil: `gui`: tillgängligt på `http://localhost:3000`
 
 Byggt med React, Vite och Tailwind CSS.
 
@@ -346,7 +369,7 @@ Byggt med React, Vite och Tailwind CSS.
 ### Förutsättningar
 
 - Docker Engine 24+ och Docker Compose v2.
-- Python 3.8+ för `install.py` — ingen pip eller virtualenv krävs.
+- Python 3.8+ för `install.py`: ingen pip eller virtualenv krävs.
 - För lokala modeller: Ollama körs på värden på port 11434.
 
 ### Skapa det delade nätverket (en gång per värd)
@@ -395,43 +418,43 @@ Kopiera `.env.example` till `.env` och fyll i det du behöver. `.env.example`-fi
 
 | Nyckel | Standard | Beskrivning |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | Kommaseparerade profiler att starta |
+| `COMPOSE_PROFILES` |: | Kommaseparerade profiler att starta |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | Orchestrator FastAPI-port |
 | `GUI_PORT` | `3000` | GUI-port |
 | `QDRANT_HTTP_PORT` | `6333` | Qdrant REST-port |
 | `POSTGRES_PORT` | `5433` | PostgreSQL-port |
-| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL-lösenord — ändra detta |
+| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL-lösenord: ändra detta |
 | `TRACE_RETENTION_DAYS` | `14` | Automatisk borttagning av spår äldre än N dagar |
-| `ANTHROPIC_API_KEY` | — | Krävs för Anthropic-leverantör |
-| `OPENROUTER_API_KEY` | — | Krävs för OpenRouter |
-| `OPENAI_API_KEY` | — | Krävs för OpenAI |
-| `GOOGLE_API_KEY` | — | Krävs för Google Gemini |
-| `TELEGRAM_BOT_TOKEN` | — | Krävs för Telegram-brygga |
-| `TELEGRAM_CHAT_ID` | — | Telegram-chatt-ID att ta emot meddelanden från |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | Chatt-ID för uppgiftsslutförandenotifieringar (samma som `TELEGRAM_CHAT_ID` om identiskt) |
-| `MATRIX_HOMESERVER` | — | Matrix-server-URL |
-| `MATRIX_ACCESS_TOKEN` | — | Matrix-bot-åtkomsttoken |
-| `DISCORD_BOT_TOKEN` | — | Krävs för Discord-brygga |
-| `SLACK_BOT_TOKEN` | — | Krävs för Slack-brygga |
-| `SLACK_APP_TOKEN` | — | Krävs för Slack Socket Mode |
-| `SIGNAL_PHONE` | — | Telefonnummer för Signal-brygga |
-| `VIBER_AUTH_TOKEN` | — | Krävs för Viber-brygga |
+| `ANTHROPIC_API_KEY` |: | Krävs för Anthropic-leverantör |
+| `OPENROUTER_API_KEY` |: | Krävs för OpenRouter |
+| `OPENAI_API_KEY` |: | Krävs för OpenAI |
+| `GOOGLE_API_KEY` |: | Krävs för Google Gemini |
+| `TELEGRAM_BOT_TOKEN` |: | Krävs för Telegram-brygga |
+| `TELEGRAM_CHAT_ID` |: | Telegram-chatt-ID att ta emot meddelanden från |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | Chatt-ID för uppgiftsslutförandenotifieringar (samma som `TELEGRAM_CHAT_ID` om identiskt) |
+| `MATRIX_HOMESERVER` |: | Matrix-server-URL |
+| `MATRIX_ACCESS_TOKEN` |: | Matrix-bot-åtkomsttoken |
+| `DISCORD_BOT_TOKEN` |: | Krävs för Discord-brygga |
+| `SLACK_BOT_TOKEN` |: | Krävs för Slack-brygga |
+| `SLACK_APP_TOKEN` |: | Krävs för Slack Socket Mode |
+| `SIGNAL_PHONE` |: | Telefonnummer för Signal-brygga |
+| `VIBER_AUTH_TOKEN` |: | Krävs för Viber-brygga |
 | `HA_URL` | `http://homeassistant:8123` | Home Assistant bas-URL |
-| `HA_TOKEN` | — | HA långlivad åtkomsttoken |
-| `IMAP_HOST` | — | IMAP-server för Email MCP |
-| `SMTP_HOST` | — | SMTP-server för Email MCP |
-| `FALKORDB_URL` | — | Ange för att aktivera kunskapsgrafen |
-| `VAPID_EMAIL` | — | Krävs för web push-notifieringar |
-| `VAPID_PRIVATE_KEY` | — | Genereras automatiskt av installationsprogrammet (kräver Python-paketet `cryptography`); annars kör `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | Genereras tillsammans med den privata nyckeln |
+| `HA_TOKEN` |: | HA långlivad åtkomsttoken |
+| `IMAP_HOST` |: | IMAP-server för Email MCP |
+| `SMTP_HOST` |: | SMTP-server för Email MCP |
+| `FALKORDB_URL` |: | Ange för att aktivera kunskapsgrafen |
+| `VAPID_EMAIL` |: | Krävs för web push-notifieringar |
+| `VAPID_PRIVATE_KEY` |: | Genereras automatiskt av installationsprogrammet (kräver Python-paketet `cryptography`); annars kör `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | Genereras tillsammans med den privata nyckeln |
 | `HU_TOOLS_PORT` | `4300` | hu-tools MCP-port |
 | `WHISPER_URL` | `http://whisper-http:8000` | STT-tjänst-URL |
 | `PIPER_URL` | `http://piper-http:5000` | TTS-tjänst-URL |
-| `ORCHESTRATOR_API_KEY` | — | Genereras automatiskt av installationsprogrammet; tjänst-till-tjänst-token för bryggor (krävs vid `AUTH_MODE=local/sso`) |
-| `CONVERSATION_API_KEY` | — | Genereras automatiskt av installationsprogrammet; skyddar HA-slutpunkten `/conversation` (tom = öppen) |
+| `ORCHESTRATOR_API_KEY` |: | Genereras automatiskt av installationsprogrammet; tjänst-till-tjänst-token för bryggor (krävs vid `AUTH_MODE=local/sso`) |
+| `CONVERSATION_API_KEY` |: | Genereras automatiskt av installationsprogrammet; skyddar HA-slutpunkten `/conversation` (tom = öppen) |
 
-Agenter konfigureras i `orchestrator/agents.yaml` — inte i `.env`.
+Agenter konfigureras i `orchestrator/agents.yaml`: inte i `.env`.
 
 ---
 
@@ -492,7 +515,7 @@ Lägg till `crm` i en agents `tools:`-lista i `agents.yaml` för att ge den CRM-
 
 ---
 
-## jog.gov.hu MCP — Ungersk juridisk sökning
+## jog.gov.hu MCP: Ungersk juridisk sökning
 
 jog.gov.hu MCP (`mcps/jog-hu/`) ger AI-agenter tillgång till ungersk juridisk information i två driftslägen:
 
@@ -500,7 +523,7 @@ jog.gov.hu MCP (`mcps/jog-hu/`) ger AI-agenter tillgång till ungersk juridisk i
 
 | Verktyg | Beskrivning |
 |---|---|
-| `search_njt_laws(keywords)` | Nyckelordssökning på njt.jog.gov.hu — returnerar matchande lagtitlar och URL:er |
+| `search_njt_laws(keywords)` | Nyckelordssökning på njt.jog.gov.hu: returnerar matchande lagtitlar och URL:er |
 | `get_law_text(law_id, section)` | Fullständig eller partiell lagtext från njt.hu (t.ex. `"2012. évi I. törvény"`, avsnitt `"69"`) |
 | `list_recent_laws(category, days)` | Senaste lagar från Magyar Közlöny RSS-flöde |
 
@@ -510,18 +533,18 @@ jog.gov.hu MCP (`mcps/jog-hu/`) ger AI-agenter tillgång till ungersk juridisk i
 |---|---|
 | `search_law(question)` | Fråga på naturligt språk → AI-svar + citerade lagreferenser (jog.gov.hu) |
 
-reCAPTCHA v3 bedömer sessioner primärt utifrån **IP-rykte**. IP-adresser från Docker-containers och moln-/VPS-servrar klassificeras som datacenter-intervall och får ett lågt förtroendevärde — oavsett eventuella webbläsar-fingerprint-justeringar. En hem- eller kontorsmaskin med en **bostads-IP** får tillräckligt högt poäng för att passera. Grafisk skärm **krävs inte** — webbläsaren körs i headless-läge; skärmen är irrelevant.
+reCAPTCHA v3 bedömer sessioner primärt utifrån **IP-rykte**. IP-adresser från Docker-containers och moln-/VPS-servrar klassificeras som datacenter-intervall och får ett lågt förtroendevärde: oavsett eventuella webbläsar-fingerprint-justeringar. En hem- eller kontorsmaskin med en **bostads-IP** får tillräckligt högt poäng för att passera. Grafisk skärm **krävs inte:** webbläsaren körs i headless-läge; skärmen är irrelevant.
 
-**Snabbstart (Docker-verktyg — fungerar alltid):**
+**Snabbstart (Docker-verktyg, fungerar alltid):**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**Starta värdservern (AI-sökning — bostads-IP krävs):**
+**Starta värdservern (AI-sökning, bostads-IP krävs):**
 ```bash
 # Fungerar på: hem- eller kontorsdator eller bärbar dator (Windows, macOS, Linux)
 # Fungerar INTE på: moln-/VPS-servrar (datacenter-IP:er blockeras av reCAPTCHA)
-# Grafisk skärm krävs INTE — körs i headless-läge
+# Grafisk skärm krävs INTE: körs i headless-läge
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -536,7 +559,7 @@ python3 mcps/jog-hu/host_server.py --stop          # stoppa daemon
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# Valfritt — endast om host_server.py körs:
+# Valfritt: endast om host_server.py körs:
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

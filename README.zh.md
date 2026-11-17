@@ -11,7 +11,7 @@ QuorumAI 是一个基于 LangGraph 构建的模块化自托管多智能体 AI �
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">立即开始 — 注册 30 天免费试用 »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">立即开始: 注册 30 天免费试用 »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ QuorumAI 是一个基于 LangGraph 构建的模块化自托管多智能体 AI �
 
 QuorumAI 将一个或多个 LLM 转变为 AI 智能体团队，能够：
 
-- 回答问题、阅读新闻、控制智能家居设备 — 通过麦克风、Telegram、Matrix、Discord、Slack、Signal、WhatsApp、Viber 或 IRC 触发。
+- 回答问题、阅读新闻、控制智能家居设备: 通过麦克风、Telegram、Matrix、Discord、Slack、Signal、WhatsApp、Viber 或 IRC 触发。
 - 在专业角色（CEO、开发者、销售）之间委派工作，并使用 Qdrant 向量搜索在会话间维护长期记忆。
 - 通过心跳调度器自主执行任务，必要时请求人工审批（HITL），并将每个外部能力作为 MCP（模型上下文协议）服务器公开。
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 安装程序默认采用**快速安装**：只需输入许可证密钥（30 天免费试用：https://license.quorumai.eu），其余使用默认值，并启动 QuorumAI。**高级**模式保留完整的模块和端口菜单。**更新**时再次运行同一命令：它会找到现有安装，保留设置和数据，并拉取新版本。
 
-**Windows（PowerShell — 以管理员身份运行）：**
+**Windows（PowerShell: 以管理员身份运行）：**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 ### 已安装 Python 3 和 Docker？
 
-直接克隆仓库并运行交互式安装程序 — 不需要 pip 或额外依赖：
+直接克隆仓库并运行交互式安装程序: 不需要 pip 或额外依赖：
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ python3 install.py
 - 根据您的回答写入 `.env`，创建 `data/` 绑定挂载目录，并运行 `docker compose up -d`。
 - 安装程序界面支持 16 种语言。
 
-**卫星模式** — 在独立机器上运行麦克风、网桥或 MCP 服务器：
+**卫星模式:** 在独立机器上运行麦克风、网桥或 MCP 服务器：
 ```bash
 python3 install.py   # 在提示时选择 "Satellite"
 ```
@@ -126,7 +126,7 @@ GUI 访问地址：`http://localhost:3000`
 └─────────────────────────────────────────────────────────────┘
 ```
 
-每个层次都有自己的目录和 `compose.yml`。根 `compose.yml` 通过 `include:` 和 Docker Compose 配置文件聚合所有层次 — 只启动您需要的部分。
+每个层次都有自己的目录和 `compose.yml`。根 `compose.yml` 通过 `include:` 和 Docker Compose 配置文件聚合所有层次: 只启动您需要的部分。
 
 ---
 
@@ -134,15 +134,15 @@ GUI 访问地址：`http://localhost:3000`
 
 ### 核心编排
 
-- **LangGraph 运行时** — 状态机智能体图，原生 HITL 检查点，`AsyncPostgresSaver`。
-- **FastAPI HTTP API** — `POST /invoke`、`GET /health`、流式传输、Webhook 接收器、推送通知中继。
-- **agents.yaml** — 用 YAML 声明智能体：名称、角色、提供商、模型、系统提示路径、工具。
-- **热重载** — `POST /agents/reload` 无需重启容器即可重载 `agents.yaml`。
-- **MCP 工具协议** — 每个外部能力都是 MCP 服务器；智能体自动发现工具。
-- **Qdrant 向量记忆** — 混合语义 + BM42 词汇搜索，多语言 E5-Large 嵌入，智能体级集合，余弦去重，MMR 多样化召回。
-- **夜间记忆整合** — 定时"梦境任务"将 PostgreSQL 会话历史提炼为长期 Qdrant 事实；合并进展，删除过期的临时条目；状态在 PostgreSQL 中跟踪。
-- **PostgreSQL** — LangGraph `AsyncPostgresSaver` 检查点 + 任务和评论表。
-- **知识图谱** — FalkorDB（Redis 兼容），用户级 Cypher 查询，自动实体抽取。
+- **LangGraph 运行时:** 状态机智能体图，原生 HITL 检查点，`AsyncPostgresSaver`。
+- **FastAPI HTTP API:** `POST /invoke`、`GET /health`、流式传输、Webhook 接收器、推送通知中继。
+- **agents.yaml:** 用 YAML 声明智能体：名称、角色、提供商、模型、系统提示路径、工具。
+- **热重载:** `POST /agents/reload` 无需重启容器即可重载 `agents.yaml`。
+- **MCP 工具协议:** 每个外部能力都是 MCP 服务器；智能体自动发现工具。
+- **Qdrant 向量记忆:** 混合语义 + BM42 词汇搜索，多语言 E5-Large 嵌入，智能体级集合，余弦去重，MMR 多样化召回。
+- **夜间记忆整合:** 定时"梦境任务"将 PostgreSQL 会话历史提炼为长期 Qdrant 事实；合并进展，删除过期的临时条目；状态在 PostgreSQL 中跟踪。
+- **PostgreSQL:** LangGraph `AsyncPostgresSaver` 检查点 + 任务和评论表。
+- **知识图谱:** FalkorDB（Redis 兼容），用户级 Cypher 查询，自动实体抽取。
 
 ### LLM 提供商（按智能体配置，在 agents.yaml 中设置）
 
@@ -161,9 +161,11 @@ GUI 访问地址：`http://localhost:3000`
 | | Eden AI（聚合器） |
 | | NVIDIA NIM（提供免费层级） |
 
-开始无需 API 密钥 — Ollama 在本地免费运行。
+开始无需 API 密钥: Ollama 在本地免费运行。
 
-**提供商池** — 多台相同的本地服务器（例如六台 Ollama 机器）可组成一个命名池。编排器使用最少连接算法分发请求；若所有池成员均失败，则回退至常规 fallback 链。在 `providers.yaml` 中配置，可通过 GUI 提供商选项卡管理。
+**提供商池:** 多台相同的本地服务器（例如六台 Ollama 机器）可组成一个命名池。编排器使用最少连接算法分发请求；若所有池成员均失败，则回退至常规 fallback 链。在 `providers.yaml` 中配置，可通过 GUI 提供商选项卡管理。
+
+**回退与冷却：** 调用失败时，智能体会转到其回退链中的下一项，并且只冷却出错的部分：单个模型（其上游主机过载、模型未知或不在套餐内）、某连接的所有免费（`:free`）模型（免费额度已用完），或整个提供商（账户速率限制、认证或连接错误）。冷却从 5 分钟开始，每次再失败就翻倍，最长 60 分钟；一次成功调用即可解除。
 
 ### 多智能体企业模拟
 
@@ -172,10 +174,10 @@ GUI 访问地址：`http://localhost:3000`
 - **后台子智能体**：`invoke_agent` 最多等待 5 分钟；更长的运行会作为看板任务在后台继续，完成后由调用方智能体主动报告结果（GUI 实时显示、所有桥接、麦克风）。每次子智能体运行都有可回看的独立线程。
 - **学习模式与进度跟踪**：`text-compare` 工具逐词比对背诵内容（诗歌、台词、定义），漏掉的诗节会立即指出；在语音会话中，用户沉默后智能体会主动开口，并给出分级提示（首词、整行、整节）。`progress` 工具每一轮都显示工作进展到哪里，按用户跨天保存学习进度，并可一次调用转为看板任务。现成智能体：`education` 行业包。麦克风也可以按智能体设置，无需唤醒词持续收听（静音阈值、分级提醒、自动停止）；麦克风与哪个智能体对话可在 GUI 中选择。
 - 流水线智能体：规划者 → 执行者 → 审阅者循环，共享状态。
-- **自主（Deep）智能体** — 在任意智能体或流水线阶段设置 `deep: true` 以启用内置 LangGraph ReAct 循环。智能体自主规划、执行并迭代 — 反复调用工具直到任务完成或达到可选的工具调用限制（`deep_max_steps`，0 = 无限制）。可按智能体和阶段分别配置；GUI Agent Builder 中提供开关。
+- **自主（Deep）智能体:** 在任意智能体或流水线阶段设置 `deep: true` 以启用内置 LangGraph ReAct 循环。智能体自主规划、执行并迭代: 反复调用工具直到任务完成或达到可选的工具调用限制（`deep_max_steps`，0 = 无限制）。可按智能体和阶段分别配置；GUI Agent Builder 中提供开关。
 - 技能库：Markdown 技能文件，按智能体懒加载，社区市场用于共享。
 - 共享工作区：智能体可读写共享文件区域。
-- **管理工具** — 具有 `admin` 角色的智能体可在运行时通过 `system-admin` 工具创建和删除智能体、技能、MCP 服务器、cron 任务及心跳计划。每项写操作均需 HITL 审批。
+- **管理工具:** 具有 `admin` 角色的智能体可在运行时通过 `system-admin` 工具创建和删除智能体、技能、MCP 服务器、cron 任务及心跳计划。每项写操作均需 HITL 审批。
 
 ### 任务管理与自主性
 
@@ -184,30 +186,51 @@ GUI 访问地址：`http://localhost:3000`
 - 带 HITL 审批门的自主执行（Telegram `/approve`、GUI 按钮）。
 - 推送通知：Telegram、Home Assistant `notify`、Web 推送（VAPID）。任务可以指定 `notify_channel` 字段，使完成消息始终发送到正确的桥接器，无论哪个会话创建了该任务。智能体可以调用 `list_notify_channels()` 在运行时发现可用频道。
 
-**多天任务** — 适用于跨越数小时或数天的长期工作的推荐模式：
+**多天任务:** 适用于跨越数小时或数天的长期工作的推荐模式：
 1. 通过聊天、Telegram 或 GUI 看板创建带有标题和描述的任务。
 2. 智能体（或您）调用 `set_subtasks` 将其分解为命名步骤。
-3. 每次心跳运行获取下一个待处理子任务，完成后停止 — 单次 LLM 会话保持简短且专注。
+3. 每次心跳运行获取下一个待处理子任务，完成后停止: 单次 LLM 会话保持简短且专注。
 4. 进度、决策和中间结果以任务评论形式存储，每次后续运行都能获得完整上下文。
 5. 所有子任务完成后，智能体关闭任务并发送完成通知。
 
-此模式无需更改代码即可工作 — 它基于现有的任务工具（`set_subtasks`、`get_next_subtask`、`complete_subtask`），任何具有 `tasks` 工具源的智能体都可以访问。
+此模式无需更改代码即可工作: 它基于现有的任务工具（`set_subtasks`、`get_next_subtask`、`complete_subtask`），任何具有 `tasks` 工具源的智能体都可以访问。
+
+### 安全模型
+
+QuorumAI 将代码强制执行的内容与仅向模型提出的要求区分开来。由于外部文本都带有标记，模型很可能会忽略隐藏在网页或文档中的指令，但这只是概率，而非保证。即使模型仍被误导，它也只能使用自己的工具，而有风险的步骤由人来决定。
+
+**由代码强制执行：**
+- **按智能体的工具白名单。** 智能体只会获得其自身配置中列出的 MCP 服务器和系统工具组（`agents.yaml` 中的 `tools:`，或 Agent Builder）。没有 Grafana MCP 的营销智能体根本没有可调用的 Grafana 工具，无论其输入写了什么。
+- **风险分级。** 内置工具有固定的风险等级（`write_file`、`delete_file`、`python_repl` 和 `http_post` 为高），shell 命令按模式分级（`rm -r`、`curl | sh`、`ssh`、反向 shell 等），MCP 服务器按 `mcps.yaml` 中的 `risk:` 设置分级。
+- **强制人工审批。** 启用 `ai_act_mode: true` 时，每个高风险调用在执行前都会停下，等待人工批准或拒绝（在 GUI 或任意聊天桥接中）。该检查在智能体图中运行，而不是在模型中，因此模型无法跳过。
+- **系统变更始终需要人工。** 创建或删除智能体、MCP 服务器、技能和计划（`system-admin` 工具）的每次调用都会等待审批，无论是否启用 `ai_act_mode`。只有具有 `allowed_roles: [admin]` 的智能体才会获得这些工具。
+- **拒绝即最终。** 被拒绝的调用不会执行；模型会收到 `[REJECTED]` 结果。
+- **网络默认设置。** 编排器 API、Qdrant、PostgreSQL 和 MCP 服务器仅监听 `127.0.0.1`。
+
+**为模型做的标记：** 工具输出放在一个框架中交给模型，框架的起始行和结束行带有每次调用随机生成的 ID，并附有 `[TOOL DATA ...]` 提示；子智能体结果、召回的记忆和图谱事实也以同样方式标记（`[AGENT RESULT <id>]`、`[RECALLED MEMORY ...]`、`[RECALLED DATA ...]`）。数据中任何模仿这些标记或框架结束行的内容都会以引用形式显示，因此网页无法提前关闭框架并冒充用户继续。系统提示要求模型绝不执行其中的指令。这大大增加了提示注入的难度，但这是对模型的指示，而非保证。限制损害的是上面由代码强制执行的那一层。
+
+**可选的第二意见：** Guardian（见下文）是一个独立的模型，会审查高风险调用并可以否决。它是对强制层的补充，而不是替代。
+
+**部署之前：**
+- `AUTH_MODE=none`（默认）适用于一台机器上的单个用户。GUI 端口可从网络访问并会转发 API，因此在任何共享网络中请设置 `AUTH_MODE=local` 或 `sso`（参见 *认证与多租户*）。
+- 写入记忆（`remember`）既不审查也不需要审批；召回的条目会如上所述标记为不可信数据。
+- 一行安装命令会把脚本直接交给 bash。若想先阅读：`curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`，检查后再运行 `bash install.sh`。
 
 ### 安全监督（四人执政团）
 
 可选的按代理层，在执行前检查每个高风险工具调用。在 `agents.yaml` 中设置 `guardian: true` 即可启用；未设置此标志的代理不受影响。
 
-- **Guardian（守卫）** — 隔离的 LLM 调用（无工具绑定），评估工具名称和参数，返回：`NONE`（继续）、`SOFT VETO: 原因`（需要人工决策）或 `HARD VETO: 原因`（立即阻止）。
-- **仲裁者（Arbiter）** — 在 SOFT VETO 时激活，生成 Markdown 分析报告，并通过 LangGraph `interrupt()` 暂停图执行。操作员通过 Telegram `/approve` 或 GUI 批准或拒绝 — 与 HITL 流程相同。
-- **历史学家（Historian）** — 心跳任务，读取内存中的 Guardian 审计日志，并将结构化报告写入 PostgreSQL 的 `historian_reports` 表。
-- **风险分类** — MCP 服务器在 `mcps.yaml` 中标记为 `risk: low` 或 `risk: high`。内存、任务和审批工具始终排除在检查之外，与风险级别无关。
+- **Guardian（守卫）:** 隔离的 LLM 调用（无工具绑定），评估工具名称和参数，返回：`NONE`（继续）、`SOFT VETO: 原因`（需要人工决策）或 `HARD VETO: 原因`（立即阻止）。
+- **仲裁者（Arbiter）:** 在 SOFT VETO 时激活，生成 Markdown 分析报告，并通过 LangGraph `interrupt()` 暂停图执行。操作员通过 Telegram `/approve` 或 GUI 批准或拒绝: 与 HITL 流程相同。
+- **历史学家（Historian）:** 心跳任务，读取内存中的 Guardian 审计日志，并将结构化报告写入 PostgreSQL 的 `historian_reports` 表。
+- **风险分类:** MCP 服务器在 `mcps.yaml` 中标记为 `risk: low` 或 `risk: high`。内存、任务和审批工具始终排除在检查之外，与风险级别无关。
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # 可选 — 为空时继承代理的提供商
+    guardian_provider: anthropic        # 可选: 为空时继承代理的提供商
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # 所有 playwright 工具需要 Guardian 批准
   - name: hu-tools
-    risk: low         # 天气、新闻 — 直接通过，不检查
+    risk: low         # 天气、新闻: 直接通过，不检查
 ```
 
 `/guardian/log` 端点返回实时审计日志（最近 1,000 条决策）。
@@ -233,7 +256,7 @@ servers:
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT，或任意 OIDC 提供商（Auth0、Okta、Authelia 等） |
 
 **按用户隔离。** 在多用户模式下，每个用户的记忆和知识图谱相互分离：长期记忆
-存入该用户专属的 Qdrant 集合，图谱存入专属 `scope` — 读取时只能看到自己的数据以及
+存入该用户专属的 Qdrant 集合，图谱存入专属 `scope`: 读取时只能看到自己的数据以及
 管理员维护的共享层，永远看不到其他用户的数据。夜间维护同样**按用户**执行。
 
 ### 可观测性
@@ -248,7 +271,7 @@ servers:
 
 ### 备份与配置持久化
 
-所有运行时数据以绑定挂载方式存储在 `data/` 中；所有配置存于 YAML 文件——容器内无隐藏状态。
+所有运行时数据以绑定挂载方式存储在 `data/` 中；所有配置存于 YAML 文件--容器内无隐藏状态。
 
 **创建备份**（包含 `.env` + `data/`）：
 
@@ -291,15 +314,15 @@ python3 backup.py restore /srv/backup.tgz /opt/qai  # 恢复到指定目录
 
 Compose 配置文件：`mic`
 
-- openWakeWord — 可配置唤醒词（默认："Ok Szif"）。
-- Wyoming Whisper — 本地 STT，无需云端。
-- Wyoming Piper — 本地 TTS。
+- openWakeWord: 可配置唤醒词（默认："Ok Szif"）。
+- Wyoming Whisper: 本地 STT，无需云端。
+- Wyoming Piper: 本地 TTS。
 - Linux 桌面的 PulseAudio 套接字挂载。
 
 **平台说明：**
 
-- **Linux** — 安装程序自动检测您的 UID 并挂载正确的 PulseAudio 套接字（`/run/user/<uid>/pulse`）。
-- **macOS / Windows** — Docker Desktop 不会传递音频设备。安装程序会改写 PulseAudio TCP 配置。在启动 mic 容器前，请以 TCP 模式设置 PulseAudio：
+- **Linux:** 安装程序自动检测您的 UID 并挂载正确的 PulseAudio 套接字（`/run/user/<uid>/pulse`）。
+- **macOS / Windows:** Docker Desktop 不会传递音频设备。安装程序会改写 PulseAudio TCP 配置。在启动 mic 容器前，请以 TCP 模式设置 PulseAudio：
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows（原生）：下载 PulseAudio for Windows，在 `default.pa` 中取消注释 `module-native-protocol-tcp`，在防火墙中允许端口 4713。
@@ -320,7 +343,7 @@ Compose 配置文件：`stt-tts`
 
 ## GUI
 
-Compose 配置文件：`gui` — 访问地址 `http://localhost:3000`
+Compose 配置文件：`gui`: 访问地址 `http://localhost:3000`
 
 基于 React、Vite 和 Tailwind CSS 构建。
 
@@ -344,7 +367,7 @@ Compose 配置文件：`gui` — 访问地址 `http://localhost:3000`
 ### 前提条件
 
 - Docker Engine 24+ 和 Docker Compose v2。
-- Python 3.8+（用于 `install.py`）— 无需 pip 或 virtualenv。
+- Python 3.8+（用于 `install.py`）: 无需 pip 或 virtualenv。
 - 本地模型：Ollama 运行在主机 11434 端口。
 
 ### 创建共享网络（每台主机执行一次）
@@ -393,41 +416,41 @@ data/
 
 | 配置项 | 默认值 | 说明 |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | 要启动的配置文件，逗号分隔 |
+| `COMPOSE_PROFILES` |: | 要启动的配置文件，逗号分隔 |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | 编排器 FastAPI 端口 |
 | `GUI_PORT` | `3000` | GUI 端口 |
 | `QDRANT_HTTP_PORT` | `6333` | Qdrant REST 端口 |
 | `POSTGRES_PORT` | `5433` | PostgreSQL 端口 |
-| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL 密码 — 请修改！ |
+| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL 密码: 请修改！ |
 | `TRACE_RETENTION_DAYS` | `14` | 自动删除 N 天前的追踪数据 |
-| `ANTHROPIC_API_KEY` | — | 使用 Anthropic 提供商时必需 |
-| `OPENROUTER_API_KEY` | — | 使用 OpenRouter 时必需 |
-| `OPENAI_API_KEY` | — | 使用 OpenAI 时必需 |
-| `GOOGLE_API_KEY` | — | 使用 Google Gemini 时必需 |
-| `TELEGRAM_BOT_TOKEN` | — | Telegram 桥接器必需 |
-| `TELEGRAM_CHAT_ID` | — | 接受消息的 Telegram 聊天 ID |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | 任务完成通知的聊天 ID（与 `TELEGRAM_CHAT_ID` 相同时可复用） |
-| `MATRIX_HOMESERVER` | — | Matrix 服务器 URL |
-| `MATRIX_ACCESS_TOKEN` | — | Matrix 机器人访问令牌 |
-| `DISCORD_BOT_TOKEN` | — | Discord 桥接器必需 |
-| `SLACK_BOT_TOKEN` | — | Slack 桥接器必需 |
-| `SLACK_APP_TOKEN` | — | Slack Socket Mode 必需 |
-| `SIGNAL_PHONE` | — | Signal 桥接器的电话号码 |
-| `VIBER_AUTH_TOKEN` | — | Viber 桥接器必需 |
+| `ANTHROPIC_API_KEY` |: | 使用 Anthropic 提供商时必需 |
+| `OPENROUTER_API_KEY` |: | 使用 OpenRouter 时必需 |
+| `OPENAI_API_KEY` |: | 使用 OpenAI 时必需 |
+| `GOOGLE_API_KEY` |: | 使用 Google Gemini 时必需 |
+| `TELEGRAM_BOT_TOKEN` |: | Telegram 桥接器必需 |
+| `TELEGRAM_CHAT_ID` |: | 接受消息的 Telegram 聊天 ID |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | 任务完成通知的聊天 ID（与 `TELEGRAM_CHAT_ID` 相同时可复用） |
+| `MATRIX_HOMESERVER` |: | Matrix 服务器 URL |
+| `MATRIX_ACCESS_TOKEN` |: | Matrix 机器人访问令牌 |
+| `DISCORD_BOT_TOKEN` |: | Discord 桥接器必需 |
+| `SLACK_BOT_TOKEN` |: | Slack 桥接器必需 |
+| `SLACK_APP_TOKEN` |: | Slack Socket Mode 必需 |
+| `SIGNAL_PHONE` |: | Signal 桥接器的电话号码 |
+| `VIBER_AUTH_TOKEN` |: | Viber 桥接器必需 |
 | `HA_URL` | `http://homeassistant:8123` | Home Assistant 基础 URL |
-| `HA_TOKEN` | — | HA 长期访问令牌 |
-| `IMAP_HOST` | — | Email MCP 的 IMAP 服务器 |
-| `SMTP_HOST` | — | Email MCP 的 SMTP 服务器 |
-| `FALKORDB_URL` | — | 设置后启用知识图谱 |
-| `VAPID_EMAIL` | — | Web 推送通知必需 |
-| `VAPID_PRIVATE_KEY` | — | 由安装程序自动生成（需要 Python 包 `cryptography`）；否则运行 `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | 与私钥同时生成 |
+| `HA_TOKEN` |: | HA 长期访问令牌 |
+| `IMAP_HOST` |: | Email MCP 的 IMAP 服务器 |
+| `SMTP_HOST` |: | Email MCP 的 SMTP 服务器 |
+| `FALKORDB_URL` |: | 设置后启用知识图谱 |
+| `VAPID_EMAIL` |: | Web 推送通知必需 |
+| `VAPID_PRIVATE_KEY` |: | 由安装程序自动生成（需要 Python 包 `cryptography`）；否则运行 `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | 与私钥同时生成 |
 | `HU_TOOLS_PORT` | `4300` | hu-tools MCP 端口 |
 | `WHISPER_URL` | `http://whisper-http:8000` | STT 服务 URL |
 | `PIPER_URL` | `http://piper-http:5000` | TTS 服务 URL |
-| `ORCHESTRATOR_API_KEY` | — | 由安装程序自动生成；桥接器的服务间令牌（`AUTH_MODE=local/sso` 时必需） |
-| `CONVERSATION_API_KEY` | — | 由安装程序自动生成；保护 HA `/conversation` 端点（空 = 开放） |
+| `ORCHESTRATOR_API_KEY` |: | 由安装程序自动生成；桥接器的服务间令牌（`AUTH_MODE=local/sso` 时必需） |
+| `CONVERSATION_API_KEY` |: | 由安装程序自动生成；保护 HA `/conversation` 端点（空 = 开放） |
 
 智能体配置：`orchestrator/agents.yaml`。完整文档：`.env.example`。
 
@@ -490,7 +513,7 @@ docker compose --profile crm up -d
 
 ---
 
-## jog.gov.hu MCP — 匈牙利法律搜索
+## jog.gov.hu MCP: 匈牙利法律搜索
 
 jog.gov.hu MCP（`mcps/jog-hu/`）以两种部署模式向 AI 智能体提供匈牙利法律信息：
 
@@ -498,7 +521,7 @@ jog.gov.hu MCP（`mcps/jog-hu/`）以两种部署模式向 AI 智能体提供匈
 
 | 工具 | 说明 |
 |---|---|
-| `search_njt_laws(keywords)` | 在 njt.jog.gov.hu 上进行关键词搜索 — 返回匹配的法律标题和 URL |
+| `search_njt_laws(keywords)` | 在 njt.jog.gov.hu 上进行关键词搜索: 返回匹配的法律标题和 URL |
 | `get_law_text(law_id, section)` | 从 njt.hu 获取完整或部分法律文本（例如 `"2012. évi I. törvény"`，章节 `"69"`） |
 | `list_recent_laws(category, days)` | 从 Magyar Közlöny RSS 获取近期法律 |
 
@@ -508,18 +531,18 @@ jog.gov.hu MCP（`mcps/jog-hu/`）以两种部署模式向 AI 智能体提供匈
 |---|---|
 | `search_law(question)` | 自然语言问题 → AI 答案 + 引用的法律参考（jog.gov.hu） |
 
-reCAPTCHA v3 评分会话主要依据 **IP 信誉**。Docker 容器 IP 和云/VPS 服务器 IP 被划分为数据中心地址段，无论浏览器指纹如何，都会获得较低的信任分 — 从而被拦截。家庭或办公室机器使用**住宅 IP** 才能获得足够高的分数通过验证。**无需图形显示** — 浏览器以无头模式运行，显示器与此无关。
+reCAPTCHA v3 评分会话主要依据 **IP 信誉**。Docker 容器 IP 和云/VPS 服务器 IP 被划分为数据中心地址段，无论浏览器指纹如何，都会获得较低的信任分: 从而被拦截。家庭或办公室机器使用**住宅 IP** 才能获得足够高的分数通过验证。**无需图形显示:** 浏览器以无头模式运行，显示器与此无关。
 
-**快速开始（Docker 工具 — 始终可用）：**
+**快速开始（Docker 工具: 始终可用）：**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**启动主机服务器（AI 搜索 — 需要住宅 IP）：**
+**启动主机服务器（AI 搜索: 需要住宅 IP）：**
 ```bash
 # 适用于：家庭/办公室台式机或笔记本电脑（Windows、macOS、Linux）
 # 不适用于：云/VPS 服务器（数据中心 IP 被 reCAPTCHA 屏蔽）
-# 无需图形显示 — 以无头模式运行
+# 无需图形显示: 以无头模式运行
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -534,7 +557,7 @@ python3 mcps/jog-hu/host_server.py --stop          # 停止守护进程
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# 可选 — 仅在 host_server.py 运行时：
+# 可选: 仅在 host_server.py 运行时：
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

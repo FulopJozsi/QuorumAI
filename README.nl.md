@@ -11,7 +11,7 @@ QuorumAI is een modulair, zelf-gehost multi-agent AI-orkestratiesysteem gebouwd 
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">Begin hier — meld je aan voor een gratis proefperiode van 30 dagen »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">Begin hier: meld je aan voor een gratis proefperiode van 30 dagen »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ QuorumAI is een modulair, zelf-gehost multi-agent AI-orkestratiesysteem gebouwd 
 
 QuorumAI verandert één of meer LLM's in een team van AI-agents dat:
 
-- Vragen beantwoordt, nieuws voorleest en smart-home-apparaten bedient — geactiveerd via microfoon, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber of IRC.
+- Vragen beantwoordt, nieuws voorleest en smart-home-apparaten bedient: geactiveerd via microfoon, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber of IRC.
 - Werk delegeert tussen gespecialiseerde rollen (CEO, ontwikkelaar, verkoop) en langetermijngeheugen bijhoudt tussen sessies via Qdrant vectorzoeken.
 - Autonoom taken uitvoert via een heartbeat-planner, menselijke goedkeuring vraagt wanneer nodig (HITL) en elke externe mogelijkheid als MCP-server (Model Context Protocol) beschikbaar stelt.
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 De installer start standaard met een **snelle installatie**: hij vraagt alleen de licentiesleutel (gratis proefperiode van 30 dagen: https://license.quorumai.eu), gebruikt standaardwaarden voor de rest en start QuorumAI. **Geavanceerd** behoudt het volledige module- en poortmenu. **Bijwerken**: voer dezelfde opdracht opnieuw uit; hij vindt de bestaande installatie, behoudt instellingen en gegevens en haalt de nieuwe versies op.
 
-**Windows (PowerShell — uitvoeren als Administrator):**
+**Windows (PowerShell, uitvoeren als Administrator):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ Of download `install.bat` / `install.ps1` uit de repository en dubbelklik erop.
 
 ### Heeft u Python 3 en Docker al?
 
-Kloon de repository en voer het interactieve installatieprogramma direct uit — pip of extra afhankelijkheden zijn niet nodig:
+Kloon de repository en voer het interactieve installatieprogramma direct uit: pip of extra afhankelijkheden zijn niet nodig:
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ Het installatieprogramma:
 - Schrijft `.env` op basis van uw antwoorden, maakt `data/` bind-mount-mappen aan en voert `docker compose up -d` uit.
 - De interface van het installatieprogramma is beschikbaar in 16 talen.
 
-**Satellite-modus** — microfoon, bridges of MCP-servers uitvoeren op een aparte machine:
+**Satellite-modus:** microfoon, bridges of MCP-servers uitvoeren op een aparte machine:
 ```bash
 python3 install.py   # kies "Satellite" wanneer gevraagd
 ```
@@ -126,7 +126,7 @@ GUI beschikbaar op: `http://localhost:3000`
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Elke laag bevindt zich in zijn eigen map met eigen `compose.yml`. De root-`compose.yml` bundelt alle lagen via `include:` en Docker Compose-profielen — u start alleen wat u nodig heeft.
+Elke laag bevindt zich in zijn eigen map met eigen `compose.yml`. De root-`compose.yml` bundelt alle lagen via `include:` en Docker Compose-profielen: u start alleen wat u nodig heeft.
 
 ---
 
@@ -134,15 +134,15 @@ Elke laag bevindt zich in zijn eigen map met eigen `compose.yml`. De root-`compo
 
 ### Kernorkestratie
 
-- **LangGraph-runtime** — toestandsmachine-agentgraph, native HITL-checkpointing, `AsyncPostgresSaver`.
-- **FastAPI HTTP API** — `POST /invoke`, `GET /health`, streaming, webhook-ontvanger, pushmeldingdoorschakeling.
-- **agents.yaml** — declareer agents in YAML: naam, rol, provider, model, systeempromptpad, tools.
-- **Hot-reload** — `POST /agents/reload` herlaadt `agents.yaml` zonder containerherstart.
-- **MCP-toolprotocol** — elke externe mogelijkheid is een MCP-server; agents ontdekken tools automatisch.
-- **Qdrant vectorgeheugen** — hybride semantisch + BM42 lexicaal zoeken, meertalige E5-Large-embeddings, agentspecifieke collecties, cosinus-deduplicatie, MMR-gediversifieerd ophalen.
-- **Nachtelijke geheugenconsolidatie** — geplande droomtaak destilleert PostgreSQL-sessiegeschiedenis naar langetermijn Qdrant-feiten; samenvoegen van progressies, verwijderen van verouderde vluchtige vermeldingen; toestand bijgehouden in PostgreSQL.
-- **PostgreSQL** — `AsyncPostgresSaver`-checkpointer + taken- en commentaartabellen.
-- **Kennisgraaf** — FalkorDB (Redis-compatibel), gebruikersspecifieke Cypher-query's, automatische entiteitsextractie.
+- **LangGraph-runtime:** toestandsmachine-agentgraph, native HITL-checkpointing, `AsyncPostgresSaver`.
+- **FastAPI HTTP API:** `POST /invoke`, `GET /health`, streaming, webhook-ontvanger, pushmeldingdoorschakeling.
+- **agents.yaml:** declareer agents in YAML: naam, rol, provider, model, systeempromptpad, tools.
+- **Hot-reload:** `POST /agents/reload` herlaadt `agents.yaml` zonder containerherstart.
+- **MCP-toolprotocol:** elke externe mogelijkheid is een MCP-server; agents ontdekken tools automatisch.
+- **Qdrant vectorgeheugen:** hybride semantisch + BM42 lexicaal zoeken, meertalige E5-Large-embeddings, agentspecifieke collecties, cosinus-deduplicatie, MMR-gediversifieerd ophalen.
+- **Nachtelijke geheugenconsolidatie:** geplande droomtaak destilleert PostgreSQL-sessiegeschiedenis naar langetermijn Qdrant-feiten; samenvoegen van progressies, verwijderen van verouderde vluchtige vermeldingen; toestand bijgehouden in PostgreSQL.
+- **PostgreSQL:** `AsyncPostgresSaver`-checkpointer + taken- en commentaartabellen.
+- **Kennisgraaf:** FalkorDB (Redis-compatibel), gebruikersspecifieke Cypher-query's, automatische entiteitsextractie.
 
 ### LLM-providers (per agent, geconfigureerd in agents.yaml)
 
@@ -161,9 +161,11 @@ Elke laag bevindt zich in zijn eigen map met eigen `compose.yml`. De root-`compo
 | | Eden AI (aggregator) |
 | | NVIDIA NIM (gratis niveau beschikbaar) |
 
-Er is geen API-sleutel nodig om te beginnen — Ollama draait lokaal en gratis.
+Er is geen API-sleutel nodig om te beginnen: Ollama draait lokaal en gratis.
 
-**Provider-pools** — meerdere identieke lokale servers (bijv. zes Ollama-machines) kunnen worden gegroepeerd in een benoemde pool. De orkestrator verdeelt verzoeken via least-connections taakverdeling; als alle poolleden falen, valt het terug op de normale fallback-keten. Geconfigureerd in `providers.yaml` en beheersbaar via het tabblad Providers van de GUI.
+**Provider-pools:** meerdere identieke lokale servers (bijv. zes Ollama-machines) kunnen worden gegroepeerd in een benoemde pool. De orkestrator verdeelt verzoeken via least-connections taakverdeling; als alle poolleden falen, valt het terug op de normale fallback-keten. Geconfigureerd in `providers.yaml` en beheersbaar via het tabblad Providers van de GUI.
+
+**Fallback en afkoeling:** als een aanroep mislukt, gaat de agent naar het volgende item van zijn fallbackketen en koelt alleen af wat mislukte: één model (de upstream-host is overbelast, het model is onbekend of niet in het abonnement), alle gratis (`:free`) modellen van een verbinding (het gratis tegoed is op) of de hele provider (rate limit van het account, authenticatie- of verbindingsfout). Een afkoeling begint bij 5 minuten en verdubbelt bij elke volgende fout, tot 60 minuten; een geslaagde aanroep heft haar op.
 
 ### Multi-agent bedrijfssimulatie
 
@@ -172,10 +174,10 @@ Er is geen API-sleutel nodig om te beginnen — Ollama draait lokaal en gratis.
 - **Sub-agents op de achtergrond**: `invoke_agent` wacht tot 5 minuten; een langere run gaat als kanban-taak op de achtergrond verder, en de aanroepende agent meldt het resultaat zelf zodra het klaar is (GUI live, alle bridges, microfoon). Elke sub-agent-run heeft een eigen, terug te kijken thread.
 - **Leermodus en voortgangsbewaking**: de tool `text-compare` vergelijkt een opzegbeurt (gedicht, rollentekst, definities) woord voor woord en meldt een overgeslagen strofe meteen; in spraaksessies neemt de agent na een stilte zelf het woord, met getrapte hints (eerste woord, regel, strofe). De tool `progress` toont elke beurt waar het werk staat, bewaart de leervoortgang per gebruiker over meerdere dagen en maakt er met één aanroep een kanban-taak van. Kant-en-klare agents: het branchepakket `education`. De microfoon kan per agent ingesteld ook doorlopend luisteren zonder wekwoord (stiltedrempel, stapsgewijze herinneringen, automatisch stoppen); met welke agent de microfoon praat, kies je in de GUI.
 - Pipeline-agents: planner → uitvoerder → beoordelaar-lussen met gedeelde toestand.
-- **Autonome (Deep) agents** — stel `deep: true` in op een agent of pipeline-fase om de ingebouwde LangGraph ReAct-lus te activeren. De agent plant, voert uit en itereert autonoom — hij roept tools herhaaldelijk aan totdat de taak klaar is of de optionele limiet voor toolaanroepen bereikt is (`deep_max_steps`, 0 = onbeperkt). Instelbaar per agent en per fase; schakelaar beschikbaar in de GUI Agent Builder.
+- **Autonome (Deep) agents:** stel `deep: true` in op een agent of pipeline-fase om de ingebouwde LangGraph ReAct-lus te activeren. De agent plant, voert uit en itereert autonoom: hij roept tools herhaaldelijk aan totdat de taak klaar is of de optionele limiet voor toolaanroepen bereikt is (`deep_max_steps`, 0 = onbeperkt). Instelbaar per agent en per fase; schakelaar beschikbaar in de GUI Agent Builder.
 - Vaardighedenbibliotheek: Markdown-vaardigheidsbestanden, lazy-load per agent, gemeenschapsmarktplaats voor delen.
 - Gedeelde werkruimte: agents kunnen een gedeeld bestandsgebied lezen en schrijven.
-- **Beheerhulpmiddelen** — agents met de rol `admin` kunnen agents, skills, MCP-servers, cron-jobs en heartbeat-planningen aanmaken en verwijderen tijdens runtime via `system-admin`-hulpmiddelen. Elke schrijfactie vereist HITL-goedkeuring voor uitvoering.
+- **Beheerhulpmiddelen:** agents met de rol `admin` kunnen agents, skills, MCP-servers, cron-jobs en heartbeat-planningen aanmaken en verwijderen tijdens runtime via `system-admin`-hulpmiddelen. Elke schrijfactie vereist HITL-goedkeuring voor uitvoering.
 
 ### Taakbeheer en autonomie
 
@@ -184,30 +186,51 @@ Er is geen API-sleutel nodig om te beginnen — Ollama draait lokaal en gratis.
 - Autonome uitvoering met HITL-goedkeuringspoorten (Telegram `/approve`, GUI-knoppen).
 - Pushmeldingen: Telegram, Home Assistant `notify`, web push (VAPID). Taken kunnen een `notify_channel`-veld opgeven zodat de voltooiingsmelding altijd naar de juiste bridge gaat, ongeacht welke sessie de taak heeft aangemaakt. Agents kunnen `list_notify_channels()` aanroepen om beschikbare kanalen tijdens runtime te ontdekken.
 
-**Meerdaagse taken** — het aanbevolen patroon voor langdurig werk dat uren of dagen beslaat:
+**Meerdaagse taken:** het aanbevolen patroon voor langdurig werk dat uren of dagen beslaat:
 1. Maak een taak aan met een titel en beschrijving (via chat, Telegram of het GUI Kanban-bord).
 2. De agent (of jij) roept `set_subtasks` aan om het op te splitsen in benoemde stappen.
-3. Elke heartbeat-run pakt de volgende openstaande subtaak op, voltooit deze en stopt — individuele LLM-sessies blijven kort en gefocust.
+3. Elke heartbeat-run pakt de volgende openstaande subtaak op, voltooit deze en stopt: individuele LLM-sessies blijven kort en gefocust.
 4. Voortgang, beslissingen en tussenresultaten worden opgeslagen als taakopmerkingen zodat elke volgende run volledige context heeft van wat eerder is gebeurd.
 5. Wanneer alle subtaken klaar zijn, sluit de agent de taak en stuurt een voltooiingsmelding.
 
-Dit patroon werkt zonder codewijzigingen — het is gebouwd op de bestaande taaktools (`set_subtasks`, `get_next_subtask`, `complete_subtask`) waartoe elke agent met de `tasks`-toolbron toegang heeft.
+Dit patroon werkt zonder codewijzigingen: het is gebouwd op de bestaande taaktools (`set_subtasks`, `get_next_subtask`, `complete_subtask`) waartoe elke agent met de `tasks`-toolbron toegang heeft.
+
+### Beveiligingsmodel
+
+QuorumAI scheidt wat de code afdwingt van wat het het model alleen vraagt. Omdat externe tekst gemarkeerd is, negeert het model instructies die in een webpagina of document verborgen zitten zeer waarschijnlijk, maar dat is een waarschijnlijkheid, geen garantie. Wordt het toch misleid, dan kan het nog steeds alleen zijn eigen tools gebruiken, en bij riskante stappen beslist een mens.
+
+**Afgedwongen in code:**
+- **Toegestane tools per agent.** Een agent krijgt alleen de MCP-servers en systeemtoolgroepen die in zijn eigen configuratie staan (`tools:` in `agents.yaml`, of de Agent Builder). Een marketingagent zonder de Grafana-MCP heeft geen Grafana-tool om aan te roepen, wat er ook in zijn invoer staat.
+- **Risicoclassificatie.** Ingebouwde tools hebben een vast risiconiveau (`write_file`, `delete_file`, `python_repl` en `http_post` zijn hoog), shellcommando's worden op patroon ingedeeld (`rm -r`, `curl | sh`, `ssh`, reverse shells en dergelijke) en MCP-servers volgens hun `risk:`-instelling in `mcps.yaml`.
+- **Verplichte menselijke goedkeuring.** Met `ai_act_mode: true` stopt elke risicovolle aanroep vóór de uitvoering en wacht op goedkeuring of afwijzing door een mens (in de GUI of op elke chatbridge). De controle draait in de agentgraaf, niet in het model, dus het model kan haar niet overslaan.
+- **Systeemwijzigingen hebben altijd een mens nodig.** Agenten, MCP-servers, skills en planningen aanmaken of verwijderen (de `system-admin`-tools) wacht bij elke aanroep op goedkeuring, met of zonder `ai_act_mode`. Alleen agenten met `allowed_roles: [admin]` krijgen deze tools überhaupt.
+- **Een afwijzing is definitief.** Een afgewezen aanroep wordt niet uitgevoerd; het model krijgt in plaats daarvan een `[REJECTED]`-resultaat.
+- **Netwerkstandaarden.** De orchestrator-API, Qdrant, PostgreSQL en de MCP-servers luisteren alleen op `127.0.0.1`.
+
+**Gemarkeerd voor het model:** tooluitvoer bereikt het model in een kader waarvan de begin- en eindregel een willekeurige id per aanroep dragen, met een `[TOOL DATA ...]`-melding; resultaten van subagenten, opgehaalde herinneringen en graaffeiten zijn op dezelfde manier gemarkeerd (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Alles in de data dat deze markeringen of de eindregel van het kader nabootst, verschijnt in geciteerde vorm, zodat een pagina het kader niet voortijdig kan sluiten en als de gebruiker kan verdergaan. De systeemprompt draagt het model op instructies daarbinnen nooit te volgen. Dat maakt prompt injection veel moeilijker, maar het is een instructie aan het model, geen garantie. De afgedwongen laag hierboven beperkt de schade.
+
+**Optionele tweede mening:** de Guardian (hieronder) is een apart model dat risicovolle aanroepen beoordeelt en er een veto over kan uitspreken. Hij vult de afgedwongen laag aan, maar vervangt haar niet.
+
+**Voor ingebruikname:**
+- `AUTH_MODE=none` (standaard) is bedoeld voor één gebruiker op één machine. De GUI-poort is bereikbaar vanaf het netwerk en stuurt de API door, dus stel op elk gedeeld netwerk `AUTH_MODE=local` of `sso` in (zie *Authenticatie en multi-tenancy*).
+- Schrijven naar het geheugen (`remember`) wordt niet gecontroleerd en vraagt geen goedkeuring; opgehaalde items zijn zoals hierboven gemarkeerd als onbetrouwbare data.
+- De installer in één regel stuurt een script rechtstreeks naar bash. Om het eerst te lezen: `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, bekijk het en voer dan `bash install.sh` uit.
 
 ### Veiligheidstoezicht (Quadrumviraat)
 
 Een optionele per-agent laag die elke risicovolle gereedschapsaanroep controleert voordat deze wordt uitgevoerd. Activeer met `guardian: true` in `agents.yaml`; agenten zonder deze vlag worden niet beïnvloed.
 
-- **Guardian** — een geïsoleerde LLM-aanroep (zonder gereedschappen) die de naam en argumenten van het gereedschap beoordeelt en teruggeeft: `NONE` (doorgaan), `SOFT VETO: reden` (menselijke beslissing vereist) of `HARD VETO: reden` (onmiddellijke blokkering).
-- **Arbiter** — geactiveerd bij SOFT VETO; genereert een Markdown-analyserapport en onderbreekt de graph via LangGraph `interrupt()`. De operator keurt goed of weigert via Telegram `/approve` of de GUI — dezelfde stroom als HITL.
-- **Historicus** — een heartbeat-taak die het Guardian-auditlog in het geheugen leest en een gestructureerd rapport schrijft naar de PostgreSQL-tabel `historian_reports`.
-- **Risicoclassificatie** — MCP-servers worden in `mcps.yaml` gelabeld met `risk: low` of `risk: high`. Geheugen-, taak- en goedkeuringsgereedschappen zijn altijd uitgesloten van controle.
+- **Guardian:** een geïsoleerde LLM-aanroep (zonder gereedschappen) die de naam en argumenten van het gereedschap beoordeelt en teruggeeft: `NONE` (doorgaan), `SOFT VETO: reden` (menselijke beslissing vereist) of `HARD VETO: reden` (onmiddellijke blokkering).
+- **Arbiter:** geactiveerd bij SOFT VETO; genereert een Markdown-analyserapport en onderbreekt de graph via LangGraph `interrupt()`. De operator keurt goed of weigert via Telegram `/approve` of de GUI: dezelfde stroom als HITL.
+- **Historicus:** een heartbeat-taak die het Guardian-auditlog in het geheugen leest en een gestructureerd rapport schrijft naar de PostgreSQL-tabel `historian_reports`.
+- **Risicoclassificatie:** MCP-servers worden in `mcps.yaml` gelabeld met `risk: low` of `risk: high`. Geheugen-, taak- en goedkeuringsgereedschappen zijn altijd uitgesloten van controle.
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # optioneel — erft provider van agent als leeg
+    guardian_provider: anthropic        # optioneel: erft provider van agent als leeg
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # alle playwright-gereedschappen vereisen Guardian-goedkeuring
   - name: hu-tools
-    risk: low         # weer, nieuws — doorgestuurd zonder controle
+    risk: low         # weer, nieuws: doorgestuurd zonder controle
 ```
 
 Het `/guardian/log`-endpoint retourneert het live auditlog (laatste 1.000 beslissingen).
@@ -228,13 +251,13 @@ Het `/guardian/log`-endpoint retourneert het live auditlog (laatste 1.000 beslis
 
 | Modus | Beschrijving |
 |---|---|
-| `AUTH_MODE=none` | Open — geen authenticatie (standaard, geschikt voor lokaal gebruik) |
+| `AUTH_MODE=none` | Open: geen authenticatie (standaard, geschikt voor lokaal gebruik) |
 | `AUTH_MODE=local` | Bearer-token; gebruikers gedefinieerd in `LOCAL_USERS=gebruiker1:wachtwoord1,...` |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT, of elke OIDC-provider (Auth0, Okta, Authelia, …) |
 
 **Isolatie per gebruiker.** In multi-usermodus zijn het geheugen en de
 kennisgraaf van elke gebruiker gescheiden: het langetermijngeheugen komt in de
-eigen Qdrant-collectie en de graaf in de eigen `scope` — een leesactie ziet de
+eigen Qdrant-collectie en de graaf in de eigen `scope`: een leesactie ziet de
 eigen gegevens en de door de beheerder samengestelde gedeelde laag, nooit die van
 een andere gebruiker. Ook het nachtelijke onderhoud loopt **per gebruiker**.
 
@@ -250,7 +273,7 @@ Accepteert ondertekende webhooks van: GitHub, Gitea, Drone CI, Grafana, n8n, Sla
 
 ### Back-up en configuratiepersistentie
 
-Alle runtime-gegevens staan als bind mounts in `data/`; alle configuratie in YAML-bestanden — geen verborgen toestand in containers.
+Alle runtime-gegevens staan als bind mounts in `data/`; alle configuratie in YAML-bestanden: geen verborgen toestand in containers.
 
 **Back-up maken** (inclusief `.env` + `data/`):
 
@@ -293,15 +316,15 @@ Elke bridge biedt `/notify` (pushmeldingen van de orkestrator) en `/health` (liv
 
 Compose-profiel: `mic`
 
-- openWakeWord — instelbaar activeringswoord (standaard: "Ok Szif").
-- Wyoming Whisper — lokale STT, geen cloud vereist.
-- Wyoming Piper — lokale TTS.
+- openWakeWord: instelbaar activeringswoord (standaard: "Ok Szif").
+- Wyoming Whisper: lokale STT, geen cloud vereist.
+- Wyoming Piper: lokale TTS.
 - PulseAudio-socketkoppeling voor Linux-desktops.
 
 **Platformopmerkingen:**
 
-- **Linux** — het installatieprogramma detecteert uw UID en koppelt automatisch de juiste PulseAudio-socket (`/run/user/<uid>/pulse`).
-- **macOS / Windows** — Docker Desktop geeft geen audioapparaten door. Het installatieprogramma schrijft in plaats daarvan een PulseAudio TCP-configuratie. Stel PulseAudio in TCP-modus in voordat u de mic-container start:
+- **Linux:** het installatieprogramma detecteert uw UID en koppelt automatisch de juiste PulseAudio-socket (`/run/user/<uid>/pulse`).
+- **macOS / Windows:** Docker Desktop geeft geen audioapparaten door. Het installatieprogramma schrijft in plaats daarvan een PulseAudio TCP-configuratie. Stel PulseAudio in TCP-modus in voordat u de mic-container start:
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows (native): download PulseAudio voor Windows, verwijder het commentaar bij `module-native-protocol-tcp` in `default.pa`, sta poort 4713 toe in de firewall.
@@ -322,7 +345,7 @@ Stelt Whisper en Piper beschikbaar als HTTP-API's die agents kunnen aanroepen al
 
 ## GUI
 
-Compose-profiel: `gui` — beschikbaar op `http://localhost:3000`
+Compose-profiel: `gui`: beschikbaar op `http://localhost:3000`
 
 Gebouwd met React, Vite en Tailwind CSS.
 
@@ -346,7 +369,7 @@ Gebouwd met React, Vite en Tailwind CSS.
 ### Vereisten
 
 - Docker Engine 24+ en Docker Compose v2.
-- Python 3.8+ voor `install.py` — geen pip of virtualenv vereist.
+- Python 3.8+ voor `install.py`: geen pip of virtualenv vereist.
 - Voor lokale modellen: Ollama actief op de host op poort 11434.
 
 ### Gedeeld netwerk aanmaken (eenmalig per host)
@@ -395,41 +418,41 @@ Kopieer `.env.example` naar `.env` en vul in wat u nodig heeft. Het bestand `.en
 
 | Sleutel | Standaard | Beschrijving |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | Door komma's gescheiden profielen om te starten |
+| `COMPOSE_PROFILES` |: | Door komma's gescheiden profielen om te starten |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | Orkestrator FastAPI-poort |
 | `GUI_PORT` | `3000` | GUI-poort |
 | `QDRANT_HTTP_PORT` | `6333` | Qdrant REST-poort |
 | `POSTGRES_PORT` | `5433` | PostgreSQL-poort |
-| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL-wachtwoord — wijzig dit! |
+| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL-wachtwoord: wijzig dit! |
 | `TRACE_RETENTION_DAYS` | `14` | Automatisch verwijderen van traces ouder dan N dagen |
-| `ANTHROPIC_API_KEY` | — | Vereist voor Anthropic-provider |
-| `OPENROUTER_API_KEY` | — | Vereist voor OpenRouter |
-| `OPENAI_API_KEY` | — | Vereist voor OpenAI |
-| `GOOGLE_API_KEY` | — | Vereist voor Google Gemini |
-| `TELEGRAM_BOT_TOKEN` | — | Vereist voor Telegram-bridge |
-| `TELEGRAM_CHAT_ID` | — | Telegram-chat-ID om berichten van te ontvangen |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | Chat-ID voor voltooiingsmeldingen van taken (gelijk aan `TELEGRAM_CHAT_ID` indien hetzelfde) |
-| `MATRIX_HOMESERVER` | — | Matrix-server-URL |
-| `MATRIX_ACCESS_TOKEN` | — | Matrix-bot-toegangstoken |
-| `DISCORD_BOT_TOKEN` | — | Vereist voor Discord-bridge |
-| `SLACK_BOT_TOKEN` | — | Vereist voor Slack-bridge |
-| `SLACK_APP_TOKEN` | — | Vereist voor Slack Socket Mode |
-| `SIGNAL_PHONE` | — | Telefoonnummer voor Signal-bridge |
-| `VIBER_AUTH_TOKEN` | — | Vereist voor Viber-bridge |
+| `ANTHROPIC_API_KEY` |: | Vereist voor Anthropic-provider |
+| `OPENROUTER_API_KEY` |: | Vereist voor OpenRouter |
+| `OPENAI_API_KEY` |: | Vereist voor OpenAI |
+| `GOOGLE_API_KEY` |: | Vereist voor Google Gemini |
+| `TELEGRAM_BOT_TOKEN` |: | Vereist voor Telegram-bridge |
+| `TELEGRAM_CHAT_ID` |: | Telegram-chat-ID om berichten van te ontvangen |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | Chat-ID voor voltooiingsmeldingen van taken (gelijk aan `TELEGRAM_CHAT_ID` indien hetzelfde) |
+| `MATRIX_HOMESERVER` |: | Matrix-server-URL |
+| `MATRIX_ACCESS_TOKEN` |: | Matrix-bot-toegangstoken |
+| `DISCORD_BOT_TOKEN` |: | Vereist voor Discord-bridge |
+| `SLACK_BOT_TOKEN` |: | Vereist voor Slack-bridge |
+| `SLACK_APP_TOKEN` |: | Vereist voor Slack Socket Mode |
+| `SIGNAL_PHONE` |: | Telefoonnummer voor Signal-bridge |
+| `VIBER_AUTH_TOKEN` |: | Vereist voor Viber-bridge |
 | `HA_URL` | `http://homeassistant:8123` | Home Assistant basis-URL |
-| `HA_TOKEN` | — | HA langlevendige toegangstoken |
-| `IMAP_HOST` | — | IMAP-server voor E-mail MCP |
-| `SMTP_HOST` | — | SMTP-server voor E-mail MCP |
-| `FALKORDB_URL` | — | Stel in om de kennisgraaf te activeren |
-| `VAPID_EMAIL` | — | Vereist voor web-pushmeldingen |
-| `VAPID_PRIVATE_KEY` | — | Automatisch gegenereerd door het installatieprogramma (vereist het Python-pakket `cryptography`); anders: `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | Gegenereerd samen met de privésleutel |
+| `HA_TOKEN` |: | HA langlevendige toegangstoken |
+| `IMAP_HOST` |: | IMAP-server voor E-mail MCP |
+| `SMTP_HOST` |: | SMTP-server voor E-mail MCP |
+| `FALKORDB_URL` |: | Stel in om de kennisgraaf te activeren |
+| `VAPID_EMAIL` |: | Vereist voor web-pushmeldingen |
+| `VAPID_PRIVATE_KEY` |: | Automatisch gegenereerd door het installatieprogramma (vereist het Python-pakket `cryptography`); anders: `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | Gegenereerd samen met de privésleutel |
 | `HU_TOOLS_PORT` | `4300` | Poort voor hu-tools MCP |
 | `WHISPER_URL` | `http://whisper-http:8000` | STT-service-URL |
 | `PIPER_URL` | `http://piper-http:5000` | TTS-service-URL |
-| `ORCHESTRATOR_API_KEY` | — | Automatisch gegenereerd door het installatieprogramma; service-naar-service-token voor bridges (vereist in `AUTH_MODE=local/sso`) |
-| `CONVERSATION_API_KEY` | — | Automatisch gegenereerd door het installatieprogramma; beschermt het HA-eindpunt `/conversation` (leeg = open) |
+| `ORCHESTRATOR_API_KEY` |: | Automatisch gegenereerd door het installatieprogramma; service-naar-service-token voor bridges (vereist in `AUTH_MODE=local/sso`) |
+| `CONVERSATION_API_KEY` |: | Automatisch gegenereerd door het installatieprogramma; beschermt het HA-eindpunt `/conversation` (leeg = open) |
 
 Agentconfiguratie: `orchestrator/agents.yaml`. Volledige documentatie: `.env.example`.
 
@@ -492,7 +515,7 @@ Voeg `crm` toe aan de `tools:`-lijst van een agent in `agents.yaml` om die agent
 
 ---
 
-## jog.gov.hu MCP — Hongaarse juridische zoekfunctie
+## jog.gov.hu MCP: Hongaarse juridische zoekfunctie
 
 De jog.gov.hu MCP (`mcps/jog-hu/`) biedt Hongaarse juridische informatie aan AI-agents in twee implementatiemodi:
 
@@ -500,7 +523,7 @@ De jog.gov.hu MCP (`mcps/jog-hu/`) biedt Hongaarse juridische informatie aan AI-
 
 | Tool | Beschrijving |
 |---|---|
-| `search_njt_laws(keywords)` | Trefwoordzoeken op njt.jog.gov.hu — geeft overeenkomende wettitels en URL's terug |
+| `search_njt_laws(keywords)` | Trefwoordzoeken op njt.jog.gov.hu: geeft overeenkomende wettitels en URL's terug |
 | `get_law_text(law_id, section)` | Volledige of gedeeltelijke wettekst van njt.hu (bijv. `"2012. évi I. törvény"`, sectie `"69"`) |
 | `list_recent_laws(category, days)` | Recente wetten uit de Magyar Közlöny RSS-feed |
 
@@ -510,18 +533,18 @@ De jog.gov.hu MCP (`mcps/jog-hu/`) biedt Hongaarse juridische informatie aan AI-
 |---|---|
 | `search_law(question)` | Natuurlijke taalvraag → AI-antwoord + geciteerde wetsverwijzingen (jog.gov.hu) |
 
-reCAPTCHA v3 beoordeelt sessies primair op **IP-reputatie**. Docker-container-IP's en cloud-/VPS-server-IP's worden geclassificeerd als datacenterbereiken en krijgen een lage vertrouwensscore — ongeacht aanpassingen aan de browser-fingerprint. Een thuis- of kantoorapparaat op een **residentieel IP** scoort hoog genoeg om de controle te doorstaan. Een grafische weergave is **niet vereist** — de browser draait headless; de weergave is irrelevant.
+reCAPTCHA v3 beoordeelt sessies primair op **IP-reputatie**. Docker-container-IP's en cloud-/VPS-server-IP's worden geclassificeerd als datacenterbereiken en krijgen een lage vertrouwensscore: ongeacht aanpassingen aan de browser-fingerprint. Een thuis- of kantoorapparaat op een **residentieel IP** scoort hoog genoeg om de controle te doorstaan. Een grafische weergave is **niet vereist:** de browser draait headless; de weergave is irrelevant.
 
-**Snel starten (Docker-tools — werkt altijd):**
+**Snel starten (Docker-tools, werkt altijd):**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**Hostserver starten (AI-zoekfunctie — residentieel IP vereist):**
+**Hostserver starten (AI-zoekfunctie, residentieel IP vereist):**
 ```bash
 # Werkt op: thuis-/kantoordesktop of laptop (Windows, macOS, Linux)
 # Werkt NIET op: cloud-/VPS-servers (datacentrum-IP's geblokkeerd door reCAPTCHA)
-# Grafische weergave is NIET vereist — draait headless
+# Grafische weergave is NIET vereist: draait headless
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -536,7 +559,7 @@ python3 mcps/jog-hu/host_server.py --stop          # daemon stoppen
   url: http://jog-hu-mcp:4302/mcp/
   description: Hongaarse juridische zoekfunctie (njt.hu)
 
-# Optioneel — alleen als host_server.py actief is:
+# Optioneel: alleen als host_server.py actief is:
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hongaarse juridische AI-zoekfunctie (jog.gov.hu)

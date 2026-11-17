@@ -11,7 +11,7 @@ O QuorumAI é um sistema modular de orquestração de múltiplos agentes de IA, 
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">Comece agora — registe-se para um teste gratuito de 30 dias »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">Comece agora: registe-se para um teste gratuito de 30 dias »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ O QuorumAI é um sistema modular de orquestração de múltiplos agentes de IA, 
 
 O QuorumAI transforma um ou mais LLMs em uma equipe de agentes de IA capazes de:
 
-- Responder perguntas, ler notícias e controlar dispositivos domóticos — acionados por microfone, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber ou IRC.
+- Responder perguntas, ler notícias e controlar dispositivos domóticos: acionados por microfone, Telegram, Matrix, Discord, Slack, Signal, WhatsApp, Viber ou IRC.
 - Delegar trabalho entre papéis especializados (CEO, desenvolvedor, vendas) e manter memória de longo prazo entre sessões usando busca vetorial do Qdrant.
 - Executar tarefas de forma autônoma via um agendador heartbeat, solicitar aprovação humana quando necessário (HITL) e expor cada capacidade externa como servidor MCP (Model Context Protocol).
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 O instalador começa por defeito com uma **instalação rápida**: pede apenas a chave de licença (teste gratuito de 30 dias: https://license.quorumai.eu), usa valores padrão para o resto e inicia o QuorumAI. **Avançada** mantém o menu completo de módulos e portas. **Para atualizar**, execute o mesmo comando outra vez: deteta a instalação existente, mantém definições e dados e transfere as novas versões.
 
-**Windows (PowerShell — executar como Administrador):**
+**Windows (PowerShell, executar como Administrador):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ Ou baixe `install.bat` / `install.ps1` do repositório e dê um duplo clique.
 
 ### Já tem Python 3 e Docker?
 
-Clone o repositório e execute o instalador interativo diretamente — não é necessário pip nem dependências adicionais:
+Clone o repositório e execute o instalador interativo diretamente: não é necessário pip nem dependências adicionais:
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ O instalador:
 - Escreve `.env` com as suas respostas, cria diretórios bind-mount `data/` e executa `docker compose up -d`.
 - A interface do instalador está disponível em 16 idiomas.
 
-**Modo Satellite** — executar microfone, bridges ou servidores MCP numa máquina separada:
+**Modo Satellite:** executar microfone, bridges ou servidores MCP numa máquina separada:
 ```bash
 python3 install.py   # escolha "Satellite" quando solicitado
 ```
@@ -126,7 +126,7 @@ Interface gráfica: `http://localhost:3000`
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Cada camada vive em seu próprio diretório com seu próprio `compose.yml`. O `compose.yml` raiz agrega todas as camadas via `include:` e perfis do Docker Compose — você inicia apenas o que precisa.
+Cada camada vive em seu próprio diretório com seu próprio `compose.yml`. O `compose.yml` raiz agrega todas as camadas via `include:` e perfis do Docker Compose: você inicia apenas o que precisa.
 
 ---
 
@@ -134,15 +134,15 @@ Cada camada vive em seu próprio diretório com seu próprio `compose.yml`. O `c
 
 ### Orquestração principal
 
-- **Runtime LangGraph** — grafo de agentes de máquina de estados, checkpointing HITL nativo, `AsyncPostgresSaver`.
-- **API HTTP FastAPI** — `POST /invoke`, `GET /health`, streaming, receptor de webhooks, retransmissão de notificações push.
-- **agents.yaml** — declare agentes em YAML: nome, papel, provedor, modelo, caminho do prompt de sistema, ferramentas.
-- **Recarga a quente** — `POST /agents/reload` recarrega `agents.yaml` sem reiniciar o contêiner.
-- **Protocolo de ferramentas MCP** — cada capacidade externa é um servidor MCP; os agentes descobrem ferramentas automaticamente.
-- **Memória vetorial Qdrant** — busca híbrida semântica + BM42 lexical, embeddings multilingual-e5-large, coleções por agente, deduplicação por cosseno, recuperação diversificada por MMR.
-- **Consolidação de memória noturna** — tarefa de «sonho» agendada que destila o histórico de sessões do PostgreSQL em fatos Qdrant de longo prazo; mescla progressões, remove entradas efêmeras obsoletas; estado rastreado no PostgreSQL.
-- **PostgreSQL** — checkpointer `AsyncPostgresSaver` + tabelas de tarefas e comentários.
-- **Grafo de conhecimento** — FalkorDB (compatível com Redis), consultas Cypher por usuário, extração automática de entidades.
+- **Runtime LangGraph:** grafo de agentes de máquina de estados, checkpointing HITL nativo, `AsyncPostgresSaver`.
+- **API HTTP FastAPI:** `POST /invoke`, `GET /health`, streaming, receptor de webhooks, retransmissão de notificações push.
+- **agents.yaml:** declare agentes em YAML: nome, papel, provedor, modelo, caminho do prompt de sistema, ferramentas.
+- **Recarga a quente:** `POST /agents/reload` recarrega `agents.yaml` sem reiniciar o contêiner.
+- **Protocolo de ferramentas MCP:** cada capacidade externa é um servidor MCP; os agentes descobrem ferramentas automaticamente.
+- **Memória vetorial Qdrant:** busca híbrida semântica + BM42 lexical, embeddings multilingual-e5-large, coleções por agente, deduplicação por cosseno, recuperação diversificada por MMR.
+- **Consolidação de memória noturna:** tarefa de «sonho» agendada que destila o histórico de sessões do PostgreSQL em fatos Qdrant de longo prazo; mescla progressões, remove entradas efêmeras obsoletas; estado rastreado no PostgreSQL.
+- **PostgreSQL:** checkpointer `AsyncPostgresSaver` + tabelas de tarefas e comentários.
+- **Grafo de conhecimento:** FalkorDB (compatível com Redis), consultas Cypher por usuário, extração automática de entidades.
 
 ### Provedores LLM (por agente, configurados em agents.yaml)
 
@@ -161,9 +161,11 @@ Cada camada vive em seu próprio diretório com seu próprio `compose.yml`. O `c
 | | Eden AI (agregador) |
 | | NVIDIA NIM (nível gratuito disponível) |
 
-Não é necessária nenhuma chave API para começar — o Ollama funciona localmente e gratuitamente.
+Não é necessária nenhuma chave API para começar: o Ollama funciona localmente e gratuitamente.
 
-**Pools de provedores** — vários servidores locais idênticos (ex.: seis máquinas Ollama) podem ser agrupados em um pool com nome. O orquestrador distribui as solicitações com balanceamento least-connections; se todos os membros do pool falharem, volta à cadeia de fallback normal. Configurado em `providers.yaml` e gerenciável pela aba Provedores da GUI.
+**Pools de provedores:** vários servidores locais idênticos (ex.: seis máquinas Ollama) podem ser agrupados em um pool com nome. O orquestrador distribui as solicitações com balanceamento least-connections; se todos os membros do pool falharem, volta à cadeia de fallback normal. Configurado em `providers.yaml` e gerenciável pela aba Provedores da GUI.
+
+**Recurso e arrefecimento:** quando uma chamada falha, o agente passa à entrada seguinte da sua cadeia de recurso e arrefece apenas o que falhou: um modelo (o seu anfitrião upstream está sobrecarregado, o modelo é desconhecido ou não consta do plano), todos os modelos gratuitos (`:free`) de uma ligação (a quota gratuita esgotou-se) ou todo o fornecedor (limite da conta, erro de autenticação ou de ligação). Um arrefecimento começa em 5 minutos e duplica a cada nova falha, até 60 minutos; uma chamada bem-sucedida anula-o.
 
 ### Simulação de empresa multi-agente
 
@@ -172,10 +174,10 @@ Não é necessária nenhuma chave API para começar — o Ollama funciona localm
 - **Subagentes em segundo plano**: `invoke_agent` espera até 5 minutos; uma execução mais longa continua em segundo plano como tarefa kanban, e o agente que chamou relata o resultado sozinho ao terminar (GUI ao vivo, todas as bridges, microfone). Cada execução de subagente tem seu próprio thread consultável.
 - **Modo de aprendizagem e acompanhamento do progresso**: a ferramenta `text-compare` compara uma recitação (poema, texto de papel, definições) palavra por palavra e avisa na hora sobre uma estrofe pulada; em sessões de voz o agente fala por conta própria após um silêncio, com dicas graduais (primeira palavra, verso, estrofe). A ferramenta `progress` mostra a cada turno em que ponto está o trabalho, guarda o progresso de aprendizagem por usuário ao longo dos dias e o transforma em uma tarefa kanban com uma única chamada. Agentes prontos: o pacote setorial `education`. O microfone também pode ouvir continuamente sem palavra de ativação, configurado por agente (limite de silêncio, etapas de lembrete, parada automática); com qual agente o microfone fala é escolhido na GUI.
 - Agentes pipeline: loops planejador → executor → revisor com estado compartilhado.
-- **Agentes autônomos (Deep)** — defina `deep: true` em qualquer agente ou fase de pipeline para ativar o loop ReAct LangGraph integrado. O agente planeja, executa e itera autonomamente — chamando ferramentas repetidamente até a tarefa ser concluída ou o limite opcional de chamadas de ferramentas ser atingido (`deep_max_steps`, 0 = ilimitado). Configurável por agente e por fase de pipeline; botão disponível no GUI Agent Builder.
+- **Agentes autônomos (Deep):** defina `deep: true` em qualquer agente ou fase de pipeline para ativar o loop ReAct LangGraph integrado. O agente planeja, executa e itera autonomamente: chamando ferramentas repetidamente até a tarefa ser concluída ou o limite opcional de chamadas de ferramentas ser atingido (`deep_max_steps`, 0 = ilimitado). Configurável por agente e por fase de pipeline; botão disponível no GUI Agent Builder.
 - Biblioteca de habilidades: arquivos Markdown de habilidades, carregamento lazy por agente, mercado comunitário para compartilhamento.
 - Espaço de trabalho compartilhado: os agentes podem ler e escrever em uma área de ficheiros compartilhada.
-- **Ferramentas de administração** — agentes com o papel `admin` podem criar e excluir agentes, skills, servidores MCP, cron jobs e agendamentos heartbeat em tempo de execução via ferramentas `system-admin`. Cada ação de escrita requer aprovação HITL antes da execução.
+- **Ferramentas de administração:** agentes com o papel `admin` podem criar e excluir agentes, skills, servidores MCP, cron jobs e agendamentos heartbeat em tempo de execução via ferramentas `system-admin`. Cada ação de escrita requer aprovação HITL antes da execução.
 
 ### Gestão de tarefas e autonomia
 
@@ -184,30 +186,51 @@ Não é necessária nenhuma chave API para começar — o Ollama funciona localm
 - Execução autônoma com pontos de aprovação HITL (Telegram `/approve`, botões GUI).
 - Notificações push: Telegram, Home Assistant `notify`, web push (VAPID). As tarefas podem especificar um campo `notify_channel` para que a mensagem de conclusão vá sempre para o bridge correto, independentemente de qual sessão criou a tarefa. Os agentes podem chamar `list_notify_channels()` para descobrir os canais disponíveis em tempo de execução.
 
-**Tarefas de vários dias** — o padrão recomendado para trabalhos de longa duração que abrangem horas ou dias:
+**Tarefas de vários dias:** o padrão recomendado para trabalhos de longa duração que abrangem horas ou dias:
 1. Crie uma tarefa com título e descrição (via chat, Telegram ou o quadro Kanban da GUI).
 2. O agente (ou você) chama `set_subtasks` para dividi-la em etapas nomeadas.
-3. Cada execução do heartbeat pega a próxima subtarefa pendente, conclui-a e para — as sessões LLM individuais permanecem curtas e focadas.
+3. Cada execução do heartbeat pega a próxima subtarefa pendente, conclui-a e para: as sessões LLM individuais permanecem curtas e focadas.
 4. O progresso, decisões e resultados intermediários são armazenados como comentários de tarefa para que cada execução seguinte tenha contexto completo do que aconteceu antes.
 5. Quando todas as subtarefas estão concluídas, o agente fecha a tarefa e envia uma notificação de conclusão.
 
-Este padrão funciona sem alterações de código — baseia-se nas ferramentas de tarefas existentes (`set_subtasks`, `get_next_subtask`, `complete_subtask`) às quais qualquer agente com a fonte de ferramentas `tasks` já tem acesso.
+Este padrão funciona sem alterações de código: baseia-se nas ferramentas de tarefas existentes (`set_subtasks`, `get_next_subtask`, `complete_subtask`) às quais qualquer agente com a fonte de ferramentas `tasks` já tem acesso.
+
+### Modelo de segurança
+
+O QuorumAI separa o que o código impõe do que apenas pede ao modelo. Como o texto externo está marcado, o modelo muito provavelmente ignora instruções escondidas numa página web ou num documento, mas isso é uma probabilidade, não uma garantia. Se mesmo assim for enganado, continua a poder usar apenas as suas próprias ferramentas, e nos passos arriscados decide uma pessoa.
+
+**Imposto pelo código:**
+- **Lista de ferramentas permitidas por agente.** Um agente só recebe os servidores MCP e grupos de ferramentas do sistema listados na sua própria configuração (`tools:` em `agents.yaml`, ou o Agent Builder). Um agente de marketing sem o MCP do Grafana não tem nenhuma ferramenta do Grafana para chamar, diga o que disser a sua entrada.
+- **Classificação de risco.** As ferramentas integradas têm um nível de risco fixo (`write_file`, `delete_file`, `python_repl` e `http_post` são altos), os comandos de shell são classificados por padrão (`rm -r`, `curl | sh`, `ssh`, reverse shells e semelhantes) e os servidores MCP pela sua definição `risk:` em `mcps.yaml`.
+- **Aprovação humana obrigatória.** Com `ai_act_mode: true`, cada chamada de alto risco para antes de ser executada e espera que uma pessoa a aprove ou rejeite (na GUI ou em qualquer bridge de chat). A verificação corre no grafo do agente, não no modelo, por isso o modelo não a pode contornar.
+- **As alterações ao sistema exigem sempre uma pessoa.** Criar ou eliminar agentes, servidores MCP, skills e agendamentos (as ferramentas `system-admin`) aguarda aprovação em cada chamada, com ou sem `ai_act_mode`. Só os agentes com `allowed_roles: [admin]` recebem estas ferramentas.
+- **Uma rejeição é definitiva.** Uma chamada rejeitada não é executada; o modelo recebe em vez disso um resultado `[REJECTED]`.
+- **Predefinições de rede.** A API do orquestrador, o Qdrant, o PostgreSQL e os servidores MCP só escutam em `127.0.0.1`.
+
+**Marcado para o modelo:** a saída das ferramentas chega ao modelo dentro de uma moldura cujas linhas de início e fim levam um identificador aleatório por chamada, com um aviso `[TOOL DATA ...]`; os resultados de subagentes, as memórias recuperadas e os factos do grafo são marcados da mesma forma (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Tudo o que, nos dados, imite estas marcas ou a linha final da moldura aparece em forma citada, para que uma página não possa fechar a moldura antes do tempo e continuar como se fosse o utilizador. O prompt de sistema diz ao modelo para nunca seguir instruções encontradas lá dentro. Isto torna a injeção de prompts muito mais difícil, mas é uma instrução ao modelo, não uma garantia. É a camada imposta acima que limita os danos.
+
+**Segunda opinião opcional:** o Guardian (abaixo) é um modelo separado que analisa as chamadas de alto risco e pode vetá-las. Complementa a camada imposta; não a substitui.
+
+**Antes de pôr em produção:**
+- `AUTH_MODE=none` (predefinido) destina-se a um utilizador numa máquina. A porta da GUI é acessível a partir da rede e encaminha a API, por isso em qualquer rede partilhada defina `AUTH_MODE=local` ou `sso` (ver *Autenticação e multi-tenancy*).
+- As escritas na memória (`remember`) não são analisadas nem exigem aprovação; as entradas recuperadas são marcadas como dados não fiáveis, como acima.
+- O instalador de uma linha passa um script diretamente ao bash. Para o ler primeiro: `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, reveja-o e depois `bash install.sh`.
 
 ### Supervisão de segurança (Quadrumvirato)
 
 Uma camada opcional por agente que verifica cada chamada de ferramenta de risco antes de ser executada. Ativada com `guardian: true` em `agents.yaml`; agentes sem este indicador não são afetados.
 
-- **Guardian** — uma chamada LLM isolada (sem ferramentas) que avalia o nome e os argumentos da ferramenta e retorna: `NONE` (continuar), `SOFT VETO: motivo` (decisão humana necessária) ou `HARD VETO: motivo` (bloqueio imediato).
-- **Árbitro** — ativado em SOFT VETO; gera um relatório de análise Markdown e suspende o grafo via LangGraph `interrupt()`. O operador aprova ou rejeita via Telegram `/approve` ou a GUI — mesmo fluxo que o HITL.
-- **Historiador** — uma tarefa heartbeat que lê o log de auditoria Guardian em memória e escreve um relatório estruturado na tabela PostgreSQL `historian_reports`.
-- **Classificação de risco** — os servidores MCP recebem a etiqueta `risk: low` ou `risk: high` em `mcps.yaml`. As ferramentas de memória, tarefas e aprovação estão sempre excluídas do controlo.
+- **Guardian:** uma chamada LLM isolada (sem ferramentas) que avalia o nome e os argumentos da ferramenta e retorna: `NONE` (continuar), `SOFT VETO: motivo` (decisão humana necessária) ou `HARD VETO: motivo` (bloqueio imediato).
+- **Árbitro:** ativado em SOFT VETO; gera um relatório de análise Markdown e suspende o grafo via LangGraph `interrupt()`. O operador aprova ou rejeita via Telegram `/approve` ou a GUI: mesmo fluxo que o HITL.
+- **Historiador:** uma tarefa heartbeat que lê o log de auditoria Guardian em memória e escreve um relatório estruturado na tabela PostgreSQL `historian_reports`.
+- **Classificação de risco:** os servidores MCP recebem a etiqueta `risk: low` ou `risk: high` em `mcps.yaml`. As ferramentas de memória, tarefas e aprovação estão sempre excluídas do controlo.
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # opcional — herda o fornecedor do agente se vazio
+    guardian_provider: anthropic        # opcional: herda o fornecedor do agente se vazio
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # todas as ferramentas playwright requerem aprovação do Guardian
   - name: hu-tools
-    risk: low         # clima, notícias — transmitidos sem controlo
+    risk: low         # clima, notícias: transmitidos sem controlo
 ```
 
 O endpoint `/guardian/log` devolve o log de auditoria em tempo real (últimas 1 000 decisões).
@@ -228,13 +251,13 @@ O endpoint `/guardian/log` devolve o log de auditoria em tempo real (últimas 1 
 
 | Modo | Descrição |
 |---|---|
-| `AUTH_MODE=none` | Aberto — sem autenticação (padrão, adequado para uso local) |
+| `AUTH_MODE=none` | Aberto: sem autenticação (padrão, adequado para uso local) |
 | `AUTH_MODE=local` | Token Bearer; usuários definidos em `LOCAL_USERS=usuario1:senha1,...` |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT ou qualquer provedor OIDC (Auth0, Okta, Authelia, …) |
 
 **Isolamento por utilizador.** Em modo multiutilizador, a memória e o grafo
 de conhecimento de cada utilizador estão separados: a memória de longo prazo vai
-para a sua própria coleção Qdrant e o grafo para o seu próprio `scope` — uma
+para a sua própria coleção Qdrant e o grafo para o seu próprio `scope`: uma
 leitura vê os seus próprios dados e a camada comum curada pelo administrador,
 nunca os de outro utilizador. A manutenção noturna também corre **por
 utilizador**.
@@ -251,7 +274,7 @@ Aceita webhooks assinados de: GitHub, Gitea, Drone CI, Grafana, n8n, Slack, ERPN
 
 ### Backup e persistência de configuração
 
-Todos os dados de execução ficam em `data/` como bind mounts; toda a configuração em arquivos YAML — sem estado oculto dentro dos contêineres.
+Todos os dados de execução ficam em `data/` como bind mounts; toda a configuração em arquivos YAML: sem estado oculto dentro dos contêineres.
 
 **Criar backup** (inclui `.env` + `data/`):
 
@@ -294,15 +317,15 @@ Cada bridge expõe `/notify` (para notificações push do orquestrador) e `/heal
 
 Perfil Compose: `mic`
 
-- openWakeWord — palavra de ativação configurável (padrão: "Ok Szif").
-- Wyoming Whisper — STT local, sem nuvem.
-- Wyoming Piper — TTS local.
+- openWakeWord: palavra de ativação configurável (padrão: "Ok Szif").
+- Wyoming Whisper: STT local, sem nuvem.
+- Wyoming Piper: TTS local.
 - Montagem de socket PulseAudio para desktops Linux.
 
 **Notas de plataforma:**
 
-- **Linux** — o instalador deteta o seu UID e monta automaticamente o socket PulseAudio correto (`/run/user/<uid>/pulse`).
-- **macOS / Windows** — o Docker Desktop não passa dispositivos de áudio. O instalador escreve uma configuração TCP do PulseAudio em alternativa. Configure o PulseAudio em modo TCP antes de iniciar o contentor mic:
+- **Linux:** o instalador deteta o seu UID e monta automaticamente o socket PulseAudio correto (`/run/user/<uid>/pulse`).
+- **macOS / Windows:** o Docker Desktop não passa dispositivos de áudio. O instalador escreve uma configuração TCP do PulseAudio em alternativa. Configure o PulseAudio em modo TCP antes de iniciar o contentor mic:
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows (nativo): transfira o PulseAudio para Windows, descomente `module-native-protocol-tcp` em `default.pa`, permita a porta 4713 na firewall.
@@ -323,7 +346,7 @@ Expõe o Whisper e o Piper como APIs HTTP que os agentes podem chamar como ferra
 
 ## Interface gráfica
 
-Perfil Compose: `gui` — disponível em `http://localhost:3000`
+Perfil Compose: `gui`: disponível em `http://localhost:3000`
 
 Construída com React, Vite e Tailwind CSS.
 
@@ -347,7 +370,7 @@ Construída com React, Vite e Tailwind CSS.
 ### Pré-requisitos
 
 - Docker Engine 24+ e Docker Compose v2.
-- Python 3.8+ para `install.py` — sem pip ou virtualenv necessários.
+- Python 3.8+ para `install.py`: sem pip ou virtualenv necessários.
 - Para modelos locais: Ollama a correr no host na porta 11434.
 
 ### Criar a rede compartilhada (uma vez por host)
@@ -396,43 +419,43 @@ Copie `.env.example` para `.env` e preencha o que necessitar. O ficheiro `.env.e
 
 | Chave | Padrão | Descrição |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | Perfis a iniciar, separados por vírgulas |
+| `COMPOSE_PROFILES` |: | Perfis a iniciar, separados por vírgulas |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | Porta FastAPI do orquestrador |
 | `GUI_PORT` | `3000` | Porta da GUI |
 | `QDRANT_HTTP_PORT` | `6333` | Porta REST do Qdrant |
 | `POSTGRES_PORT` | `5433` | Porta do PostgreSQL |
-| `POSTGRES_PASSWORD` | `changeme` | Senha do PostgreSQL — altere! |
+| `POSTGRES_PASSWORD` | `changeme` | Senha do PostgreSQL: altere! |
 | `TRACE_RETENTION_DAYS` | `14` | Exclusão automática de traces com mais de N dias |
-| `ANTHROPIC_API_KEY` | — | Necessário para provedor Anthropic |
-| `OPENROUTER_API_KEY` | — | Necessário para OpenRouter |
-| `OPENAI_API_KEY` | — | Necessário para OpenAI |
-| `GOOGLE_API_KEY` | — | Necessário para Google Gemini |
-| `TELEGRAM_BOT_TOKEN` | — | Necessário para bridge Telegram |
-| `TELEGRAM_CHAT_ID` | — | ID do chat Telegram a aceitar mensagens |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | ID do chat para notificações de conclusão de tarefas (igual a `TELEGRAM_CHAT_ID` se for o mesmo) |
-| `MATRIX_HOMESERVER` | — | URL do servidor Matrix |
-| `MATRIX_ACCESS_TOKEN` | — | Token de acesso do bot Matrix |
-| `DISCORD_BOT_TOKEN` | — | Necessário para bridge Discord |
-| `SLACK_BOT_TOKEN` | — | Necessário para bridge Slack |
-| `SLACK_APP_TOKEN` | — | Necessário para Slack Socket Mode |
-| `SIGNAL_PHONE` | — | Número de telefone para bridge Signal |
-| `VIBER_AUTH_TOKEN` | — | Necessário para bridge Viber |
+| `ANTHROPIC_API_KEY` |: | Necessário para provedor Anthropic |
+| `OPENROUTER_API_KEY` |: | Necessário para OpenRouter |
+| `OPENAI_API_KEY` |: | Necessário para OpenAI |
+| `GOOGLE_API_KEY` |: | Necessário para Google Gemini |
+| `TELEGRAM_BOT_TOKEN` |: | Necessário para bridge Telegram |
+| `TELEGRAM_CHAT_ID` |: | ID do chat Telegram a aceitar mensagens |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | ID do chat para notificações de conclusão de tarefas (igual a `TELEGRAM_CHAT_ID` se for o mesmo) |
+| `MATRIX_HOMESERVER` |: | URL do servidor Matrix |
+| `MATRIX_ACCESS_TOKEN` |: | Token de acesso do bot Matrix |
+| `DISCORD_BOT_TOKEN` |: | Necessário para bridge Discord |
+| `SLACK_BOT_TOKEN` |: | Necessário para bridge Slack |
+| `SLACK_APP_TOKEN` |: | Necessário para Slack Socket Mode |
+| `SIGNAL_PHONE` |: | Número de telefone para bridge Signal |
+| `VIBER_AUTH_TOKEN` |: | Necessário para bridge Viber |
 | `HA_URL` | `http://homeassistant:8123` | URL base do Home Assistant |
-| `HA_TOKEN` | — | Token de acesso de longa duração HA |
-| `IMAP_HOST` | — | Servidor IMAP para Email MCP |
-| `SMTP_HOST` | — | Servidor SMTP para Email MCP |
-| `FALKORDB_URL` | — | Definir para ativar o grafo de conhecimento |
-| `VAPID_EMAIL` | — | Necessário para notificações web push |
-| `VAPID_PRIVATE_KEY` | — | Gerado automaticamente pelo instalador (requer o pacote Python `cryptography`); caso contrário: `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | Gerado juntamente com a chave privada |
+| `HA_TOKEN` |: | Token de acesso de longa duração HA |
+| `IMAP_HOST` |: | Servidor IMAP para Email MCP |
+| `SMTP_HOST` |: | Servidor SMTP para Email MCP |
+| `FALKORDB_URL` |: | Definir para ativar o grafo de conhecimento |
+| `VAPID_EMAIL` |: | Necessário para notificações web push |
+| `VAPID_PRIVATE_KEY` |: | Gerado automaticamente pelo instalador (requer o pacote Python `cryptography`); caso contrário: `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | Gerado juntamente com a chave privada |
 | `HU_TOOLS_PORT` | `4300` | Porta do MCP hu-tools |
 | `WHISPER_URL` | `http://whisper-http:8000` | URL do serviço STT |
 | `PIPER_URL` | `http://piper-http:5000` | URL do serviço TTS |
-| `ORCHESTRATOR_API_KEY` | — | Gerado automaticamente pelo instalador; token serviço-a-serviço para bridges (obrigatório em `AUTH_MODE=local/sso`) |
-| `CONVERSATION_API_KEY` | — | Gerado automaticamente pelo instalador; protege o endpoint HA `/conversation` (vazio = aberto) |
+| `ORCHESTRATOR_API_KEY` |: | Gerado automaticamente pelo instalador; token serviço-a-serviço para bridges (obrigatório em `AUTH_MODE=local/sso`) |
+| `CONVERSATION_API_KEY` |: | Gerado automaticamente pelo instalador; protege o endpoint HA `/conversation` (vazio = aberto) |
 
-A configuração de agentes é feita em `orchestrator/agents.yaml` — não no `.env`.
+A configuração de agentes é feita em `orchestrator/agents.yaml`: não no `.env`.
 
 ---
 
@@ -493,7 +516,7 @@ Adicione `crm` à lista `tools:` de um agente em `agents.yaml` para lhe dar aces
 
 ---
 
-## jog.gov.hu MCP — Pesquisa jurídica húngara
+## jog.gov.hu MCP: Pesquisa jurídica húngara
 
 O MCP jog.gov.hu (`mcps/jog-hu/`) fornece informação jurídica húngara a agentes de IA em dois modos de implantação:
 
@@ -501,7 +524,7 @@ O MCP jog.gov.hu (`mcps/jog-hu/`) fornece informação jurídica húngara a agen
 
 | Ferramenta | Descrição |
 |---|---|
-| `search_njt_laws(keywords)` | Pesquisa por palavras-chave em njt.jog.gov.hu — devolve títulos e URLs de leis correspondentes |
+| `search_njt_laws(keywords)` | Pesquisa por palavras-chave em njt.jog.gov.hu: devolve títulos e URLs de leis correspondentes |
 | `get_law_text(law_id, section)` | Texto completo ou parcial de uma lei em njt.hu (ex.: `"2012. évi I. törvény"`, secção `"69"`) |
 | `list_recent_laws(category, days)` | Leis recentes do feed RSS Magyar Közlöny |
 
@@ -511,18 +534,18 @@ O MCP jog.gov.hu (`mcps/jog-hu/`) fornece informação jurídica húngara a agen
 |---|---|
 | `search_law(question)` | Pergunta em linguagem natural → resposta da IA + referências de leis citadas (jog.gov.hu) |
 
-O reCAPTCHA v3 avalia as sessões principalmente pela **reputação do IP**. Os IPs de contêineres Docker e de servidores cloud/VPS são classificados como intervalos de datacenter e recebem uma pontuação de confiança baixa — independentemente de ajustes à impressão digital do navegador. Uma máquina doméstica ou de escritório com um **IP residencial** pontua suficientemente alto para passar. Não é necessário um ecrã gráfico — o navegador corre sem interface; o ecrã é irrelevante.
+O reCAPTCHA v3 avalia as sessões principalmente pela **reputação do IP**. Os IPs de contêineres Docker e de servidores cloud/VPS são classificados como intervalos de datacenter e recebem uma pontuação de confiança baixa (independentemente de ajustes à impressão digital do navegador. Uma máquina doméstica ou de escritório com um **IP residencial** pontua suficientemente alto para passar. Não é necessário um ecrã gráfico) o navegador corre sem interface; o ecrã é irrelevante.
 
-**Início rápido (ferramentas Docker — funciona sempre):**
+**Início rápido (ferramentas Docker, funciona sempre):**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**Iniciar o servidor host (pesquisa com IA — IP residencial necessário):**
+**Iniciar o servidor host (pesquisa com IA, IP residencial necessário):**
 ```bash
 # Funciona em: desktop ou portátil doméstico/de escritório (Windows, macOS, Linux)
 # NÃO funciona em: servidores cloud/VPS (IPs de datacenter bloqueados pelo reCAPTCHA)
-# Não é necessário ecrã gráfico — corre em modo headless
+# Não é necessário ecrã gráfico: corre em modo headless
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -537,7 +560,7 @@ python3 mcps/jog-hu/host_server.py --stop          # parar daemon
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# Opcional — apenas se host_server.py estiver a correr:
+# Opcional: apenas se host_server.py estiver a correr:
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

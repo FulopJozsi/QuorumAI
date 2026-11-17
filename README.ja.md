@@ -11,7 +11,7 @@ QuorumAIは、LangGraph上に構築されたモジュール式のセルフホス
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">ここから始める — 登録して30日間の無料トライアルを »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">ここから始める: 登録して30日間の無料トライアルを »</a></b></p>
 </div>
 
 ---
@@ -20,7 +20,7 @@ QuorumAIは、LangGraph上に構築されたモジュール式のセルフホス
 
 QuorumAIは1つ以上のLLMをAIエージェントのチームに変換します。このチームは以下のことができます。
 
-- 質問への回答、ニュースの読み上げ、スマートホームデバイスの制御 — マイク、Telegram、Matrix、Discord、Slack、Signal、WhatsApp、Viber、IRCから起動。
+- 質問への回答、ニュースの読み上げ、スマートホームデバイスの制御: マイク、Telegram、Matrix、Discord、Slack、Signal、WhatsApp、Viber、IRCから起動。
 - 専門的な役割（CEO、開発者、営業）間で作業を委任し、Qdrantベクター検索を使用してセッション間で長期記憶を維持。
 - ハートビートスケジューラーによるタスクの自律実行、必要に応じた人間の承認要求（HITL）、すべての外部機能をMCP（Model Context Protocol）サーバーとして公開。
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 インストーラーは既定で**クイックインストール**から始まります。ライセンスキーのみを入力し（30 日間の無料トライアル：https://license.quorumai.eu）、その他は既定値で設定して QuorumAI を起動します。**詳細設定**ではモジュールとポートを個別に選べます。**アップデート**するには同じコマンドをもう一度実行してください。既存のインストールを検出し、設定とデータを保持したまま新しいバージョンを取得します。
 
-**Windows（PowerShell — 管理者として実行）：**
+**Windows（PowerShell: 管理者として実行）：**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -54,7 +54,7 @@ irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 
 ### Python 3とDockerがすでにインストールされている場合
 
-リポジトリをクローンして対話型インストーラーを直接実行します — pipや追加の依存関係は不要です：
+リポジトリをクローンして対話型インストーラーを直接実行します: pipや追加の依存関係は不要です：
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -67,7 +67,7 @@ python3 install.py
 - 回答から `.env` を作成し、`data/` バインドマウントディレクトリを作成して `docker compose up -d` を実行します。
 - インストーラーのUIは16言語に対応しています。
 
-**サテライトモード** — マイク、ブリッジ、またはMCPサーバーを別のマシンで実行：
+**サテライトモード:** マイク、ブリッジ、またはMCPサーバーを別のマシンで実行：
 ```bash
 python3 install.py   # プロンプトで「Satellite」を選択
 ```
@@ -126,7 +126,7 @@ GUIにアクセス: `http://localhost:3000`
 └─────────────────────────────────────────────────────────────┘
 ```
 
-各レイヤーは独自のディレクトリと`compose.yml`を持ちます。ルートの`compose.yml`は`include:`とDocker Composeプロファイルを通じてすべてのレイヤーを集約します — 必要なものだけを起動します。
+各レイヤーは独自のディレクトリと`compose.yml`を持ちます。ルートの`compose.yml`は`include:`とDocker Composeプロファイルを通じてすべてのレイヤーを集約します: 必要なものだけを起動します。
 
 ---
 
@@ -134,15 +134,15 @@ GUIにアクセス: `http://localhost:3000`
 
 ### コアオーケストレーション
 
-- **LangGraphランタイム** — 状態機械エージェントグラフ、ネイティブHITLチェックポインティング、`AsyncPostgresSaver`。
-- **FastAPI HTTP API** — `POST /invoke`、`GET /health`、ストリーミング、Webhookレシーバー、プッシュ通知リレー。
-- **agents.yaml** — YAMLでエージェントを宣言: 名前、役割、プロバイダー、モデル、システムプロンプトパス、ツール。
-- **ホットリロード** — `POST /agents/reload`でコンテナ再起動なしに`agents.yaml`を再読み込み。
-- **MCPツールプロトコル** — すべての外部機能がMCPサーバー; エージェントがツールを自動検出。
-- **Qdrantベクターメモリ** — ハイブリッドセマンティック + BM42語彙検索、multilingual-e5-largeエンベディング、エージェントスコープのコレクション、コサイン重複排除、MMR多様化リコール。
-- **夜間メモリ統合** — スケジュールされた「夢ジョブ」がPostgreSQLセッション履歴を長期Qdrantファクトに蒸留；進行状況をマージし、古いエフェメラルエントリを削除；状態はPostgreSQLで追跡。
-- **PostgreSQL** — LangGraph `AsyncPostgresSaver`チェックポインター + タスクとコメントテーブル。
-- **知識グラフ** — FalkorDB（Redis互換）、ユーザースコープのCypherクエリ、自動エンティティ抽出。
+- **LangGraphランタイム:** 状態機械エージェントグラフ、ネイティブHITLチェックポインティング、`AsyncPostgresSaver`。
+- **FastAPI HTTP API:** `POST /invoke`、`GET /health`、ストリーミング、Webhookレシーバー、プッシュ通知リレー。
+- **agents.yaml:** YAMLでエージェントを宣言: 名前、役割、プロバイダー、モデル、システムプロンプトパス、ツール。
+- **ホットリロード:** `POST /agents/reload`でコンテナ再起動なしに`agents.yaml`を再読み込み。
+- **MCPツールプロトコル:** すべての外部機能がMCPサーバー; エージェントがツールを自動検出。
+- **Qdrantベクターメモリ:** ハイブリッドセマンティック + BM42語彙検索、multilingual-e5-largeエンベディング、エージェントスコープのコレクション、コサイン重複排除、MMR多様化リコール。
+- **夜間メモリ統合:** スケジュールされた「夢ジョブ」がPostgreSQLセッション履歴を長期Qdrantファクトに蒸留；進行状況をマージし、古いエフェメラルエントリを削除；状態はPostgreSQLで追跡。
+- **PostgreSQL:** LangGraph `AsyncPostgresSaver`チェックポインター + タスクとコメントテーブル。
+- **知識グラフ:** FalkorDB（Redis互換）、ユーザースコープのCypherクエリ、自動エンティティ抽出。
 
 ### LLMプロバイダー（エージェントごと、agents.yamlで設定）
 
@@ -161,9 +161,11 @@ GUIにアクセス: `http://localhost:3000`
 | | Eden AI（アグリゲーター） |
 | | NVIDIA NIM（無料枠あり） |
 
-開始にAPIキーは不要 — Ollamaはローカルで無料で動作。
+開始にAPIキーは不要: Ollamaはローカルで無料で動作。
 
-**プロバイダープール** — 複数の同一ローカルサーバー（例: 6台のOllamaマシン）を名前付きプールにグループ化できます。オーケストレーターは最小接続数によるロードバランシングでリクエストを分散し、すべてのプールメンバーが失敗した場合は通常のフォールバックチェーンに移行します。`providers.yaml`で設定し、GUIのプロバイダータブから管理できます。
+**プロバイダープール:** 複数の同一ローカルサーバー（例: 6台のOllamaマシン）を名前付きプールにグループ化できます。オーケストレーターは最小接続数によるロードバランシングでリクエストを分散し、すべてのプールメンバーが失敗した場合は通常のフォールバックチェーンに移行します。`providers.yaml`で設定し、GUIのプロバイダータブから管理できます。
+
+**フォールバックとクールダウン：** 呼び出しが失敗すると、エージェントはフォールバックチェーンの次の項目に移り、失敗したものだけをクールダウンします。1つのモデル（上流ホストが過負荷、モデルが不明、またはプランに含まれない）、接続の無料（`:free`）モデルすべて（無料枠を使い切った）、またはプロバイダー全体（アカウントのレート制限、認証エラー、接続エラー）です。クールダウンは5分から始まり、失敗のたびに倍になり、最大60分です。呼び出しが成功すると解除されます。
 
 ### マルチエージェント企業シミュレーション
 
@@ -172,10 +174,10 @@ GUIにアクセス: `http://localhost:3000`
 - **バックグラウンドのサブエージェント**: `invoke_agent` は最大5分待機し、それより長い実行はカンバンタスクとしてバックグラウンドで続行します。完了すると呼び出し元のエージェントが自ら結果を報告します(GUIにリアルタイム表示、全ブリッジ、マイク)。各サブエージェントの実行には後から確認できる専用スレッドがあります。
 - **学習モードと進捗管理**: `text-compare` ツールが暗唱(詩、台本、定義)を単語単位で照合し、飛ばした連をすぐに指摘します。音声セッションでは沈黙の後にエージェントが自ら話しかけ、段階的なヒント(最初の語、行、連)を出します。`progress` ツールは毎ターン作業の進み具合を示し、学習の進捗をユーザーごとに日をまたいで保存し、1回の呼び出しでカンバンタスクに変換します。既製のエージェント: `education` 業種パック。マイクはエージェントごとの設定で、ウェイクワードなしに連続して聞き取ることもできます(無音のしきい値、段階的な声かけ、自動停止)。マイクがどのエージェントと話すかは GUI で選べます。
 - パイプラインエージェント: 共有状態を持つプランナー → 実行者 → レビュアーのループ。
-- **自律（ディープ）エージェント** — 任意のエージェントまたはパイプラインステージに`deep: true`を設定して、組み込みのLangGraph ReActループを有効化。エージェントは自律的に計画、実行、反復し、タスクが完了するかオプションのツール呼び出し制限（`deep_max_steps`、0 = 無制限）に達するまでツールを繰り返し呼び出します。エージェントおよびパイプラインステージごとに設定可能; GUIのエージェントビルダーで切り替え可能。
+- **自律（ディープ）エージェント:** 任意のエージェントまたはパイプラインステージに`deep: true`を設定して、組み込みのLangGraph ReActループを有効化。エージェントは自律的に計画、実行、反復し、タスクが完了するかオプションのツール呼び出し制限（`deep_max_steps`、0 = 無制限）に達するまでツールを繰り返し呼び出します。エージェントおよびパイプラインステージごとに設定可能; GUIのエージェントビルダーで切り替え可能。
 - スキルライブラリ: Markdownスキルファイル、エージェントごとのレイジーロード、コミュニティマーケットプレイス。
 - 共有ワークスペース: エージェントが共有ファイルエリアを読み書き可能。
-- **管理ツール** — `admin`ロールを持つエージェントは、`system-admin`ツールを通じて実行時にエージェント、スキル、MCPサーバー、cronジョブ、ハートビートスケジュールを作成・削除できます。すべての書き込みアクションは実行前にHITL承認が必要です。
+- **管理ツール:** `admin`ロールを持つエージェントは、`system-admin`ツールを通じて実行時にエージェント、スキル、MCPサーバー、cronジョブ、ハートビートスケジュールを作成・削除できます。すべての書き込みアクションは実行前にHITL承認が必要です。
 
 ### タスク管理と自律性
 
@@ -184,30 +186,51 @@ GUIにアクセス: `http://localhost:3000`
 - HITLの承認ゲートによる自律実行（Telegram `/approve`、GUIボタン）。
 - プッシュ通知: Telegram、Home Assistant `notify`、Webプッシュ（VAPID）。タスクに`notify_channel`フィールドを指定することで、タスクを作成したセッションに関係なく、完了メッセージが常に正しいブリッジに届きます。エージェントは`list_notify_channels()`を呼び出して、実行時に利用可能なチャンネルを確認できます。
 
-**複数日にわたるタスク** — 数時間から数日にわたる長期作業に推奨されるパターン：
+**複数日にわたるタスク:** 数時間から数日にわたる長期作業に推奨されるパターン：
 1. チャット、Telegram、またはGUIのカンバンボードでタイトルと説明のあるタスクを作成する。
 2. エージェント（またはあなた）が`set_subtasks`を呼び出し、名前付きステップに分割する。
-3. ハートビートの実行ごとに次の保留中のサブタスクを取得し、完了させて停止する — 個別のLLMセッションは短くフォーカスされた状態を保つ。
+3. ハートビートの実行ごとに次の保留中のサブタスクを取得し、完了させて停止する: 個別のLLMセッションは短くフォーカスされた状態を保つ。
 4. 進捗、決定事項、中間結果はタスクコメントとして保存されるため、以降の実行ごとに完全なコンテキストが得られる。
 5. すべてのサブタスクが完了したら、エージェントはタスクを閉じて完了通知を送信する。
 
-このパターンはコード変更なしで機能します — `tasks`ツールソースを持つすべてのエージェントがアクセスできる既存のタスクツール（`set_subtasks`、`get_next_subtask`、`complete_subtask`）の上に構築されています。
+このパターンはコード変更なしで機能します: `tasks`ツールソースを持つすべてのエージェントがアクセスできる既存のタスクツール（`set_subtasks`、`get_next_subtask`、`complete_subtask`）の上に構築されています。
+
+### セキュリティモデル
+
+QuorumAIは、コードが強制することと、モデルに依頼するだけのことを分けています。外部のテキストには印が付いているため、モデルはWebページや文書に隠された指示を無視する可能性が高いですが、それは確率であって保証ではありません。それでも騙された場合でも、モデルが使えるのは自分のツールだけで、危険な操作は人間が判断します。
+
+**コードで強制されること：**
+- **エージェントごとのツール許可リスト。** エージェントが受け取るのは、自身の設定（`agents.yaml`の`tools:`、またはAgent Builder）に記載されたMCPサーバーとシステムツールグループだけです。Grafana MCPを持たないマーケティングエージェントは、入力に何が書かれていても呼び出せるGrafanaツールがありません。
+- **リスク分類。** 組み込みツールのリスクレベルは固定です（`write_file`、`delete_file`、`python_repl`、`http_post`は高）。シェルコマンドはパターンで分類され（`rm -r`、`curl | sh`、`ssh`、リバースシェルなど）、MCPサーバーは`mcps.yaml`の`risk:`設定で分類されます。
+- **人間による承認の義務化。** `ai_act_mode: true`のとき、高リスクの呼び出しはすべて実行前に停止し、人間の承認または拒否を待ちます（GUIまたは任意のチャットブリッジで）。チェックはモデルではなくエージェントのグラフ内で行われるため、モデルはこれを回避できません。
+- **システム変更には常に人間が必要。** エージェント、MCPサーバー、スキル、スケジュールの作成・削除（`system-admin`ツール）は、`ai_act_mode`の有無にかかわらず、呼び出しのたびに承認を待ちます。これらのツールを受け取れるのは`allowed_roles: [admin]`を持つエージェントだけです。
+- **拒否は最終的。** 拒否された呼び出しは実行されず、モデルには代わりに`[REJECTED]`の結果が返ります。
+- **ネットワークの既定値。** オーケストレーターAPI、Qdrant、PostgreSQL、MCPサーバーは`127.0.0.1`でのみ待ち受けます。
+
+**モデル向けの印付け：** ツールの出力は、開始行と終了行に呼び出しごとのランダムなIDを持つ枠に入れられ、`[TOOL DATA ...]`の注意書きとともにモデルに渡されます。サブエージェントの結果、呼び出された記憶、グラフの事実も同様に印が付きます（`[AGENT RESULT <id>]`、`[RECALLED MEMORY ...]`、`[RECALLED DATA ...]`）。データ内でこれらの印や枠の終了行を真似たものは引用形式で表示されるため、ページが枠を早く閉じてユーザーのふりを続けることはできません。システムプロンプトは、その中の指示に決して従わないようモデルに指示します。これによりプロンプトインジェクションは大幅に難しくなりますが、これはモデルへの指示であり、保証ではありません。被害を抑えるのは上記の強制層です。
+
+**任意のセカンドオピニオン：** Guardian（下記）は高リスクの呼び出しを審査し、拒否権を行使できる別のモデルです。強制層を補うものであり、置き換えるものではありません。
+
+**導入前に：**
+- `AUTH_MODE=none`（既定）は、1台のマシンで1人が使う前提です。GUIのポートはネットワークから到達でき、APIを中継するため、共有ネットワークでは`AUTH_MODE=local`または`sso`を設定してください（*認証とマルチテナンシー*を参照）。
+- 記憶への書き込み（`remember`）は審査も承認も行われません。呼び出された記憶は、上記のとおり信頼できないデータとして印が付きます。
+- ワンライナーのインストーラーはスクリプトを直接bashに渡します。先に読むには：`curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`、内容を確認してから`bash install.sh`を実行します。
 
 ### 安全監視（クアドルムウィラトゥス）
 
 ツール呼び出しを実行前に検査するオプションのエージェントごとのレイヤー。`agents.yaml` で `guardian: true` を設定することで有効になります。フラグのないエージェントは影響を受けません。
 
-- **Guardian** — ツール名と引数を評価する隔離されたLLM呼び出し（ツールなし）。結果として `NONE`（続行）、`SOFT VETO: 理由`（人間の判断が必要）、または `HARD VETO: 理由`（即時ブロック）を返します。
-- **仲裁者（Arbiter）** — SOFT VETO で起動。Markdown分析レポートを生成し、LangGraph `interrupt()` でグラフを一時停止します。オペレーターはTelegramの `/approve` またはGUIで承認または拒否します（HITLと同じフロー）。
-- **歴史家（Historian）** — インメモリのGuardian監査ログを読み取り、PostgreSQL の `historian_reports` テーブルに構造化レポートを書き込むハートビートジョブ。
-- **リスク分類** — MCPサーバーは `mcps.yaml` で `risk: low` または `risk: high` とタグ付けされます。メモリ、タスク、承認ツールは常に検査から除外されます。
+- **Guardian:** ツール名と引数を評価する隔離されたLLM呼び出し（ツールなし）。結果として `NONE`（続行）、`SOFT VETO: 理由`（人間の判断が必要）、または `HARD VETO: 理由`（即時ブロック）を返します。
+- **仲裁者（Arbiter）:** SOFT VETO で起動。Markdown分析レポートを生成し、LangGraph `interrupt()` でグラフを一時停止します。オペレーターはTelegramの `/approve` またはGUIで承認または拒否します（HITLと同じフロー）。
+- **歴史家（Historian）:** インメモリのGuardian監査ログを読み取り、PostgreSQL の `historian_reports` テーブルに構造化レポートを書き込むハートビートジョブ。
+- **リスク分類:** MCPサーバーは `mcps.yaml` で `risk: low` または `risk: high` とタグ付けされます。メモリ、タスク、承認ツールは常に検査から除外されます。
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # 省略可 — 空の場合はエージェントのプロバイダーを継承
+    guardian_provider: anthropic        # 省略可: 空の場合はエージェントのプロバイダーを継承
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -219,7 +242,7 @@ servers:
   - name: playwright
     risk: high        # すべてのplaywright ツールにGuardianの承認が必要
   - name: hu-tools
-    risk: low         # 天気、ニュース — 検査なしでパス
+    risk: low         # 天気、ニュース: 検査なしでパス
 ```
 
 `/guardian/log` エンドポイントはライブ監査ログ（最新1,000件の決定）を返します。
@@ -228,7 +251,7 @@ servers:
 
 | モード | 説明 |
 |---|---|
-| `AUTH_MODE=none` | オープン — 認証なし（デフォルト、ローカル使用向け） |
+| `AUTH_MODE=none` | オープン: 認証なし（デフォルト、ローカル使用向け） |
 | `AUTH_MODE=local` | Bearerトークン; ユーザーは`LOCAL_USERS=user1:pass1,...`で定義 |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT、または任意のOIDCプロバイダー（Auth0、Okta、Autheliaなど） |
 
@@ -250,7 +273,7 @@ servers:
 
 ### バックアップと設定の永続化
 
-すべての実行時データは`data/`にバインドマウントとして保存され、すべての設定はYAMLファイルに記述されています — コンテナ内に隠れた状態はありません。
+すべての実行時データは`data/`にバインドマウントとして保存され、すべての設定はYAMLファイルに記述されています: コンテナ内に隠れた状態はありません。
 
 **バックアップの作成**（`.env` + `data/`を含む）:
 
@@ -293,15 +316,15 @@ Linux / macOSでは`sudo`で実行してファイルの所有者を保持して�
 
 Composeプロファイル: `mic`
 
-- openWakeWord — 設定可能なウェイクワード（デフォルト: "Ok Szif"）。
-- Wyoming Whisper — ローカルSTT、クラウド不要。
-- Wyoming Piper — ローカルTTS。
+- openWakeWord: 設定可能なウェイクワード（デフォルト: "Ok Szif"）。
+- Wyoming Whisper: ローカルSTT、クラウド不要。
+- Wyoming Piper: ローカルTTS。
 - LinuxデスクトップのPulseAudioソケットマウント。
 
 **プラットフォームに関する注意:**
 
-- **Linux** — インストーラーがUIDを検出し、適切なPulseAudioソケット（`/run/user/<uid>/pulse`）を自動的にマウントします。
-- **macOS / Windows** — Docker Desktopはオーディオデバイスを通過しません。インストーラーは代わりにPulseAudio TCP設定を書き込みます。micコンテナを起動する前にPulseAudioをTCPモードに設定してください:
+- **Linux:** インストーラーがUIDを検出し、適切なPulseAudioソケット（`/run/user/<uid>/pulse`）を自動的にマウントします。
+- **macOS / Windows:** Docker Desktopはオーディオデバイスを通過しません。インストーラーは代わりにPulseAudio TCP設定を書き込みます。micコンテナを起動する前にPulseAudioをTCPモードに設定してください:
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows（ネイティブ）: PulseAudio for Windowsをダウンロードし、`default.pa`で`module-native-protocol-tcp`のコメントアウトを解除し、ファイアウォールでポート4713を許可してください。
@@ -322,7 +345,7 @@ WhisperとPiperをHTTP APIとして公開し、エージェントが`system-stt`
 
 ## GUI
 
-Composeプロファイル: `gui` — `http://localhost:3000`で利用可能
+Composeプロファイル: `gui`: `http://localhost:3000`で利用可能
 
 React、Vite、Tailwind CSSで構築。
 
@@ -346,7 +369,7 @@ React、Vite、Tailwind CSSで構築。
 ### 前提条件
 
 - Docker Engine 24以降 および Docker Compose v2。
-- `install.py`用Python 3.8以降 — pipや仮想環境は不要。
+- `install.py`用Python 3.8以降: pipや仮想環境は不要。
 - ローカルモデルの場合: ホストのポート11434でOllamaが動作していること。
 
 ### 共有ネットワークの作成（ホストごとに1回）
@@ -395,43 +418,43 @@ data/
 
 | キー | デフォルト | 説明 |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | 起動するプロファイル（カンマ区切り） |
+| `COMPOSE_PROFILES` |: | 起動するプロファイル（カンマ区切り） |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | オーケストレーターのFastAPIポート |
 | `GUI_PORT` | `3000` | GUIポート |
 | `QDRANT_HTTP_PORT` | `6333` | Qdrant RESTポート |
 | `POSTGRES_PORT` | `5433` | PostgreSQLポート |
-| `POSTGRES_PASSWORD` | `changeme` | PostgreSQLパスワード — 必ず変更してください |
+| `POSTGRES_PASSWORD` | `changeme` | PostgreSQLパスワード: 必ず変更してください |
 | `TRACE_RETENTION_DAYS` | `14` | N日以上古いトレースの自動削除 |
-| `ANTHROPIC_API_KEY` | — | Anthropicプロバイダーを使用する場合に必要 |
-| `OPENROUTER_API_KEY` | — | OpenRouterを使用する場合に必要 |
-| `OPENAI_API_KEY` | — | OpenAIを使用する場合に必要 |
-| `GOOGLE_API_KEY` | — | Google Geminiを使用する場合に必要 |
-| `TELEGRAM_BOT_TOKEN` | — | Telegramブリッジに必要 |
-| `TELEGRAM_CHAT_ID` | — | メッセージを受け付けるTelegramチャットID |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | タスク完了通知用のチャットID（`TELEGRAM_CHAT_ID`と同じ場合は省略可） |
-| `MATRIX_HOMESERVER` | — | MatrixサーバーURL |
-| `MATRIX_ACCESS_TOKEN` | — | Matrixボットのアクセストークン |
-| `DISCORD_BOT_TOKEN` | — | Discordブリッジに必要 |
-| `SLACK_BOT_TOKEN` | — | Slackブリッジに必要 |
-| `SLACK_APP_TOKEN` | — | Slack Socket Modeに必要 |
-| `SIGNAL_PHONE` | — | Signalブリッジの電話番号 |
-| `VIBER_AUTH_TOKEN` | — | Viberブリッジに必要 |
+| `ANTHROPIC_API_KEY` |: | Anthropicプロバイダーを使用する場合に必要 |
+| `OPENROUTER_API_KEY` |: | OpenRouterを使用する場合に必要 |
+| `OPENAI_API_KEY` |: | OpenAIを使用する場合に必要 |
+| `GOOGLE_API_KEY` |: | Google Geminiを使用する場合に必要 |
+| `TELEGRAM_BOT_TOKEN` |: | Telegramブリッジに必要 |
+| `TELEGRAM_CHAT_ID` |: | メッセージを受け付けるTelegramチャットID |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | タスク完了通知用のチャットID（`TELEGRAM_CHAT_ID`と同じ場合は省略可） |
+| `MATRIX_HOMESERVER` |: | MatrixサーバーURL |
+| `MATRIX_ACCESS_TOKEN` |: | Matrixボットのアクセストークン |
+| `DISCORD_BOT_TOKEN` |: | Discordブリッジに必要 |
+| `SLACK_BOT_TOKEN` |: | Slackブリッジに必要 |
+| `SLACK_APP_TOKEN` |: | Slack Socket Modeに必要 |
+| `SIGNAL_PHONE` |: | Signalブリッジの電話番号 |
+| `VIBER_AUTH_TOKEN` |: | Viberブリッジに必要 |
 | `HA_URL` | `http://homeassistant:8123` | Home AssistantのベースURL |
-| `HA_TOKEN` | — | HAの長期アクセストークン |
-| `IMAP_HOST` | — | Email MCP用IMAPサーバー |
-| `SMTP_HOST` | — | Email MCP用SMTPサーバー |
-| `FALKORDB_URL` | — | 知識グラフを有効化するために設定 |
-| `VAPID_EMAIL` | — | Webプッシュ通知に必要 |
-| `VAPID_PRIVATE_KEY` | — | インストーラーが自動生成（Pythonパッケージ`cryptography`が必要）; または`docker compose exec orchestrator python3 webpush.py`を実行 |
-| `VAPID_PUBLIC_KEY` | — | 秘密鍵と同時に生成 |
+| `HA_TOKEN` |: | HAの長期アクセストークン |
+| `IMAP_HOST` |: | Email MCP用IMAPサーバー |
+| `SMTP_HOST` |: | Email MCP用SMTPサーバー |
+| `FALKORDB_URL` |: | 知識グラフを有効化するために設定 |
+| `VAPID_EMAIL` |: | Webプッシュ通知に必要 |
+| `VAPID_PRIVATE_KEY` |: | インストーラーが自動生成（Pythonパッケージ`cryptography`が必要）; または`docker compose exec orchestrator python3 webpush.py`を実行 |
+| `VAPID_PUBLIC_KEY` |: | 秘密鍵と同時に生成 |
 | `HU_TOOLS_PORT` | `4300` | hu-tools MCPポート |
 | `WHISPER_URL` | `http://whisper-http:8000` | STTサービスURL |
 | `PIPER_URL` | `http://piper-http:5000` | TTSサービスURL |
-| `ORCHESTRATOR_API_KEY` | — | インストーラーが自動生成; ブリッジ用サービス間トークン（`AUTH_MODE=local/sso`時に必要） |
-| `CONVERSATION_API_KEY` | — | インストーラーが自動生成; HAの`/conversation`エンドポイントを保護（空 = オープン） |
+| `ORCHESTRATOR_API_KEY` |: | インストーラーが自動生成; ブリッジ用サービス間トークン（`AUTH_MODE=local/sso`時に必要） |
+| `CONVERSATION_API_KEY` |: | インストーラーが自動生成; HAの`/conversation`エンドポイントを保護（空 = オープン） |
 
-エージェントは`orchestrator/agents.yaml`で設定します — `.env`ではありません。
+エージェントは`orchestrator/agents.yaml`で設定します: `.env`ではありません。
 
 ---
 
@@ -492,7 +515,7 @@ docker compose --profile crm up -d
 
 ---
 
-## jog.gov.hu MCP — ハンガリー法律検索
+## jog.gov.hu MCP: ハンガリー法律検索
 
 jog.gov.hu MCP（`mcps/jog-hu/`）は、2つのデプロイモードでAIエージェントにハンガリーの法律情報を提供します。
 
@@ -500,7 +523,7 @@ jog.gov.hu MCP（`mcps/jog-hu/`）は、2つのデプロイモードでAIエー�
 
 | ツール | 説明 |
 |---|---|
-| `search_njt_laws(keywords)` | njt.jog.gov.huでのキーワード検索 — 一致する法律のタイトルとURLを返す |
+| `search_njt_laws(keywords)` | njt.jog.gov.huでのキーワード検索: 一致する法律のタイトルとURLを返す |
 | `get_law_text(law_id, section)` | njt.huからの全文または部分的な法律テキスト（例: `"2012. évi I. törvény"`、セクション`"69"`） |
 | `list_recent_laws(category, days)` | Magyar KözlönyのRSSフィードからの最新法律 |
 
@@ -510,18 +533,18 @@ jog.gov.hu MCP（`mcps/jog-hu/`）は、2つのデプロイモードでAIエー�
 |---|---|
 | `search_law(question)` | 自然言語の質問 → AI回答 + 引用法律参照（jog.gov.hu） |
 
-reCAPTCHA v3のスコアリングはセッションを主に**IPの信頼性**に基づいて評価します。DockerコンテナのIPアドレスやクラウド・VPSサーバーのIPアドレスはデータセンター範囲として分類され、ブラウザのフィンガープリントに関係なく低い信頼スコアが付与されます。自宅やオフィスの**住宅用IPアドレス**を持つマシンは、十分に高いスコアを得られます。グラフィカルディスプレイは**不要**です — ブラウザはヘッドレスで動作し、ディスプレイの有無は関係ありません。
+reCAPTCHA v3のスコアリングはセッションを主に**IPの信頼性**に基づいて評価します。DockerコンテナのIPアドレスやクラウド・VPSサーバーのIPアドレスはデータセンター範囲として分類され、ブラウザのフィンガープリントに関係なく低い信頼スコアが付与されます。自宅やオフィスの**住宅用IPアドレス**を持つマシンは、十分に高いスコアを得られます。グラフィカルディスプレイは**不要**です: ブラウザはヘッドレスで動作し、ディスプレイの有無は関係ありません。
 
-**クイックスタート（Dockerツール — 常に動作）:**
+**クイックスタート（Dockerツール: 常に動作）:**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**ホストサーバーの起動（AI検索 — 住宅用IPが必要）:**
+**ホストサーバーの起動（AI検索: 住宅用IPが必要）:**
 ```bash
 # 動作する環境: 自宅またはオフィスのデスクトップ・ノートパソコン（Windows、macOS、Linux）
 # 動作しない環境: クラウド・VPSサーバー（データセンターIPはreCAPTCHAでブロックされる）
-# グラフィカルディスプレイは不要 — ヘッドレスで動作
+# グラフィカルディスプレイは不要: ヘッドレスで動作
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -536,7 +559,7 @@ python3 mcps/jog-hu/host_server.py --stop          # デーモン停止
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# オプション — host_server.pyが動作している場合のみ:
+# オプション: host_server.pyが動作している場合のみ:
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

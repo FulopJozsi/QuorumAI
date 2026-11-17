@@ -11,22 +11,22 @@ QuorumAI is a modular, self-hosted multi-agent AI orchestration system built on 
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7bd072b6-75cd-4345-9fe0-fa2f3ee0566e" controls width="800"></video>
 
-  <p><b><a href="https://license.quorumai.eu/portal/register">Get started — sign up for a 30-day free trial »</a></b></p>
+  <p><b><a href="https://license.quorumai.eu/portal/register">Get started: sign up for a 30-day free trial »</a></b></p>
 </div>
 
 ---
 
 ## What is QuorumAI
 
-QuorumAI turns one or more LLMs into a team of AI agents that can hold conversations, use tools, remember what happened, and act autonomously — self-hosted end to end in Docker, with no lock-in to a single AI vendor. Agents, skills, MCP servers, and schedules all live in YAML config underneath, but nothing has to be hand-edited: the GUI's Agent Builder, Skill Editor, and MCP Manager let you create and change all of it at runtime, with no code changes and no restart.
+QuorumAI turns one or more LLMs into a team of AI agents that can hold conversations, use tools, remember what happened, and act autonomously: self-hosted end to end in Docker, with no lock-in to a single AI vendor. Agents, skills, MCP servers, and schedules all live in YAML config underneath, but nothing has to be hand-edited: the GUI's Agent Builder, Skill Editor, and MCP Manager let you create and change all of it at runtime, with no code changes and no restart.
 
-**Talk to it from anywhere.** Agents are reachable from a local microphone (openWakeWord wake-word detection, local Whisper STT, local Piper TTS, with natural pause detection and mid-reply barge-in), from Home Assistant Voice PE, or from eight chat platforms — Telegram, Matrix, Discord, IRC, WhatsApp, Slack, Signal, Viber — each with the same human-approval (HITL) flow, per-user language switching, and a 33-language UI. A custom React/Vite/Tailwind GUI covers everything outside of chat: an Agent Builder, a Company Diagram with a live org-chart, a Skill Editor with its own marketplace, a Kanban Task board, a Heartbeat scheduler view with cron job management, a Knowledge base, a Voice Studio, an MCP Manager, and Monitoring/Settings screens (providers, observability traces, knowledge graph, AI Act compliance status, license tier). An OpenAI-compatible `POST /v1/chat/completions` endpoint also lets any existing OpenAI client talk to a QuorumAI agent directly.
+**Talk to it from anywhere.** Agents are reachable from a local microphone (openWakeWord wake-word detection, local Whisper STT, local Piper TTS, with natural pause detection and mid-reply barge-in), from Home Assistant Voice PE, or from eight chat platforms (Telegram, Matrix, Discord, IRC, WhatsApp, Slack, Signal, Viber) each with the same human-approval (HITL) flow, per-user language switching, and a 33-language UI. A custom React/Vite/Tailwind GUI covers everything outside of chat: an Agent Builder, a Company Diagram with a live org-chart, a Skill Editor with its own marketplace, a Kanban Task board, a Heartbeat scheduler view with cron job management, a Knowledge base, a Voice Studio, an MCP Manager, and Monitoring/Settings screens (providers, observability traces, knowledge graph, AI Act compliance status, license tier). An OpenAI-compatible `POST /v1/chat/completions` endpoint also lets any existing OpenAI client talk to a QuorumAI agent directly.
 
 **Any LLM, per agent.** Each agent's provider and model is set independently in `agents.yaml`. Local runtimes (Ollama, llama.cpp, LM Studio, vLLM, Docker Model Runner, Unsloth Studio) need no API key at all; Anthropic, OpenAI, Google Gemini, OpenRouter, Grok, DeepSeek, Mistral, Together AI, Fireworks AI, Zhipu/Z.AI, Eden AI, and NVIDIA NIM are supported as swappable cloud providers. Provider pools load-balance across identical local servers, and a configurable fallback chain with cooldown keeps a conversation alive if one provider fails.
 
-**A company of agents, not just a chatbot.** Agents can take on roles (CEO, developer, sales, …), delegate to each other through a dispatcher agent, run planner → executor → reviewer pipelines, or — with `deep: true` — act fully autonomously in a ReAct loop, calling tools repeatedly until a task is done. They share a Markdown skill library (with a community marketplace) and a common file workspace. Agents flagged as `admin` can create or delete other agents, skills, MCP servers, and schedules at runtime, always behind a human-approval gate.
+**A company of agents, not just a chatbot.** Agents can take on roles (CEO, developer, sales, …), delegate to each other through a dispatcher agent, run planner → executor → reviewer pipelines, or (with `deep: true`) act fully autonomously in a ReAct loop, calling tools repeatedly until a task is done. They share a Markdown skill library (with a community marketplace) and a common file workspace. Agents flagged as `admin` can create or delete other agents, skills, MCP servers, and schedules at runtime, always behind a human-approval gate.
 
-**Memory and knowledge.** Long-term memory lives in Qdrant — hybrid semantic + lexical (BM42) search, deduplicated, and nightly consolidated from session history into durable facts. A FalkorDB knowledge graph tracks entities and relationships per user so agents know who they're talking to. A knowledge base ingests PDFs, DOCX, spreadsheets, and more for retrieval by any agent. Associative memory goes further: from a recalled memory it follows the knowledge graph to surface related facts you never asked about, so the agent connects the dots itself.
+**Memory and knowledge.** Long-term memory lives in Qdrant: hybrid semantic + lexical (BM42) search, deduplicated, and nightly consolidated from session history into durable facts. A FalkorDB knowledge graph tracks entities and relationships per user so agents know who they're talking to. A knowledge base ingests PDFs, DOCX, spreadsheets, and more for retrieval by any agent. Associative memory goes further: from a recalled memory it follows the knowledge graph to surface related facts you never asked about, so the agent connects the dots itself.
 
 **Autonomy with oversight.** A Kanban task board with subtasks and comments lets work span days: each heartbeat run picks up the next subtask, completes it, and leaves progress as a comment for the next run. An optional Guardian/Arbiter/Historian layer ("Quadrumviratus") screens high-risk tool calls, vetoing, escalating to a human, or logging the decision. A separate AI Act mode adds full tool-call audit logging, a tamper-evident hash-chained log, and automatic PII masking for regulatory contexts.
 
@@ -49,7 +49,7 @@ curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh
 
 The installer starts with a **quick install** by default: it asks only for the license key (free 30-day trial: https://license.quorumai.eu), uses defaults for everything else and starts QuorumAI. **Advanced** keeps the full module and port menu. **To update**, run the same command again: it finds the existing install, keeps the settings and data, and pulls the new versions.
 
-**Windows (PowerShell — run as Administrator):**
+**Windows (PowerShell, run as Administrator):**
 ```powershell
 irm https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.ps1 | iex
 ```
@@ -62,7 +62,7 @@ Or download `install.bat` / `install.ps1` from the repo and double-click.
 
 ### Already have Python 3 and Docker?
 
-Clone and run the interactive installer directly — no pip or extra dependencies required:
+Clone and run the interactive installer directly: no pip or extra dependencies required:
 
 ```bash
 git clone https://github.com/FulopJozsi/QuorumAI.git
@@ -75,7 +75,7 @@ The installer:
 - Writes `.env` from your answers, creates `data/` bind-mount directories, and runs `docker compose up -d`.
 - Supports 33 languages in the installer UI itself.
 
-**Satellite mode** — run mic, bridges, or MCP servers on a separate machine that connects to a remote QuorumAI orchestrator:
+**Satellite mode:** run mic, bridges, or MCP servers on a separate machine that connects to a remote QuorumAI orchestrator:
 
 ```bash
 python3 install.py   # choose "Satellite" when prompted
@@ -135,7 +135,7 @@ Open the GUI at `http://localhost:3000`.
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Each layer lives in its own directory with its own `compose.yml`. The root `compose.yml` aggregates all layers via `include:` and Docker Compose profiles — you only start what you need.
+Each layer lives in its own directory with its own `compose.yml`. The root `compose.yml` aggregates all layers via `include:` and Docker Compose profiles: you only start what you need.
 
 ---
 
@@ -143,16 +143,16 @@ Each layer lives in its own directory with its own `compose.yml`. The root `comp
 
 ### Core orchestration
 
-- **LangGraph runtime** — state-machine agent graph, native HITL checkpointing, `AsyncPostgresSaver`.
-- **FastAPI HTTP API** — `POST /invoke`, `GET /health`, streaming, webhook receiver, push notification relay.
-- **agents.yaml** — declare agents in YAML: name, role, provider, model, system prompt path, tools.
-- **Hot reload** — `POST /agents/reload` reloads `agents.yaml` without restarting the container.
-- **MCP tool protocol** — every external capability is an MCP server; agents discover tools automatically.
-- **Qdrant vector memory** — hybrid semantic + BM42 lexical search, multilingual-e5-large embeddings, agent-scoped collections, cosine dedup, MMR-diversified recall.
-- **Nightly memory consolidation** — scheduled dream job distills PostgreSQL session history into long-term Qdrant facts; merges progressions, removes stale ephemeral entries; state tracked in PostgreSQL.
-- **PostgreSQL** — LangGraph `AsyncPostgresSaver` checkpointer + tasks and comments tables.
-- **Knowledge Graph** — FalkorDB (Redis-compatible), user-scoped Cypher queries. Entities and relationships are extracted automatically at the end of each turn, or written explicitly by an agent via `graph_remember_entity`/`graph_remember_relation` tools; graph context is auto-injected into the system prompt (`memory_graph: true` by default) and visualized in the GUI Monitoring tab. The graph is editable in the GUI, not just viewable.
-- **OpenAI-compatible API** — `POST /v1/chat/completions` + `GET /v1/models` (the `model` field selects the agent by name); Bearer auth via `OPENAI_COMPAT_API_KEY`, streaming (SSE) supported. Lets any existing OpenAI client or SDK talk to a QuorumAI agent without changes.
+- **LangGraph runtime:** state-machine agent graph, native HITL checkpointing, `AsyncPostgresSaver`.
+- **FastAPI HTTP API:** `POST /invoke`, `GET /health`, streaming, webhook receiver, push notification relay.
+- **agents.yaml:** declare agents in YAML: name, role, provider, model, system prompt path, tools.
+- **Hot reload:** `POST /agents/reload` reloads `agents.yaml` without restarting the container.
+- **MCP tool protocol:** every external capability is an MCP server; agents discover tools automatically.
+- **Qdrant vector memory:** hybrid semantic + BM42 lexical search, multilingual-e5-large embeddings, agent-scoped collections, cosine dedup, MMR-diversified recall.
+- **Nightly memory consolidation:** scheduled dream job distills PostgreSQL session history into long-term Qdrant facts; merges progressions, removes stale ephemeral entries; state tracked in PostgreSQL.
+- **PostgreSQL:** LangGraph `AsyncPostgresSaver` checkpointer + tasks and comments tables.
+- **Knowledge Graph:** FalkorDB (Redis-compatible), user-scoped Cypher queries. Entities and relationships are extracted automatically at the end of each turn, or written explicitly by an agent via `graph_remember_entity`/`graph_remember_relation` tools; graph context is auto-injected into the system prompt (`memory_graph: true` by default) and visualized in the GUI Monitoring tab. The graph is editable in the GUI, not just viewable.
+- **OpenAI-compatible API:** `POST /v1/chat/completions` + `GET /v1/models` (the `model` field selects the agent by name); Bearer auth via `OPENAI_COMPAT_API_KEY`, streaming (SSE) supported. Lets any existing OpenAI client or SDK talk to a QuorumAI agent without changes.
 
 ### LLM providers (per-agent, configured in agents.yaml)
 
@@ -171,9 +171,11 @@ Each layer lives in its own directory with its own `compose.yml`. The root `comp
 | | Eden AI (aggregator) |
 | | NVIDIA NIM (free tier available) |
 
-No API key is required to get started — Ollama runs locally at no cost.
+No API key is required to get started: Ollama runs locally at no cost.
 
-**Provider pools** — multiple identical local servers (e.g. six Ollama machines) can be grouped into a named pool. The orchestrator distributes requests using least-connections load balancing; if all pool members fail, it falls through to the regular fallback chain. Configured in `providers.yaml` and manageable from the GUI Providers tab.
+**Provider pools:** multiple identical local servers (e.g. six Ollama machines) can be grouped into a named pool. The orchestrator distributes requests using least-connections load balancing; if all pool members fail, it falls through to the regular fallback chain. Configured in `providers.yaml` and manageable from the GUI Providers tab.
+
+**Fallback and cooldown:** when a call fails, the agent moves to the next entry of its fallback chain and cools down only what failed: one model (its upstream host is overloaded, the model is unknown or not in the plan), every free (`:free`) model of a connection (the free quota is used up), or the whole provider (account rate limit, authentication or connection error). A cooldown starts at 5 minutes and doubles with each further failure, up to 60 minutes; a successful call clears it.
 
 ### Multi-agent company simulation
 
@@ -182,43 +184,64 @@ No API key is required to get started — Ollama runs locally at no cost.
 - **Background sub-agents**: `invoke_agent` waits up to 5 minutes; a longer run continues in the background as a kanban task, and the calling agent reports the result by itself when it finishes (GUI live, every bridge, mic). Every sub-agent run has its own reviewable thread.
 - **Learning mode and progress tracking**: the `text-compare` tool checks a recitation (poem, role script, definitions) word by word and reports a skipped stanza at once; in voice sessions the agent speaks up by itself after a silence with graded hints (first word, line, stanza). The `progress` tool shows each turn where the work stands, keeps learning progress per user across days, and turns it into a kanban task with one call. Ready-made agents: the `education` industry pack. The microphone can also listen continuously without a wake word, set per agent (silence threshold, nudge steps, automatic stop); which agent the microphone talks to is chosen in the GUI.
 - Pipeline agents: planner → executor → reviewer loops with shared state.
-- **Autonomous (Deep) agents** — set `deep: true` on any agent or pipeline stage to enable the built-in LangGraph ReAct loop. The agent plans, executes, and iterates autonomously — calling tools repeatedly until the task is done or the optional tool-call limit is reached (`deep_max_steps`, 0 = unlimited). Configurable per-agent and per-pipeline-stage; toggle available in the GUI Agent Builder.
-- **Company Diagram** — a live, auto-laid-out org chart (React Flow + dagre) showing dispatcher → subordinate relationships as a DAG (an agent can report to more than one parent), with zoom, pan, and a minimap.
-- **Skill library** — Markdown skill files, lazy-loaded per agent. A Skill Marketplace lets you browse, search, and install skills from 6 sources, including recursive GitHub-URL import; admin agents can also search and install skills themselves at runtime via `search_skill_marketplace`/`install_skill_from_marketplace` tools, HITL-gated.
+- **Autonomous (Deep) agents:** set `deep: true` on any agent or pipeline stage to enable the built-in LangGraph ReAct loop. The agent plans, executes, and iterates autonomously: calling tools repeatedly until the task is done or the optional tool-call limit is reached (`deep_max_steps`, 0 = unlimited). Configurable per-agent and per-pipeline-stage; toggle available in the GUI Agent Builder.
+- **Company Diagram:** a live, auto-laid-out org chart (React Flow + dagre) showing dispatcher → subordinate relationships as a DAG (an agent can report to more than one parent), with zoom, pan, and a minimap.
+- **Skill library:** Markdown skill files, lazy-loaded per agent. A Skill Marketplace lets you browse, search, and install skills from 6 sources, including recursive GitHub-URL import; admin agents can also search and install skills themselves at runtime via `search_skill_marketplace`/`install_skill_from_marketplace` tools, HITL-gated.
 - Shared workspace: agents can read and write a shared file area.
-- **Admin tools** — agents with the `admin` role can create and delete agents, skills, MCP servers, cron jobs, and heartbeat schedules at runtime via `system-admin` tools. Every write action requires HITL approval before execution.
+- **Admin tools:** agents with the `admin` role can create and delete agents, skills, MCP servers, cron jobs, and heartbeat schedules at runtime via `system-admin` tools. Every write action requires HITL approval before execution.
 
 ### Task management and autonomy
 
 - Kanban task board with subtasks and comments (PostgreSQL-backed).
-- Heartbeat scheduler: agents pick up pending tasks automatically (every 5 minutes by default). Heartbeat jobs (cron schedules) can be created, edited, and deleted via REST API or the GUI Heartbeat tab — no YAML editing required.
+- Heartbeat scheduler: agents pick up pending tasks automatically (every 5 minutes by default). Heartbeat jobs (cron schedules) can be created, edited, and deleted via REST API or the GUI Heartbeat tab: no YAML editing required.
 - Autonomous task execution with HITL approval gates (Telegram `/approve`, GUI buttons).
 - Push notifications: Telegram, Home Assistant `notify`, web push (VAPID). Tasks can specify a `notify_channel` field so the completion message always goes to the right bridge regardless of which session created the task. Agents can call `list_notify_channels()` to discover available channels at runtime.
 
-**Multi-day tasks** — the recommended pattern for long-running work that spans hours or days:
+**Multi-day tasks:** the recommended pattern for long-running work that spans hours or days:
 1. Create a task with a title and description (via chat, Telegram, or the GUI Kanban board).
 2. The agent (or you) calls `set_subtasks` to break it into named steps.
-3. Each heartbeat run picks up the next pending subtask, completes it, and stops — keeping individual LLM sessions short and focused.
+3. Each heartbeat run picks up the next pending subtask, completes it, and stops: keeping individual LLM sessions short and focused.
 4. Progress, decisions, and intermediate results are stored as task comments so every subsequent run has full context of what happened before.
 5. When all subtasks are done the agent closes the task and sends a completion notification.
 
-This pattern works without any code changes — it is built on the existing task tools (`set_subtasks`, `get_next_subtask`, `complete_subtask`) that any agent with the `tasks` tool source already has access to.
+This pattern works without any code changes: it is built on the existing task tools (`set_subtasks`, `get_next_subtask`, `complete_subtask`) that any agent with the `tasks` tool source already has access to.
+
+### Security model
+
+QuorumAI separates what the code enforces from what it asks the model to do. Because external text is marked, the model will most likely ignore instructions hidden in a web page or document, but that is a probability, not a guarantee. If it is misled anyway, it can still only use its own tools, and a human decides on the risky steps.
+
+**Enforced in code:**
+- **Per-agent tool allowlist.** An agent gets only the MCP servers and system tool groups listed in its own configuration (`tools:` in `agents.yaml`, or the Agent Builder). A marketing agent without the Grafana MCP has no Grafana tool to call, whatever its input says.
+- **Risk classification.** Built-in tools have a fixed risk level (`write_file`, `delete_file`, `python_repl` and `http_post` are high), shell commands are classified by pattern (`rm -r`, `curl | sh`, `ssh`, reverse shells and similar), and MCP servers by their `risk:` setting in `mcps.yaml`.
+- **Mandatory human approval.** With `ai_act_mode: true`, every high-risk call stops before it runs and waits for a human to approve or reject it (in the GUI or on any chat bridge). The check runs in the agent graph, not in the model, so the model cannot skip it.
+- **System changes always need a human.** Creating or deleting agents, MCP servers, skills and schedules (the `system-admin` tools) stops for approval on every call, with or without `ai_act_mode`. Only agents with `allowed_roles: [admin]` get these tools at all.
+- **A rejection is final.** A rejected call does not run; the model gets a `[REJECTED]` result instead.
+- **Network defaults.** The orchestrator API, Qdrant, PostgreSQL and the MCP servers listen on `127.0.0.1` only.
+
+**Marked for the model:** tool output reaches the model inside a frame whose start and end lines carry a random per-call id, with an `[TOOL DATA ...]` notice; sub-agent results, recalled memories and graph facts are marked the same way (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Anything inside the data that imitates these markers or the frame's end line is shown in a quoted form, so a page cannot close the frame early and continue as the user. The system prompt tells the model never to follow instructions found inside. This makes prompt injection much harder, but it is an instruction to the model, not a guarantee. The enforced layer above is what limits the damage.
+
+**Optional second opinion:** the Guardian (below) is a separate model that screens high-risk calls and can veto them. It adds to the enforced layer; it does not replace it.
+
+**Before you deploy:**
+- `AUTH_MODE=none` (the default) is meant for one user on one machine. The GUI port is reachable from the network and proxies the API, so on any shared network set `AUTH_MODE=local` or `sso` (see *Auth and multi-tenancy*).
+- Memory writes (`remember`) are neither screened nor approval-gated; recalled entries are marked as untrusted data, as above.
+- The one-line installer pipes a script into bash. To read it first: `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, review it, then `bash install.sh`.
 
 ### Safety supervision (Quadrumviratus)
 
 An optional per-agent layer that screens every high-risk tool call before it runs. Enabled with `guardian: true` in `agents.yaml`; agents without the flag are unaffected.
 
-- **Guardian** — an isolated LLM call (no tools bound) that evaluates the tool name and arguments and returns `NONE` (proceed), `SOFT VETO: reason` (escalate to human), or `HARD VETO: reason` (block immediately).
-- **Arbiter** — activated on SOFT VETO; generates a Markdown analysis report and suspends the graph via LangGraph `interrupt()`. The operator approves or rejects via Telegram `/approve` or the GUI — same flow as HITL.
-- **Historian** — a heartbeat job that reads the in-memory Guardian audit log and writes a structured report to the `historian_reports` PostgreSQL table on a configurable schedule.
-- **Risk classification** — MCP servers are tagged `risk: low` or `risk: high` in `mcps.yaml`. Memory, task, and approval tools are always excluded from screening regardless of risk level.
+- **Guardian:** an isolated LLM call (no tools bound) that evaluates the tool name and arguments and returns `NONE` (proceed), `SOFT VETO: reason` (escalate to human), or `HARD VETO: reason` (block immediately).
+- **Arbiter:** activated on SOFT VETO; generates a Markdown analysis report and suspends the graph via LangGraph `interrupt()`. The operator approves or rejects via Telegram `/approve` or the GUI: same flow as HITL.
+- **Historian:** a heartbeat job that reads the in-memory Guardian audit log and writes a structured report to the `historian_reports` PostgreSQL table on a configurable schedule.
+- **Risk classification:** MCP servers are tagged `risk: low` or `risk: high` in `mcps.yaml`. Memory, task, and approval tools are always excluded from screening regardless of risk level.
 
 ```yaml
 # agents.yaml
 agents:
   - name: ceo
     guardian: true
-    guardian_provider: anthropic        # optional — inherits agent provider if empty
+    guardian_provider: anthropic        # optional: inherits agent provider if empty
     guardian_model: claude-haiku-4-5-20251001
     arbiter_provider: anthropic
     arbiter_model: claude-sonnet-4-6
@@ -230,33 +253,33 @@ servers:
   - name: playwright
     risk: high        # all playwright tools require Guardian approval
   - name: hu-tools
-    risk: low         # weather, news — passed through without screening
+    risk: low         # weather, news: passed through without screening
 ```
 
 The `/guardian/log` endpoint returns the live audit log (last 1 000 decisions).
 
 ### AI Act compliance mode
 
-An independent traceability/audit layer aimed at EU AI Act requirements — separate from Quadrumviratus above, and usable without it (it does not require the Guardian LLM screening call).
+An independent traceability/audit layer aimed at EU AI Act requirements: separate from Quadrumviratus above, and usable without it (it does not require the Guardian LLM screening call).
 
-- **Full tool-call logging** — every tool call's input and output is recorded in the `tool_events` table; configuration changes are recorded in `config_audit_log`.
-- **`ai_act_mode`** — adds a human-approval (HITL) gate to every tool call, independent of Guardian screening.
-- **Tamper-evident audit chain** — `audit_chain_log` hash-chains each entry to the previous one so retroactive tampering is detectable; an optional RFC 3161 timestamp authority (TSA) anchor adds an external, verifiable time proof.
-- **PII masking** — Presidio-based automatic masking of personal data (with Hungarian-language support) before it is written to the log.
-- **Retention** — audit data is cleaned up automatically after 6 months.
-- **GUI** — the Settings → AI Act tab shows chain status, lets you anchor and verify the chain, and export records.
+- **Full tool-call logging:** every tool call's input and output is recorded in the `tool_events` table; configuration changes are recorded in `config_audit_log`.
+- **`ai_act_mode`:** adds a human-approval (HITL) gate to every high-risk tool call (see *Security model*), independent of Guardian screening.
+- **Tamper-evident audit chain:** `audit_chain_log` hash-chains each entry to the previous one so retroactive tampering is detectable; an optional RFC 3161 timestamp authority (TSA) anchor adds an external, verifiable time proof.
+- **PII masking:** Presidio-based automatic masking of personal data (with Hungarian-language support) before it is written to the log.
+- **Retention:** audit data is cleaned up automatically after 6 months.
+- **GUI:** the Settings → AI Act tab shows chain status, lets you anchor and verify the chain, and export records.
 
 ### Auth and multi-tenancy
 
 | Mode | Description |
 |---|---|
-| `AUTH_MODE=none` | Open — no authentication (default, suitable for local use) |
+| `AUTH_MODE=none` | Open: no authentication (default, suitable for local use) |
 | `AUTH_MODE=local` | Bearer token; users defined in `LOCAL_USERS=user1:pass1,...` |
 | `AUTH_MODE=sso` | Keycloak OIDC/JWT, or any OIDC provider (Auth0, Okta, Authelia, …) |
 
 **Per-user isolation.** In multi-user mode each user's memory and knowledge
 graph are separated: long-term memory lands in that user's own Qdrant collection
-and the graph in their own `scope` — a read sees the user's own data plus the
+and the graph in their own `scope`: a read sees the user's own data plus the
 admin-curated shared layer, never another user's. Nightly memory maintenance also
 runs **per user**, inside that user's own storage.
 
@@ -272,7 +295,7 @@ Accepts signed webhooks from: GitHub, Gitea, Drone CI, Grafana, n8n, Slack, ERPN
 
 ### Backup and config persistence
 
-All runtime data lives under `data/` as bind mounts; all config in YAML files — nothing hidden inside containers.
+All runtime data lives under `data/` as bind mounts; all config in YAML files: nothing hidden inside containers.
 
 **Create a backup** (includes `.env` + `data/`):
 
@@ -315,17 +338,17 @@ Every bridge exposes `/notify` (for push notifications from the orchestrator) an
 
 Compose profile: `mic`
 
-- openWakeWord — configurable wake word (default: "Ok Szif").
-- Silero VAD — natural pause detection (800ms+ of silence marks the end of a sentence) instead of a fixed recording window.
-- Wyoming Whisper — local STT, no cloud required.
-- Wyoming Piper — local TTS, streamed sentence-by-sentence (SSE) as the reply is generated.
-- Barge-in — you can interrupt the assistant's spoken reply mid-sentence by speaking again, or stop it entirely with "Stop".
+- openWakeWord: configurable wake word (default: "Ok Szif").
+- Silero VAD: natural pause detection (800ms+ of silence marks the end of a sentence) instead of a fixed recording window.
+- Wyoming Whisper: local STT, no cloud required.
+- Wyoming Piper: local TTS, streamed sentence-by-sentence (SSE) as the reply is generated.
+- Barge-in: you can interrupt the assistant's spoken reply mid-sentence by speaking again, or stop it entirely with "Stop".
 - PulseAudio socket mount for Linux desktops.
 
 **Platform notes:**
 
-- **Linux** — the installer detects your UID and mounts the correct PulseAudio socket (`/run/user/<uid>/pulse`) automatically.
-- **macOS / Windows** — Docker Desktop does not pass through audio devices. The installer writes a PulseAudio TCP config instead. Set up PulseAudio in TCP mode before starting the mic container:
+- **Linux:** the installer detects your UID and mounts the correct PulseAudio socket (`/run/user/<uid>/pulse`) automatically.
+- **macOS / Windows:** Docker Desktop does not pass through audio devices. The installer writes a PulseAudio TCP config instead. Set up PulseAudio in TCP mode before starting the mic container:
   - macOS: `brew install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon`
   - Windows (WSL2): `sudo apt install pulseaudio && pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --start`
   - Windows (native): download PulseAudio for Windows, uncomment `module-native-protocol-tcp` in `default.pa`, allow port 4713 in the firewall.
@@ -352,7 +375,7 @@ A PyTorch-based neural TTS service (`POST /synthesize`, `/clone`, `/voices`) exp
 
 ## GUI
 
-Compose profile: `gui` — available at `http://localhost:3000`
+Compose profile: `gui`: available at `http://localhost:3000`
 
 Built with React, Vite, and Tailwind CSS.
 
@@ -362,7 +385,7 @@ Built with React, Vite, and Tailwind CSS.
 | Tasks | Kanban board; subtask tree; comments; approval buttons |
 | Heartbeat | Scheduler state; next run times; manual trigger; create/edit/delete cron jobs |
 | Agent Builder | Create and edit agents: provider, model, tools, prompts, Guardian, autonomous (deep) mode, reasoning level per agent (only the levels the model supports) |
-| Company Diagram | Live company org chart — dispatcher → subordinates as an auto-laid-out DAG, multi-parent nodes, zoom/pan, minimap |
+| Company Diagram | Live company org chart: dispatcher → subordinates as an auto-laid-out DAG, multi-parent nodes, zoom/pan, minimap |
 | Skill Editor | Markdown skill editor with toolbar and live preview; Skill Marketplace (browse/search/install from 6 sources, incl. GitHub-URL import) |
 | Monitoring | Live state view; observability trace waterfall (token/cost per turn); knowledge graph visualization |
 | Knowledge | Upload and manage knowledge-base documents (PDF, DOCX, spreadsheets, …) for retrieval by any agent |
@@ -380,7 +403,7 @@ Built with React, Vite, and Tailwind CSS.
 ### Prerequisites
 
 - Docker Engine 24+ and Docker Compose v2.
-- Python 3.8+ for `install.py` — no pip or virtualenv required.
+- Python 3.8+ for `install.py`: no pip or virtualenv required.
 - For local models: Ollama running on the host at port 11434.
 
 ### Create the shared network (once per host)
@@ -421,20 +444,20 @@ Everything under `data/` is gitignored. Backing up this directory preserves all 
 
 ### Unattended installation (Ansible / CI)
 
-`install.py` is normally interactive, but every prompt can be pre-answered with an environment variable, so a freshly provisioned VM can be installed with zero interaction (Ansible `command`/`shell` module, cloud-init, CI). When stdin is not a TTY (always true under Ansible), the installer never blocks — any prompt without a matching environment variable simply falls back to its normal default instead of waiting for input.
+`install.py` is normally interactive, but every prompt can be pre-answered with an environment variable, so a freshly provisioned VM can be installed with zero interaction (Ansible `command`/`shell` module, cloud-init, CI). When stdin is not a TTY (always true under Ansible), the installer never blocks: any prompt without a matching environment variable simply falls back to its normal default instead of waiting for input.
 
 Supported override variables:
 
 | Variable | Effect |
 |---|---|
-| `QUORUM_LANG` | Language code (e.g. `en`, `hu`) — skips the language menu. |
-| `QUORUM_MODE` | `full` or `satellite` — skips the install-mode menu. |
-| `QUORUM_INSTALL_DIR` | Target directory — skips the install-dir prompt. |
-| `QUORUM_MODULES` | Comma-separated module ids to install — skips the module checkbox entirely. See the full id list below. |
+| `QUORUM_LANG` | Language code (e.g. `en`, `hu`): skips the language menu. |
+| `QUORUM_MODE` | `full` or `satellite`: skips the install-mode menu. |
+| `QUORUM_INSTALL_DIR` | Target directory: skips the install-dir prompt. |
+| `QUORUM_MODULES` | Comma-separated module ids to install: skips the module checkbox entirely. See the full id list below. |
 | `QUORUM_LICENSE_KEY` | The mandatory license key (free 30-day trial: https://license.quorumai.eu). |
 | `QUORUM_INDUSTRY_PACK` | Pack id (`agency`, `devops`, `legal`, `education`, `foundation`; comma-separated for several) or `none`. |
-| `QUORUM_ORCHESTRATOR_URL` | Satellite mode only — the remote orchestrator URL. |
-| Any other `.env` key (e.g. `POSTGRES_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `ANTHROPIC_API_KEY`, `ORCHESTRATOR_API_KEY`, …) | Exporting a variable with the **exact same name** it would have in `.env` pre-fills that prompt — this works for every module's env vars and every LLM provider key, not just the ones listed above. |
+| `QUORUM_ORCHESTRATOR_URL` | Satellite mode only: the remote orchestrator URL. |
+| Any other `.env` key (e.g. `POSTGRES_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `ANTHROPIC_API_KEY`, `ORCHESTRATOR_API_KEY`, …) | Exporting a variable with the **exact same name** it would have in `.env` pre-fills that prompt: this works for every module's env vars and every LLM provider key, not just the ones listed above. |
 
 Module ids for `QUORUM_MODULES`: `orchestrator`, `memory`, `mcp`, `postgres`, `gui`, `stt-tts`, `telegram`, `matrix`, `discord`, `irc`, `whatsapp`, `slack`, `signal`, `viber`, `mic`, `ha`, `email`, `graph`, `auth`, `mcp-manager`, `playwright`, `joplin`, `atlassian`, `google-workspace`, `crm`, `jog-hu`, `jog-hu-host`, `grafana-mcp`, `uptime-kuma-mcp`, `hyperframes`, `global-news`, `world-weather`, `bash-mcp`, `bash-mcp-host`.
 
@@ -457,7 +480,7 @@ Example Ansible task on a brand-new VM:
     QUORUM_INDUSTRY_PACK: none
 ```
 
-The installer never runs `docker compose up -d` on its own when stdin is not a TTY — it writes all the files and prints the exact manual start command instead, so a follow-up Ansible task should run `docker network create quorum-net` and `docker compose up -d` in the install directory explicitly.
+The installer never runs `docker compose up -d` on its own when stdin is not a TTY: it writes all the files and prints the exact manual start command instead, so a follow-up Ansible task should run `docker network create quorum-net` and `docker compose up -d` in the install directory explicitly.
 
 ---
 
@@ -469,43 +492,43 @@ Copy `.env.example` to `.env` and fill in what you need. The `.env.example` file
 
 | Key | Default | Description |
 |---|---|---|
-| `COMPOSE_PROFILES` | — | Comma-separated profiles to start |
+| `COMPOSE_PROFILES` |: | Comma-separated profiles to start |
 | `AUTH_MODE` | `none` | `none` / `local` / `sso` |
 | `ORCHESTRATOR_PORT` | `8000` | Orchestrator FastAPI port |
 | `GUI_PORT` | `3000` | GUI port |
 | `QDRANT_HTTP_PORT` | `6333` | Qdrant REST port |
 | `POSTGRES_PORT` | `5433` | PostgreSQL port |
-| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL password — change this |
+| `POSTGRES_PASSWORD` | `changeme` | PostgreSQL password: change this |
 | `TRACE_RETENTION_DAYS` | `14` | Auto-delete traces older than N days |
-| `ANTHROPIC_API_KEY` | — | Required if using Anthropic provider |
-| `OPENROUTER_API_KEY` | — | Required if using OpenRouter |
-| `OPENAI_API_KEY` | — | Required if using OpenAI |
-| `GOOGLE_API_KEY` | — | Required if using Google Gemini |
-| `TELEGRAM_BOT_TOKEN` | — | Required for Telegram bridge |
-| `TELEGRAM_CHAT_ID` | — | Telegram chat ID to accept messages from |
-| `NOTIFY_TELEGRAM_CHAT_ID` | — | Chat ID for task-completion notifications (defaults to `TELEGRAM_CHAT_ID` if same) |
-| `MATRIX_HOMESERVER` | — | Matrix server URL |
-| `MATRIX_ACCESS_TOKEN` | — | Matrix bot access token |
-| `DISCORD_BOT_TOKEN` | — | Required for Discord bridge |
-| `SLACK_BOT_TOKEN` | — | Required for Slack bridge |
-| `SLACK_APP_TOKEN` | — | Required for Slack Socket Mode |
-| `SIGNAL_PHONE` | — | Phone number for Signal bridge |
-| `VIBER_AUTH_TOKEN` | — | Required for Viber bridge |
+| `ANTHROPIC_API_KEY` |: | Required if using Anthropic provider |
+| `OPENROUTER_API_KEY` |: | Required if using OpenRouter |
+| `OPENAI_API_KEY` |: | Required if using OpenAI |
+| `GOOGLE_API_KEY` |: | Required if using Google Gemini |
+| `TELEGRAM_BOT_TOKEN` |: | Required for Telegram bridge |
+| `TELEGRAM_CHAT_ID` |: | Telegram chat ID to accept messages from |
+| `NOTIFY_TELEGRAM_CHAT_ID` |: | Chat ID for task-completion notifications (defaults to `TELEGRAM_CHAT_ID` if same) |
+| `MATRIX_HOMESERVER` |: | Matrix server URL |
+| `MATRIX_ACCESS_TOKEN` |: | Matrix bot access token |
+| `DISCORD_BOT_TOKEN` |: | Required for Discord bridge |
+| `SLACK_BOT_TOKEN` |: | Required for Slack bridge |
+| `SLACK_APP_TOKEN` |: | Required for Slack Socket Mode |
+| `SIGNAL_PHONE` |: | Phone number for Signal bridge |
+| `VIBER_AUTH_TOKEN` |: | Required for Viber bridge |
 | `HA_URL` | `http://homeassistant:8123` | Home Assistant base URL |
-| `HA_TOKEN` | — | HA Long-Lived Access Token |
-| `IMAP_HOST` | — | IMAP server for Email MCP |
-| `SMTP_HOST` | — | SMTP server for Email MCP |
-| `FALKORDB_URL` | — | Set to enable the knowledge graph |
-| `VAPID_EMAIL` | — | Required for web push notifications |
-| `VAPID_PRIVATE_KEY` | — | Auto-generated by the installer (requires `cryptography` Python package); otherwise run `docker compose exec orchestrator python3 webpush.py` |
-| `VAPID_PUBLIC_KEY` | — | Generated alongside the private key |
+| `HA_TOKEN` |: | HA Long-Lived Access Token |
+| `IMAP_HOST` |: | IMAP server for Email MCP |
+| `SMTP_HOST` |: | SMTP server for Email MCP |
+| `FALKORDB_URL` |: | Set to enable the knowledge graph |
+| `VAPID_EMAIL` |: | Required for web push notifications |
+| `VAPID_PRIVATE_KEY` |: | Auto-generated by the installer (requires `cryptography` Python package); otherwise run `docker compose exec orchestrator python3 webpush.py` |
+| `VAPID_PUBLIC_KEY` |: | Generated alongside the private key |
 | `HU_TOOLS_PORT` | `4300` | hu-tools MCP port |
 | `WHISPER_URL` | `http://whisper-http:8000` | STT service URL |
 | `PIPER_URL` | `http://piper-http:5000` | TTS service URL |
-| `ORCHESTRATOR_API_KEY` | — | Auto-generated by the installer; service-to-service token for bridges (required in `AUTH_MODE=local/sso`) |
-| `CONVERSATION_API_KEY` | — | Auto-generated by the installer; protects the HA `/conversation` endpoint (empty = open) |
+| `ORCHESTRATOR_API_KEY` |: | Auto-generated by the installer; service-to-service token for bridges (required in `AUTH_MODE=local/sso`) |
+| `CONVERSATION_API_KEY` |: | Auto-generated by the installer; protects the HA `/conversation` endpoint (empty = open) |
 
-Agents are configured in `orchestrator/agents.yaml` — not in `.env`.
+Agents are configured in `orchestrator/agents.yaml`: not in `.env`.
 
 ---
 
@@ -565,7 +588,7 @@ docker compose --profile crm up -d
 Add `crm` to an agent's `tools:` list in `agents.yaml` to give it CRM access.
 
 ---
-## jog.gov.hu MCP — Hungarian Legal Search
+## jog.gov.hu MCP: Hungarian Legal Search
 
 The jog.gov.hu MCP (`mcps/jog-hu/`) provides Hungarian legal information to AI agents in two deployment modes:
 
@@ -573,7 +596,7 @@ The jog.gov.hu MCP (`mcps/jog-hu/`) provides Hungarian legal information to AI a
 
 | Tool | Description |
 |---|---|
-| `search_njt_laws(keywords)` | Keyword search on njt.jog.gov.hu — returns matching law titles and URLs |
+| `search_njt_laws(keywords)` | Keyword search on njt.jog.gov.hu: returns matching law titles and URLs |
 | `get_law_text(law_id, section)` | Full or partial law text from njt.hu (e.g. `"2012. évi I. törvény"`, section `"69"`) |
 | `list_recent_laws(category, days)` | Recent laws from Magyar Közlöny RSS feed |
 
@@ -583,18 +606,18 @@ The jog.gov.hu MCP (`mcps/jog-hu/`) provides Hungarian legal information to AI a
 |---|---|
 | `search_law(question)` | Natural language question → AI answer + cited law references (jog.gov.hu) |
 
-reCAPTCHA v3 scores sessions primarily on **IP reputation**. Docker container IPs and cloud/VPS server IPs are classified as datacenter ranges and receive a low trust score — regardless of browser fingerprint patches. A home or office machine on a **residential IP** scores high enough to pass. A graphical display is **not required** — the browser runs headless; the display is irrelevant.
+reCAPTCHA v3 scores sessions primarily on **IP reputation**. Docker container IPs and cloud/VPS server IPs are classified as datacenter ranges and receive a low trust score: regardless of browser fingerprint patches. A home or office machine on a **residential IP** scores high enough to pass. A graphical display is **not required:** the browser runs headless; the display is irrelevant.
 
-**Quick start (Docker tools — always works):**
+**Quick start (Docker tools, always works):**
 ```bash
 docker compose --profile jog-hu up -d
 ```
 
-**Start the host server (AI search — residential IP required):**
+**Start the host server (AI search, residential IP required):**
 ```bash
 # Works on: home/office desktop or laptop (Windows, macOS, Linux)
 # Does NOT work on: cloud/VPS servers (datacenter IPs blocked by reCAPTCHA)
-# Graphical display is NOT required — runs headless
+# Graphical display is NOT required: runs headless
 
 pip install mcp fastmcp httpx playwright playwright-stealth
 playwright install chromium
@@ -609,7 +632,7 @@ python3 mcps/jog-hu/host_server.py --stop          # stop daemon
   url: http://jog-hu-mcp:4302/mcp/
   description: Hungarian legal search (njt.hu)
 
-# Optional — only if host_server.py is running:
+# Optional: only if host_server.py is running:
 - name: jog-hu-host
   url: http://host.docker.internal:4312/mcp/
   description: Hungarian legal AI search (jog.gov.hu)

@@ -183,7 +183,7 @@ No API key is required to get started: Ollama runs locally at no cost.
 - Dispatcher agent routes incoming requests to the right specialist automatically.
 - **Background sub-agents**: `invoke_agent` waits up to 5 minutes; a longer run continues in the background as a kanban task, and the calling agent reports the result by itself when it finishes (GUI live, every bridge, mic). Every sub-agent run has its own reviewable thread.
 - **Learning mode and progress tracking**: the `text-compare` tool checks a recitation (poem, role script, definitions) word by word and reports a skipped stanza at once; in voice sessions the agent speaks up by itself after a silence with graded hints (first word, line, stanza). The `progress` tool shows each turn where the work stands, keeps learning progress per user across days, and turns it into a kanban task with one call. Ready-made agents: the `education` industry pack. The microphone can also listen continuously without a wake word, set per agent (silence threshold, nudge steps, automatic stop); which agent the microphone talks to is chosen in the GUI.
-- Pipeline agents: planner → executor → reviewer loops with shared state.
+- Pipeline agents: any number of stages in order, each a planner, an executor or a reviewer; a reviewer can send the work back (by default to the first stage).
 - **Autonomous (Deep) agents:** set `deep: true` on any agent or pipeline stage to enable the built-in LangGraph ReAct loop. The agent plans, executes, and iterates autonomously: calling tools repeatedly until the task is done or the optional tool-call limit is reached (`deep_max_steps`, 0 = unlimited). Configurable per-agent and per-pipeline-stage; toggle available in the GUI Agent Builder.
 - **Company Diagram:** a live, auto-laid-out org chart (React Flow + dagre) showing dispatcher → subordinate relationships as a DAG (an agent can report to more than one parent), with zoom, pan, and a minimap.
 - **Skill library:** Markdown skill files, lazy-loaded per agent. A Skill Marketplace lets you browse, search, and install skills from 6 sources, including recursive GitHub-URL import; admin agents can also search and install skills themselves at runtime via `search_skill_marketplace`/`install_skill_from_marketplace` tools, HITL-gated.
@@ -216,6 +216,7 @@ QuorumAI separates what the code enforces from what it asks the model to do. Bec
 - **Mandatory human approval.** With `ai_act_mode: true`, every high-risk call stops before it runs and waits for a human to approve or reject it (in the GUI or on any chat bridge). The check runs in the agent graph, not in the model, so the model cannot skip it.
 - **System changes always need a human.** Creating or deleting agents, MCP servers, skills and schedules (the `system-admin` tools) stops for approval on every call, with or without `ai_act_mode`. Only agents with `allowed_roles: [admin]` get these tools at all.
 - **A rejection is final.** A rejected call does not run; the model gets a `[REJECTED]` result instead.
+- **Code-running tools run as a separate user.** `run_bash` and `python_repl` run as an unprivileged user with a clean environment: the API keys, the database password and the license key are not visible to them, and the configuration files with secrets are not readable.
 - **Network defaults.** The orchestrator API, Qdrant, PostgreSQL and the MCP servers listen on `127.0.0.1` only.
 
 **Marked for the model:** tool output reaches the model inside a frame whose start and end lines carry a random per-call id, with an `[TOOL DATA ...]` notice; sub-agent results, recalled memories and graph facts are marked the same way (`[AGENT RESULT <id>]`, `[RECALLED MEMORY ...]`, `[RECALLED DATA ...]`). Anything inside the data that imitates these markers or the frame's end line is shown in a quoted form, so a page cannot close the frame early and continue as the user. The system prompt tells the model never to follow instructions found inside. This makes prompt injection much harder, but it is an instruction to the model, not a guarantee. The enforced layer above is what limits the damage.
@@ -224,6 +225,7 @@ QuorumAI separates what the code enforces from what it asks the model to do. Bec
 
 **Before you deploy:**
 - `AUTH_MODE=none` (the default) is meant for one user on one machine. The GUI port is reachable from the network and proxies the API, so on any shared network set `AUTH_MODE=local` or `sso` (see *Auth and multi-tenancy*).
+- The code-running tools (`system-bash`, and `python_repl` in `system-files`) still reach the internal network: with `AUTH_MODE=none` that includes the orchestrator API (an agent with these tools could change agents without approval) and Qdrant. Give them only to agents you trust, or use the separate `bash-mcp` container.
 - Memory writes (`remember`) are neither screened nor approval-gated; recalled entries are marked as untrusted data, as above.
 - The one-line installer pipes a script into bash. To read it first: `curl -fsSL https://raw.githubusercontent.com/FulopJozsi/QuorumAI/main/install.sh -o install.sh`, review it, then `bash install.sh`.
 
@@ -265,7 +267,7 @@ An independent traceability/audit layer aimed at EU AI Act requirements: separat
 - **Full tool-call logging:** every tool call's input and output is recorded in the `tool_events` table; configuration changes are recorded in `config_audit_log`.
 - **`ai_act_mode`:** adds a human-approval (HITL) gate to every high-risk tool call (see *Security model*), independent of Guardian screening.
 - **Tamper-evident audit chain:** `audit_chain_log` hash-chains each entry to the previous one so retroactive tampering is detectable; an optional RFC 3161 timestamp authority (TSA) anchor adds an external, verifiable time proof.
-- **PII masking:** Presidio-based automatic masking of personal data (with Hungarian-language support) before it is written to the log.
+- **PII masking:** every AI Act trace also gets a masked copy of the user message and the answer: e-mail addresses, phone numbers, IBANs and Hungarian tax numbers always, person and place names with `AI_ACT_PII_MODE=full` (Presidio with a Hungarian and a multilingual spaCy model).
 - **Retention:** audit data is cleaned up automatically after 6 months.
 - **GUI:** the Settings → AI Act tab shows chain status, lets you anchor and verify the chain, and export records.
 
